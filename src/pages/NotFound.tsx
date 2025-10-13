@@ -1,6 +1,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import { VisitorCounter } from "@/components/VisitorCounter";
+import { SEO } from "@/components/SEO";
+import { Footer } from "@/components/Footer";
 
 const NotFound = () => {
   const location = useLocation();
@@ -10,16 +11,24 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
-        <Link to="/" className="text-blue-500 underline hover:text-blue-700">
-          Return to Home
-        </Link>
+    <>
+      <SEO 
+        title="404 - Page Not Found | Armaan's Tech Tips"
+        description="The page you're looking for doesn't exist. Return to Armaan's Tech Tips for gaming, utilities, and tech resources."
+      />
+      <div className="flex min-h-screen flex-col">
+        <div className="flex flex-1 items-center justify-center bg-gray-100">
+          <div className="text-center">
+            <h1 className="mb-4 text-4xl font-bold">404</h1>
+            <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
+            <Link to="/" className="text-blue-500 underline hover:text-blue-700">
+              Return to Home
+            </Link>
+          </div>
+        </div>
+        <Footer />
       </div>
-      <VisitorCounter variant="floating" />
-    </div>
+    </>
   );
 };
 

@@ -7,17 +7,20 @@ import { ShareBanner } from "@/components/ShareBanner";
 import { ContentSection } from "@/components/ContentSection";
 import { HeroBanner } from "@/components/HeroBanner";
 import { GamerHome } from "@/components/GamerHome";
-import { VisitorCounter } from "@/components/VisitorCounter";
+import { SEO } from "@/components/SEO";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
-      isAuthenticated ? "bg-gamer-bg" : "bg-background"
-    }`}>
-      <ShareBanner />
-      <Navbar />
+    <>
+      <SEO />
+      <div className={`min-h-screen transition-colors duration-300 ${
+        isAuthenticated ? "bg-gamer-bg" : "bg-background"
+      }`}>
+        <ShareBanner />
+        <Navbar />
 
       {isAuthenticated ? (
         <>
@@ -168,38 +171,9 @@ const Index = () => {
         </>
       )}
 
-      <footer className={`py-8 text-center border-t ${
-        isAuthenticated
-          ? "bg-gamer-card border-gamer-border text-gamer-muted"
-          : "bg-card border-border text-muted-foreground"
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-sm mb-4">
-            © 2024 Armaan's Tech Tips. Made with ❤️ by a fellow student who loves tech!
-          </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSceaVXrWwjj0zqMqdmPJTCxPQoq166Pe72I7pKjcChU-h1mRQ/viewform?embedded=true"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`hover:underline ${isAuthenticated ? "text-gamer-accent" : "text-primary"}`}
-            >
-              📝 Suggestions
-            </a>
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSe6wFMCXkW_U_U_GwbnyxscD2t91wP4KakVLOiKBzYnZRFfTg/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`hover:underline ${isAuthenticated ? "text-gamer-accent" : "text-primary"}`}
-            >
-              ⚖️ DMCA Takedown
-            </a>
-          </div>
-        </div>
-      </footer>
-
-      <VisitorCounter variant="floating" />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 
