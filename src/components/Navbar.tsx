@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginModal } from "./LoginModal";
 import { Button } from "./ui/button";
 
 export const Navbar: React.FC = () => {
   const { isAuthenticated, logout } = useAuth();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
@@ -49,6 +50,29 @@ export const Navbar: React.FC = () => {
               {navLinks.map((link) => {
                 if (link.requiresAuth && !isAuthenticated) return null;
                 if (link.isRoute) {
+                  // Special handling for Games link when on homepage in gamer mode
+                  if (link.href === "/games" && isAuthenticated && location.pathname === "/") {
+                    return (
+                      <a
+                        key={link.href}
+                        href="#games"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const targetElement = document.getElementById("games");
+                          if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }}
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-fast ${
+                          isAuthenticated
+                            ? "text-gamer-muted hover:text-gamer-text hover:bg-gamer-border/30"
+                            : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                        }`}
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  }
                   return (
                     <Link
                       key={link.href}
@@ -136,6 +160,30 @@ export const Navbar: React.FC = () => {
               {navLinks.map((link) => {
                 if (link.requiresAuth && !isAuthenticated) return null;
                 if (link.isRoute) {
+                  // Special handling for Games link when on homepage in gamer mode
+                  if (link.href === "/games" && isAuthenticated && location.pathname === "/") {
+                    return (
+                      <a
+                        key={link.href}
+                        href="#games"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsMenuOpen(false);
+                          const targetElement = document.getElementById("games");
+                          if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }}
+                        className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors duration-fast ${
+                          isAuthenticated
+                            ? "text-gamer-muted hover:text-gamer-text hover:bg-gamer-border/30"
+                            : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                        }`}
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  }
                   return (
                     <Link
                       key={link.href}
