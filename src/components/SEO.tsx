@@ -71,19 +71,64 @@ export const SEO: React.FC<SEOProps> = ({
     // Add structured data for website
     const structuredData = {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Armaan's Tech Tips",
-      "url": baseUrl,
-      "description": description,
-      "author": {
-        "@type": "Person",
-        "name": "Armaan"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": `${baseUrl}/?q={search_term_string}`,
-        "query-input": "required name=search_term_string"
-      }
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": `${baseUrl}/#website`,
+          "url": baseUrl,
+          "name": "Armaan's Tech Tips",
+          "description": description,
+          "publisher": {
+            "@id": `${baseUrl}/#organization`
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": `${baseUrl}/?q={search_term_string}`
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": `${baseUrl}/#organization`,
+          "name": "Armaan's Tech Tips",
+          "url": baseUrl,
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${baseUrl}/placeholder.svg`
+          },
+          "sameAs": [
+            "https://github.com/Subset28/Armaan-Tech-Tips"
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "@id": fullUrl,
+          "url": fullUrl,
+          "name": title,
+          "isPartOf": {
+            "@id": `${baseUrl}/#website`
+          },
+          "description": description,
+          "breadcrumb": {
+            "@id": `${fullUrl}#breadcrumb`
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${fullUrl}#breadcrumb`,
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": baseUrl
+            }
+          ]
+        }
+      ]
     };
 
     let scriptTag = document.querySelector('script[type="application/ld+json"]');

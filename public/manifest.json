@@ -1,0 +1,63 @@
+{
+  "name": "Armaan's Tech Tips",
+  "short_name": "Tech Tips",
+  "description": "Essential tech hub for students: unblocked games, utilities, PC optimization guides, and educational resources.",
+  "start_url": "/Armaan-Tech-Tips/",
+  "scope": "/Armaan-Tech-Tips/",
+  "display": "standalone",
+  "background_color": "#424242",
+  "theme_color": "#FFD740",
+  "orientation": "portrait-primary",
+  "categories": ["education", "utilities", "games", "productivity"],
+  "icons": [
+    {
+      "src": "/Armaan-Tech-Tips/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/Armaan-Tech-Tips/placeholder.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Games Hub",
+      "short_name": "Games",
+      "description": "Browse unblocked games",
+      "url": "/Armaan-Tech-Tips/#/games",
+      "icons": [
+        {
+          "src": "/Armaan-Tech-Tips/placeholder.svg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "short_name": "Tools",
+      "description": "Access password generator, QR codes, and more",
+      "url": "/Armaan-Tech-Tips/#/utilities",
+      "icons": [
+        {
+          "src": "/Armaan-Tech-Tips/placeholder.svg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "PC Optimization",
+      "short_name": "Optimize",
+      "description": "Performance tips and guides",
+      "url": "/Armaan-Tech-Tips/#/optimizations",
+      "icons": [
+        {
+          "src": "/Armaan-Tech-Tips/placeholder.svg",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

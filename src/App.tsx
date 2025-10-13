@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { CommandPalette } from "@/components/CommandPalette";
 import Index from "./pages/Index";
 import GamesPage from "./pages/GamesPage";
 import UtilitiesPage from "./pages/UtilitiesPage";
@@ -39,17 +40,20 @@ const AppContent = () => {
   }, [isAuthenticated, location.pathname]);
 
   return (
-    <div className="relative min-h-screen">
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/games" element={<GamesPage />} />
-        <Route path="/utilities" element={<UtilitiesPage />} />
-        <Route path="/optimizations" element={<OptimizationsPage />} />
-        <Route path="/education" element={<EducationPage />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+    <>
+      <CommandPalette />
+      <div className="relative min-h-screen">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/games" element={<GamesPage />} />
+          <Route path="/utilities" element={<UtilitiesPage />} />
+          <Route path="/optimizations" element={<OptimizationsPage />} />
+          <Route path="/education" element={<EducationPage />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </>
   );
 };
 

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Command } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginModal } from "./LoginModal";
+import { ShareButton } from "./ShareButton";
 import { Button } from "./ui/button";
 
 export const Navbar: React.FC = () => {
@@ -114,8 +115,25 @@ export const Navbar: React.FC = () => {
               })}
             </div>
 
-            {/* Auth Button */}
-            <div className="hidden md:block">
+            {/* Auth Button & Actions */}
+            <div className="hidden md:flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`text-xs ${isAuthenticated ? "text-gamer-muted hover:text-gamer-text" : "text-muted-foreground"}`}
+                onClick={() => {
+                  const event = new KeyboardEvent("keydown", {
+                    key: "k",
+                    metaKey: true,
+                    ctrlKey: true,
+                  });
+                  document.dispatchEvent(event);
+                }}
+              >
+                <Command className="h-3 w-3 mr-1" />
+                ⌘K
+              </Button>
+              <ShareButton />
               {isAuthenticated ? (
                 <Button
                   onClick={() => {
@@ -227,7 +245,27 @@ export const Navbar: React.FC = () => {
                   );
                 }
               })}
-              <div className="pt-2">
+              <div className="pt-2 space-y-2">
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={`flex-1 text-xs ${isAuthenticated ? "text-gamer-muted" : "text-muted-foreground"}`}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      const event = new KeyboardEvent("keydown", {
+                        key: "k",
+                        metaKey: true,
+                        ctrlKey: true,
+                      });
+                      document.dispatchEvent(event);
+                    }}
+                  >
+                    <Command className="h-3 w-3 mr-1" />
+                    ⌘K
+                  </Button>
+                  <ShareButton size="sm" className="flex-1" />
+                </div>
                 {isAuthenticated ? (
                   <Button
                     onClick={() => {
