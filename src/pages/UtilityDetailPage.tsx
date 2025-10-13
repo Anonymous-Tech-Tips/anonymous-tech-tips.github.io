@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useUserPrefs } from "@/contexts/UserPrefsContext";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Share2,
@@ -27,8 +28,8 @@ interface UtilityDetailPageProps {}
 const UtilityDetailPage: React.FC<UtilityDetailPageProps> = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { isFavorite: checkFavorite, addFavorite, removeFavorite, addToHistory } = useUserPrefs();
   const [utility, setUtility] = useState<typeof utilitiesData[0] | null>(null);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -38,41 +39,25 @@ const UtilityDetailPage: React.FC<UtilityDetailPageProps> = () => {
     if (foundUtility) {
       setUtility(foundUtility);
 
-      // Check if utility is in favorites
-      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-      setIsFavorite(favorites.includes(slug));
-
       // Record utility view in history
-      const history = JSON.parse(localStorage.getItem('utilityHistory') || '[]');
-      const existingIndex = history.findIndex((h: any) => h.id === slug);
-      if (existingIndex >= 0) {
-        history[existingIndex].lastUsed = new Date().toISOString();
-        history[existingIndex].useCount += 1;
-      } else {
-        history.unshift({
-          id: slug,
-          title: foundUtility.title,
-          lastUsed: new Date().toISOString(),
-          useCount: 1
-        });
-      }
-      // Keep only last 20 items
-      localStorage.setItem('utilityHistory', JSON.stringify(history.slice(0, 20)));
+      addToHistory({
+        id: slug,
+        title: foundUtility.title,
+        type: 'utility',
+        useCount: 1
+      });
     }
-  }, [slug]);
+  }, [slug, addToHistory]);
+
+  const isFavorite = utility ? checkFavorite(utility.id) : false;
 
   const toggleFavorite = () => {
-    if (!slug) return;
+    if (!utility) return;
 
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     if (isFavorite) {
-      const newFavorites = favorites.filter((f: string) => f !== slug);
-      localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      setIsFavorite(false);
+      removeFavorite(utility.id);
     } else {
-      favorites.push(slug);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      setIsFavorite(true);
+      addFavorite(utility.id);
     }
   };
 

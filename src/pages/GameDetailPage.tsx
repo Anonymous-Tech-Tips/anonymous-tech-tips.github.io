@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useUserPrefs } from "@/contexts/UserPrefsContext";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Play,
@@ -27,8 +28,8 @@ interface GameDetailPageProps {}
 const GameDetailPage: React.FC<GameDetailPageProps> = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { isFavorite: checkFavorite, addFavorite, removeFavorite, addToHistory } = useUserPrefs();
   const [game, setGame] = useState<typeof gamesData[0] | null>(null);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [similarGames, setSimilarGames] = useState<typeof gamesData>([]);
 
   useEffect(() => {
@@ -48,41 +49,25 @@ const GameDetailPage: React.FC<GameDetailPageProps> = () => {
         .slice(0, 6);
       setSimilarGames(similar);
 
-      // Check if game is in favorites
-      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-      setIsFavorite(favorites.includes(slug));
-
       // Record game view in history
-      const history = JSON.parse(localStorage.getItem('gameHistory') || '[]');
-      const existingIndex = history.findIndex((h: any) => h.id === slug);
-      if (existingIndex >= 0) {
-        history[existingIndex].lastPlayed = new Date().toISOString();
-        history[existingIndex].playCount += 1;
-      } else {
-        history.unshift({
-          id: slug,
-          title: foundGame.title,
-          lastPlayed: new Date().toISOString(),
-          playCount: 1
-        });
-      }
-      // Keep only last 20 items
-      localStorage.setItem('gameHistory', JSON.stringify(history.slice(0, 20)));
+      addToHistory({
+        id: slug,
+        title: foundGame.title,
+        type: 'game',
+        playCount: 1
+      });
     }
-  }, [slug]);
+  }, [slug, addToHistory]);
+
+  const isFavorite = game ? checkFavorite(game.id) : false;
 
   const toggleFavorite = () => {
-    if (!slug) return;
+    if (!game) return;
 
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     if (isFavorite) {
-      const newFavorites = favorites.filter((f: string) => f !== slug);
-      localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      setIsFavorite(false);
+      removeFavorite(game.id);
     } else {
-      favorites.push(slug);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      setIsFavorite(true);
+      addFavorite(game.id);
     }
   };
 
