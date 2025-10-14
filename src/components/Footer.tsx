@@ -25,12 +25,10 @@ export const Footer: React.FC = () => {
             📝 Suggestions
           </a>
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSe6wFMCXkW_U_U_GwbnyxscD2t91wP4KakVLOiKBzYnZRFfTg/viewform"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/#/legal"
             className={`hover:underline ${isAuthenticated ? "text-gamer-accent" : "text-primary"}`}
           >
-            ⚖️ DMCA Takedown
+            📋 Legal & Terms
           </a>
         </div>
         <div className="flex justify-center">

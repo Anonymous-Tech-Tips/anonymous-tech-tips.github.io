@@ -19,7 +19,7 @@ import EducationPage from "./pages/EducationPage";
 import LinksPage from "./pages/LinksPage";
 import UpdatesPage from "./pages/UpdatesPage";
 import SettingsPage from "./pages/SettingsPage";
-import NotFound from "./pages/NotFound";
+import LegalPage from "./pages/LegalPage";
 
 const queryClient = new QueryClient();
 
@@ -52,8 +52,7 @@ const AppContent = () => {
           <Route path="/education" element={<EducationPage />} />
           <Route path="/links" element={<LinksPage />} />
           <Route path="/updates" element={<UpdatesPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/legal" element={<LegalPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
