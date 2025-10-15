@@ -27,11 +27,13 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
   items,
 }) => {
   const { isAuthenticated } = useAuth();
-  const [selectedUtility, setSelectedUtility] = useState<string | null>(null);
+  const [selectedUtility, setSelectedUtility] = useState<"password" | "color" | "text" | "qr" | null>(null);
   const [selectedGuide, setSelectedGuide] = useState<string | null>(null);
 
   const handleUtilityClick = (utility: string) => {
-    setSelectedUtility(utility);
+    if (utility === "password" || utility === "color" || utility === "text" || utility === "qr") {
+      setSelectedUtility(utility);
+    }
   };
 
   const handleGuideClick = (guide: string) => {
@@ -131,7 +133,7 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
       <UtilityModal
         isOpen={!!selectedUtility}
         onClose={() => setSelectedUtility(null)}
-        utilityType={selectedUtility as any}
+        utilityType={selectedUtility}
       />
 
       <GuideModal
