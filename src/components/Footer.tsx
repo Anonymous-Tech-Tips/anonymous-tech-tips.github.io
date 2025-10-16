@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { VisitorCounter } from "./VisitorCounter";
 
@@ -24,12 +25,12 @@ export const Footer: React.FC = () => {
           >
             📝 Suggestions
           </a>
-          <a
-            href="/legal"
+          <Link
+            to="/legal"
             className={`hover:underline ${isAuthenticated ? "text-gamer-accent" : "text-primary"}`}
           >
             📋 Legal & Terms
-          </a>
+          </Link>
         </div>
         <div className="flex justify-center">
           <VisitorCounter variant="inline" />

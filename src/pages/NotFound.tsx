@@ -13,9 +13,9 @@ const NotFound = () => {
         `%c[404] Route not found`,
         "color:#f87171;font-weight:bold"
       );
-      console.error("Attempted path:", location.pathname + location.search);
-      console.info("Full URL:", window.location.href);
-      console.info("Base path:", import.meta.env.BASE_URL);
+      console.error("HashRouter path:", location.pathname + location.search + location.hash);
+      console.info("Window URL:", window.location.href);
+      console.info("BASE_URL:", import.meta.env.BASE_URL);
       console.info("Hash:", location.hash);
       console.info("Search params:", location.search);
       console.info("State:", location.state);
