@@ -52,6 +52,7 @@ export const PasswordGenerator: React.FC = () => {
         description: "Password copied to clipboard",
       });
     } catch (err) {
+      console.error('Copy error:', err);
       toast({
         title: "Error",
         description: "Failed to copy password",

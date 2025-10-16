@@ -19,6 +19,7 @@ export const ColorPicker: React.FC = () => {
         description: `${text} copied to clipboard`,
       });
     } catch (err) {
+      console.error('Copy error:', err);
       toast({
         title: "Error",
         description: "Failed to copy to clipboard",
@@ -54,7 +55,9 @@ export const ColorPicker: React.FC = () => {
 
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    let h, s, l = (max + min) / 2;
+    let h: number;
+    let s: number;
+    const l = (max + min) / 2;
 
     if (max === min) {
       h = s = 0;

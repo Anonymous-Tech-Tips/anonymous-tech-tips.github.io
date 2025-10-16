@@ -40,6 +40,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
       });
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
+      console.error('Copy error:', err);
       toast({
         title: "Failed to copy",
         description: "Please try again.",
@@ -72,7 +73,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
         });
       } catch (err) {
         // User cancelled or error occurred
-        console.log("Share cancelled");
+        console.log("Share cancelled or failed:", err);
       }
     } else {
       handleCopyLink();

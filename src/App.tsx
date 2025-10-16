@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -51,6 +51,7 @@ const AppContent = () => {
       <CoachMarks />
       <div className="relative min-h-screen">
         <Routes>
+          <Route path="/" element={<Index />} />
           <Route path="/games" element={<GamesPage />} />
           <Route path="/games/:id" element={<GameDetailPage />} />
           <Route path="/utilities/:id" element={<UtilityDetailPage />} />

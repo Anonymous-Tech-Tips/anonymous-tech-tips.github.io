@@ -23,7 +23,7 @@ interface SearchItem {
 
 interface SearchResult extends SearchItem {
   score: number;
-  matches: readonly any[];
+  matches: readonly Record<string, unknown>[];
 }
 
 interface FastSearchProps {

@@ -27,7 +27,7 @@ export const SEO: React.FC<SEOProps> = ({
     // Update or create meta tags
     const updateMetaTag = (name: string, content: string, isProperty = false) => {
       const attribute = isProperty ? 'property' : 'name';
-      let element = document.querySelector(`meta[${attribute}="${name}"]`);
+      let element = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement | null;
       
       if (!element) {
         element = document.createElement('meta');
@@ -64,7 +64,7 @@ export const SEO: React.FC<SEOProps> = ({
     updateMetaTag('twitter:image:alt', title);
 
     // Canonical link
-    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!canonicalLink) {
       canonicalLink = document.createElement('link');
       canonicalLink.setAttribute('rel', 'canonical');
@@ -135,7 +135,7 @@ export const SEO: React.FC<SEOProps> = ({
       ]
     };
 
-    let scriptTag = document.querySelector('script[type="application/ld+json"]');
+    let scriptTag = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
     if (!scriptTag) {
       scriptTag = document.createElement('script');
       scriptTag.setAttribute('type', 'application/ld+json');

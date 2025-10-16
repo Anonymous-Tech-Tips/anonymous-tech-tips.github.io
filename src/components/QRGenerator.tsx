@@ -39,6 +39,7 @@ export const QRGenerator: React.FC = () => {
       const qrDataUrl = await QRCodeLib.toDataURL(text, options);
       setQrCode(qrDataUrl);
     } catch (err) {
+      console.error('QR generation error:', err);
       toast({
         title: "Error",
         description: "Failed to generate QR code",
@@ -55,6 +56,7 @@ export const QRGenerator: React.FC = () => {
         description: "Text copied to clipboard",
       });
     } catch (err) {
+      console.error('Copy error:', err);
       toast({
         title: "Error",
         description: "Failed to copy text",

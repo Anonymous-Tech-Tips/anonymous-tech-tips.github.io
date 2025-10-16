@@ -80,6 +80,7 @@ export const TextConverter: React.FC = () => {
         description: "Converted text copied to clipboard",
       });
     } catch (err) {
+      console.error('Copy error:', err);
       toast({
         title: "Error",
         description: "Failed to copy text",
