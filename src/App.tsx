@@ -40,6 +40,32 @@ const AppContent = () => {
     });
   }, []);
 
+  // Global error listeners for development debugging
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      // Global error handler
+      window.addEventListener("error", (e) => {
+        console.error("[Global Error]", e.error);
+        console.error("Error details:", {
+          message: e.message,
+          filename: e.filename,
+          lineno: e.lineno,
+          colno: e.colno,
+          stack: e.error?.stack
+        });
+      });
+
+      // Unhandled promise rejection handler
+      window.addEventListener("unhandledrejection", (e) => {
+        console.error("[Unhandled Promise]", e.reason);
+        console.error("Promise rejection details:", {
+          reason: e.reason,
+          promise: e.promise
+        });
+      });
+    }
+  }, []);
+
   return (
     <>
       <CommandPalette />
