@@ -23,7 +23,6 @@ interface CommandItem {
 }
 
 export const CommandPalette: React.FC = () => {
-  const [open, setOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -32,7 +31,6 @@ export const CommandPalette: React.FC = () => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
         setShowSearch(true);
       }
     };
@@ -41,127 +39,7 @@ export const CommandPalette: React.FC = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const commands: CommandItem[] = [
-    {
-      id: "home",
-      title: "Home",
-      description: "Go to homepage",
-      icon: Home,
-      action: () => {
-        navigate("/");
-        setOpen(false);
-        setShowSearch(false);
-      },
-    },
-    {
-      id: "games",
-      title: "Games Hub",
-      description: "Browse unblocked games",
-      icon: Gamepad2,
-      action: () => {
-        navigate("/games");
-        setOpen(false);
-        setShowSearch(false);
-      },
-      requiresAuth: true,
-    },
-    {
-      id: "utilities",
-      title: "Utilities",
-      description: "Password generator, QR codes, and more",
-      icon: Wrench,
-      action: () => {
-        navigate("/utilities");
-        setOpen(false);
-        setShowSearch(false);
-      },
-    },
-    {
-      id: "optimizations",
-      title: "PC Optimizations",
-      description: "Performance tips and Windows tweaks",
-      icon: Cpu,
-      action: () => {
-        navigate("/optimizations");
-        setOpen(false);
-        setShowSearch(false);
-      },
-    },
-    {
-      id: "education",
-      title: "Education",
-      description: "Learning resources and study materials",
-      icon: GraduationCap,
-      action: () => {
-        navigate("/education");
-        setOpen(false);
-        setShowSearch(false);
-      },
-    },
-  ];
-
-  const filteredCommands = commands.filter(
-    (cmd) => !cmd.requiresAuth || isAuthenticated
-  );
-
-  const handleClose = () => {
-    setOpen(false);
-    setShowSearch(false);
-  };
-
   return (
-    <>
-      <CommandDialog open={open} onOpenChange={handleClose}>
-        <CommandInput
-          placeholder="Type to search or navigate..."
-          onFocus={() => setShowSearch(true)}
-        />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-
-          {showSearch ? (
-            <CommandGroup heading="Search Results">
-              <div className="px-2 py-1 text-sm text-muted-foreground">
-                Search across games, utilities, and guides...
-              </div>
-            </CommandGroup>
-          ) : (
-            <>
-              <CommandGroup heading="Quick Navigation">
-                {filteredCommands.map((cmd) => (
-                  <CommandItem key={cmd.id} onSelect={cmd.action}>
-                    <cmd.icon className="mr-2 h-4 w-4" />
-                    <div className="flex flex-col">
-                      <span>{cmd.title}</span>
-                      {cmd.description && (
-                        <span className="text-xs text-muted-foreground">
-                          {cmd.description}
-                        </span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-
-              <CommandSeparator />
-
-              <CommandGroup heading="Search">
-                <CommandItem onSelect={() => setShowSearch(true)}>
-                  <Search className="mr-2 h-4 w-4" />
-                  <div className="flex flex-col">
-                    <span>Search Everything</span>
-                    <span className="text-xs text-muted-foreground">
-                      Find games, utilities, guides, and more
-                    </span>
-                  </div>
-                </CommandItem>
-              </CommandGroup>
-            </>
-          )}
-        </CommandList>
-      </CommandDialog>
-
-      <FastSearch isOpen={showSearch} onClose={() => setShowSearch(false)} />
-    </>
+    <FastSearch isOpen={showSearch} onClose={() => setShowSearch(false)} />
   );
 };
