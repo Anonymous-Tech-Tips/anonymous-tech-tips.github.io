@@ -7,6 +7,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { UserPrefsProvider } from "@/contexts/UserPrefsContext";
+import { RewardsProvider } from "@/contexts/RewardsContext";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CoachMarks } from "@/components/CoachMarks";
 import ThanksgivingTheme from "@/components/ThanksgivingTheme";
@@ -24,6 +25,8 @@ import UpdatesPage from "./pages/UpdatesPage";
 import SettingsPage from "./pages/SettingsPage";
 import LegalPage from "./pages/LegalPage";
 import NotFound from "./pages/NotFound";
+import RewardsShop from "./pages/RewardsShop";
+import LeaderboardPage from "./pages/LeaderboardPage";
 
 const queryClient = new QueryClient();
 
@@ -89,6 +92,8 @@ const AppContent = () => {
           <Route path="/links" element={<LinksPage />} />
           <Route path="/updates" element={<UpdatesPage />} />
           <Route path="/legal" element={<LegalPage />} />
+          <Route path="/rewards" element={<RewardsShop />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -101,14 +106,16 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <UserPrefsProvider>
-            <Toaster />
-            <Sonner />
-            <CommandPalette />
-            <CoachMarks />
-            <ThanksgivingTheme />
-            <AppContent />
-          </UserPrefsProvider>
+          <RewardsProvider>
+            <UserPrefsProvider>
+              <Toaster />
+              <Sonner />
+              <CommandPalette />
+              <CoachMarks />
+              <ThanksgivingTheme />
+              <AppContent />
+            </UserPrefsProvider>
+          </RewardsProvider>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>

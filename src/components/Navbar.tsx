@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, X, Command, Coins } from "lucide-react";
+import { Menu, X, Command, Coins, Gift } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginModal } from "./LoginModal";
@@ -34,6 +34,7 @@ export const Navbar: React.FC = () => {
           { label: "Games", href: "/games", requiresAuth: true, isRoute: true },
           { label: "Entertainment", href: "/entertainment", requiresAuth: true, isRoute: true },
           { label: "Utilities", href: "/utilities", requiresAuth: true, isRoute: true },
+          { label: "Leaderboard", href: "/leaderboard", requiresAuth: true, isRoute: true },
         ]
       : [
           { label: "Utilities", href: "#utilities", isRoute: false },
@@ -131,12 +132,21 @@ export const Navbar: React.FC = () => {
 
             {/* Auth Button & Actions */}
             <div className="hidden md:flex items-center gap-2">
-              {isAuthenticated && points > 0 && (
+              {isAuthenticated && (
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/rewards"
+                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-gamer-accent/20 border border-gamer-accent/30 hover:bg-gamer-accent/30 transition-colors"
+                >
+                  <Gift className="h-4 w-4 text-amber-400" />
+                  <span className="text-sm font-bold text-amber-400">Shop</span>
+                </Link>
                 <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-gamer-accent/20 border border-gamer-accent/30">
                   <Coins className="h-4 w-4 text-amber-400" />
                   <span className="text-sm font-bold text-amber-400">{points}</span>
                 </div>
-              )}
+              </div>
+            )}
               <StreakBadge />
               <Button
                 variant="ghost"
