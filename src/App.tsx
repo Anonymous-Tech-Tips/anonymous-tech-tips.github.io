@@ -15,6 +15,7 @@ import "./styles/thanksgiving.css";
 import Index from "./pages/Index";
 import GamesPage from "./pages/GamesPage";
 import GameDetailPage from "./pages/GameDetailPage";
+import EntertainmentPage from "./pages/EntertainmentPage";
 import UtilitiesPage from "./pages/UtilitiesPage";
 import UtilityDetailPage from "./pages/UtilityDetailPage";
 import OptimizationsPage from "./pages/OptimizationsPage";
@@ -81,6 +82,7 @@ const AppContent = () => {
           <Route path="/" element={<Index />} />
           <Route path="/games" element={<GamesPage />} />
           <Route path="/games/:id" element={<GameDetailPage />} />
+          <Route path="/entertainment" element={<EntertainmentPage />} />
           <Route path="/utilities" element={<UtilitiesPage />} />
           <Route path="/utilities/:id" element={<UtilityDetailPage />} />
           <Route path="/optimizations" element={<OptimizationsPage />} />
