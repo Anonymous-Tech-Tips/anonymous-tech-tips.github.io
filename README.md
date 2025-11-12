@@ -3,7 +3,7 @@
 [![Live Site](https://img.shields.io/badge/Live-Site-orange?style=flat&logo=github)](https://subset28.github.io/Armaan-Tech-Tips/)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/Subset28/Armaan-Tech-Tips)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/Subset28/Armaan-Tech-Tips)](https://github.com/Subset28/Armaan-Tech-Tips/commits/main)
+[![Last Commit](https://img.shields.io/badge/last_updated-Nov_12_2023-blue)](https://github.com/Subset28/Armaan-Tech-Tips/commits/main)
 
 > Your ultimate tech hub for students — featuring unblocked games, essential utilities, PC optimization guides, and educational resources. Built by a student, for students.
 
