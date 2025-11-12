@@ -37,7 +37,15 @@ export default defineConfig(({ mode }) => ({
     outDir: "docs",
     assetsDir: "assets",
     emptyOutDir: true,
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        // Add hash to filenames for cache busting
+        entryFileNames: `assets/[name]-[hash].js`,
+        chunkFileNames: `assets/[name]-[hash].js`,
+        assetFileNames: `assets/[name]-[hash].[ext]`
+      }
+    }
   },
   server: { host: "::", port: 8080 },
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },

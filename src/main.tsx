@@ -6,22 +6,41 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { UserPrefsProvider } from "./contexts/UserPrefsContext";
 import "./index.css";
 
-// Register service worker for PWA
-// Temporarily disabled for cache busting - will re-enable after deployment
-/*
+// Register service worker with auto-update
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     const swUrl = `${import.meta.env.BASE_URL}sw.js`;
     navigator.serviceWorker.register(swUrl)
       .then((registration) => {
-        console.log('SW registered: ', registration);
+        // Check for updates every 60 seconds
+        setInterval(() => {
+          registration.update();
+        }, 60000);
+
+        // Force update on new service worker
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New service worker available, force reload
+                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                window.location.reload();
+              }
+            });
+          }
+        });
       })
-      .catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError);
+      .catch((error) => {
+        console.log('SW registration failed: ', error);
       });
   });
+
+  // Reload page when new service worker takes control
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    window.location.reload();
+  });
 }
-*/
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
