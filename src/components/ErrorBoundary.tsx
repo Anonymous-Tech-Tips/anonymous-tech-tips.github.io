@@ -42,7 +42,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private handleReset = () => {
     this.setState({ hasError: false, error: undefined, errorInfo: undefined, copied: false });
-    window.location.href = "/Armaan-Tech-Tips/";
+    window.location.href = "/";
   };
 
   private handleReload = () => {

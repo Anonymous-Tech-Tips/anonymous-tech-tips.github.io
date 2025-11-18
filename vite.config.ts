@@ -6,7 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/Armaan-Tech-Tips/",
+  base: "/",
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -16,19 +16,19 @@ export default defineConfig(({ mode }) => ({
       srcDir: 'src',
       filename: 'sw.ts',
       workbox: {
-        navigateFallback: '/Armaan-Tech-Tips/index.html',
+        navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/]
       },
       manifest: {
-        name: "Armaan's Tech Tips",
+        name: "Tech Tips",
         short_name: "Tech Tips",
-        start_url: "/Armaan-Tech-Tips/#/",
+        start_url: "/#/",
         display: "standalone",
         background_color: "#0b0b0b",
         theme_color: "#FFD84D",
         icons: [
-          { src: "/Armaan-Tech-Tips/pwa-192.png", sizes: "192x192", type: "image/png" },
-          { src: "/Armaan-Tech-Tips/pwa-512.png", sizes: "512x512", type: "image/png" }
+          { src: "/pwa-192.png", sizes: "192x192", type: "image/png" },
+          { src: "/pwa-512.png", sizes: "512x512", type: "image/png" }
         ]
       }
     })
