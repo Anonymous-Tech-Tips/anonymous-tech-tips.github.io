@@ -1,66 +1,61 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { validateSystemAccount } from "@/lib/config";
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (username: string, password: string) => boolean;
-  logout: () => void;
+  user: User | null;
+  loading: boolean;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const SESSION_KEY = '_app_session';
-
-const checkStoredSession = (): boolean => {
-  try {
-    const stored = localStorage.getItem(SESSION_KEY);
-    if (!stored) return false;
-    const data = JSON.parse(atob(stored));
-    return data.exp > Date.now();
-  } catch {
-    return false;
-  }
-};
-
-const createSession = () => {
-  try {
-    const data = { exp: Date.now() + 86400000 };
-    localStorage.setItem(SESSION_KEY, btoa(JSON.stringify(data)));
-  } catch { }
-};
-
-const clearSession = () => {
-  try {
-    localStorage.removeItem(SESSION_KEY);
-  } catch { }
-};
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => checkStoredSession());
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (checkStoredSession()) {
-      setIsAuthenticated(true);
-    }
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const login = (username: string, password: string): boolean => {
-    if (validateSystemAccount(username, password)) {
-      setIsAuthenticated(true);
-      createSession();
-      return true;
+  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      return { success: true };
+    } catch (error: any) {
+      return { 
+        success: false, 
+        error: error.code === 'auth/invalid-credential' 
+          ? 'Invalid email or password' 
+          : 'Login failed. Please try again.'
+      };
     }
-    return false;
   };
 
-  const logout = () => {
-    setIsAuthenticated(false);
-    clearSession();
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {children}
+    <AuthContext.Provider value={{ 
+      isAuthenticated: !!user, 
+      user,
+      loading,
+      login, 
+      logout 
+    }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

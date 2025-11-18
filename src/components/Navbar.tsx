@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Menu, X, Command, Coins, Gift } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LoginModal } from "./LoginModal";
 import { ShareButton } from "./ShareButton";
 import { StreakBadge } from "./StreakBadge";
 import { Button } from "./ui/button";
@@ -10,8 +9,8 @@ import { Button } from "./ui/button";
 export const Navbar: React.FC = () => {
   const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [points, setPoints] = useState(() => parseInt(localStorage.getItem('rewardPoints') || '0'));
 
   // Update points when localStorage changes
@@ -167,9 +166,9 @@ export const Navbar: React.FC = () => {
               <ShareButton />
               {isAuthenticated ? (
                 <Button
-                  onClick={() => {
-                    logout();
-                    window.location.href = "https://mail.google.com";
+                  onClick={async () => {
+                    await logout();
+                    navigate("/login");
                   }}
                   size="sm"
                   variant="ghost"
@@ -183,7 +182,7 @@ export const Navbar: React.FC = () => {
                 </Button>
               ) : (
                 <Button 
-                  onClick={() => setIsLoginOpen(true)} 
+                  onClick={() => navigate("/login")} 
                   size="sm"
                   className={isAuthenticated ? "bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card" : ""}
                 >
@@ -299,9 +298,9 @@ export const Navbar: React.FC = () => {
                 </div>
                 {isAuthenticated ? (
                   <Button
-                    onClick={() => {
-                      logout();
-                      window.location.href = "https://mail.google.com";
+                    onClick={async () => {
+                      await logout();
+                      navigate("/login");
                     }}
                     size="sm"
                     variant="ghost"
@@ -315,7 +314,7 @@ export const Navbar: React.FC = () => {
                   </Button>
                 ) : (
                   <Button 
-                    onClick={() => setIsLoginOpen(true)} 
+                    onClick={() => navigate("/login")} 
                     size="sm" 
                     className={`w-full ${isAuthenticated ? "bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card" : ""}`}
                   >
@@ -327,8 +326,6 @@ export const Navbar: React.FC = () => {
           )}
         </div>
       </nav>
-
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </>
   );
 };

@@ -24,7 +24,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   const [copied, setCopied] = useState(false);
   const { isAuthenticated } = useAuth();
 
-  const basePath = import.meta.env.BASE_URL || "/Armaan-Tech-Tips/";
+  const basePath = import.meta.env.BASE_URL || "/";
   const originBase = new URL(basePath, window.location.origin).toString();
   const currentHash = window.location.hash || "";
   const shareUrl = `${originBase}${currentHash}?utm_source=share&utm_medium=button&utm_campaign=site`;

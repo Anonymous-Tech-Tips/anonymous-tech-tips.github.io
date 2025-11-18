@@ -13,6 +13,7 @@ import { CoachMarks } from "@/components/CoachMarks";
 import ThanksgivingTheme from "@/components/ThanksgivingTheme";
 import "./styles/thanksgiving.css";
 import Index from "./pages/Index";
+import LoginPage from "./pages/LoginPage";
 import GamesPage from "./pages/GamesPage";
 import GameDetailPage from "./pages/GameDetailPage";
 import EntertainmentPage from "./pages/EntertainmentPage";
@@ -26,6 +27,7 @@ import LegalPage from "./pages/LegalPage";
 import NotFound from "./pages/NotFound";
 import RewardsShop from "./pages/RewardsShop";
 import LeaderboardPage from "./pages/LeaderboardPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -78,22 +80,22 @@ const AppContent = () => {
       <CoachMarks />
       <div className="relative min-h-screen">
         <Routes>
-          {/* Make home unambiguous */}
-          <Route index element={<Index />} />
-          <Route path="/" element={<Index />} />
-          <Route path="/games" element={<GamesPage />} />
-          <Route path="/games/:id" element={<GameDetailPage />} />
-          <Route path="/entertainment" element={<EntertainmentPage />} />
-          <Route path="/utilities" element={<UtilitiesPage />} />
-          <Route path="/utilities/:id" element={<UtilityDetailPage />} />
-          <Route path="/optimizations" element={<OptimizationsPage />} />
-          <Route path="/education" element={<EducationPage />} />
-          <Route path="/links" element={<LinksPage />} />
-          <Route path="/updates" element={<UpdatesPage />} />
-          <Route path="/legal" element={<LegalPage />} />
-          <Route path="/rewards" element={<RewardsShop />} />
-          <Route path="/leaderboard" element={<LeaderboardPage />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route index element={<ProtectedRoute><Index /></ProtectedRoute>} />
+          <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+          <Route path="/games" element={<ProtectedRoute><GamesPage /></ProtectedRoute>} />
+          <Route path="/games/:id" element={<ProtectedRoute><GameDetailPage /></ProtectedRoute>} />
+          <Route path="/entertainment" element={<ProtectedRoute><EntertainmentPage /></ProtectedRoute>} />
+          <Route path="/utilities" element={<ProtectedRoute><UtilitiesPage /></ProtectedRoute>} />
+          <Route path="/utilities/:id" element={<ProtectedRoute><UtilityDetailPage /></ProtectedRoute>} />
+          <Route path="/optimizations" element={<ProtectedRoute><OptimizationsPage /></ProtectedRoute>} />
+          <Route path="/education" element={<ProtectedRoute><EducationPage /></ProtectedRoute>} />
+          <Route path="/links" element={<ProtectedRoute><LinksPage /></ProtectedRoute>} />
+          <Route path="/updates" element={<ProtectedRoute><UpdatesPage /></ProtectedRoute>} />
+          <Route path="/legal" element={<ProtectedRoute><LegalPage /></ProtectedRoute>} />
+          <Route path="/rewards" element={<ProtectedRoute><RewardsShop /></ProtectedRoute>} />
+          <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+          <Route path="*" element={<ProtectedRoute><NotFound /></ProtectedRoute>} />
         </Routes>
       </div>
     </>

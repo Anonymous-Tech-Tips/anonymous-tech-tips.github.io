@@ -183,7 +183,8 @@ const CollectionsPage: React.FC<CollectionsPageProps> = () => {
 
     const encoded = btoa(JSON.stringify(currentCollection));
     const baseUrl = window.location.origin;
-    return `${baseUrl}/Armaan-Tech-Tips/collections/${currentCollection.id}?data=${encoded}`;
+    const basePath = import.meta.env.BASE_URL || "/";
+    return `${baseUrl}${basePath}collections/${currentCollection.id}?data=${encoded}`;
   };
 
   // Copy share URL to clipboard
