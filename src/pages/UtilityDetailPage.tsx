@@ -105,7 +105,7 @@ const UtilityDetailPage: React.FC<UtilityDetailPageProps> = () => {
   return (
     <>
       <SEO
-        title={`${utility.title} — Armaan's Tech Tips`}
+        title={`${utility.title} — Tech Tips`}
         description={utility.description}
         canonical={canonical(`/utilities/${utility.id}`)}
       />

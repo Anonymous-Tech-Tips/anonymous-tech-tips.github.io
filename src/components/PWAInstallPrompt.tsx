@@ -109,7 +109,7 @@ export const PWAInstallPrompt: React.FC = () => {
             </Button>
           </div>
           <CardDescription className="text-gamer-muted">
-            Install Armaan's Tech Tips for quick access and offline features
+            Install Tech Tips for quick access and offline features
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-0">

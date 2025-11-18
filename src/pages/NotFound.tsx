@@ -34,8 +34,8 @@ const NotFound = () => {
   return (
     <>
       <SEO
-        title="404 - Page Not Found | Armaan's Tech Tips"
-        description="The page you're looking for doesn't exist. Return to Armaan's Tech Tips for gaming, utilities, and tech resources."
+        title="404 - Page Not Found | Tech Tips"
+        description="The page you're looking for doesn't exist. Return to Tech Tips for gaming, utilities, and tech resources."
       />
       <div className="flex min-h-screen flex-col">
         <div className="flex flex-1 items-center justify-center bg-background">

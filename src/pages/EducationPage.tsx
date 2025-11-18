@@ -10,7 +10,7 @@ const EducationPage = () => {
   return (
     <>
       <SEO 
-        title="Education Resources & Study Tools | Armaan's Tech Tips"
+        title="Education Resources & Study Tools | Tech Tips"
         description="Free educational resources including grade calculator, programming tutorials, math resources, study techniques, and learning guides for students."
         keywords="education resources, grade calculator, study tools, programming tutorials, math resources, study techniques, learning guides, student resources, online learning"
       />

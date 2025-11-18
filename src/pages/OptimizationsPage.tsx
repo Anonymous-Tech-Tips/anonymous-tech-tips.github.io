@@ -10,7 +10,7 @@ const OptimizationsPage = () => {
   return (
     <>
       <SEO 
-        title="PC Optimization Guides & Windows Tips | Armaan's Tech Tips"
+        title="PC Optimization Guides & Windows Tips | Tech Tips"
         description="Complete PC optimization guides including Windows settings, GPU drivers, power plans, CPU unparking, network optimization, and system cleanup tools."
         keywords="pc optimization, windows optimization, gpu optimization, cpu optimization, network optimization, system cleanup, windows settings, power plan, gaming optimization, pc performance"
       />

@@ -39,11 +39,6 @@ const LinksPage = () => {
 
   const socialLinks = [
     {
-      title: "GitHub Repository",
-      url: "https://github.com/Subset28/Armaan-Tech-Tips",
-      icon: <Github className="h-4 w-4" />
-    },
-    {
       title: "Share Site",
       url: `${window.location.origin}${window.location.pathname}?utm_source=links&utm_medium=button&utm_campaign=site`,
       icon: <Share2 className="h-4 w-4" />
@@ -55,7 +50,7 @@ const LinksPage = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 font-rowdies">
-            Armaan's Tech Tips
+            Tech Tips
           </h1>
           <p className="text-xl text-gray-300 mb-8">
             Your ultimate student tech hub - games, utilities, and optimization tools
@@ -106,10 +101,10 @@ const LinksPage = () => {
           <Card className="bg-white/10 border-white/20 max-w-md mx-auto">
             <CardContent className="pt-6">
               <p className="text-gray-300 mb-4">
-                Built with ❤️ by a fellow student who loves tech and gaming
+                Open source tech resources for students
               </p>
               <p className="text-sm text-gray-400">
-                © 2024 Armaan's Tech Tips. All rights reserved.
+                © 2024 Tech Tips. All rights reserved.
               </p>
             </CardContent>
           </Card>

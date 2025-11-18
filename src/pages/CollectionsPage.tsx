@@ -204,7 +204,7 @@ const CollectionsPage: React.FC<CollectionsPageProps> = () => {
     return (
       <>
         <SEO
-          title={`${currentCollection.title} - Curated Collection | Armaan's Tech Tips`}
+          title={`${currentCollection.title} - Curated Collection | Tech Tips`}
           description={currentCollection.description}
           canonical={canonical(`/collections/${currentCollection.id}`)}
         />
@@ -336,7 +336,7 @@ const CollectionsPage: React.FC<CollectionsPageProps> = () => {
   return (
     <>
       <SEO
-        title="My Collections - Curated Games & Tools | Armaan's Tech Tips"
+        title="My Collections - Curated Games & Tools | Tech Tips"
         description="Create and share curated collections of your favorite games and utilities"
         canonical={canonical("/collections")}
       />

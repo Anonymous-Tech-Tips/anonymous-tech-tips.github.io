@@ -11,7 +11,7 @@ const GamesPage = () => {
   return (
     <>
       <SEO 
-        title="Browser Games Collection | Armaan's Tech Tips"
+        title="Browser Games Collection | Tech Tips"
         description="Curated collection of browser-based games including puzzles, arcade, and strategy games. External links to popular web games."
         keywords="browser games, web games, online games, puzzle games, arcade games, strategy games, free games"
       />

@@ -15,16 +15,16 @@ export const GamerHome: React.FC = () => {
       {/* Intro strip */}
       <section className="max-w-6xl mx-auto px-6 pt-6">
         <p className="text-gamer-text font-rowdies text-sm sm:text-base leading-relaxed text-center">
-          What's up, guys! This is my website, <span className="underline">Armaan's Tech Tips</span>!
+          What's up, guys! This is <span className="underline">Tech Tips</span>!
           This website is where I put <strong>Games</strong> and <strong>PC Optimizations</strong>!
-          Here are some of my best friends and people who helped me out with this website.
+          Here are some of my best friends and people who helped build this website.
         </p>
       </section>
 
       {/* Title */}
       <section className="max-w-6xl mx-auto px-6 py-8 sm:py-10">
         <h1 className="text-center font-rowdies text-3xl sm:text-4xl md:text-5xl text-gamer-text">
-          The Armaan's Tech Tips Team
+          The Tech Tips Team
         </h1>
       </section>
 
@@ -77,14 +77,14 @@ export const GamerHome: React.FC = () => {
       {/* Disclaimer */}
       <section className="max-w-6xl mx-auto px-6 pb-6">
         <p className="text-center text-gamer-text/90 font-rowdies text-sm leading-6">
-          By using our site, you explicitly acknowledge and consent to the fact that Armaan's Tech Tips
+          By using our site, you explicitly acknowledge and consent to the fact that Tech Tips
           assumes no responsibility or liability for any potential issues that may arise as a result of
           your use of our services. This may include: getting in trouble, the site being blocked in your
           school district, or your school policy being broken. Furthermore, it is essential to understand
           that using the platform may lead to unforeseen consequences, including academic repercussions
           or disciplinary actions from your educational institution. By utilizing our services, you
           acknowledge and accept this disclaimer, assuming full responsibility for any consequences that
-          may surface as a result of using Armaan's Tech Tips. Please ensure that you are familiar with
+          may surface as a result of using Tech Tips. Please ensure that you are familiar with
           your school's policies regarding online resources.
         </p>
 

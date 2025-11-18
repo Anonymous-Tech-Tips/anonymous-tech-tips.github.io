@@ -8,8 +8,8 @@ const LegalPage = () => {
   return (
     <>
       <SEO
-        title="Legal Disclaimer | Armaan's Tech Tips"
-        description="Legal disclaimer and terms of use for Armaan's Tech Tips game collection and external links."
+        title="Legal Disclaimer | Tech Tips"
+        description="Legal disclaimer and terms of use for Tech Tips game collection and external links."
         keywords="legal disclaimer, terms of use, external links, game collection"
       />
       <div className="min-h-screen bg-gamer-bg">

@@ -661,13 +661,11 @@ export const GuideModal: React.FC<GuideModalProps> = ({
           <div className="space-y-4">
             <h3 className="text-xl font-semibold">About Me</h3>
             <div className="space-y-3">
-              <p><strong>Hi! My name is Armaan and I am the creator of Armaan's Tech Tips!</strong></p>
+              <p><strong>Hi! Welcome to Tech Tips!</strong></p>
 
-              <p>I absolutely love technology and have a tendency to get bored in school very easily. I also have a passion for upgrading and optimizing things - whether it's my PC, my workflow, or even my study habits!</p>
+              <p>This site was created by students who love technology and wanted a place to share games, utilities, and tech resources with others.</p>
 
-              <p>I created Armaan's Tech Tips because during my freshman year, I never had anything engaging to do in school and thought, "Why don't I put all the games I play into one place and share them with others?" And just like that, Armaan's Tech Tips was born!</p>
-
-              <p>I also love web design, so this project has been a perfect way to combine my interests in technology, gaming, and creative design. Now in my junior year, I've expanded the site to include not just games, but also:</p>
+              <p>What started as a simple gaming collection has grown into a comprehensive tech resource hub, now including:</p>
 
               <ul className="list-disc list-inside space-y-1">
                 <li><strong>Interactive Utilities</strong> - Password generators, color pickers, QR code makers</li>
@@ -676,7 +674,7 @@ export const GuideModal: React.FC<GuideModalProps> = ({
                 <li><strong>Helpful Links</strong> - Curated resources for productivity and development</li>
               </ul>
 
-              <p>This site has grown from a simple gaming collection into a comprehensive tech resource hub where I can share my knowledge and discoveries with fellow students and tech enthusiasts!</p>
+              <p>This site is a collection of tech knowledge and discoveries to share with fellow students and tech enthusiasts!</p>
 
               <div className="bg-blue-50 p-3 rounded-md">
                 <p className="text-sm text-blue-800">

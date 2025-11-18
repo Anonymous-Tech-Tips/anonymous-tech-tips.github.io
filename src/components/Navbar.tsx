@@ -57,7 +57,7 @@ export const Navbar: React.FC = () => {
               <div className={`text-xl font-rowdies font-bold ${
                 isAuthenticated ? "text-gamer-text" : "text-foreground"
               }`}>
-                Armaan's Tech Tips
+                Tech Tips
               </div>
             </div>
 

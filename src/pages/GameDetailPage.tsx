@@ -31,7 +31,7 @@ export default function GameDetailPage() {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <SEO title={`${game.title} — Armaan's Tech Tips`} description={game.description} canonical={canonical(`/games/${game.id}`)} ogImage={asset(`/thumbnails/${game.id}.webp`)} />
+      <SEO title={`${game.title} — Tech Tips`} description={game.description} canonical={canonical(`/games/${game.id}`)} ogImage={asset(`/thumbnails/${game.id}.webp`)} />
       <Button variant="ghost" onClick={() => navigate(-1)} className="mb-4"><ArrowLeft className="h-4 w-4 mr-2" />Back</Button>
       <div className="grid md:grid-cols-3 gap-6">
         <Card className="md:col-span-2">

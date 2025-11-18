@@ -79,7 +79,7 @@ const changelogEntries = [
     date: "2025-01-15",
     title: "Initial Launch",
     changes: [
-      "🚀 First release of Armaan's Tech Tips",
+      "🚀 First release of Tech Tips",
       "🎮 Basic gaming hub functionality",
       "🛠️ Core utility tools",
       "📚 Educational resources"
@@ -100,13 +100,6 @@ const UpdatesPage = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20" asChild>
-              <a href="https://github.com/Subset28/Armaan-Tech-Tips" target="_blank" rel="noopener noreferrer">
-                <Github className="h-4 w-4 mr-2" />
-                View on GitHub
-                <ExternalLink className="ml-2 h-3 w-3" />
-              </a>
-            </Button>
             <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20" asChild>
               <a href="/links">
                 <ExternalLink className="h-4 w-4 mr-2" />
@@ -161,10 +154,9 @@ const UpdatesPage = () => {
                 Want to see something new? Have feedback or suggestions?
               </p>
               <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20" asChild>
-                <a href="https://github.com/Subset28/Armaan-Tech-Tips/issues" target="_blank" rel="noopener noreferrer">
-                  <Github className="h-4 w-4 mr-2" />
-                  Open an Issue
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSceaVXrWwjj0zqMqdmPJTCxPQoq166Pe72I7pKjcChU-h1mRQ/viewform" target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="ml-2 h-3 w-3" />
+                  Send Feedback
                 </a>
               </Button>
             </CardContent>

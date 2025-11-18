@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Armaan's Tech Tips will be documented in this file.
+All notable changes to Tech Tips will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -76,4 +76,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-*For details on specific commits, see the [GitHub commit history](https://github.com/Subset28/Armaan-Tech-Tips/commits/main).*
+*For development history details, see the version history.*

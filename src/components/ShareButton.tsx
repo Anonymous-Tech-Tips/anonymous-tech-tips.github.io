@@ -28,7 +28,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   const originBase = new URL(basePath, window.location.origin).toString();
   const currentHash = window.location.hash || "";
   const shareUrl = `${originBase}${currentHash}?utm_source=share&utm_medium=button&utm_campaign=site`;
-  const shareText = "Check out Armaan's Tech Tips - Games, Utilities, PC Optimization & more!";
+  const shareText = "Check out Tech Tips - Games, Utilities, PC Optimization & more!";
 
   const handleCopyLink = async () => {
     try {
@@ -67,7 +67,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Armaan's Tech Tips",
+          title: "Tech Tips",
           text: shareText,
           url: shareUrl,
         });

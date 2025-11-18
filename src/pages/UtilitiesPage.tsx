@@ -35,7 +35,7 @@ const UtilitiesPage = () => {
   return (
     <>
       <SEO 
-        title={isAuthenticated ? "Premium Utilities | Armaan's Tech Tips" : "Free Utilities & Tools | Armaan's Tech Tips"}
+        title={isAuthenticated ? "Premium Utilities | Tech Tips" : "Free Utilities & Tools | Tech Tips"}
         description="Free online utilities including password generator, color picker, text converter, QR code generator, and more essential tools for students and developers."
         keywords="password generator, color picker, text converter, qr code generator, free utilities, online tools, web tools, student utilities, developer tools"
       />
