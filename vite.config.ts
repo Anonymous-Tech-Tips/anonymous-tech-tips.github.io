@@ -37,13 +37,15 @@ export default defineConfig(({ mode }) => ({
     outDir: "dist",
     assetsDir: "assets",
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: false,
+    minify: 'terser',
     rollupOptions: {
       output: {
         // Add hash to filenames for cache busting
         entryFileNames: `assets/[name]-[hash].js`,
         chunkFileNames: `assets/[name]-[hash].js`,
-        assetFileNames: `assets/[name]-[hash].[ext]`
+        assetFileNames: `assets/[name]-[hash].[ext]`,
+        manualChunks: undefined,
       }
     }
   },

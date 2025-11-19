@@ -27,8 +27,26 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Verify build output
+      run: |
+        echo "Checking dist folder contents..."
+        ls -la dist/
+        echo "Checking for index.html..."
+        test -f dist/index.html && echo "✓ index.html exists" || echo "✗ index.html missing"
+        echo "Checking for assets..."
+        ls -la dist/assets/ || echo "✗ assets folder missing"
+        echo "Verifying index.html has root div..."
+        grep -q '<div id="root"></div>' dist/index.html && echo "✓ root div exists" || echo "✗ root div missing"
+        echo "Verifying index.html has script tag..."
+        grep -q '<script' dist/index.html && echo "✓ script tag exists" || echo "✗ script tag missing"
+
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
         folder: dist
+        clean: true
+        clean-exclude: |
+          .nojekyll
+        single-commit: false
+        force: false
