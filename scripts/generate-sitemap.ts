@@ -9,7 +9,7 @@ import utilities from '../src/data/utilities.json' assert { type: 'json' };
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const baseUrl = 'https://subset28.github.io/Armaan-Tech-Tips';
+const baseUrl = 'https://subset28.github.io/Anonymous-Tech-Tips';
 const today = new Date().toISOString().split('T')[0];
 
 const urls = [

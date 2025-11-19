@@ -2,8 +2,8 @@
   "name": "Tech Tips",
   "short_name": "Tech Tips",
   "description": "Essential tech hub for students: unblocked games, utilities, PC optimization guides, and educational resources.",
-  "start_url": "/Armaan-Tech-Tips/",
-  "scope": "/Armaan-Tech-Tips/",
+  "start_url": "/Anonymous-Tech-Tips/",
+  "scope": "/Anonymous-Tech-Tips/",
   "display": "standalone",
   "background_color": "#424242",
   "theme_color": "#FFD740",
@@ -11,24 +11,24 @@
   "categories": ["education", "utilities", "games", "productivity"],
   "icons": [
     {
-      "src": "/Armaan-Tech-Tips/favicon.ico",
+      "src": "/Anonymous-Tech-Tips/favicon.ico",
       "sizes": "any",
       "type": "image/x-icon"
     },
     {
-      "src": "/Armaan-Tech-Tips/placeholder.svg",
+      "src": "/Anonymous-Tech-Tips/placeholder.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/Armaan-Tech-Tips/pwa-192.png",
+      "src": "/Anonymous-Tech-Tips/pwa-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/Armaan-Tech-Tips/pwa-512.png",
+      "src": "/Anonymous-Tech-Tips/pwa-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -39,10 +39,10 @@
       "name": "Games Hub",
       "short_name": "Games",
       "description": "Browse unblocked games",
-      "url": "/Armaan-Tech-Tips/#/games",
+      "url": "/Anonymous-Tech-Tips/#/games",
       "icons": [
         {
-          "src": "/Armaan-Tech-Tips/pwa-192.png",
+          "src": "/Anonymous-Tech-Tips/pwa-192.png",
           "sizes": "192x192"
         }
       ]
@@ -51,10 +51,10 @@
       "name": "Utilities",
       "short_name": "Tools",
       "description": "Access password generator, QR codes, and more",
-      "url": "/Armaan-Tech-Tips/#/utilities",
+      "url": "/Anonymous-Tech-Tips/#/utilities",
       "icons": [
         {
-          "src": "/Armaan-Tech-Tips/pwa-192.png",
+          "src": "/Anonymous-Tech-Tips/pwa-192.png",
           "sizes": "192x192"
         }
       ]
@@ -63,10 +63,10 @@
       "name": "PC Optimization",
       "short_name": "Optimize",
       "description": "Performance tips and guides",
-      "url": "/Armaan-Tech-Tips/#/optimizations",
+      "url": "/Anonymous-Tech-Tips/#/optimizations",
       "icons": [
         {
-          "src": "/Armaan-Tech-Tips/pwa-192.png",
+          "src": "/Anonymous-Tech-Tips/pwa-192.png",
           "sizes": "192x192"
         }
       ]

@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "url": [
-        "https://subset28.github.io/Armaan-Tech-Tips/"
+        "https://subset28.github.io/Anonymous-Tech-Tips/"
       ],
       "startServerCommand": "npm run preview",
       "startServerReadyPattern": "Local: http://localhost:4173/",

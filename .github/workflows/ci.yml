@@ -58,9 +58,9 @@ jobs:
       uses: treosh/lighthouse-ci-action@v11
       with:
         urls: |
-          https://subset28.github.io/Armaan-Tech-Tips/
-          https://subset28.github.io/Armaan-Tech-Tips/#/games
-          https://subset28.github.io/Armaan-Tech-Tips/#/utilities
+          https://subset28.github.io/Anonymous-Tech-Tips/
+          https://subset28.github.io/Anonymous-Tech-Tips/#/games
+          https://subset28.github.io/Anonymous-Tech-Tips/#/utilities
         configPath: .lighthouserc.json
         uploadArtifacts: true
         temporaryPublicStorage: true
