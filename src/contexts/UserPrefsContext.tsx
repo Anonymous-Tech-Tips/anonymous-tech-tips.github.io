@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { z } from 'zod';
 import { UserPrefsSchema, type UserPrefs } from '@/lib/schemas';
+import { checkAchievements, showAchievement } from '@/components/AchievementToast';
 
 const KEY = 'atts:prefs:v1';
 
@@ -63,7 +64,6 @@ export const UserPrefsProvider: React.FC<{children: React.ReactNode}> = ({ child
     
     // Check for achievements on next render
     setTimeout(() => {
-      const { checkAchievements, showAchievement } = require('@/components/AchievementToast');
       const uniqueGames = new Set(prefs.history.filter(h => h.itemType === 'game').map(h => h.itemId)).size;
       const achievements = prefs.settings.achievements || [];
       const newAchievements = checkAchievements(streakCount, uniqueGames, achievements);
