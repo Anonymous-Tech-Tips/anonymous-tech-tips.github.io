@@ -8,19 +8,38 @@ import { clientsClaim } from 'workbox-core';
 declare const self: ServiceWorkerGlobalScope;
 
 // Cache version - increment this with each deployment
-const CACHE_VERSION = 'v8';
+const CACHE_VERSION = 'v9';
 
-// Skip waiting on install
+// Skip waiting on install - take over immediately
 self.skipWaiting();
 clientsClaim();
 
 // Clean up old caches automatically
 cleanupOutdatedCaches();
 
-// Skip waiting message handler
+// Delete all old caches on activation
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((cacheName) => !cacheName.includes(CACHE_VERSION))
+          .map((cacheName) => caches.delete(cacheName))
+      );
+    }).then(() => {
+      // Force all clients to reload with new service worker
+      return self.clients.claim();
+    })
+  );
+});
+
+// Skip waiting message handler - force immediate activation
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+  }
+  if (event.data && event.data.type === 'CLIENTS_CLAIM') {
+    self.clients.claim();
   }
 });
 
@@ -32,9 +51,23 @@ const basePath = '/Anonymous-Tech-Tips';
 const navigationHandler = createHandlerBoundToURL(`${basePath}/index.html`);
 const navigationRoute = new NavigationRoute(navigationHandler, {
   allowlist: [new RegExp(`^${basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/.*$`)],
-  denylist: [/\/api\/.*$/],
+  denylist: [/\/api\/.*$/, /\.(?:css|js|json|png|jpg|jpeg|svg|gif|webp|woff2?)$/],
 });
 registerRoute(navigationRoute);
+
+// Use NetworkFirst for HTML to always get fresh content
+registerRoute(
+  ({ request }) => request.destination === 'document',
+  new NetworkFirst({
+    cacheName: `html-${CACHE_VERSION}`,
+    plugins: [
+      new ExpirationPlugin({ 
+        maxEntries: 10, 
+        maxAgeSeconds: 60 * 60 // 1 hour
+      })
+    ],
+  })
+);
 
 // Use NetworkFirst for assets to always get fresh content
 registerRoute(
@@ -44,7 +77,7 @@ registerRoute(
     plugins: [
       new ExpirationPlugin({ 
         maxEntries: 200, 
-        maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days instead of 30
+        maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
       })
     ],
   })
