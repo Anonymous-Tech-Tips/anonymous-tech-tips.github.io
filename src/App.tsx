@@ -27,6 +27,7 @@ import LegalPage from "./pages/LegalPage";
 import NotFound from "./pages/NotFound";
 import RewardsShop from "./pages/RewardsShop";
 import LeaderboardPage from "./pages/LeaderboardPage";
+import ProfilePage from "./pages/ProfilePage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();

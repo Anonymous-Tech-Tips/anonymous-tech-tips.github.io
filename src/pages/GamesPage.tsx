@@ -6,6 +6,7 @@ import { HeroBanner } from "@/components/HeroBanner";
 import { GamerHome } from "@/components/GamerHome";
 import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
+import { AdBanner } from "@/components/AdBanner";
 
 const GamesPage = () => {
   return (
@@ -30,6 +31,8 @@ const GamesPage = () => {
         <HeroBanner />
 
         <GamerHome />
+
+        <AdBanner />
 
         <GamesHub />
 

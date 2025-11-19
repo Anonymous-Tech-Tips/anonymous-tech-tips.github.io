@@ -14,6 +14,9 @@ export interface Game {
   thumbnail: string;
   url: string;
   featured?: boolean;
+  premium?: boolean;
+  secret?: boolean;
+  earlyAccess?: boolean;
 }
 
 export const games: Game[] = [
@@ -120,6 +123,7 @@ export const games: Game[] = [
     tags: ["sim", "life"],
     thumbnail: bitlife,
     url: "https://vaz63.github.io/g5/class-441",
+    premium: true,
   },
   {
     id: "bob-robber-4",
@@ -148,6 +152,23 @@ export const games: Game[] = [
     tags: ["cars", "physics"],
     thumbnail: driveMad,
     url: "https://lizzyben1.github.io/poopygamesbeta/play/drive-mad/",
+    premium: true,
+  },
+  {
+    id: "poly-track-premium",
+    title: "🎁 Secret Treasure Quest",
+    tags: ["adventure", "puzzle", "secret"],
+    thumbnail: fallback,
+    url: "https://vaz63.github.io/g97/class-568",
+    secret: true,
+  },
+  {
+    id: "experimental-racer",
+    title: "🔓 Experimental Racer",
+    tags: ["racing", "experimental", "early access"],
+    thumbnail: fallback,
+    url: "https://vaz63.github.io/g3/class-601",
+    earlyAccess: true,
   },
   {
     id: "escaping-prison",

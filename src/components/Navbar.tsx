@@ -62,6 +62,30 @@ export const Navbar: React.FC = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1">
+              {isAuthenticated && points > 0 && (
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30">
+                  <Coins className="w-4 h-4 text-yellow-500" />
+                  <span className="text-sm font-bold text-gamer-text">
+                    {points.toLocaleString()}
+                  </span>
+                  {/* Show 2x indicator if double points is active */}
+                  {(() => {
+                    const doublePointsUntil = localStorage.getItem('doublePointsActiveUntil');
+                    const isActive = doublePointsUntil && new Date(doublePointsUntil) > new Date();
+                    return isActive ? (
+                      <span className="text-xs font-bold text-yellow-400 animate-pulse">⚡2x</span>
+                    ) : null;
+                  })()}
+                </div>
+              )}
+              {isAuthenticated && (() => {
+                const purchases = JSON.parse(localStorage.getItem('purchases') || '[]');
+                return purchases.includes('vip-status') ? (
+                  <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg animate-pulse-subtle">
+                    <span className="text-xs font-bold">👑 VIP</span>
+                  </div>
+                ) : null;
+              })()}
               {navLinks.map((link) => {
                 if (link.requiresAuth && !isAuthenticated) return null;
                 if (link.isRoute) {

@@ -96,7 +96,29 @@ export const UserPrefsSchema = z.object({
     onboardingCompleted: z.boolean().default(false),
     streakCount: z.number().min(0).default(0),
     lastVisitDate: z.string().optional(),
-    achievements: z.array(z.string()).default([])
+    achievements: z.array(z.string()).default([]),
+    // Reward-related settings
+    customTheme: z.object({
+      primary: z.string(),
+      secondary: z.string(),
+      background: z.string(),
+    }).optional(),
+    profileBorder: z.string().optional(),
+    usernameFont: z.string().optional(),
+    gameReactions: z.record(z.record(z.number())).optional(),
+    gameRequests: z.array(z.object({
+      id: z.string(),
+      gameName: z.string(),
+      gameUrl: z.string(),
+      description: z.string().optional(),
+      date: z.string(),
+    })).optional(),
+    gameStats: z.record(z.object({
+      playCount: z.number(),
+      totalTime: z.number().optional(),
+      lastPlayed: z.string().optional(),
+    })).optional(),
+    doublePointsActiveUntil: z.string().optional(),
   }).default({}),
   collections: z.array(CollectionSchema).default([])
 });

@@ -58,10 +58,55 @@ export const RewardsProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setPurchases(newPurchases);
       if (typeof window !== 'undefined') {
         localStorage.setItem('purchases', JSON.stringify(newPurchases));
+        
+        // Special handling for double points
+        if (itemId === 'double-points') {
+          const activationDate = new Date();
+          activationDate.setDate(activationDate.getDate() + 7); // 7 days from now
+          localStorage.setItem('doublePointsActiveUntil', activationDate.toISOString());
+        }
+
+        // Special handling for mystery box
+        if (itemId === 'mystery-box') {
+          handleMysteryBox();
+        }
       }
       return true;
     }
     return false;
+  };
+
+  const handleMysteryBox = () => {
+    // Random rewards pool (lower cost items)
+    const possibleRewards = [
+      'rainbow-theme',
+      'neon-theme',
+      'emoji-reactions',
+      'custom-cursor',
+      'name-glow',
+      'badge-collection',
+    ];
+    
+    // 70% chance of getting a reward, 30% chance of bonus points
+    const roll = Math.random();
+    
+    if (roll < 0.7) {
+      // Grant a random reward
+      const availableRewards = possibleRewards.filter(r => !purchases.includes(r));
+      if (availableRewards.length > 0) {
+        const reward = availableRewards[Math.floor(Math.random() * availableRewards.length)];
+        setPurchases([...purchases, reward]);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('purchases', JSON.stringify([...purchases, reward]));
+        }
+        return { type: 'reward', value: reward };
+      }
+    }
+    
+    // Grant bonus points
+    const bonusPoints = Math.floor(Math.random() * 500) + 200; // 200-700 points
+    addPoints(bonusPoints);
+    return { type: 'points', value: bonusPoints };
   };
 
   // Sync points and purchases between tabs
