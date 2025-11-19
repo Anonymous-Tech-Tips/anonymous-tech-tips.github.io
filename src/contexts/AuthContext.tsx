@@ -53,12 +53,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [user, resetInactivityTimer]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
-      setLoading(false);
-    });
+    let unsubscribe: (() => void) | undefined;
 
-    return () => unsubscribe();
+    const initAuth = async () => {
+      try {
+        // Ensure session-only persistence is set BEFORE Firebase restores any existing session
+        await setPersistence(auth, browserSessionPersistence);
+
+        // Clear any auth state that may have been stored with previous persistence settings
+        try {
+          sessionStorage.removeItem("firebase:authUser");
+        } catch (e) {
+          console.warn("Unable to access sessionStorage to clear Firebase auth state", e);
+        }
+        try {
+          localStorage.removeItem("firebase:authUser");
+          localStorage.removeItem("firebase:authToken");
+        } catch (e) {
+          console.warn("Unable to access localStorage to clear Firebase auth state", e);
+        }
+      } catch (error) {
+        console.error("Failed to set Firebase auth persistence", error);
+      } finally {
+        unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+          setUser(firebaseUser);
+          setLoading(false);
+        });
+      }
+    };
+
+    void initAuth();
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, []);
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
