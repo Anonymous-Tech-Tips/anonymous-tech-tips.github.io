@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => ({
     })
   ].filter(Boolean),
   build: {
-    outDir: "docs",
+    outDir: "dist",
     assetsDir: "assets",
     emptyOutDir: true,
     sourcemap: true,
