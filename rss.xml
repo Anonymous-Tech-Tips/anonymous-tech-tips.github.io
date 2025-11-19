@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Armaan's Tech Tips - Updates</title>
+    <description>Latest updates, features, and improvements to Armaan's Tech Tips - your ultimate student tech hub</description>
+    <link>https://subset28.github.io/Armaan-Tech-Tips/</link>
+    <atom:link href="https://subset28.github.io/Armaan-Tech-Tips/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 13 Oct 2025 15:30:00 GMT</lastBuildDate>
+    <generator>Armaan's Tech Tips</generator>
+
+    <item>
+      <title>Major Growth & SEO Update - v2.0.0</title>
+      <description>Comprehensive SEO improvements for better search visibility, enhanced analytics and tracking setup, improved user experience with smart navigation, bug fixes and performance optimizations, better mobile responsiveness, and updated visual design and animations.</description>
+      <link>https://subset28.github.io/Armaan-Tech-Tips/updates</link>
+      <guid>https://subset28.github.io/Armaan-Tech-Tips/updates#v2.0.0</guid>
+      <pubDate>Mon, 13 Oct 2025 15:30:00 GMT</pubDate>
+    </item>
+
+    <item>
+      <title>Smart Navigation & Bug Fixes - v1.9.0</title>
+      <description>Smart Games navigation that scrolls to games section when on homepage, fixed visitor counter display issues, improved loading performance, and enhanced user experience flows.</description>
+      <link>https://subset28.github.io/Armaan-Tech-Tips/updates</link>
+      <guid>https://subset28.github.io/Armaan-Tech-Tips/updates#v1.9.0</guid>
+      <pubDate>Sun, 15 Sep 2025 10:00:00 GMT</pubDate>
+    </item>
+
+    <item>
+      <title>Authentication & Polish - v1.8.0</title>
+      <description>Added proper authentication system, improved visual polish and animations, better mobile experience, and enhanced utility tools.</description>
+      <link>https://subset28.github.io/Armaan-Tech-Tips/updates</link>
+      <guid>https://subset28.github.io/Armaan-Tech-Tips/updates#v1.8.0</guid>
+      <pubDate>Wed, 20 Aug 2025 14:00:00 GMT</pubDate>
+    </item>
+
+    <item>
+      <title>Gaming Hub Expansion - v1.7.0</title>
+      <description>Added more unblocked games, implemented Popular vs All Games tabs, improved game discovery, and better game organization.</description>
+      <link>https://subset28.github.io/Armaan-Tech-Tips/updates</link>
+      <guid>https://subset28.github.io/Armaan-Tech-Tips/updates#v1.7.0</guid>
+      <pubDate>Thu, 10 Jul 2025 16:00:00 GMT</pubDate>
+    </item>
+
+    <item>
+      <title>Utilities Expansion - v1.6.0</title>
+      <description>Added comprehensive utility tools, password generator improvements, QR code generator, and color picker and text tools.</description>
+      <link>https://subset28.github.io/Armaan-Tech-Tips/updates</link>
+      <guid>https://subset28.github.io/Armaan-Tech-Tips/updates#v1.6.0</guid>
+      <pubDate>Thu, 05 Jun 2025 12:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
