@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRewardEffects } from '@/hooks/useRewardEffects';
+import { Navbar } from '@/components/Navbar';
+import { SEO } from '@/components/SEO';
 
 const rewards = [
   // === PREMIUM TIER (2000+ Points) ===

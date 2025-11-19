@@ -10,6 +10,7 @@ import { UserPrefsProvider } from "@/contexts/UserPrefsContext";
 import { RewardsProvider } from "@/contexts/RewardsContext";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CoachMarks } from "@/components/CoachMarks";
+import { OfflineModeIndicator } from "@/components/rewards/OfflineModeIndicator";
 import ThanksgivingTheme from "@/components/ThanksgivingTheme";
 import "./styles/thanksgiving.css";
 import Index from "./pages/Index";
@@ -80,6 +81,7 @@ const AppContent = () => {
       <PWAInstallPrompt />
       <CoachMarks />
       <div className="relative min-h-screen">
+        <OfflineModeIndicator />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route index element={<Index />} />
