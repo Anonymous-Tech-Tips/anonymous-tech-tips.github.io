@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Last Commit](https://img.shields.io/badge/last_updated-$(date +%b_%d_%Y)-blue)](https://github.com/Subset28/Armaan-Tech-Tips/commits/main)
 
-> Your ultimate tech hub for student — featuring unblocked games, essential utilities, PC optimization guides, and educational resources.
+> Your ultimate tech hub for students — featuring unblocked games, essential utilities, PC optimization guides, and educational resources.
 
 ![Tech Tips Preview](docs/preview.png)
 
