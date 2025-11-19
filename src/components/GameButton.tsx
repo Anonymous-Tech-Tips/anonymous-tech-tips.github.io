@@ -1,16 +1,18 @@
 import React from "react";
-import { GameButton } from "./GameButton";
+import { openGameSandbox } from "@/utils/openGameSandbox";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 export const GameButton: React.FC<{ url: string; label?: string }> = ({ url, label = "Play" }) => {
   const { playClick } = useSoundEffects();
   
+  const handleClick = () => {
+    playClick();
+    openGameSandbox(url);
+  };
+  
   return (
     <button
-      onClick={() => {
-        playClick();
-        openGameSandbox(url);
-      }}
+      onClick={handleClick}
       className="relative px-6 py-3 w-full uppercase font-black tracking-wider rounded-full border-4 transition-transform duration-200"
       style={{
         background: "linear-gradient(135deg,#800080,#BA55D3,#8A2BE2)",

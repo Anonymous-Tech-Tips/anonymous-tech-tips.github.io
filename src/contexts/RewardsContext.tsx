@@ -26,7 +26,13 @@ export const RewardsProvider: React.FC<{ children: React.ReactNode }> = ({ child
   });
 
   const addPoints = (amount: number) => {
-    const newPoints = points + amount;
+    // Check for double points multiplier
+    const doublePointsUntil = localStorage.getItem('doublePointsActiveUntil');
+    const isDoubleActive = doublePointsUntil && new Date(doublePointsUntil) > new Date();
+    
+    const finalAmount = isDoubleActive ? amount * 2 : amount;
+    const newPoints = points + finalAmount;
+    
     setPoints(newPoints);
     if (typeof window !== 'undefined') {
       localStorage.setItem('rewardPoints', newPoints.toString());
@@ -34,7 +40,7 @@ export const RewardsProvider: React.FC<{ children: React.ReactNode }> = ({ child
       // Update leaderboard
       const username = localStorage.getItem('username') || 'Anonymous';
       const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '{}');
-      leaderboard[username] = (leaderboard[username] || 0) + amount;
+      leaderboard[username] = (leaderboard[username] || 0) + finalAmount;
       localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
     }
     return newPoints;
@@ -66,47 +72,12 @@ export const RewardsProvider: React.FC<{ children: React.ReactNode }> = ({ child
           localStorage.setItem('doublePointsActiveUntil', activationDate.toISOString());
         }
 
-        // Special handling for mystery box
-        if (itemId === 'mystery-box') {
-          handleMysteryBox();
-        }
+        // Trigger storage event for other tabs/components
+        window.dispatchEvent(new Event('storage'));
       }
       return true;
     }
     return false;
-  };
-
-  const handleMysteryBox = () => {
-    // Random rewards pool (lower cost items)
-    const possibleRewards = [
-      'rainbow-theme',
-      'neon-theme',
-      'emoji-reactions',
-      'custom-cursor',
-      'name-glow',
-      'badge-collection',
-    ];
-    
-    // 70% chance of getting a reward, 30% chance of bonus points
-    const roll = Math.random();
-    
-    if (roll < 0.7) {
-      // Grant a random reward
-      const availableRewards = possibleRewards.filter(r => !purchases.includes(r));
-      if (availableRewards.length > 0) {
-        const reward = availableRewards[Math.floor(Math.random() * availableRewards.length)];
-        setPurchases([...purchases, reward]);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('purchases', JSON.stringify([...purchases, reward]));
-        }
-        return { type: 'reward', value: reward };
-      }
-    }
-    
-    // Grant bonus points
-    const bonusPoints = Math.floor(Math.random() * 500) + 200; // 200-700 points
-    addPoints(bonusPoints);
-    return { type: 'points', value: bonusPoints };
   };
 
   // Sync points and purchases between tabs
@@ -117,8 +88,20 @@ export const RewardsProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setPurchases(JSON.parse(localStorage.getItem('purchases') || '[]'));
       }
     };
+    
+    // Also listen to custom storage events for same-tab updates
+    const handleCustomStorage = () => {
+      setPoints(parseInt(localStorage.getItem('rewardPoints') || '0'));
+      setPurchases(JSON.parse(localStorage.getItem('purchases') || '[]'));
+    };
+    
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    window.addEventListener('storage', handleCustomStorage);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('storage', handleCustomStorage);
+    };
   }, []);
 
   // Update leaderboard on login and when points change

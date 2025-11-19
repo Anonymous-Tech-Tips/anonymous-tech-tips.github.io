@@ -88,8 +88,27 @@ export const UserPrefsProvider: React.FC<{children: React.ReactNode}> = ({ child
   const api = useMemo<Ctx>(() => ({
     prefs,
     toggleFavorite: (id) => {
+      // Check favorites limit
+      const purchases = JSON.parse(localStorage.getItem('purchases') || '[]');
+      const hasUnlimitedFavorites = purchases.includes('unlimited-favorites');
+      const maxFavorites = hasUnlimitedFavorites ? Infinity : 30;
+
       setPrefs(p => {
         const exists = p.favorites.includes(id);
+        
+        // If adding and at limit, show toast and return unchanged
+        if (!exists && p.favorites.length >= maxFavorites) {
+          import('sonner').then(({ toast }) => {
+            toast.error(`Favorites limit reached (${maxFavorites})! Unlock Unlimited Favorites in Rewards Shop.`, {
+              action: {
+                label: 'Shop',
+                onClick: () => window.location.href = '/rewards-shop'
+              }
+            });
+          });
+          return p;
+        }
+        
         return { ...p, favorites: exists ? p.favorites.filter(x => x !== id) : [...p.favorites, id] };
       });
     },
