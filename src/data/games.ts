@@ -43,6 +43,16 @@ import geometryDash from "@/assets/thumbnails/geometry-dash.jpg";
 import eggyCar from "@/assets/thumbnails/eggy-car.jpg";
 import parkourRace from "@/assets/thumbnails/parkour-race.jpg";
 import motoX3m from "@/assets/thumbnails/moto-x3m.jpg";
+import crossyRoadNew from "@/assets/thumbnails/crossy-road-new.jpg";
+import amongUsNew from "@/assets/thumbnails/among-us-new.jpg";
+import driftBossNew from "@/assets/thumbnails/drift-boss-new.jpg";
+import driftHuntersNew from "@/assets/thumbnails/drift-hunters-new.jpg";
+import templeRun2New from "@/assets/thumbnails/temple-run-2-new.jpg";
+import flappyBirdNew from "@/assets/thumbnails/flappy-bird-new.jpg";
+import masterChessNew from "@/assets/thumbnails/master-chess-new.jpg";
+import maskedForcesNew from "@/assets/thumbnails/masked-forces-new.jpg";
+import clusterRushNew from "@/assets/thumbnails/cluster-rush-new.jpg";
+import paperIo2New from "@/assets/thumbnails/paper-io-2-new.jpg";
 
 export interface Game {
   id: string;
@@ -141,7 +151,7 @@ export const games: Game[] = [
 
   // --- 🏃 Running & Parkour Games ---
   { id: "parkour-race", title: "Parkour Race", tags: ["running", "parkour"], thumbnail: parkourRace, url: "https://basketballgamesonline.github.io/g77/class-830" },
-  { id: "cluster-rush", title: "Cluster Rush", tags: ["running", "arcade"], thumbnail: slope3, url: "https://basketballgamesonline.github.io/g26/class-526" },
+  { id: "cluster-rush", title: "Cluster Rush", tags: ["running", "arcade"], thumbnail: clusterRushNew, url: "https://basketballgamesonline.github.io/g26/class-526" },
   { id: "slope-2", title: "Slope 2", tags: ["running", "arcade"], thumbnail: slope2, url: "https://basketballgamesonline.github.io/g2/class-437" },
   { id: "slope-3", title: "Slope 3", tags: ["running", "arcade"], thumbnail: slope3, url: "https://basketballgamesonline.github.io/g5/class-501" },
   { id: "run-3-editor", title: "Run 3 Editor", tags: ["running", "endless"], url: "https://basketballgamesonline.github.io/g/class-819" },
@@ -182,8 +192,8 @@ export const games: Game[] = [
   { id: "moto-x3m-pool", title: "Moto X3m Pool Party", tags: ["racing", "motorcycle"], url: "https://basketballgamesonline.github.io/g5/class-462" },
   { id: "moto-road-rash", title: "Moto Road Rash 3D", tags: ["racing", "motorcycle"], url: "https://basketballgamesonline.github.io/g97/class-464" },
   { id: "drive-mad", title: "Drive Mad", tags: ["racing", "cars"], thumbnail: driveMad, url: "https://basketballgamesonline.github.io/g20/class-401" },
-  { id: "drift-boss", title: "Drift Boss", tags: ["racing", "drift"], url: "https://basketballgamesonline.github.io/g5/class-472" },
-  { id: "drift-hunters", title: "Drift Hunters", tags: ["racing", "drift"], url: "https://basketballgamesonline.github.io/g5/class-447" },
+  { id: "drift-boss", title: "Drift Boss", tags: ["racing", "drift"], thumbnail: driftBossNew, url: "https://basketballgamesonline.github.io/g5/class-472" },
+  { id: "drift-hunters", title: "Drift Hunters", tags: ["racing", "drift"], thumbnail: driftHuntersNew, url: "https://basketballgamesonline.github.io/g5/class-447" },
   { id: "car-drift-racers-2", title: "Car Drift Racers 2", tags: ["racing", "drift"], thumbnail: carDriftRacers2, url: "https://basketballgamesonline.github.io/g3/class-601" },
   { id: "burnout-drift-2", title: "Burnout Extreme Drift 2", tags: ["racing", "drift"], url: "https://basketballgamesonline.github.io/g177/class-304" },
   { id: "poly-track", title: "Poly Track", tags: ["racing", "arcade"], thumbnail: polyTrack, url: "https://lizzyben1.github.io/polytrackfix/polytrack/" },
@@ -209,11 +219,11 @@ export const games: Game[] = [
   { id: "stickman-bike", title: "Stickman Bike", tags: ["action", "stickman"], thumbnail: stickmanBike, url: "https://basketballgamesonline.github.io/g2/class-590" },
   { id: "rooftop-snipers", title: "Rooftop Snipers", tags: ["action", "shooter"], thumbnail: rooftopSnipers, url: "https://basketballgamesonline.github.io/g5/class-481" },
   { id: "rooftop-snipers-2", title: "Rooftop Snipers 2", tags: ["action", "shooter"], url: "https://basketballgamesonline.github.io/g2/class-424" },
-  { id: "masked-forces", title: "Masked Forces", tags: ["action", "shooter"], url: "https://basketballgamesonline.github.io/g26/class-525" },
+  { id: "masked-forces", title: "Masked Forces", tags: ["action", "shooter"], thumbnail: maskedForcesNew, url: "https://basketballgamesonline.github.io/g26/class-525" },
   { id: "raft-wars", title: "Raft Wars", tags: ["action", "strategy"], thumbnail: raftWars, url: "https://basketballgamesonline.github.io/g5/class-409" },
   { id: "red-ball-4", title: "Red Ball 4", tags: ["action", "platformer"], thumbnail: redBall4, url: "https://basketballgamesonline.github.io/g22/class-491" },
   { id: "bob-robber-4", title: "Bob The Robber 4", tags: ["action", "stealth"], thumbnail: bobRobber4, url: "https://basketballgamesonline.github.io/g97/class-568" },
-  { id: "temple-run-2", title: "Temple Run 2", tags: ["action", "endless runner"], url: "https://basketballgamesonline.github.io/g26/class-405" },
+  { id: "temple-run-2", title: "Temple Run 2", tags: ["action", "endless runner"], thumbnail: templeRun2New, url: "https://basketballgamesonline.github.io/g26/class-405" },
   { id: "temple-of-boom", title: "Temple Of Boom", tags: ["action", "shooter"], url: "https://basketballgamesonline.github.io/g69/class-411" },
   { id: "murder", title: "Murder", tags: ["action", "stealth"], url: "https://basketballgamesonline.github.io/g72/class-580" },
   { id: "hills-of-steel", title: "Hills Of Steel", tags: ["action", "tanks"], url: "https://basketballgamesonline.github.io/g22/class-359" },
@@ -245,7 +255,7 @@ export const games: Game[] = [
   { id: "impossible-quiz", title: "The Impossible Quiz", tags: ["puzzle", "quiz"], url: "https://basketballgamesonline.github.io/g26/class-480" },
   { id: "tomb-of-mask", title: "Tomb Of The Mask", tags: ["puzzle", "thinking"], thumbnail: tombOfMask, url: "https://basketballgamesonline.github.io/g26/class-438" },
   { id: "who-is", title: "Who Is", tags: ["puzzle", "logic"], url: "https://basketballgamesonline.github.io/g69/class-591" },
-  { id: "master-chess", title: "Master Chess", tags: ["puzzle", "strategy"], url: "https://basketballgamesonline.github.io/g97/class-506" },
+  { id: "master-chess", title: "Master Chess", tags: ["puzzle", "strategy"], thumbnail: masterChessNew, url: "https://basketballgamesonline.github.io/g97/class-506" },
   { id: "traffic-escape", title: "Traffic Escape", tags: ["puzzle", "casual"], url: "https://basketballgamesonline.github.io/g22/class-357" },
   { id: "jumping-shell", title: "Jumping Shell", tags: ["puzzle", "thinking"], url: "https://basketballgamesonline.github.io/g72/class-638" },
   { id: "tetris-flash", title: "Tetris Flash", tags: ["puzzle", "classic"], url: "https://basketballgamesonline.github.io/g97/class-455" },
@@ -269,12 +279,12 @@ export const games: Game[] = [
   { id: "we-become-what-we-behold", title: "We Become What We Behold", tags: ["adventure", "story"], url: "https://basketballgamesonline.github.io/g69/class-485" },
 
   // --- 🎲 Strategy & Multiplayer ---
-  { id: "among-us", title: "Among Us", tags: ["strategy", "multiplayer"], url: "https://basketballgamesonline.github.io/g5/class-468" },
-  { id: "paper-io-2", title: "Paper Io 2", tags: ["strategy", "io"], url: "https://basketballgamesonline.github.io/g/class-505" },
+  { id: "among-us", title: "Among Us", tags: ["strategy", "multiplayer"], thumbnail: amongUsNew, url: "https://basketballgamesonline.github.io/g5/class-468" },
+  { id: "paper-io-2", title: "Paper Io 2", tags: ["strategy", "io"], thumbnail: paperIo2New, url: "https://basketballgamesonline.github.io/g/class-505" },
 
   // --- 🕹️ Arcade & Skill Games ---
-  { id: "crossy-road", title: "Crossy Road", tags: ["arcade", "endless runner"], thumbnail: crossyRoad, url: "https://basketballgamesonline.github.io/g20/class-402" },
-  { id: "flappy-bird", title: "Flappy Bird Origin", tags: ["arcade", "skill"], thumbnail: flappyBird, url: "https://basketballgamesonline.github.io/g26/class-434" },
+  { id: "crossy-road", title: "Crossy Road", tags: ["arcade", "endless runner"], thumbnail: crossyRoadNew, url: "https://basketballgamesonline.github.io/g20/class-402" },
+  { id: "flappy-bird", title: "Flappy Bird Origin", tags: ["arcade", "skill"], thumbnail: flappyBirdNew, url: "https://basketballgamesonline.github.io/g26/class-434" },
   { id: "sausage-flip", title: "Sausage Flip", tags: ["arcade", "physics"], thumbnail: sausageFlip, url: "https://basketballgamesonline.github.io/g2/class-415" },
   { id: "blumgi-rocket", title: "Blumgi Rocket", tags: ["skill", "arcade"], url: "https://basketballgamesonline.github.io/g16/class-413" },
   { id: "blumgi-slime", title: "Blumgi Slime", tags: ["skill", "platformer"], url: "https://basketballgamesonline.github.io/g16/class-421" },
