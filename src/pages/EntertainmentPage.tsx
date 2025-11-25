@@ -63,10 +63,10 @@ const streamingServices = [
     description: "Watch YouTube videos and content",
   },
   {
-    name: "Premium Streaming",
+    name: "The Divine Depths",
     url: "https://docs.google.com/document/d/1D9ruLVUZ9k9AmGDf52p0oTlRTnGd_zmYx2v6NoE2dbM/edit?tab=t.qdnbynrjz9av",
-    icon: "🎭",
-    description: "Access premium streaming content",
+    icon: "⚔️",
+    description: "Ultimate hub - Games, Movies, Shows & Music all in one place",
   },
 ];
 
