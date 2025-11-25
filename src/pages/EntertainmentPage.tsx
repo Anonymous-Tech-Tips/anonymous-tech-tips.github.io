@@ -62,6 +62,12 @@ const streamingServices = [
     icon: "▶️",
     description: "Watch YouTube videos and content",
   },
+  {
+    name: "Premium Streaming",
+    url: "https://docs.google.com/document/d/1D9ruLVUZ9k9AmGDf52p0oTlRTnGd_zmYx2v6NoE2dbM/edit?tab=t.qdnbynrjz9av",
+    icon: "🎭",
+    description: "Access premium streaming content",
+  },
 ];
 
 const EntertainmentPage: React.FC = () => {
