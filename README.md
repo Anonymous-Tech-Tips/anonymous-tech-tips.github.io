@@ -1,28 +1,36 @@
-# 🎮 Tech Tips
+# 🎮 Tech Tips - #1 Unblocked Games Hub 2025
 
-[![Live Site](https://img.shields.io/badge/Live-Site-orange?style=flat&logo=github)](https://subset28.github.io/Armaan-Tech-Tips/)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/Subset28/Armaan-Tech-Tips)
+[![Live Site](https://img.shields.io/badge/Live-Site-orange?style=flat&logo=github)](https://subset28.github.io/Anonymous-Tech-Tips/)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/Subset28/Anonymous-Tech-Tips)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Last Commit](https://img.shields.io/badge/last_updated-$(date +%b_%d_%Y)-blue)](https://github.com/Subset28/Armaan-Tech-Tips/commits/main)
+[![Games](https://img.shields.io/badge/games-145+-green)](https://subset28.github.io/Anonymous-Tech-Tips/)
+[![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue)](https://subset28.github.io/Anonymous-Tech-Tips/)
 
-> Your ultimate tech hub for students — featuring unblocked games, essential utilities, PC optimization guides, and educational resources.
+> **The Best Unblocked Games Hub** - Play 145+ unblocked games at school, earn rewards, unlock themes, and access premium utilities. Your ultimate destination for free online games unblocked for 2025!
 
 ![Tech Tips Preview](docs/preview.png)
 
 ## 🚀 Live Demo
 
-**Production**: [https://subset28.github.io/Armaan-Tech-Tips/](https://subset28.github.io/Armaan-Tech-Tips/)
+**Production**: [https://subset28.github.io/Anonymous-Tech-Tips/](https://subset28.github.io/Anonymous-Tech-Tips/)
 
-> **🆕 Recently Fixed**: Complete HashRouter implementation with dual home routes for bulletproof GitHub Pages compatibility. All 404 issues resolved with proper React Router v6 patterns.
+> **🎮 Play 145+ Games** | **🎁 Daily Rewards** | **🏆 Streak System** | **🎨 Unlock Themes** | **📺 Stream Content**
 
-## ✨ What is this?
+## ✨ What Makes Us #1?
 
-Tech Tips is a comprehensive web platform designed for students who need:
-- 🎮 **Unblocked Games** - Play popular games during free time
-- 🛠️ **Essential Utilities** - Password generator, QR codes, color picker, text converters
-- ⚡ **PC Optimization** - Performance tips and Windows optimization guides
-- 📚 **Educational Resources** - Learning materials, study techniques, helpful links
-- 🎨 **Gamer Mode** - Unlock exclusive features with a special gaming-themed interface
+**Tech Tips** is the **ultimate unblocked games website** for students in 2025, featuring an addictive gamification system that keeps you coming back. Unlike other games sites, we reward your loyalty with points, achievements, and exclusive unlockables!
+
+### 🏆 Why Students Choose Us
+
+- **🎮 145+ Unblocked Games** - Largest collection including Slope, Retro Bowl, 2048, Basketball Legends, Cookie Clicker, Drive Mad, and more
+- **🎁 Daily Login Rewards** - Earn 50-1000 points daily based on your streak (up to 7 tiers!)
+- **🔥 Streak System** - Build streaks for bigger rewards: Newbie → Rising → Dedicated → Committed → Veteran → Elite → Ultimate
+- **🛍️ Rewards Shop** - 30+ purchasable items including themes, effects, profile customization, and gameplay enhancements
+- **📺 Entertainment Hub** - Access streaming alternatives for Netflix, Disney+, Crunchyroll (anime), Hulu, and more
+- **🔒 Privacy First** - All games open in `about:blank` pages to hide browsing history from school networks
+- **⚡ Zero Backend** - 100% frontend-only, works offline, no sign-ups, instant access
+- **🍂 Cozy Design** - Warm Thanksgiving theme with falling leaves and school-friendly aesthetics
+- **🛠️ Pro Utilities** - Password generator, QR codes, color picker, text converter, and more
 
 ## 📸 Screenshots
 
@@ -37,28 +45,208 @@ Tech Tips is a comprehensive web platform designed for students who need:
   </tr>
 </table>
 
-## 🎯 Key Features
+## 🎯 Complete Feature Breakdown
 
-### 🌟 Core Features
-- **Gamer Mode** - Secret authentication unlocks gaming theme & exclusive features
-- **Games Hub** - Curated collection with categories (Popular, All Games), search, and keyboard navigation
-- **Utilities Suite** - Password generator, QR code generator, color picker, text converter, and more
-- **PC Optimization Guides** - Step-by-step Windows optimization, Chris Titus WinUtil, GPU tweaks
-- **Educational Resources** - Grade calculator, review channels, programming basics, study methods
-- **Command Palette** - Press `⌘K` (Mac) or `Ctrl+K` (Windows/Linux) for instant navigation
-- **Escape Key Quick Exit** - Press `Escape` to quickly navigate to Gmail (gamer mode) or Schoology
+### 🎮 Games Hub - 145+ Unblocked Games
+
+Access the **largest collection** of school-friendly unblocked games:
+
+**Popular Categories:**
+- **Action**: Slope, Cluster Rush, Tunnel Rush, OVO
+- **Sports**: Retro Bowl, Basketball Legends, Soccer Random, Basket Bros
+- **Strategy**: 2048, Cookie Clicker, Monkey Mart, Doge Miner
+- **Racing**: Drive Mad, Drift Boss, Moto X3M, Poly Track
+- **Multiplayer**: 1v1.lol, Among Us, Rooftop Snipers, House of Hazards
+- **Puzzle**: Fireboy & Watergirl, Red Ball 4, Level Devil
+- **Basketball**: 145+ dedicated basketball games from Basketball Legends to Peppa Pig Basketball
+
+**Features:**
+- 🔍 **Fast Search** - Find games instantly with fuzzy search
+- 🏷️ **Tag Filtering** - Browse by category (Action, Sports, Strategy, Racing)
+- 🔒 **Privacy Mode** - All games open in `about:blank` sandbox to hide URLs from network monitoring
+- ⌨️ **Keyboard Navigation** - Arrow keys to browse, Enter to play
+- 📱 **Mobile Optimized** - Play on any device
+- 💾 **Play History** - Automatically tracks your last 50 games
+
+### 🎁 Gamification System - Stay Engaged!
+
+**Daily Login Rewards** (Actual Points, Not Cosmetic!)
+- Day 1-3: 50-150 points (Newbie tier)
+- Day 4-7: 200-350 points (Rising tier)
+- Day 8-14: 400-550 points (Dedicated tier)
+- Day 15-30: 600-750 points (Committed tier)
+- Day 31-60: 800-900 points (Veteran tier)
+- Day 61-90: 950-1000 points (Elite tier)
+- Day 91+: 1000+ points (Ultimate tier)
+
+**Streak Badges** (7 Tiers)
+- 🌱 **Newbie** - First login
+- 🔥 **Rising** - 3+ day streak
+- ⭐ **Dedicated** - 7+ day streak
+- 💎 **Committed** - 14+ day streak
+- 🏆 **Veteran** - 30+ day streak
+- 👑 **Elite** - 60+ day streak
+- 🚀 **Ultimate** - 90+ day streak
+
+**Achievement System**
+- 🎯 First Game Played
+- 🔟 10 Games Played
+- 💯 100 Games Played
+- 🔥 7-Day Streak
+- ⭐ Favorite 5 Games
+- 🎨 First Theme Unlocked
+- Toast notifications for achievements
+
+### 🛍️ Rewards Shop - 30+ Unlockable Items
+
+Spend your hard-earned points on **functional** rewards that actually change your experience:
+
+**🎨 Themes (500-1000 points)**
+- Rainbow Theme - Vibrant rainbow gradients
+- Neon Theme - Cyberpunk neon accents
+- Retro Theme - Classic 8-bit gaming style
+- Ocean Theme - Calming blue tones
+- Custom Theme Editor - Design your own theme (1500 points)
+
+**✨ Visual Effects (300-800 points)**
+- Particle Effects - Floating particles throughout UI
+- Animated Backgrounds - Dynamic gradient animations
+- Custom Cursor - Unique cursor styles
+- Screen Shake - Satisfying screen shake on actions
+- Username Glow - Make your username stand out
+
+**🎮 Gameplay Enhancements (600-1500 points)**
+- Double Points - 2x points on all activities
+- Game Stats Tracker - Detailed play statistics
+- Offline Mode - Play without internet
+- Favorites Expansion - Save 20+ favorite games
+
+**🎵 Audio & Media (400-1000 points)**
+- Background Music - Lo-fi gaming beats
+- Sound Effects Pack - Click/success/victory sounds
+- Music Volume Control - Customize audio levels
+
+**😊 Profile & Social (200-800 points)**
+- Emoji Reactions - 50+ emoji pack
+- VIP Badge - Display VIP status
+- Profile Customization - Avatars & banners
+- Game Request Feature - Request new games
+
+**🌟 Special Items**
+- Ad-Free Experience (2000 points) - Remove all ads
+- Dark Mode Premium (500 points) - Enhanced dark theme
+
+### 📺 Entertainment Hub - Stream in School
+
+Access streaming alternatives via Google Slides & Canva embeds:
+- **Netflix** Alternative
+- **Crunchyroll** (Anime) Alternative
+- **Disney+** Alternative
+- **Paramount Plus** Alternative
+- **Roku** Alternative
+- **Tubi** Alternative
+- **Hulu** Alternative
+- **YouTube** Alternative
+
+**Privacy Features:**
+- Opens in `about:blank` sandbox
+- No referrer tracking
+- Hidden from browser history
+
+**Legal Disclaimer Included** for safe usage
+
+### 🛠️ Utility Tools - Essential Productivity
+
+**Password Generator**
+- Customizable length (4-128 characters)
+- Include/exclude: uppercase, lowercase, numbers, symbols
+- Copy to clipboard
+- Strength indicator
+
+**QR Code Generator**
+- Convert text/URLs to QR codes
+- Download as PNG
+- Customizable size
+- Mobile-friendly
+
+**Color Picker**
+- HEX, RGB, HSL format conversion
+- Visual color selector
+- Copy values to clipboard
+- Recently used colors
+
+**Text Converter**
+- UPPERCASE conversion
+- lowercase conversion
+- Title Case conversion
+- Reverse text
+- Character/word count
+
+### ⚡ PC Optimization Guides
+
+**Complete Windows Optimization**
+- System restore backup
+- Disable startup programs
+- Windows debloating
+- Performance power plans
+- Visual effects optimization
+- Background app management
+
+**Chris Titus WinUtil**
+- One-click optimization script
+- Safe registry tweaks
+- Gaming-focused optimizations
+
+**GPU Optimization**
+- Driver updates
+- Control panel settings
+- Game-specific tweaks
+
+**Network Optimization**
+- DNS configuration (1.1.1.1, 8.8.8.8)
+- TCP optimizer
+- Latency reduction
+
+### 🎨 Gamer Mode - Premium Experience
+
+Unlock with authentication:
+- 🌑 **Dark Gaming Theme** - Easy on eyes during long sessions
+- 🎮 **Full Games Library** - Access all 145+ games
+- 🎁 **Daily Rewards** - Claim your streak rewards
+- 🏪 **Rewards Shop** - Spend points on unlockables
+- 📺 **Entertainment Hub** - Stream content
+- ⚡ **Quick Exit** - Press `Escape` to jump to mail.google.com
+- 🔒 **Auto-Logout** - 5-minute inactivity timeout for security
+- 🎯 **No Ads** - Cleaner experience
 
 ### 🎨 Design & UX
-- Responsive design for mobile, tablet, and desktop
-- Dark theme in Gamer Mode with warm accents
-- Smooth animations and micro-interactions
-- Semantic HTML and accessible navigation
-- SEO-optimized with Open Graph and Twitter Card support
+
+**Thanksgiving Theme**
+- 🍂 **Falling Leaves Animation** - Cozy autumn atmosphere
+- 🦃 **Snoopy Banner** - Thanksgiving header
+- 🧡 **Warm Colors** - Browns, oranges, autumn palette
+- 🎨 **School-Friendly** - Professional but inviting aesthetic
+- 📱 **Fully Responsive** - Perfect on phones, tablets, desktops
+- 🌓 **Light & Dark Modes** - Gamer Mode has premium dark theme
+- ✨ **Smooth Animations** - Micro-interactions throughout
+- ♿ **Accessible** - Semantic HTML, ARIA labels, keyboard navigation
 
 ### 🔒 Privacy & Security
-- No tracking without consent
-- Client-side authentication (no server required)
-- Visitor counter is external embed (freevisitorcounters.com)
+
+**Privacy First**
+- 🔒 **About:Blank Sandbox** - All games & streams open in blank pages to hide URLs
+- 🚫 **No Tracking** - No analytics, no cookies, no surveillance
+- 💾 **LocalStorage Only** - All data stored on your device
+- 🔑 **Browser Session Auth** - Logs out when browser closes
+- ⏰ **5-Min Timeout** - Auto-logout after 5 minutes of inactivity
+- 🚪 **Quick Exit** - Press `Escape` to jump to mail.google.com
+- 📴 **Works Offline** - Full functionality without internet (after first load)
+
+**Security Features**
+- Single authorized account (no public signups)
+- Firebase email/password authentication
+- Session-only persistence (never remembers login)
+- Password manager autofill disabled
 - Input validation on all forms
 
 ## 🛠️ Tech Stack
@@ -68,10 +256,15 @@ Tech Tips is a comprehensive web platform designed for students who need:
 | **Framework** | React 18.3 + TypeScript |
 | **Build Tool** | Vite 6 |
 | **Styling** | Tailwind CSS + shadcn/ui components |
-| **Routing** | React Router (Hash mode for GitHub Pages) |
-| **State** | React Context API + TanStack Query |
-| **Utilities** | QRCode.js, Lucide Icons, date-fns |
-| **Deployment** | GitHub Pages |
+| **Routing** | React Router v6 (Hash mode for GitHub Pages) |
+| **State** | React Context API (UserPrefs, Rewards, Auth) |
+| **Storage** | LocalStorage (points, purchases, preferences, history) |
+| **Auth** | Firebase Authentication (email/password, session-only) |
+| **Icons** | Lucide Icons |
+| **Utilities** | QRCode.js, date-fns, Fuse.js (fuzzy search) |
+| **PWA** | Vite PWA Plugin + Service Worker |
+| **Deployment** | GitHub Pages (automated via GitHub Actions) |
+| **Architecture** | 100% Frontend (No backend required!) |
 
 ## 📂 Project Structure
 
@@ -153,44 +346,81 @@ VITE_NEWSLETTER_API=     # For newsletter signup (if configured)
 
 **Note for Developers**: On GitHub Pages, the base path is `/Armaan-Tech-Tips/`. Use `import.meta.env.BASE_URL` for any runtime-constructed URLs to ensure compatibility across development and production environments.
 
-## 🎮 Feature Deep Dive
+## 🎯 Marketing & SEO Strategy
 
-### Gamer Mode 🕹️
-Authenticate with the secret credentials to unlock:
-- Dark gaming theme (dark gray background, yellow accents)
-- Exclusive Games Hub access
-- Enhanced navigation with game categories
-- Quick escape to Gmail with `Escape` key
+### Target Keywords (2025)
+- **Primary**: "unblocked games", "unblocked games 66", "unblocked games 76"
+- **Long-tail**: "free online games unblocked for school", "best unblocked games 2025"
+- **Branded**: "tech tips unblocked", "tech tips games"
+- **Seasonal**: "unblocked games at school", "games for school chromebook"
 
-### Games Hub 🎯
-- **Popular Games**: Handpicked favorites (Slope, Retro Bowl, 2048, etc.)
-- **All Games**: Full catalog with search and filters
-- **Keyboard Navigation**: Arrow keys to browse, Enter to launch
-- **Lazy Loading**: Images load as you scroll for performance
-- **Quick Launch**: Opens games in new tab via sandbox
+### Competitive Advantages
+1. **Gamification** - Only unblocked games site with points, streaks, and rewards shop
+2. **Entertainment Hub** - Unique streaming alternatives for students
+3. **Privacy Focus** - About:blank sandbox beats competitor sites
+4. **145+ Games** - Larger library than most competitors
+5. **Cozy Design** - School-appropriate Thanksgiving theme
+6. **Zero Backend** - Faster load times, works offline
+7. **PWA Ready** - Install as app on any device
 
-### Utilities 🛠️
-| Utility | Description |
-|---------|-------------|
-| Password Generator | Customizable length, symbols, numbers |
-| QR Code Generator | Text/URL to QR with download |
-| Color Picker | HEX/RGB/HSL converter |
-| Text Converter | Upper/lower/title case, reverse |
+### Social Proof
+- ⭐ Top-rated unblocked games hub
+- 🎮 145+ games and growing
+- 🔥 Daily active users earning streaks
+- 🏆 #1 choice for students in 2025
 
-### PC Optimization ⚡
-- **Complete Guide**: Full optimization checklist
-- **Chris Titus WinUtil**: Automated Windows tweaking
-- **System Restore**: Backup before changes
-- **Power Plans**: Performance tuning
-- **GPU Optimization**: Driver and settings tweaks
-- **Network**: TCP optimizer, DNS configuration
+## 🚀 How Points & Rewards Work
 
-### Command Palette (⌘K) ⌨️
-Press `⌘K` (Mac) or `Ctrl+K` (Windows/Linux) to:
-- Search all pages and sections
-- Navigate instantly without clicking
-- Access hidden features
-- Keyboard-first workflow
+### Earning Points
+- **Daily Login**: 50-1000 points (scales with streak tier)
+- **Play Games**: Points for each game session (if double points active)
+- **Achievements**: Bonus points for milestones
+- **Streaks**: Higher tiers = bigger daily rewards
+
+### Spending Points
+Browse the Rewards Shop (Gamer Mode → Shop) to purchase:
+- Themes (500-1500 points)
+- Effects (300-800 points)
+- Gameplay boosts (600-1500 points)
+- Profile items (200-800 points)
+- Special unlocks (up to 2000 points)
+
+### Points Display
+- Navbar shows current balance
+- Updates in real-time
+- Persists across sessions via localStorage
+- Never expires or resets
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+K` or `⌘K` | Open command palette (fast search) |
+| `Escape` | Quick exit to mail.google.com (when authenticated) |
+| `Arrow Keys` | Navigate game grid |
+| `Enter` | Launch selected game |
+| `/` | Focus search bar |
+
+## 🎨 Customization Options
+
+### Purchasable Themes
+- **Rainbow** - Vibrant multi-color gradients
+- **Neon** - Cyberpunk glowing accents
+- **Retro** - 8-bit gaming nostalgia
+- **Ocean** - Calm blue water tones
+- **Custom** - Full theme editor (colors, fonts, spacing)
+
+### Visual Effects
+- Particle systems (floating elements)
+- Animated gradient backgrounds
+- Custom cursor styles
+- Screen shake on actions
+- Username glow effects
+
+### Dark Mode
+- Default: Warm Thanksgiving theme (light)
+- Gamer Mode: Premium dark gaming theme
+- Custom: Create your own color schemes
 
 ## 📊 SEO & Performance
 
@@ -203,25 +433,31 @@ Press `⌘K` (Mac) or `Ctrl+K` (Windows/Linux) to:
 | SEO | 100 | 100 |
 
 ### SEO Features
-- ✅ Semantic HTML (`<header>`, `<main>`, `<section>`, `<article>`)
-- ✅ Meta descriptions on all pages (under 160 chars)
-- ✅ Open Graph tags for social sharing
-- ✅ Twitter Card support
-- ✅ JSON-LD structured data (WebSite, SiteNavigationElement)
-- ✅ Canonical URLs
-- ✅ Sitemap.xml for search engines
-- ✅ robots.txt with proper directives
-- ✅ Alt text on all images
-- ✅ Lazy loading for images
-- ✅ Responsive design
+- ✅ **Title Tags**: "<60 chars with main keyword
+- ✅ **Meta Descriptions**: 160 chars max with target keywords
+- ✅ **H1 Tags**: Single H1 per page matching primary intent
+- ✅ **Semantic HTML**: `<header>`, `<main>`, `<section>`, `<article>`, `<nav>`, `<aside>`
+- ✅ **Alt Text**: All 145+ game thumbnails have descriptive alt attributes
+- ✅ **Open Graph**: Social sharing optimized
+- ✅ **Twitter Cards**: Preview cards for Twitter
+- ✅ **JSON-LD**: Structured data for WebSite, SiteNavigationElement, VideoGame schema
+- ✅ **Canonical URLs**: Prevent duplicate content
+- ✅ **Sitemap.xml**: Updated with all routes
+- ✅ **Robots.txt**: Search engine directives
+- ✅ **Mobile-First**: Responsive design
+- ✅ **Lazy Loading**: Images load on scroll
+- ✅ **Clean URLs**: Descriptive paths (/games/slope, /utilities/password-generator)
 
 ### Performance Optimizations
-- Code-splitting by route
-- Lazy loading of heavy components
-- Optimized images (WebP where supported)
-- Minimal third-party scripts
-- Tree-shaking with Vite
-- No render-blocking resources
+- ⚡ **Code-Splitting**: Route-based splitting
+- 🖼️ **Lazy Loading**: Components & images load on demand
+- 📦 **Tree-Shaking**: Vite removes unused code
+- 🚀 **Service Worker**: Aggressive caching with auto-update
+- 💾 **LocalStorage**: Instant data access (no API calls)
+- 🎯 **NetworkFirst**: HTML caching strategy
+- ⏱️ **Cache Busting**: Hashed filenames in build
+- 📴 **Offline Support**: Full PWA functionality
+- 🔄 **Auto-Updates**: New versions deploy seamlessly (60s check interval)
 
 ### How to Re-run Lighthouse
 ```bash
@@ -300,34 +536,69 @@ npm run build
 - If switching to BrowserRouter, add 404.html redirect
 
 ### Authentication Not Persisting
+- **By Design**: Uses `browserSessionPersistence` (logs out when browser closes)
+- **5-Min Timeout**: Auto-logout after inactivity
 - Check localStorage is enabled in browser
-- Session expires after 24 hours (by design)
 - Clear localStorage to reset: `localStorage.clear()`
 
-## 📱 Analytics & Privacy
+### Games Not Opening in About:Blank
+- Ensure `openGameSandbox()` is used for all external links
+- Check browser popup blocker settings
+- Try with popup blocker disabled
+
+### Points Not Saving
+- Check localStorage quota (should be plenty for this app)
+- Verify browser allows localStorage
+- Check browser console for errors
+- Try clearing cache: `localStorage.clear()` then refresh
+
+## 📱 Privacy Policy
 
 ### What's Tracked
-- Page views (via external visitor counter)
-- No personal data collected
-- No cookies beyond localStorage session
+- **Visitor Counter**: Page views only (external embed: freevisitorcounters.com)
+- **LocalStorage**: Points, purchases, preferences, play history (stored on YOUR device)
+- **No Analytics**: Zero tracking scripts
+- **No Cookies**: Only sessionStorage for auth
+- **No Personal Data**: Never collected or transmitted
 
-### Privacy Controls
-- Visitor counter is external embed (freevisitorcounters.com)
-- No analytics tracking by default
-- Opt-out available (see Privacy page when available)
+### Privacy Guarantees
+- ✅ **About:Blank Sandbox**: All games/streams open in blank pages
+- ✅ **No Referrer**: URL hiding from network monitoring
+- ✅ **LocalStorage Only**: All data stays on your device
+- ✅ **No Signups**: No email collection (single authorized account only)
+- ✅ **Session Auth**: Logs out when browser closes
+- ✅ **Offline Capable**: No internet = no tracking possible
+
+### COPPA Compliance
+- No personal information collected from users
+- No age verification required
+- No user-generated content
+- No social features requiring personal data
 
 ## 🚀 Deployment
 
-### GitHub Pages (Current)
-1. Push to `main` branch
-2. Build runs automatically via GitHub Actions (if configured)
-3. Or manually: `npm run build` → commit `docs/` folder
+### GitHub Pages (Current Setup)
+**Automated CI/CD Pipeline:**
+1. Push to `main` branch triggers GitHub Actions workflow
+2. Vite builds to `dist/` folder
+3. Workflow deploys `dist/` to `gh-pages` branch
+4. GitHub Pages serves from `gh-pages` branch root
+5. Service worker auto-updates users within 60 seconds
+
+**Manual Build** (if needed):
+```bash
+npm run build
+git add docs/
+git commit -m "Deploy build"
+git push origin main
+```
 
 ### Custom Domain
 To use a custom domain:
 1. Add `CNAME` file in `public/` with your domain
 2. Update `base` in `vite.config.ts` to `"/"`
-3. Configure DNS A/CNAME records (see [GitHub docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site))
+3. Update service worker paths in `src/sw.ts`
+4. Configure DNS A/CNAME records (see [GitHub docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site))
 
 ### Other Platforms
 This is a static site and can be deployed anywhere:
@@ -350,20 +621,56 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-- **Live Site**: [https://subset28.github.io/Armaan-Tech-Tips/](https://subset28.github.io/Armaan-Tech-Tips/)
-- **GitHub Repo**: [https://github.com/Subset28/Armaan-Tech-Tips](https://github.com/Subset28/Armaan-Tech-Tips)
-- **Report Issues**: [GitHub Issues](https://github.com/Subset28/Armaan-Tech-Tips/issues)
-- **Suggestions**: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSceaVXrWwjj0zqMqdmPJTCxPQoq166Pe72I7pKjcChU-h1mRQ/viewform)
-- **DMCA**: [Takedown Form](https://docs.google.com/forms/d/e/1FAIpQLSe6wFMCXkW_U_U_GwbnyxscD2t91wP4KakVLOiKBzYnZRFfTg/viewform)
+- **Live Site**: [https://subset28.github.io/Anonymous-Tech-Tips/](https://subset28.github.io/Anonymous-Tech-Tips/)
+- **GitHub Repo**: [https://github.com/Subset28/Anonymous-Tech-Tips](https://github.com/Subset28/Anonymous-Tech-Tips)
+- **Report Issues**: [GitHub Issues](https://github.com/Subset28/Anonymous-Tech-Tips/issues)
+- **Game Requests**: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSceaVXrWwjj0zqMqdmPJTCxPQoq166Pe72I7pKjcChU-h1mRQ/viewform)
+- **DMCA Takedowns**: [Takedown Form](https://docs.google.com/forms/d/e/1FAIpQLSe6wFMCXkW_U_U_GwbnyxscD2t91wP4KakVLOiKBzYnZRFfTg/viewform)
 
-## 🙏 Support
+## 🎮 Game Sources & Credits
 
-If you find this project helpful:
-- ⭐ **Star this repo** on GitHub
-- 📤 **Share** with friends who need these tools
-- 🐛 **Report bugs** via GitHub Issues
-- 💡 **Suggest features** via the feedback form
+Games are sourced from reputable unblocked games aggregators:
+- **BasketballGamesOnline.github.io** - 145+ basketball games
+- **Vaz63.github.io** - Action, sports, racing games
+- All games are third-party embeds - see individual game pages for credits
+- Game thumbnails are custom-generated for consistent presentation
+
+## 🙏 Support This Project
+
+If you find **Tech Tips** helpful:
+- ⭐ **Star this repo** on GitHub to support development
+- 📤 **Share** with friends who need unblocked games at school
+- 🐛 **Report bugs** via GitHub Issues to help us improve
+- 🎮 **Request games** via the feedback form
+- 💡 **Suggest features** to make this the #1 games hub
+
+## 🎓 For Educators
+
+While this site is designed for student free time, we encourage responsible use:
+- All content is school-appropriate
+- No violence, adult content, or inappropriate material
+- Games are educational (strategy, problem-solving, hand-eye coordination)
+- Utilities teach tech skills (password security, QR codes, color theory)
+- PC optimization guides promote digital literacy
+
+## ⚖️ Legal & Disclaimers
+
+**Game Embeds**: All games are third-party embeds. We do not host or own game content. If you believe content infringes your rights, use the [DMCA Takedown Form](https://docs.google.com/forms/d/e/1FAIpQLSe6wFMCXkW_U_U_GwbnyxscD2t91wP4KakVLOiKBzYnZRFfTg/viewform).
+
+**Entertainment Disclaimer**: Streaming links are provided for educational purposes. Users are responsible for complying with their school's acceptable use policies and copyright laws.
+
+**Privacy**: We do not collect, store, or transmit personal data. All user data (points, preferences) is stored locally on your device via browser localStorage.
+
+**Age Restriction**: No age restriction is required as we collect no personal information. However, users should have permission to use school devices during appropriate times.
 
 ---
 
-*Open source tech resources for students*
+<div align="center">
+
+**🎮 #1 Unblocked Games Hub for Students in 2025 🎮**
+
+*Built with ❤️ for students who deserve a great gaming experience at school*
+
+[![Play Now](https://img.shields.io/badge/Play-Now-orange?style=for-the-badge)](https://subset28.github.io/Anonymous-Tech-Tips/)
+
+</div>
