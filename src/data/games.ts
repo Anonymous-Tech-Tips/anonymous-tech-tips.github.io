@@ -38,42 +38,6 @@ import tombOfMask from "@/assets/thumbnails/tomb-of-mask.jpg";
 import tunnelRush from "@/assets/thumbnails/tunnel-rush.jpg";
 import waterColorSort from "@/assets/thumbnails/water-color-sort.jpg";
 import fallback from "@/assets/thumbnails/_fallback.png";
-// New games
-import basketballLegends from "@/assets/thumbnails/basketball-legends.jpg";
-import basketRandom from "@/assets/thumbnails/basket-random.jpg";
-import basketAndBall from "@/assets/thumbnails/basket-and-ball.jpg";
-import basketSwooshes from "@/assets/thumbnails/basket-swooshes.jpg";
-import basketChamps from "@/assets/thumbnails/basket-champs.jpg";
-import peppaPigBasketball from "@/assets/thumbnails/peppa-pig-basketball.jpg";
-import basketballFrvr from "@/assets/thumbnails/basketball-frvr.jpg";
-import whoIs from "@/assets/thumbnails/who-is.jpg";
-import fnfBSides from "@/assets/thumbnails/fnf-b-sides.jpg";
-import geometryDash from "@/assets/thumbnails/geometry-dash.jpg";
-import templeOfBoom from "@/assets/thumbnails/temple-of-boom.jpg";
-import levelDevil from "@/assets/thumbnails/level-devil.jpg";
-import maskedForces from "@/assets/thumbnails/masked-forces.jpg";
-import blumgiDragon from "@/assets/thumbnails/blumgi-dragon.jpg";
-import tigerSimulator3d from "@/assets/thumbnails/tiger-simulator-3d.jpg";
-import clusterRush from "@/assets/thumbnails/cluster-rush.jpg";
-import chickenMerge from "@/assets/thumbnails/chicken-merge.jpg";
-import amongUs from "@/assets/thumbnails/among-us.jpg";
-import soccerSkillsChampions from "@/assets/thumbnails/soccer-skills-champions-league.jpg";
-import fnfVsHatsuneMiku from "@/assets/thumbnails/fnf-vs-hatsune-miku.jpg";
-import masterChess from "@/assets/thumbnails/master-chess.jpg";
-import templeRun2 from "@/assets/thumbnails/temple-run-2.jpg";
-import highwayTraffic from "@/assets/thumbnails/highway-traffic.jpg";
-import fnfVsShaggyXMatt from "@/assets/thumbnails/fnf-vs-shaggy-x-matt.jpg";
-import murder from "@/assets/thumbnails/murder.jpg";
-import penaltyShooters2 from "@/assets/thumbnails/penalty-shooters-2.jpg";
-import offroaderV5 from "@/assets/thumbnails/offroader-v5.jpg";
-import fourthAndGoal2022 from "@/assets/thumbnails/4th-and-goal-2022.jpg";
-import driftBoss from "@/assets/thumbnails/drift-boss.jpg";
-import flipBros from "@/assets/thumbnails/flip-bros.jpg";
-import jumpingShell from "@/assets/thumbnails/jumping-shell.jpg";
-import growmi from "@/assets/thumbnails/growmi.jpg";
-import superLiquidSoccer from "@/assets/thumbnails/super-liquid-soccer.jpg";
-import parkingFury3dBeachCity from "@/assets/thumbnails/parking-fury-3d-beach-city.jpg";
-import stickmanBike from "@/assets/thumbnails/stickman-bike.jpg";
 
 export interface Game {
   id: string;
@@ -172,91 +136,6 @@ export const games: Game[] = [
 
   // --- 🎮 All Games (Alphabetical) ---
   {
-    id: "4th-and-goal-2022",
-    title: "4th And Goal 2022",
-    tags: ["sports", "football"],
-    thumbnail: fourthAndGoal2022,
-    url: "https://vaz63.github.io/g5/class-685",
-  },
-  {
-    id: "among-us",
-    title: "Among Us",
-    tags: ["strategy", "multiplayer"],
-    thumbnail: amongUs,
-    url: "https://vaz63.github.io/g5/class-468",
-  },
-  {
-    id: "basket-and-ball",
-    title: "Basket And Ball",
-    tags: ["sports", "basketball", "platform"],
-    thumbnail: basketAndBall,
-    url: "https://vaz63.github.io/g5/class-597",
-  },
-  {
-    id: "basket-bros",
-    title: "Basket Bros",
-    tags: ["sports", "basketball", "multiplayer"],
-    thumbnail: basketBros,
-    url: "https://vaz63.github.io/g97/class-482",
-  },
-  {
-    id: "basket-champs",
-    title: "Basket Champs",
-    tags: ["sports", "basketball"],
-    thumbnail: basketChamps,
-    url: "https://vaz63.github.io/g5/class-691",
-  },
-  {
-    id: "basket-random",
-    title: "Basket Random",
-    tags: ["sports", "basketball", "funny"],
-    thumbnail: basketRandom,
-    url: "https://vaz63.github.io/g5/class-436",
-  },
-  {
-    id: "basket-swooshes",
-    title: "Basket Swooshes",
-    tags: ["sports", "basketball"],
-    thumbnail: basketSwooshes,
-    url: "https://vaz63.github.io/g5/class-759",
-  },
-  {
-    id: "basketball-frvr",
-    title: "Basketball FRVR",
-    tags: ["sports", "basketball", "arcade"],
-    thumbnail: basketballFrvr,
-    url: "https://vaz63.github.io/g5/class-333",
-  },
-  {
-    id: "basketball-legends",
-    title: "Basketball Legends",
-    tags: ["sports", "basketball", "multiplayer"],
-    thumbnail: basketballLegends,
-    url: "https://vaz63.github.io/g5/class-474",
-  },
-  {
-    id: "basketball-stars",
-    title: "Basketball Stars",
-    tags: ["sports", "basketball", "arcade"],
-    thumbnail: basketballStars,
-    url: "https://vaz63.github.io/g5/class-449",
-  },
-  {
-    id: "bitlife",
-    title: "Bitlife",
-    tags: ["sim", "life"],
-    thumbnail: bitlife,
-    url: "https://vaz63.github.io/g5/class-441",
-    premium: true,
-  },
-  {
-    id: "blumgi-dragon",
-    title: "Blumgi Dragon",
-    tags: ["action", "arcade"],
-    thumbnail: blumgiDragon,
-    url: "https://vaz63.github.io/g5/class-363",
-  },
-  {
     id: "bob-robber-4",
     title: "Bob the Robber 4",
     tags: ["stealth", "strategy"],
@@ -271,32 +150,11 @@ export const games: Game[] = [
     url: "https://vaz63.github.io/g3/class-601",
   },
   {
-    id: "chicken-merge",
-    title: "Chicken Merge",
-    tags: ["idle", "merge"],
-    thumbnail: chickenMerge,
-    url: "https://vaz63.github.io/g5/class-641",
-  },
-  {
-    id: "cluster-rush",
-    title: "Cluster Rush",
-    tags: ["running", "parkour"],
-    thumbnail: clusterRush,
-    url: "https://vaz63.github.io/g5/class-526",
-  },
-  {
     id: "crossy-road",
     title: "Crossy Road",
     tags: ["arcade", "endless runner"],
     thumbnail: crossyRoad,
     url: "https://vaz63.github.io/g20/class-402",
-  },
-  {
-    id: "drift-boss",
-    title: "Drift Boss",
-    tags: ["racing", "cars"],
-    thumbnail: driftBoss,
-    url: "https://vaz63.github.io/g5/class-472",
   },
   {
     id: "drive-mad",
@@ -343,34 +201,6 @@ export const games: Game[] = [
     url: "https://vaz63.github.io/g26/class-434",
   },
   {
-    id: "flip-bros",
-    title: "Flip Bros",
-    tags: ["action", "parkour"],
-    thumbnail: flipBros,
-    url: "https://vaz63.github.io/g5/class-358",
-  },
-  {
-    id: "fnf-b-sides",
-    title: "Friday Night Funkin B-Sides",
-    tags: ["rhythm", "music"],
-    thumbnail: fnfBSides,
-    url: "https://vaz63.github.io/g5/class-348",
-  },
-  {
-    id: "fnf-vs-hatsune-miku",
-    title: "Friday Night Funkin vs Hatsune Miku",
-    tags: ["rhythm", "music"],
-    thumbnail: fnfVsHatsuneMiku,
-    url: "https://vaz63.github.io/g5/class-349",
-  },
-  {
-    id: "fnf-vs-shaggy-x-matt",
-    title: "Friday Night Funkin vs Shaggy x Matt",
-    tags: ["rhythm", "music"],
-    thumbnail: fnfVsShaggyXMatt,
-    url: "https://vaz63.github.io/g5/class-347",
-  },
-  {
     id: "furious-racing-3d",
     title: "Furious Racing 3D",
     tags: ["racing", "cars"],
@@ -378,95 +208,11 @@ export const games: Game[] = [
     url: "https://math181124.github.io/g97/class-793",
   },
   {
-    id: "geometry-dash",
-    title: "Geometry Dash",
-    tags: ["running", "rhythm"],
-    thumbnail: geometryDash,
-    url: "https://vaz63.github.io/g5/class-453",
-  },
-  {
-    id: "growmi",
-    title: "Growmi",
-    tags: ["puzzle", "adventure"],
-    thumbnail: growmi,
-    url: "https://vaz63.github.io/g5/class-182",
-  },
-  {
-    id: "highway-traffic",
-    title: "Highway Traffic",
-    tags: ["racing", "cars"],
-    thumbnail: highwayTraffic,
-    url: "https://vaz63.github.io/g5/class-522",
-  },
-  {
-    id: "jumping-shell",
-    title: "Jumping Shell",
-    tags: ["puzzle", "thinking"],
-    thumbnail: jumpingShell,
-    url: "https://vaz63.github.io/g5/class-638",
-  },
-  {
-    id: "level-devil",
-    title: "Level Devil",
-    tags: ["action", "platformer"],
-    thumbnail: levelDevil,
-    url: "https://vaz63.github.io/g5/class-356",
-  },
-  {
-    id: "masked-forces",
-    title: "Masked Forces",
-    tags: ["shooting", "fps"],
-    thumbnail: maskedForces,
-    url: "https://vaz63.github.io/g5/class-525",
-  },
-  {
-    id: "master-chess",
-    title: "Master Chess",
-    tags: ["thinking", "strategy"],
-    thumbnail: masterChess,
-    url: "https://vaz63.github.io/g5/class-506",
-  },
-  {
     id: "moto-x3m-2",
     title: "Moto X3M 2",
     tags: ["racing", "motorcycle"],
     thumbnail: motoX3m2,
     url: "https://vaz63.github.io/g26/class-459",
-  },
-  {
-    id: "murder",
-    title: "Murder",
-    tags: ["action", "mystery"],
-    thumbnail: murder,
-    url: "https://vaz63.github.io/g5/class-580",
-  },
-  {
-    id: "offroader-v5",
-    title: "Offroader V5",
-    tags: ["racing", "cars"],
-    thumbnail: offroaderV5,
-    url: "https://vaz63.github.io/g5/class-751",
-  },
-  {
-    id: "parking-fury-3d-beach-city",
-    title: "Parking Fury 3D Beach City",
-    tags: ["racing", "cars"],
-    thumbnail: parkingFury3dBeachCity,
-    url: "https://vaz63.github.io/g5/class-724",
-  },
-  {
-    id: "penalty-shooters-2",
-    title: "Penalty Shooters 2",
-    tags: ["sports", "soccer"],
-    thumbnail: penaltyShooters2,
-    url: "https://vaz63.github.io/g5/class-627",
-  },
-  {
-    id: "peppa-pig-basketball",
-    title: "Peppa Pig: Basketball",
-    tags: ["sports", "basketball", "kids"],
-    thumbnail: peppaPigBasketball,
-    url: "https://vaz63.github.io/g5/class-318",
   },
   {
     id: "poly-track",
@@ -533,25 +279,11 @@ export const games: Game[] = [
     url: "https://vaz63.github.io/g26/class-511",
   },
   {
-    id: "soccer-skills-champions-league",
-    title: "Soccer Skills Champions League",
-    tags: ["sports", "soccer"],
-    thumbnail: soccerSkillsChampions,
-    url: "https://vaz63.github.io/g5/class-588",
-  },
-  {
     id: "speed-pool-king",
     title: "Speed Pool King",
     tags: ["sports", "pool", "billiards"],
     thumbnail: speedPoolKing,
     url: "https://math181124.github.io/g6/class-146",
-  },
-  {
-    id: "stickman-bike",
-    title: "Stickman Bike",
-    tags: ["sports", "stickman"],
-    thumbnail: stickmanBike,
-    url: "https://vaz63.github.io/g5/class-590",
   },
   {
     id: "stickman-climb-2",
@@ -568,34 +300,6 @@ export const games: Game[] = [
     url: "https://vaz63.github.io/g5/class-406",
   },
   {
-    id: "super-liquid-soccer",
-    title: "Super Liquid Soccer",
-    tags: ["sports", "soccer"],
-    thumbnail: superLiquidSoccer,
-    url: "https://vaz63.github.io/g5/class-628",
-  },
-  {
-    id: "temple-of-boom",
-    title: "Temple Of Boom",
-    tags: ["adventure", "shooting"],
-    thumbnail: templeOfBoom,
-    url: "https://vaz63.github.io/g5/class-411",
-  },
-  {
-    id: "temple-run-2",
-    title: "Temple Run 2",
-    tags: ["action", "endless runner"],
-    thumbnail: templeRun2,
-    url: "https://vaz63.github.io/g5/class-405",
-  },
-  {
-    id: "tiger-simulator-3d",
-    title: "Tiger Simulator 3D",
-    tags: ["simulation", "animal"],
-    thumbnail: tigerSimulator3d,
-    url: "https://vaz63.github.io/g5/class-587",
-  },
-  {
     id: "tomb-of-mask",
     title: "Tomb Of The Mask",
     tags: ["arcade", "maze"],
@@ -608,13 +312,6 @@ export const games: Game[] = [
     tags: ["puzzle", "casual"],
     thumbnail: waterColorSort,
     url: "https://vaz63.github.io/g69/class-635",
-  },
-  {
-    id: "who-is",
-    title: "Who Is",
-    tags: ["puzzle", "thinking"],
-    thumbnail: whoIs,
-    url: "https://vaz63.github.io/g5/class-591",
   },
   {
     id: "yohoho-io",
