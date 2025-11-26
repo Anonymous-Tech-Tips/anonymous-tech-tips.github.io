@@ -3,49 +3,55 @@
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/games</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/share</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/seo-setup</loc>
     <lastmod>2025-11-26</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/safe</loc>
+    <lastmod>2025-11-26</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/utilities</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/optimizations</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/education</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/entertainment</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
@@ -55,16 +61,16 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/safe</loc>
+    <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/rewards</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/settings</loc>
+    <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/leaderboard</loc>
     <lastmod>2025-11-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://subset28.github.io/Anonymous-Tech-Tips/#/games/cookie-clicker</loc>
