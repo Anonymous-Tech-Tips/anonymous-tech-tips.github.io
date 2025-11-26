@@ -6,7 +6,7 @@
 [![Games](https://img.shields.io/badge/games-145+-green)](https://subset28.github.io/Anonymous-Tech-Tips/)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue)](https://subset28.github.io/Anonymous-Tech-Tips/)
 
-> **The Best Unblocked Games Hub** - Play 145+ unblocked games at school, earn rewards, unlock themes, and access premium utilities. Your ultimate destination for free online games unblocked for 2025!
+> **The Best Unblocked Games Hub** -- Play 145+ unblocked games at school, earn rewards, unlock themes, and access premium utilities. Your ultimate destination for free online games unblocked for 2025!
 
 ![Tech Tips Preview](docs/preview.png)
 
