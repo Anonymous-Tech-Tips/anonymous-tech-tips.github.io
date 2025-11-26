@@ -31,7 +31,17 @@ export default defineConfig(({ mode }) => ({
           { src: "/Anonymous-Tech-Tips/pwa-512.png", sizes: "512x512", type: "image/png" }
         ]
       }
-    })
+    }),
+    {
+      name: 'prerender-pages',
+      closeBundle: async () => {
+        if (mode === 'production') {
+          console.log('\n🔍 Generating prerendered pages for SEO...');
+          const { execSync } = await import('child_process');
+          execSync('tsx scripts/prerender.ts', { stdio: 'inherit' });
+        }
+      }
+    }
   ].filter(Boolean),
   build: {
     outDir: "dist",

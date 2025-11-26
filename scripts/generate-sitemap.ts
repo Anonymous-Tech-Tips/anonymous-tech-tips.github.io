@@ -27,9 +27,10 @@ const urls = [
   { loc: `${baseUrl}/#/leaderboard`, lastmod: today, changefreq: 'daily', priority: 0.7 },
 ];
 
+// Use clean URLs for better SEO (prerendered pages will redirect to hash routes)
 const itemUrls = [
-  ...games.map(g => ({ loc: `${baseUrl}/#/games/${g.id}`, lastmod: today, changefreq: 'weekly', priority: 0.7 })),
-  ...utilities.map(u => ({ loc: `${baseUrl}/#/utilities/${u.id}`, lastmod: today, changefreq: 'monthly', priority: 0.6 })),
+  ...games.map(g => ({ loc: `${baseUrl}/games/${g.id}`, lastmod: today, changefreq: 'daily', priority: 0.8 })),
+  ...utilities.map(u => ({ loc: `${baseUrl}/utilities/${u.id}`, lastmod: today, changefreq: 'weekly', priority: 0.7 })),
 ];
 
 const all = [...urls, ...itemUrls];
