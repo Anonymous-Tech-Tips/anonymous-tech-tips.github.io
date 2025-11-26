@@ -45,6 +45,6 @@ ${all.map(u => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-const out = join(__dirname, '../public/sitemap.xml');
+const out = join(__dirname, '../dist/sitemap.xml');
 writeFileSync(out, sitemap);
 console.log(`✅ Sitemap written: ${out} (${all.length} urls)`);
