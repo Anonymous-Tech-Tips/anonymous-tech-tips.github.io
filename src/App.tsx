@@ -29,6 +29,8 @@ import NotFound from "./pages/NotFound";
 import RewardsShop from "./pages/RewardsShop";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import ProfilePage from "./pages/ProfilePage";
+import SharePage from "./pages/SharePage";
+import SafeModePage from "./pages/SafeModePage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -98,6 +100,8 @@ const AppContent = () => {
           <Route path="/legal" element={<ProtectedRoute><LegalPage /></ProtectedRoute>} />
           <Route path="/rewards" element={<ProtectedRoute><RewardsShop /></ProtectedRoute>} />
           <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+          <Route path="/share" element={<ProtectedRoute><SharePage /></ProtectedRoute>} />
+          <Route path="/safe" element={<SafeModePage />} />
           <Route path="*" element={<ProtectedRoute><NotFound /></ProtectedRoute>} />
         </Routes>
       </div>

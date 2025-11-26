@@ -8,6 +8,12 @@ interface SEOProps {
   keywords?: string;
   ogImage?: string;
   canonical?: string;
+  gameData?: {
+    name: string;
+    genre: string[];
+    url: string;
+    image?: string;
+  };
 }
 
 export const SEO: React.FC<SEOProps> = ({
@@ -15,7 +21,8 @@ export const SEO: React.FC<SEOProps> = ({
   description = "🎮 #1 Unblocked Games Site! Play 100+ free games instantly - no downloads needed. Featuring popular titles, utility tools, PC optimization guides & exclusive gaming content. Start playing now!",
   keywords = "unblocked games, free online games, school games unblocked, gaming hub 2025, play games online free, best unblocked games site, no download games, browser games, student games, retro bowl unblocked, slope unblocked, gaming website, pc optimization, tech utilities, password generator, qr code generator, gaming tips, tech tips, free utilities, windows optimization, gaming guides, educational games, study tools, tech hub, game collection, instant play games, web games, casual games, addictive games",
   ogImage = "/placeholder.svg",
-  canonical: canonicalOverride
+  canonical: canonicalOverride,
+  gameData
 }) => {
   const location = useLocation();
   const baseUrl = window.location.origin;
@@ -76,63 +83,93 @@ export const SEO: React.FC<SEOProps> = ({
     canonicalLink.setAttribute('href', canonicalUrl);
 
     // Add structured data for website
+    const structuredDataGraph: any[] = [
+      {
+        "@type": "WebSite",
+        "@id": `${baseUrl}/#website`,
+        "url": baseUrl,
+        "name": "Tech Tips",
+        "description": description,
+        "publisher": {
+          "@id": `${baseUrl}/#organization`
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": `${baseUrl}/?q={search_term_string}`
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": `${baseUrl}/#organization`,
+        "name": "Tech Tips",
+        "url": baseUrl,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${baseUrl}/og-banner.png`
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+        "url": canonicalUrl,
+        "name": title,
+        "isPartOf": {
+          "@id": `${baseUrl}/#website`
+        },
+        "description": description,
+        "breadcrumb": {
+          "@id": `${canonicalUrl}#breadcrumb`
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": baseUrl
+          }
+        ]
+      }
+    ];
+
+    // Add VideoGame schema if game data is provided
+    if (gameData) {
+      structuredDataGraph.push({
+        "@type": "VideoGame",
+        "@id": canonicalUrl,
+        "name": gameData.name,
+        "url": canonicalUrl,
+        "genre": gameData.genre,
+        "author": {
+          "@type": "Organization",
+          "name": "Tech Tips"
+        },
+        "applicationCategory": "Game",
+        "operatingSystem": "Web Browser",
+        "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
+        "image": gameData.image ? `${baseUrl}${gameData.image}` : `${baseUrl}${ogImage}`,
+        "publisher": {
+          "@id": `${baseUrl}/#organization`
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      });
+    }
+
     const structuredData = {
       "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebSite",
-          "@id": `${baseUrl}/#website`,
-          "url": baseUrl,
-          "name": "Tech Tips",
-          "description": description,
-          "publisher": {
-            "@id": `${baseUrl}/#organization`
-          },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": `${baseUrl}/?q={search_term_string}`
-            },
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "Organization",
-          "@id": `${baseUrl}/#organization`,
-          "name": "Tech Tips",
-          "url": baseUrl,
-          "logo": {
-            "@type": "ImageObject",
-            "url": `${baseUrl}/og-banner.png`
-          }
-        },
-        {
-          "@type": "WebPage",
-          "@id": canonicalUrl,
-          "url": canonicalUrl,
-          "name": title,
-          "isPartOf": {
-            "@id": `${baseUrl}/#website`
-          },
-          "description": description,
-          "breadcrumb": {
-            "@id": `${canonicalUrl}#breadcrumb`
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": `${canonicalUrl}#breadcrumb`,
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": baseUrl
-            }
-          ]
-        }
-      ]
+      "@graph": structuredDataGraph
     };
 
     let scriptTag = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement | null;
@@ -143,7 +180,7 @@ export const SEO: React.FC<SEOProps> = ({
     }
     scriptTag.textContent = JSON.stringify(structuredData);
 
-  }, [title, description, keywords, ogImage, canonicalUrl, baseUrl]);
+  }, [title, description, keywords, ogImage, canonicalUrl, baseUrl, gameData]);
 
   return null;
 };

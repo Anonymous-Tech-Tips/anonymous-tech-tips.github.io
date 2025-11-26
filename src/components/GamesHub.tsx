@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from "react";
-import { Search, Gamepad2 } from "lucide-react";
+import { Search, Gamepad2, Download } from "lucide-react";
 import { games, type Game } from "@/data/games";
 import fallbackThumbnail from "@/assets/thumbnails/_fallback.png";
 import { Input } from "./ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 import { GameButton } from "./GameButton";
+import { toast } from "sonner";
 
 export const GamesHub: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,14 +29,43 @@ export const GamesHub: React.FC = () => {
 
   const popularGames = filteredGames.filter((game) => game.featured);
 
+  const exportGamesList = () => {
+    const gamesList = filteredGames.map((game, index) => 
+      `${index + 1}. ${game.title}\n   🎮 Tags: ${game.tags.join(", ")}\n   🔗 ${window.location.origin}/Anonymous-Tech-Tips/#/games/${game.id}\n`
+    ).join("\n");
+
+    const fullExport = `🎮 TECH TIPS GAMES LIST (${filteredGames.length} Games)
+Generated: ${new Date().toLocaleDateString()}
+
+${gamesList}
+
+---
+Visit Tech Tips: ${window.location.origin}/Anonymous-Tech-Tips/
+145+ Unblocked Games | Daily Rewards | Zero Downloads`;
+
+    navigator.clipboard.writeText(fullExport).then(() => {
+      toast.success(`Copied ${filteredGames.length} games to clipboard!`);
+    });
+  };
+
   return (
     <section id="games" className="py-16 bg-gamer-bg scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3 mb-8">
-          <Gamepad2 className="text-gamer-accent" size={32} />
-          <h2 className="text-3xl md:text-4xl font-rowdies font-bold text-gamer-text">
-            Games Hub
-          </h2>
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <Gamepad2 className="text-gamer-accent" size={32} />
+            <h2 className="text-3xl md:text-4xl font-rowdies font-bold text-gamer-text">
+              Games Hub
+            </h2>
+          </div>
+          <Button 
+            onClick={exportGamesList}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <Download size={18} />
+            Export List
+          </Button>
         </div>
 
         {/* Search and Filters */}
