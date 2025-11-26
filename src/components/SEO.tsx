@@ -53,6 +53,7 @@ export const SEO: React.FC<SEOProps> = ({
     updateMetaTag('keywords', keywords);
     updateMetaTag('author', 'Tech Tips');
     updateMetaTag('robots', 'index, follow');
+    updateMetaTag('googlebot', 'index, follow');
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 
     // Open Graph tags

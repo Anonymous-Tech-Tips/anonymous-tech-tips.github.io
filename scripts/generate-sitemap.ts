@@ -13,17 +13,18 @@ const baseUrl = 'https://subset28.github.io/Anonymous-Tech-Tips';
 const today = new Date().toISOString().split('T')[0];
 
 const urls = [
-  { loc: `${baseUrl}/`, lastmod: today, changefreq: 'weekly', priority: 1.0 },
-  { loc: `${baseUrl}/#/games`, lastmod: today, changefreq: 'weekly', priority: 0.9 },
-  { loc: `${baseUrl}/#/share`, lastmod: today, changefreq: 'monthly', priority: 0.8 },
-  { loc: `${baseUrl}/#/seo-setup`, lastmod: today, changefreq: 'monthly', priority: 0.8 },
-  { loc: `${baseUrl}/#/utilities`, lastmod: today, changefreq: 'monthly', priority: 0.8 },
-  { loc: `${baseUrl}/#/optimizations`, lastmod: today, changefreq: 'monthly', priority: 0.8 },
-  { loc: `${baseUrl}/#/education`, lastmod: today, changefreq: 'monthly', priority: 0.7 },
-  { loc: `${baseUrl}/#/entertainment`, lastmod: today, changefreq: 'monthly', priority: 0.7 },
+  { loc: `${baseUrl}/`, lastmod: today, changefreq: 'daily', priority: 1.0 },
+  { loc: `${baseUrl}/#/games`, lastmod: today, changefreq: 'daily', priority: 0.9 },
+  { loc: `${baseUrl}/#/share`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
+  { loc: `${baseUrl}/#/seo-setup`, lastmod: today, changefreq: 'monthly', priority: 0.7 },
+  { loc: `${baseUrl}/#/safe`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
+  { loc: `${baseUrl}/#/utilities`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
+  { loc: `${baseUrl}/#/optimizations`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
+  { loc: `${baseUrl}/#/education`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/#/entertainment`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
   { loc: `${baseUrl}/#/collections`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
-  { loc: `${baseUrl}/#/safe`, lastmod: today, changefreq: 'monthly', priority: 0.5 },
-  { loc: `${baseUrl}/#/settings`, lastmod: today, changefreq: 'monthly', priority: 0.4 },
+  { loc: `${baseUrl}/#/rewards`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
+  { loc: `${baseUrl}/#/leaderboard`, lastmod: today, changefreq: 'daily', priority: 0.7 },
 ];
 
 const itemUrls = [
