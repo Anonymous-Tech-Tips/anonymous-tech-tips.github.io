@@ -25,7 +25,7 @@ jobs:
       run: npm ci
 
     - name: Build
-      run: npm run build
+      run: npm run build && npx tsx scripts/generate-sitemap.ts
 
     - name: Verify build output
       run: |
