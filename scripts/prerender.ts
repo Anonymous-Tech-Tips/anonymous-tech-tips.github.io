@@ -99,29 +99,8 @@ function ensureDir(path: string) {
 }
 
 // Main pages to prerender
+// NOTE: Do NOT prerender the root path ('/') as it will override the React SPA's index.html entry point
 const mainPages: PrerenderedPage[] = [
-  {
-    path: '/',
-    title: 'Tech Tips - Best Unblocked Games Hub | Free Gaming Site 2025',
-    description: '🎮 #1 Unblocked Games Site! Play 145+ free games instantly - no downloads needed. Featuring Slope, Retro Bowl, 2048, utilities, PC optimization guides & more.',
-    keywords: 'unblocked games, free online games, school games unblocked, gaming hub 2025, play games online free, best unblocked games site',
-    canonical: baseUrl + '/',
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Tech Tips",
-      "url": baseUrl,
-      "description": "The best unblocked games hub with 145+ free games, utilities, and PC optimization guides.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": `${baseUrl}/?q={search_term_string}`
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-  },
   {
     path: '/games',
     title: 'Unblocked Games - Play 145+ Free Games Online | Tech Tips',
