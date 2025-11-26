@@ -31,6 +31,14 @@ export const Footer: React.FC = () => {
           >
             📋 Legal & Terms
           </Link>
+          {isAuthenticated && (
+            <Link
+              to="/seo-setup"
+              className="hover:underline text-gamer-accent"
+            >
+              🔍 SEO Setup
+            </Link>
+          )}
         </div>
         <div className="flex justify-center">
           <VisitorCounter variant="inline" />

@@ -606,6 +606,77 @@ This is a static site and can be deployed anywhere:
 - **Netlify**: Drag `docs/` folder to Netlify drop
 - **Cloudflare Pages**: Connect GitHub repo
 
+## 🔍 SEO & Google Search Console Setup
+
+### Getting Indexed on Google
+
+Visit `/#/seo-setup` on the live site for the complete interactive setup guide, or follow these steps:
+
+**Quick Setup (5 minutes):**
+
+1. **Create Google Search Console Account**
+   - Go to [Google Search Console](https://search.google.com/search-console/welcome)
+   - Sign in with your Google account
+   - Choose "URL prefix" property type
+   - Enter site URL: `https://subset28.github.io/Anonymous-Tech-Tips`
+
+2. **Verify Ownership (Meta Tag Method - Easiest for GitHub Pages)**
+   - In Search Console, select "HTML tag" verification method
+   - Copy the verification code (long random string)
+   - Add meta tag to `index.html` `<head>` section:
+   ```html
+   <meta name="google-site-verification" content="YOUR_CODE_HERE" />
+   ```
+   - Deploy changes to GitHub Pages
+   - Wait 1-2 minutes, then click "Verify" in Search Console
+
+3. **Submit Sitemap**
+   - After verification, go to "Sitemaps" in Search Console sidebar
+   - Submit sitemap URL: `https://subset28.github.io/Anonymous-Tech-Tips/sitemap.xml`
+   - Google will process it within 1-3 days
+
+4. **Request Indexing (Optional but Faster)**
+   - Use "URL Inspection" tool in Search Console
+   - Enter important URLs (homepage, popular games)
+   - Click "Request Indexing" for each
+   - Google typically indexes within 1-7 days
+
+### SEO Features Already Implemented ✅
+
+- **Structured Data (JSON-LD)**: VideoGame schema on every game page with proper metadata
+- **Sitemap.xml**: Auto-generated sitemap with 145+ game URLs and all main pages
+- **Robots.txt**: Properly configured to allow all search engine crawlers
+- **Meta Tags**: Title, description, keywords, and Open Graph tags on every page
+- **Canonical URLs**: Proper canonical links to prevent duplicate content
+- **Descriptive URLs**: Clean, keyword-rich URLs like `/games/slope`
+- **Mobile Responsive**: Fully responsive design for all devices
+- **Alt Text**: Descriptive alt attributes on all images
+- **Fast Loading**: Optimized with Vite, lazy loading, and PWA caching
+
+### Expected Timeline
+
+- **Verification**: Instant (once meta tag is deployed)
+- **Sitemap Processing**: 1-3 days
+- **First Pages Indexed**: 3-7 days
+- **Full Site Indexed**: 1-4 weeks
+- **Ranking Improvements**: 1-3 months with natural promotion
+
+### SEO Best Practices (Already Applied)
+
+1. **Content Quality**: Unique descriptions for 145+ games
+2. **Keywords**: Targeting "unblocked games", "school games unblocked", "free online games 2025"
+3. **Internal Linking**: Proper navigation structure and related games links
+4. **Page Speed**: Lighthouse score 90+ on all metrics
+5. **HTTPS**: Served securely via GitHub Pages
+6. **Social Sharing**: Open Graph tags for better link previews on Discord, Reddit, Twitter
+
+### Tools & Resources
+
+- **Sitemap**: [/sitemap.xml](https://subset28.github.io/Anonymous-Tech-Tips/sitemap.xml)
+- **Robots.txt**: [/robots.txt](https://subset28.github.io/Anonymous-Tech-Tips/robots.txt)
+- **SEO Setup Guide**: [/#/seo-setup](https://subset28.github.io/Anonymous-Tech-Tips/#/seo-setup)
+- **Share Hub**: [/#/share](https://subset28.github.io/Anonymous-Tech-Tips/#/share) (QR codes, social messages, bookmarklets)
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
