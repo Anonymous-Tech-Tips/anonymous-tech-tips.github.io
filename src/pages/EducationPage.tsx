@@ -28,13 +28,18 @@ const EducationPage = () => {
           description="Learning resources and educational content"
           items={[
             { text: "🧮 Course Grade Calculator", url: "https://www.desmos.com/calculator/wrmalnmnpj" },
+            { text: "📚 Khan Academy", url: "https://www.khanacademy.org/" },
+            { text: "🎓 Coursera - Free Courses", url: "https://www.coursera.org/" },
+            { text: "💻 Codecademy - Learn to Code", url: "https://www.codecademy.com/" },
+            { text: "🔢 Brilliant - Math & Science", url: "https://brilliant.org/" },
+            { text: "📖 SparkNotes - Study Guides", url: "https://www.sparknotes.com/" },
+            { text: "🧪 PhET Simulations", url: "https://phet.colorado.edu/" },
+            { text: "📝 Grammarly - Writing Help", url: "https://www.grammarly.com/" },
+            { text: "🌍 Duolingo - Languages", url: "https://www.duolingo.com/" },
             { text: "📺 Subject Review Channels", guide: "review-channels" },
             { text: "💻 Programming Fundamentals", guide: "programming-basics" },
             { text: "🧮 Math Resources", guide: "math-resources" },
             { text: "📚 Study Techniques", guide: "study-methods" },
-            { text: "🔬 Science Experiments", guide: "science-experiments" },
-            { text: "🌍 Language Learning", guide: "language-learning" },
-            { text: "🖥️ Tech Concepts Explained", guide: "tech-concepts" },
           ]}
         />
 
