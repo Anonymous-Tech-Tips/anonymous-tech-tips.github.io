@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import QRCodeLib from "qrcode";
+import { TopBannerAd, BottomAd } from "@/components/GoogleAd";
 
 const SharePage = () => {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
@@ -80,6 +81,8 @@ ${siteUrl}`,
       />
       <div className="min-h-screen bg-gamer-bg">
         <Navbar />
+
+        <TopBannerAd />
 
         <main className="max-w-5xl mx-auto px-4 py-12">
           <div className="text-center mb-12">
@@ -349,6 +352,8 @@ ${siteUrl}`,
               </Card>
             </TabsContent>
           </Tabs>
+
+          <BottomAd />
         </main>
 
         <Footer />

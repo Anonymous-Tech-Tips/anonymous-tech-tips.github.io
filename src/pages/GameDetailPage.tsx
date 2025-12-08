@@ -9,6 +9,7 @@ import { thumb } from '@/lib/thumb';
 import { SEO } from '@/components/SEO';
 import { similarItems } from '@/utils/similarity';
 import { openGameSandbox } from '@/utils/openGameSandbox';
+import { SidebarAd, BottomAd } from '@/components/GoogleAd';
 
 export default function GameDetailPage() {
   const { id } = useParams(); // id === slug/id in games.json
@@ -64,19 +65,23 @@ export default function GameDetailPage() {
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader><CardTitle>Similar games</CardTitle></CardHeader>
-          <CardContent className="grid gap-3">
-            {similar.map(s => (
-              <button key={s.id} className="text-left hover:bg-white/5 rounded p-2"
-                onClick={() => navigate(`/games/${s.id}`)}>
-                <div className="font-medium">{s.title}</div>
-                <div className="text-sm opacity-70">{s.tags?.slice(0,3).join(' • ')}</div>
-              </button>
-            ))}
-          </CardContent>
-        </Card>
+        <div className="space-y-6">
+          <Card>
+            <CardHeader><CardTitle>Similar games</CardTitle></CardHeader>
+            <CardContent className="grid gap-3">
+              {similar.map(s => (
+                <button key={s.id} className="text-left hover:bg-white/5 rounded p-2"
+                  onClick={() => navigate(`/games/${s.id}`)}>
+                  <div className="font-medium">{s.title}</div>
+                  <div className="text-sm opacity-70">{s.tags?.slice(0,3).join(' • ')}</div>
+                </button>
+              ))}
+            </CardContent>
+          </Card>
+          <SidebarAd />
+        </div>
       </div>
+      <BottomAd />
     </div>
   );
 }

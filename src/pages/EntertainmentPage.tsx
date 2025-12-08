@@ -7,6 +7,7 @@ import { ExternalLink, AlertTriangle, Tv, Film, Popcorn } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { motion } from "framer-motion";
 import { openGameSandbox } from "@/utils/openGameSandbox";
+import { TopBannerAd, InContentAd, BottomAd } from "@/components/GoogleAd";
 const streamingServices = [
   {
     name: "Netflix (Google Slides)",
@@ -79,6 +80,8 @@ const EntertainmentPage: React.FC = () => {
         keywords="streaming unblocked, watch tv at school, netflix unblocked, anime streaming, entertainment hub"
       />
       <Navbar />
+
+      <TopBannerAd />
       
       <main className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Hero Section */}
@@ -157,6 +160,8 @@ const EntertainmentPage: React.FC = () => {
           </Card>
         </motion.div>
 
+        <InContentAd className="mb-8" />
+
         {/* Streaming Services Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -221,6 +226,8 @@ const EntertainmentPage: React.FC = () => {
             </CardContent>
           </Card>
         </motion.div>
+
+        <BottomAd />
       </main>
 
       <Footer />

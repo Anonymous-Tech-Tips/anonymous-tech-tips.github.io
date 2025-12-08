@@ -5,6 +5,7 @@ import { ShareBanner } from "@/components/ShareBanner";
 import { ContentSection } from "@/components/ContentSection";
 import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
+import { TopBannerAd, BottomAd } from "@/components/GoogleAd";
 
 const OptimizationsPage = () => {
   return (
@@ -17,6 +18,8 @@ const OptimizationsPage = () => {
       <div className="min-h-screen bg-gamer-bg">
         <ShareBanner />
         <Navbar />
+
+        <TopBannerAd />
 
         <ContentSection
           id="pc-optimizations"
@@ -38,6 +41,8 @@ const OptimizationsPage = () => {
             { text: "🧹 System Cleanup Tools", guide: "system-cleanup" },
           ]}
         />
+
+        <BottomAd />
 
         <Footer />
       </div>

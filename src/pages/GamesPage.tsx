@@ -7,6 +7,7 @@ import { GamerHome } from "@/components/GamerHome";
 import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { AdBanner } from "@/components/AdBanner";
+import { TopBannerAd, InContentAd, BottomAd } from "@/components/GoogleAd";
 
 const GamesPage = () => {
   return (
@@ -28,13 +29,19 @@ const GamesPage = () => {
           </p>
         </div>
 
+        <TopBannerAd />
+
         <HeroBanner />
 
         <GamerHome />
 
         <AdBanner />
 
+        <InContentAd />
+
         <GamesHub />
+
+        <BottomAd />
 
         <Footer />
       </div>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trophy, Crown } from 'lucide-react';
 import { useRewards } from '@/contexts/RewardsContext';
+import { TopBannerAd, BottomAd } from '@/components/GoogleAd';
 
 const LeaderboardPage: React.FC = () => {
   const { points } = useRewards();
@@ -36,6 +37,7 @@ const LeaderboardPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen bg-gamer-bg">
+      <TopBannerAd />
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-rowdies font-bold mb-2 text-gamer-text">🏆 Leaderboard</h1>
@@ -143,6 +145,7 @@ const LeaderboardPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <BottomAd />
     </div>
   );
 };

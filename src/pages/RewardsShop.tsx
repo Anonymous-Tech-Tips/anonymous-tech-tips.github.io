@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRewardEffects } from '@/hooks/useRewardEffects';
 import { Navbar } from '@/components/Navbar';
 import { SEO } from '@/components/SEO';
+import { TopBannerAd, BottomAd } from '@/components/GoogleAd';
 
 const rewards = [
   // === PREMIUM TIER (2000+ Points) ===
@@ -337,6 +338,7 @@ const RewardsShop: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen bg-gamer-bg">
+      <TopBannerAd />
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-rowdies font-bold mb-2 text-gamer-text">Rewards Shop 🎁</h1>
         <div className="text-2xl font-semibold text-gamer-accent flex items-center justify-center gap-2">
@@ -398,6 +400,7 @@ const RewardsShop: React.FC = () => {
           </motion.div>
         ))}
       </div>
+      <BottomAd />
     </div>
   );
 };

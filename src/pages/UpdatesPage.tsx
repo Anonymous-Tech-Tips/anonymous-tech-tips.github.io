@@ -3,6 +3,7 @@ import { Calendar, ExternalLink, Github } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { TopBannerAd, BottomAd } from "@/components/GoogleAd";
 
 // Mock changelog data - in a real app, this would be loaded from a file or API
 const changelogEntries = [
@@ -90,6 +91,7 @@ const changelogEntries = [
 const UpdatesPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      <TopBannerAd />
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 font-rowdies">
@@ -163,6 +165,7 @@ const UpdatesPage = () => {
           </Card>
         </div>
       </div>
+      <BottomAd />
     </div>
   );
 };

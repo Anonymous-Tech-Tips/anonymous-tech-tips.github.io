@@ -5,6 +5,7 @@ import { ShareBanner } from "@/components/ShareBanner";
 import { ContentSection } from "@/components/ContentSection";
 import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
+import { TopBannerAd, BottomAd } from "@/components/GoogleAd";
 
 const EducationPage = () => {
   return (
@@ -17,6 +18,8 @@ const EducationPage = () => {
       <div className="min-h-screen bg-gamer-bg">
         <ShareBanner />
         <Navbar />
+
+        <TopBannerAd />
 
         <ContentSection
           id="education"
@@ -34,6 +37,8 @@ const EducationPage = () => {
             { text: "🖥️ Tech Concepts Explained", guide: "tech-concepts" },
           ]}
         />
+
+        <BottomAd />
 
         <Footer />
       </div>

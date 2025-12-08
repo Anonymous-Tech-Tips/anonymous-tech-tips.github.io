@@ -8,6 +8,7 @@ import { MusicPlayer } from '@/components/rewards/MusicPlayer';
 import { OfflineModeIndicator } from '@/components/rewards/OfflineModeIndicator';
 import { useRewardEffects } from '@/hooks/useRewardEffects';
 import { SEO } from '@/components/SEO';
+import { TopBannerAd, BottomAd } from '@/components/GoogleAd';
 
 const ProfilePage = () => {
   const { hasGameRequest, hasThemeEditor, hasGameStats, hasBackgroundMusic } = useRewardEffects();
@@ -17,6 +18,7 @@ const ProfilePage = () => {
       <SEO title="Profile | Tech Tips" description="Customize your profile and preferences" />
       <div className="min-h-screen bg-gamer-bg">
         <Navbar />
+        <TopBannerAd />
         <OfflineModeIndicator />
         <div className="max-w-7xl mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold text-gamer-text mb-8">Profile & Customization</h1>
@@ -28,6 +30,7 @@ const ProfilePage = () => {
             {hasBackgroundMusic && <MusicPlayer />}
             {hasGameRequest && <GameRequestForm />}
           </div>
+          <BottomAd />
         </div>
       </div>
     </>

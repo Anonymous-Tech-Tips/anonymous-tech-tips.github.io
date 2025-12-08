@@ -6,6 +6,7 @@ import { ContentSection } from "@/components/ContentSection";
 import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { useAuth } from "@/contexts/AuthContext";
+import { TopBannerAd, BottomAd } from "@/components/GoogleAd";
 
 const UtilitiesPage = () => {
   const { isAuthenticated } = useAuth();
@@ -43,6 +44,8 @@ const UtilitiesPage = () => {
         <ShareBanner />
         <Navbar />
 
+        <TopBannerAd />
+
         <ContentSection
           id="utilities"
           icon={Wrench}
@@ -50,6 +53,8 @@ const UtilitiesPage = () => {
           description={isAuthenticated ? "Essential tool for premium users" : "Essential tools and utilities to enhance your experience"}
           items={isAuthenticated ? loggedInItems : publicItems}
         />
+
+        <BottomAd />
 
         <Footer />
       </div>
