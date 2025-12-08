@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowLeft } from "lucide-react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -39,6 +39,15 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen bg-gamer-bg flex items-center justify-center p-4">
+      {/* Back to Home Button */}
+      <Link 
+        to="/" 
+        className="absolute top-4 left-4 flex items-center gap-2 text-gamer-muted hover:text-gamer-text transition-colors"
+      >
+        <ArrowLeft className="h-5 w-5" />
+        <span>Back to Home</span>
+      </Link>
+      
       <Card className="w-full max-w-md bg-gamer-card border-gamer-border">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-3xl font-rowdies text-gamer-text">

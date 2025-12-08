@@ -11,16 +11,12 @@ import { TopBannerAd, BottomAd } from "@/components/GoogleAd";
 const UtilitiesPage = () => {
   const { isAuthenticated } = useAuth();
 
-  const loggedInItems: Array<{ text: string; url: string }> = [
-    { text: "🛡️ uBlock Origin - The Best Adblocker", url: "https://ublockorigin.com/" },
-  ];
-
-  const publicItems: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr" }> = [
+  const loggedInItems: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr" }> = [
     { text: "🔐 Password Generator", utility: "password" },
     { text: "🎨 Color Picker", utility: "color" },
     { text: "📝 Text Converter", utility: "text" },
     { text: "📱 QR Code Generator", utility: "qr" },
-    { text: "❄️ LCPS Snow Day Predictor", url: "https://docs.google.com/spreadsheets/d/1dInwA7F-w0TB4Qy-D_463frdBPr9c21LPI4kdhktsO4/edit?gid=0#gid=0" },
+    { text: "❄️ Snow Day Predictor", url: "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/edit?usp=sharing" },
     { text: "🛡️ uBlock Origin - Best Adblocker", url: "https://ublockorigin.com/" },
     { text: "📅 LCPS School Calendars", url: "https://www.lcps.org/documents/discover-lcps/about-loudoun/calendars---loudoun-county-public-schools/629038" },
     { text: "🔍 Google Scholar - Research Papers", url: "https://scholar.google.com/" },
@@ -31,6 +27,21 @@ const UtilitiesPage = () => {
     { text: "📊 Wolfram Alpha - Computational Engine", url: "https://www.wolframalpha.com/" },
     { text: "🌐 Google Translate", url: "https://translate.google.com/" },
     { text: "🎵 Spotify Web Player", url: "https://open.spotify.com/" },
+    { text: "📖 LibGen - Free Textbooks", url: "https://libgen.is/" },
+    { text: "🎬 Internet Archive", url: "https://archive.org/" },
+  ];
+
+  const publicItems: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr" }> = [
+    { text: "🔐 Password Generator", utility: "password" },
+    { text: "🎨 Color Picker", utility: "color" },
+    { text: "📝 Text Converter", utility: "text" },
+    { text: "📱 QR Code Generator", utility: "qr" },
+    { text: "🛡️ uBlock Origin - Best Adblocker", url: "https://ublockorigin.com/" },
+    { text: "🔍 Google Scholar - Research Papers", url: "https://scholar.google.com/" },
+    { text: "📚 Khan Academy - Free Learning", url: "https://www.khanacademy.org/" },
+    { text: "⚡ Speedtest.net - Internet Speed", url: "https://www.speedtest.net/" },
+    { text: "🧮 Desmos Graphing Calculator", url: "https://www.desmos.com/calculator" },
+    { text: "🌐 Google Translate", url: "https://translate.google.com/" },
   ];
 
   return (

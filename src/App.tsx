@@ -11,7 +11,8 @@ import { RewardsProvider } from "@/contexts/RewardsContext";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CoachMarks } from "@/components/CoachMarks";
 import { OfflineModeIndicator } from "@/components/rewards/OfflineModeIndicator";
-import ThanksgivingTheme from "@/components/ThanksgivingTheme";
+import SeasonalTheme from "@/components/SeasonalTheme";
+import { SeasonalEffects } from "@/components/SeasonalEffects";
 import "./styles/thanksgiving.css";
 import Index from "./pages/Index";
 import LoginPage from "./pages/LoginPage";
@@ -122,7 +123,8 @@ const App = () => {
               <Sonner />
               <CommandPalette />
               <CoachMarks />
-              <ThanksgivingTheme />
+              <SeasonalTheme />
+              <SeasonalEffects />
               <AppContent />
             </UserPrefsProvider>
           </RewardsProvider>
