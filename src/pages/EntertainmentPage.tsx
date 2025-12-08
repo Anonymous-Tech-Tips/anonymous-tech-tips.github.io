@@ -68,28 +68,28 @@ const streamingServices = [
 // Sites requiring unblocker (starred from FMHY)
 const unblockerAnime = [
   { name: "AnimeKai", url: "https://animekai.to/", icon: "🎌", description: "Hard Subs / Dub / Auto-Next" },
-  { name: "Miruro", url: "https://miruro.tv/", icon: "✨", description: "Hard Subs / Dub / Auto-Next" },
+  { name: "Miruro", url: "https://www.miruro.com/", icon: "✨", description: "Hard Subs / Dub / Auto-Next" },
   { name: "HiAnime", url: "https://hianime.to/", icon: "🔥", description: "Sub / Dub / Auto-Next" },
 ];
 
 const unblockerShows = [
   { name: "Cineby", url: "https://cineby.app/", icon: "🎬", description: "Movies / TV / Anime / Auto-Next" },
-  { name: "Rive", url: "https://rfrsh.rive.app/", icon: "🌊", description: "Movies / TV / Anime / Auto-Next" },
-  { name: "Flixer", url: "https://flixer.vip/", icon: "📺", description: "Movies / TV / Anime / Auto-Next" },
-  { name: "VeloraTV", url: "https://veloratv.su/", icon: "⚡", description: "Movies / TV / Anime / Auto-Next" },
+  { name: "Rive", url: "https://rivestream.org/kdrama", icon: "🌊", description: "Movies / TV / Anime / Auto-Next" },
+  { name: "Flixer", url: "https://flixer.sh/", icon: "📺", description: "Movies / TV / Anime / Auto-Next" },
+  { name: "VeloraTV", url: "https://veloratv.ru/", icon: "⚡", description: "Movies / TV / Anime / Auto-Next" },
   { name: "Aether", url: "https://aether.mom/", icon: "🌌", description: "Movies / TV / Anime / Auto-Next" },
 ];
 
 const unblockerSports = [
-  { name: "SportyHunter", url: "https://sporty.hunter.net/", icon: "🏆", description: "Live Sports Aggregator" },
+  { name: "SportyHunter", url: "https://sportyhunter.com/", icon: "🏆", description: "Live Sports Aggregator" },
   { name: "Streamed", url: "https://streamed.su/", icon: "📡", description: "Live Sports Streams" },
-  { name: "DaddyLive", url: "https://daddylive.mp/", icon: "📺", description: "TV / Live Sports" },
-  { name: "SportsBite", url: "https://sportsbite.tv/", icon: "🏈", description: "Live Sports Streams" },
-  { name: "StreamEast", url: "https://streameast.app/", icon: "🌅", description: "Live Sports Aggregator" },
-  { name: "Sportsurge", url: "https://v2.sportsurge.net/", icon: "🌊", description: "Sports Aggregator" },
-  { name: "CrackStreams", url: "https://crackstreams.biz/", icon: "💥", description: "Live Sports / MMA / Boxing" },
-  { name: "NFLBite", url: "https://nflbite.com/", icon: "🏈", description: "NFL Streams" },
-  { name: "NBAMonster", url: "https://nbamonster.xyz/", icon: "🏀", description: "Basketball Streams" },
+  { name: "DaddyLive", url: "https://daddyhd.com/", icon: "📺", description: "TV / Live Sports" },
+  { name: "SportsBite", url: "https://sportsbite.live/", icon: "🏈", description: "Live Sports Streams" },
+  { name: "StreamEast", url: "https://v2.streameast.ga/", icon: "🌅", description: "Live Sports Aggregator" },
+  { name: "Sportsurge", url: "https://v2.sportsurge.net/home5/", icon: "🌊", description: "Sports Aggregator" },
+  { name: "CrackStreams", url: "https://crackstreams.li/", icon: "💥", description: "Live Sports / MMA / Boxing" },
+  { name: "NFLBite", url: "https://nflbite.digital/", icon: "🏈", description: "NFL Streams" },
+  { name: "NBAMonster", url: "https://nbamonster.com/streamlink/", icon: "🏀", description: "Basketball Streams" },
 ];
 
 const EntertainmentPage: React.FC = () => {
