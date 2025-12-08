@@ -1,16 +1,27 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Fuse from "fuse.js";
-import type { FuseResult, FuseResultMatch } from "fuse.js";
-import { Search, ArrowRight, ExternalLink, Gamepad2, Calculator, BookOpen, Hash, Star } from "lucide-react";
+import { Search, ArrowRight, Gamepad2, Calculator, BookOpen, Hash, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { games } from "@/data/games";
-import utilitiesData from "@/data/utilities.json";
-import guidesData from "@/data/guides.json";
 
-const gamesData = games;
+// Safe imports with fallbacks
+let utilitiesData: Array<{ id: string; title: string; description: string; category: string; tags: string[]; featured?: boolean }> = [];
+let guidesData: Array<{ id: string; title: string; description: string; difficulty: string; tags: string[]; featured?: boolean }> = [];
+
+try {
+  utilitiesData = require("@/data/utilities.json");
+} catch {
+  console.warn("Could not load utilities data");
+}
+
+try {
+  guidesData = require("@/data/guides.json");
+} catch {
+  console.warn("Could not load guides data");
+}
 
 interface SearchItem {
   id: string;
@@ -25,7 +36,6 @@ interface SearchItem {
 
 interface SearchResult extends SearchItem {
   score: number;
-  matches: readonly Record<string, unknown>[];
 }
 
 interface FastSearchProps {
@@ -39,40 +49,75 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const navigate = useNavigate();
 
-  // Create search index
+  // Create search index with error handling
   const searchIndex = useMemo(() => {
-    const allItems: SearchItem[] = [
-      ...gamesData.map(game => ({
-        id: game.id,
-        title: game.title,
-        description: `Play ${game.title} - ${game.tags.join(', ')}`,
-        type: 'game' as const,
-        category: game.tags[0] || 'game',
-        tags: game.tags,
-        slug: game.id,
-        featured: game.featured
-      })),
-      ...utilitiesData.map(utility => ({
-        id: utility.id,
-        title: utility.title,
-        description: utility.description,
-        type: 'utility' as const,
-        category: utility.category,
-        tags: utility.tags,
-        slug: utility.id,
-        featured: utility.featured
-      })),
-      ...guidesData.map(guide => ({
-        id: guide.id,
-        title: guide.title,
-        description: guide.description,
-        type: 'guide' as const,
-        category: guide.difficulty,
-        tags: guide.tags,
-        slug: guide.id,
-        featured: guide.featured
-      }))
-    ];
+    const allItems: SearchItem[] = [];
+
+    // Safely add games
+    try {
+      if (Array.isArray(games)) {
+        games.forEach(game => {
+          if (game?.id && game?.title) {
+            allItems.push({
+              id: game.id,
+              title: game.title,
+              description: `Play ${game.title} - ${(game.tags || []).join(', ')}`,
+              type: 'game',
+              category: game.tags?.[0] || 'game',
+              tags: game.tags || [],
+              slug: game.id,
+              featured: game.featured
+            });
+          }
+        });
+      }
+    } catch (e) {
+      console.warn("Error loading games for search:", e);
+    }
+
+    // Safely add utilities
+    try {
+      if (Array.isArray(utilitiesData)) {
+        utilitiesData.forEach(utility => {
+          if (utility?.id && utility?.title) {
+            allItems.push({
+              id: utility.id,
+              title: utility.title,
+              description: utility.description || '',
+              type: 'utility',
+              category: utility.category || 'utility',
+              tags: utility.tags || [],
+              slug: utility.id,
+              featured: utility.featured
+            });
+          }
+        });
+      }
+    } catch (e) {
+      console.warn("Error loading utilities for search:", e);
+    }
+
+    // Safely add guides
+    try {
+      if (Array.isArray(guidesData)) {
+        guidesData.forEach(guide => {
+          if (guide?.id && guide?.title) {
+            allItems.push({
+              id: guide.id,
+              title: guide.title,
+              description: guide.description || '',
+              type: 'guide',
+              category: guide.difficulty || 'guide',
+              tags: guide.tags || [],
+              slug: guide.id,
+              featured: guide.featured
+            });
+          }
+        });
+      }
+    } catch (e) {
+      console.warn("Error loading guides for search:", e);
+    }
 
     return new Fuse(allItems, {
       keys: [
@@ -83,9 +128,7 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
       ],
       threshold: 0.3,
       includeScore: true,
-      includeMatches: true,
-      minMatchCharLength: 2,
-      useExtendedSearch: true
+      minMatchCharLength: 2
     });
   }, []);
 
@@ -97,15 +140,19 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
       return;
     }
 
-    const fuseResults = searchIndex.search(query);
-    const searchResults: SearchResult[] = fuseResults.slice(0, 8).map(result => ({
-      ...result.item,
-      score: result.score || 0,
-      matches: result.matches || []
-    }));
+    try {
+      const fuseResults = searchIndex.search(query);
+      const searchResults: SearchResult[] = fuseResults.slice(0, 8).map(result => ({
+        ...result.item,
+        score: result.score || 0
+      }));
 
-    setResults(searchResults);
-    setSelectedIndex(searchResults.length > 0 ? 0 : -1);
+      setResults(searchResults);
+      setSelectedIndex(searchResults.length > 0 ? 0 : -1);
+    } catch (e) {
+      console.warn("Search error:", e);
+      setResults([]);
+    }
   }, [query, searchIndex]);
 
   // Handle keyboard navigation
@@ -149,7 +196,7 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
         path = `/utilities/${item.slug}`;
         break;
       case 'guide':
-        path = `/#guides`; // For now, guides are in education section
+        path = `/#guides`;
         break;
     }
 
@@ -247,7 +294,7 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
                             </Badge>
                           )}
                           <div className="flex gap-1">
-                            {result.tags.slice(0, 3).map(tag => (
+                            {(result.tags || []).slice(0, 3).map(tag => (
                               <Badge key={tag} className="text-xs bg-gamer-border/30 text-gamer-muted border-gamer-border">
                                 {tag}
                               </Badge>

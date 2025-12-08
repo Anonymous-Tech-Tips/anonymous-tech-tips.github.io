@@ -108,7 +108,7 @@ const EducationPage = () => {
     { text: "♟️ Chess.com - Learn Chess", url: "https://www.chess.com/learn" },
     { text: "🎹 Simply Piano - Learn Piano", url: "https://www.joytunes.com/simply-piano" },
     { text: "⌨️ TypingClub - Learn Typing", url: "https://www.typingclub.com/" },
-    { text: "🧠 Lumosity - Brain Training", url: "https://www.lumosity.com/" },
+    { text: "🧠 Lumosity - Brain Training", url: "https://app.lumosity.com/landing" },
     { text: "🔤 Vocabulary.com - Words", url: "https://www.vocabulary.com/" },
   ];
 
