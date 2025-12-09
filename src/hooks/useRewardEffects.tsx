@@ -5,6 +5,8 @@ import { useUserPrefs } from '@/contexts/UserPrefsContext';
 export const useRewardEffects = () => {
   const { purchases } = useRewards();
   const { prefs, setSetting } = useUserPrefs();
+  
+  const activeTheme = prefs.settings.activeTheme;
 
   useEffect(() => {
     // Remove all theme classes first
@@ -22,54 +24,36 @@ export const useRewardEffects = () => {
       'screen-shake-enabled'
     );
 
-    // Apply only one theme at a time (priority order)
-    if (purchases.includes('custom-theme-editor') && prefs.settings.customTheme) {
-      document.documentElement.classList.add('theme-custom');
-      // Apply custom CSS variables
-      const { primary, secondary, background } = prefs.settings.customTheme;
-      document.documentElement.style.setProperty('--custom-primary', primary);
-      document.documentElement.style.setProperty('--custom-secondary', secondary);
-      document.documentElement.style.setProperty('--custom-background', background);
-    } else if (purchases.includes('rainbow-theme')) {
-      document.documentElement.classList.add('theme-rainbow');
-    } else if (purchases.includes('neon-theme')) {
-      document.documentElement.classList.add('theme-neon');
-    } else if (purchases.includes('retro-theme')) {
-      document.documentElement.classList.add('theme-retro');
-    } else if (purchases.includes('ocean-theme')) {
-      document.documentElement.classList.add('theme-ocean');
+    // Only apply theme if user has purchased it AND has it enabled
+    if (activeTheme && purchases.includes(activeTheme)) {
+      switch (activeTheme) {
+        case 'dark-mode-pro':
+          document.documentElement.classList.add('dark-mode-pro-enabled');
+          break;
+        case 'rainbow-theme':
+          document.documentElement.classList.add('theme-rainbow');
+          break;
+        case 'neon-theme':
+          document.documentElement.classList.add('theme-neon');
+          break;
+        case 'retro-theme':
+          document.documentElement.classList.add('theme-retro');
+          break;
+        case 'ocean-theme':
+          document.documentElement.classList.add('theme-ocean');
+          break;
+        case 'custom-theme-editor':
+          if (prefs.settings.customTheme) {
+            document.documentElement.classList.add('theme-custom');
+            const { primary, secondary, background } = prefs.settings.customTheme;
+            document.documentElement.style.setProperty('--custom-primary', primary);
+            document.documentElement.style.setProperty('--custom-secondary', secondary);
+            document.documentElement.style.setProperty('--custom-background', background);
+          }
+          break;
+      }
     }
-    
-    // Apply dark mode pro
-    if (purchases.includes('dark-mode-pro')) {
-      document.documentElement.classList.add('dark-mode-pro-enabled');
-    }
-
-    // Apply particle effects
-    if (purchases.includes('particle-effects')) {
-      document.documentElement.classList.add('particles-enabled');
-    }
-
-    // Apply glowing username
-    if (purchases.includes('name-glow')) {
-      document.documentElement.classList.add('username-glow');
-    }
-
-    // Apply animated backgrounds
-    if (purchases.includes('animated-backgrounds')) {
-      document.documentElement.classList.add('animated-bg');
-    }
-
-    // Apply custom cursor
-    if (purchases.includes('custom-cursor')) {
-      document.documentElement.classList.add('custom-cursor');
-    }
-
-    // Apply screen shake
-    if (purchases.includes('screen-shake')) {
-      document.documentElement.classList.add('screen-shake-enabled');
-    }
-  }, [purchases, prefs.settings.customTheme]);
+  }, [purchases, activeTheme, prefs.settings.customTheme]);
 
   // Helper for awarding points with double points check
   const awardPoints = (amount: number, source?: string) => {
@@ -113,13 +97,13 @@ export const useRewardEffects = () => {
     hasDoublePoints: purchases.includes('double-points'),
     hasEarlyAccess: purchases.includes('early-access'),
 
-    // Themes
-    hasThemeEditor: purchases.includes('custom-theme-editor'),
-    hasRainbowTheme: purchases.includes('rainbow-theme'),
-    hasNeonTheme: purchases.includes('neon-theme'),
-    hasDarkModePro: purchases.includes('dark-mode-pro'),
-    hasRetroTheme: purchases.includes('retro-theme'),
-    hasOceanTheme: purchases.includes('ocean-theme'),
+    // Themes - check if purchased AND enabled
+    hasThemeEditor: activeTheme === 'custom-theme-editor' && purchases.includes('custom-theme-editor'),
+    hasRainbowTheme: activeTheme === 'rainbow-theme' && purchases.includes('rainbow-theme'),
+    hasNeonTheme: activeTheme === 'neon-theme' && purchases.includes('neon-theme'),
+    hasDarkModePro: activeTheme === 'dark-mode-pro' && purchases.includes('dark-mode-pro'),
+    hasRetroTheme: activeTheme === 'retro-theme' && purchases.includes('retro-theme'),
+    hasOceanTheme: activeTheme === 'ocean-theme' && purchases.includes('ocean-theme'),
 
     // Effects
     hasParticles: purchases.includes('particle-effects'),
