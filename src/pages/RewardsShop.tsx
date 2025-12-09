@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useRewards } from '@/contexts/RewardsContext';
+import { useUserPrefs } from '@/contexts/UserPrefsContext';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { useRewardEffects } from '@/hooks/useRewardEffects';
 import { Navbar } from '@/components/Navbar';
@@ -57,7 +59,10 @@ const rewards = [
 
 const RewardsShop: React.FC = () => {
   const { points, purchaseItem, purchases } = useRewards();
+  const { prefs, setSetting } = useUserPrefs();
   const rewardEffects = useRewardEffects();
+  
+  const activeTheme = prefs.settings.activeTheme || null;
 
   const handlePurchase = (itemId: string, cost: number, name: string) => {
     if (purchases.includes(itemId)) {
@@ -67,12 +72,22 @@ const RewardsShop: React.FC = () => {
 
     if (purchaseItem(itemId, cost)) {
       toast.success(`🎉 Purchased ${name}!`, {
-        description: `Your theme is now available in settings!`,
+        description: `Toggle the switch to enable it!`,
       });
     } else {
       toast.error('Not enough points!', {
         description: `You need ${cost - points} more points.`,
       });
+    }
+  };
+
+  const toggleTheme = (themeId: string) => {
+    if (activeTheme === themeId) {
+      setSetting('activeTheme', null);
+      toast.success('Theme disabled');
+    } else {
+      setSetting('activeTheme', themeId);
+      toast.success('Theme enabled!');
     }
   };
 
@@ -111,18 +126,23 @@ const RewardsShop: React.FC = () => {
                     {reward.cost} Points
                   </p>
                 </CardContent>
-                <CardFooter>
-                  <Button
-                    onClick={() => handlePurchase(reward.id, reward.cost, reward.name)}
-                    disabled={purchases.includes(reward.id)}
-                    className={`w-full transition-all ${
-                      purchases.includes(reward.id)
-                        ? 'bg-accent/80 hover:bg-accent text-gamer-card cursor-default'
-                        : 'bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card'
-                    }`}
-                  >
-                    {purchases.includes(reward.id) ? '✓ Owned' : 'Purchase'}
-                  </Button>
+                <CardFooter className="flex flex-col gap-2">
+                  {purchases.includes(reward.id) ? (
+                    <div className="w-full flex items-center justify-between">
+                      <span className="text-sm text-gamer-muted">Enable theme</span>
+                      <Switch
+                        checked={activeTheme === reward.id}
+                        onCheckedChange={() => toggleTheme(reward.id)}
+                      />
+                    </div>
+                  ) : (
+                    <Button
+                      onClick={() => handlePurchase(reward.id, reward.cost, reward.name)}
+                      className="w-full bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card"
+                    >
+                      Purchase
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             </motion.div>

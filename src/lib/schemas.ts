@@ -119,6 +119,7 @@ export const UserPrefsSchema = z.object({
       lastPlayed: z.string().optional(),
     })).optional(),
     doublePointsActiveUntil: z.string().optional(),
+    activeTheme: z.string().nullable().optional(),
   }).default({}),
   collections: z.array(CollectionSchema).default([])
 });
