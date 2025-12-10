@@ -126,18 +126,24 @@ Visit Armaan's Tech Tips: ${window.location.origin}/Anonymous-Tech-Tips/
 
         {/* Tabs */}
         <Tabs defaultValue="popular" className="w-full">
-          <TabsList className="bg-gamer-card border-gamer-border mb-6">
-            <TabsTrigger value="popular" className="data-[state=active]:bg-gamer-border data-[state=active]:text-gamer-text flex items-center gap-2">
+          <TabsList className="bg-gamer-card border border-gamer-border mb-6 p-1">
+            <TabsTrigger 
+              value="popular" 
+              className="data-[state=active]:bg-gamer-accent data-[state=active]:text-gamer-bg data-[state=inactive]:text-gamer-muted flex items-center gap-2 px-6 py-2 font-semibold transition-all"
+            >
               <TrendingUp size={16} />
-              Top 10 Popular
+              Popular
             </TabsTrigger>
-            <TabsTrigger value="all" className="data-[state=active]:bg-gamer-border data-[state=active]:text-gamer-text">
+            <TabsTrigger 
+              value="all" 
+              className="data-[state=active]:bg-gamer-accent data-[state=active]:text-gamer-bg data-[state=inactive]:text-gamer-muted px-6 py-2 font-semibold transition-all"
+            >
               All Games ({filteredGames.length})
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="popular">
-            <GameGrid games={popularGames} showPlayCount gameStats={gameStats} />
+            <GameGrid games={popularGames} gameStats={gameStats} />
             {/* Ad after popular games */}
             <InContentAd className="mt-8" />
           </TabsContent>
@@ -155,11 +161,10 @@ Visit Armaan's Tech Tips: ${window.location.origin}/Anonymous-Tech-Tips/
 
 interface GameGridProps {
   games: Game[];
-  showPlayCount?: boolean;
   gameStats?: Record<string, { playCount?: number; totalTime?: number; lastPlayed?: string }>;
 }
 
-const GameGrid: React.FC<GameGridProps> = ({ games, showPlayCount, gameStats = {} }) => {
+const GameGrid: React.FC<GameGridProps> = ({ games, gameStats = {} }) => {
   if (games.length === 0) {
     return (
       <div className="text-center py-12">
@@ -170,13 +175,11 @@ const GameGrid: React.FC<GameGridProps> = ({ games, showPlayCount, gameStats = {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {games.map((game, index) => (
+      {games.map((game) => (
         <GameCard 
           key={game.id} 
           game={game} 
-          rank={showPlayCount ? index + 1 : undefined}
           playCount={gameStats[game.id]?.playCount || 0}
-          showPlayCount={showPlayCount}
         />
       ))}
     </div>
@@ -185,21 +188,12 @@ const GameGrid: React.FC<GameGridProps> = ({ games, showPlayCount, gameStats = {
 
 interface GameCardProps {
   game: Game;
-  rank?: number;
   playCount: number;
-  showPlayCount?: boolean;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ game, rank, playCount, showPlayCount }) => {
+const GameCard: React.FC<GameCardProps> = ({ game, playCount }) => {
   return (
     <div className="group bg-gamer-card border border-gamer-border rounded-lg overflow-hidden transition-all duration-normal hover:border-gamer-accent hover:shadow-lg hover:shadow-gamer-accent/20 hover:-translate-y-1 relative">
-      {/* Rank badge for top 10 */}
-      {rank && (
-        <div className="absolute top-2 left-2 z-10 bg-gamer-accent text-gamer-bg font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
-          {rank}
-        </div>
-      )}
-      
       <div className="aspect-video overflow-hidden bg-gamer-bg">
         <img
           src={game.thumbnail || fallbackThumbnail}
@@ -212,10 +206,10 @@ const GameCard: React.FC<GameCardProps> = ({ game, rank, playCount, showPlayCoun
           <h3 className="font-semibold text-gamer-text group-hover:text-gamer-accent transition-colors duration-fast">
             {game.title}
           </h3>
-          {showPlayCount && playCount > 0 && (
+          {playCount > 0 && (
             <span className="text-xs text-gamer-muted flex items-center gap-1">
               <TrendingUp size={12} />
-              {playCount} plays
+              {playCount}
             </span>
           )}
         </div>
