@@ -1,5 +1,5 @@
 import React from "react";
-import { Wrench, Cpu, GraduationCap, MoreHorizontal, Gamepad2 } from "lucide-react";
+import { Wrench, Cpu, GraduationCap, MoreHorizontal, Gamepad2, Users } from "lucide-react";
 import { TopBannerAd, InContentAd, BottomAd } from "@/components/GoogleAd";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -15,6 +15,7 @@ import { Footer } from "@/components/Footer";
 import { SeasonalEffects } from "@/components/SeasonalEffects";
 import { ChristmasCountdown } from "@/components/ChristmasCountdown";
 import { DailyReward } from "@/components/DailyReward";
+import FriendsGallery from "@/components/FriendsGallery";
 import { hash } from "@/lib/paths";
 import { games } from "@/data/games";
 import fallbackThumbnail from "@/assets/thumbnails/_fallback.png";
@@ -184,6 +185,20 @@ const Index = () => {
                 </motion.div>
               ))}
             </div>
+          </motion.section>
+
+          {/* Friends Section */}
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-rowdies font-bold text-gamer-text text-center mb-8 flex items-center justify-center gap-3">
+              <Users className="text-gamer-accent" size={32} />
+              The Squad
+            </h2>
+            <FriendsGallery />
           </motion.section>
 
           {/* Bottom Ad */}

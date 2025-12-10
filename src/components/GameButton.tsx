@@ -1,12 +1,29 @@
 import React from "react";
 import { openGameSandbox } from "@/utils/openGameSandbox";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
+import { useUserPrefs } from "@/contexts/UserPrefsContext";
 
-export const GameButton: React.FC<{ url: string; label?: string }> = ({ url, label = "Play" }) => {
+export const GameButton: React.FC<{ url: string; label?: string; gameId?: string }> = ({ url, label = "Play", gameId }) => {
   const { playClick } = useSoundEffects();
+  const { prefs, setSetting } = useUserPrefs();
   
   const handleClick = () => {
     playClick();
+    
+    // Track play count if gameId is provided
+    if (gameId) {
+      const gameStats = prefs.settings.gameStats || {};
+      const currentStats = gameStats[gameId] || { playCount: 0, totalTime: 0 };
+      setSetting('gameStats', {
+        ...gameStats,
+        [gameId]: {
+          ...currentStats,
+          playCount: currentStats.playCount + 1,
+          lastPlayed: new Date().toISOString()
+        }
+      });
+    }
+    
     openGameSandbox(url);
   };
   
