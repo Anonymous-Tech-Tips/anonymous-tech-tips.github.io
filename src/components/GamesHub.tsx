@@ -126,17 +126,17 @@ Visit Armaan's Tech Tips: ${window.location.origin}/Anonymous-Tech-Tips/
 
         {/* Tabs */}
         <Tabs defaultValue="popular" className="w-full">
-          <TabsList className="bg-gamer-card border border-gamer-border mb-6 p-1">
+          <TabsList className="bg-gamer-card border border-gamer-border mb-6 p-1.5 gap-2">
             <TabsTrigger 
               value="popular" 
-              className="data-[state=active]:bg-gamer-accent data-[state=active]:text-gamer-bg data-[state=inactive]:text-gamer-muted flex items-center gap-2 px-6 py-2 font-semibold transition-all"
+              className="flex items-center gap-2 px-6 py-2.5"
             >
               <TrendingUp size={16} />
               Popular
             </TabsTrigger>
             <TabsTrigger 
               value="all" 
-              className="data-[state=active]:bg-gamer-accent data-[state=active]:text-gamer-bg data-[state=inactive]:text-gamer-muted px-6 py-2 font-semibold transition-all"
+              className="px-6 py-2.5"
             >
               All Games ({filteredGames.length})
             </TabsTrigger>

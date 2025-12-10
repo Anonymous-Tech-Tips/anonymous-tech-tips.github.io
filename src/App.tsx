@@ -14,6 +14,7 @@ import { CoachMarks } from "@/components/CoachMarks";
 import { OfflineModeIndicator } from "@/components/rewards/OfflineModeIndicator";
 import SeasonalTheme from "@/components/SeasonalTheme";
 import { SeasonalEffects } from "@/components/SeasonalEffects";
+import { useRewardEffects } from "@/hooks/useRewardEffects";
 import "./styles/thanksgiving.css";
 import Index from "./pages/Index";
 import LoginPage from "./pages/LoginPage";
@@ -42,6 +43,9 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
+  
+  // Initialize reward effects (themes) at app level
+  useRewardEffects();
 
   useEffect(() => {
     if (!('serviceWorker' in navigator)) return;
