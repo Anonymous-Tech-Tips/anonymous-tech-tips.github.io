@@ -6,22 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { games } from "@/data/games";
-
-// Safe imports with fallbacks
-let utilitiesData: Array<{ id: string; title: string; description: string; category: string; tags: string[]; featured?: boolean }> = [];
-let guidesData: Array<{ id: string; title: string; description: string; difficulty: string; tags: string[]; featured?: boolean }> = [];
-
-try {
-  utilitiesData = require("@/data/utilities.json");
-} catch {
-  console.warn("Could not load utilities data");
-}
-
-try {
-  guidesData = require("@/data/guides.json");
-} catch {
-  console.warn("Could not load guides data");
-}
+import utilitiesData from "@/data/utilities.json";
+import guidesData from "@/data/guides.json";
 
 interface SearchItem {
   id: string;
