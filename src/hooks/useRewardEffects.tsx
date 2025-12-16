@@ -9,7 +9,7 @@ export const useRewardEffects = () => {
   const activeTheme = prefs.settings.activeTheme;
 
   useEffect(() => {
-    // Remove all theme classes first
+    // Remove all purchased theme classes first
     document.documentElement.classList.remove(
       'theme-rainbow',
       'theme-neon',
@@ -26,6 +26,14 @@ export const useRewardEffects = () => {
 
     // Only apply theme if user has purchased it AND has it enabled
     if (activeTheme && purchases.includes(activeTheme)) {
+      // Remove seasonal themes from body when a purchased theme is active
+      document.body.classList.remove(
+        'thanksgiving-theme',
+        'christmas-theme',
+        'halloween-theme',
+        'valentines-theme'
+      );
+      
       switch (activeTheme) {
         case 'dark-mode-pro':
           document.documentElement.classList.add('dark-mode-pro-enabled');
