@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://subset28.github.io/Armaan-Tech-Tips/sitemap.xml
+Sitemap: https://anonymous-tech-tips.github.io/sitemap.xml
