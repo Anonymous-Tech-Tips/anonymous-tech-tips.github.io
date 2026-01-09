@@ -7,6 +7,7 @@ import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { TopBannerAd, BottomAd, InContentAd } from "@/components/GoogleAd";
 import { useAuth } from "@/contexts/AuthContext";
+import { NutriSnapPromo } from "@/components/NutriSnapPromo";
 
 const EducationPage = () => {
   const { isAuthenticated } = useAuth();
@@ -124,6 +125,9 @@ const EducationPage = () => {
         <Navbar />
 
         <TopBannerAd />
+
+        {/* NutriSnap Premium Promo */}
+        <NutriSnapPromo />
 
         {/* Learning Platforms */}
         <ContentSection
