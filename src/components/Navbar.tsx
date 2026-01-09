@@ -7,11 +7,15 @@ import { StreakBadge } from "./StreakBadge";
 import { Button } from "./ui/button";
 
 export const Navbar: React.FC = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [points, setPoints] = useState(() => parseInt(localStorage.getItem('rewardPoints') || '0'));
+
+  // Debug logging
+  console.log('Navbar Debug - isAuthenticated:', isAuthenticated);
+  console.log('Navbar Debug - user:', user);
 
   // Update points when localStorage changes
   React.useEffect(() => {

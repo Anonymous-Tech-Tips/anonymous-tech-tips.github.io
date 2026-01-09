@@ -184,9 +184,15 @@ export const GamerHome = () => {
             <h2 className="text-2xl font-bold flex items-center gap-2">
               <Zap className="text-yellow-400" /> Trending Now
             </h2>
-            <Link to="/games" className="text-sm text-slate-400 hover:text-white flex items-center gap-1">
+            <button
+              onClick={() => {
+                console.log('View All button clicked, navigating to /games');
+                navigate('/games');
+              }}
+              className="text-sm text-slate-400 hover:text-white flex items-center gap-1 transition-colors bg-transparent border-none cursor-pointer relative z-10"
+            >
               View all <ChevronRight size={16} />
-            </Link>
+            </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[600px] md:h-[400px]">

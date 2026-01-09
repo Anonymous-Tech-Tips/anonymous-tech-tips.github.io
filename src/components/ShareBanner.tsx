@@ -7,7 +7,7 @@ export const ShareBanner: React.FC = () => {
 
   return (
     <div
-      className={`py-3 text-center text-sm font-medium flex items-center justify-center gap-2 ${
+      className={`py-3 text-center text-sm font-medium flex items-center justify-center gap-2 relative z-10 ${
         isAuthenticated
           ? "bg-gamer-card text-gamer-text border-b border-gamer-border"
           : "bg-secondary text-secondary-foreground"
