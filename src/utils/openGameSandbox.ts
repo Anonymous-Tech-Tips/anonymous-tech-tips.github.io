@@ -1,5 +1,6 @@
 // src/utils/openGameSandbox.ts
 
+// 🔒 THE NEW SMART OPENER (Internal Logic)
 export function openSmart(url: string, forceRedirect: boolean = false) {
   if (!url || url === "#") return;
 
@@ -47,4 +48,16 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
     `);
   }
   win.document.close();
+}
+
+// 🎮 BACKWARD COMPATIBILITY EXPORT (Crucial!)
+// This fixes the crash by restoring the function your Games Pages are looking for.
+// It simply redirects to the new 'openSmart' using the default Cloaked strategy.
+export function openGameSandbox(realUrl: string) {
+  openSmart(realUrl, false); // Games usually support cloaking
+}
+
+// 📺 EXPORT FOR STREAMING
+export function openStream(realUrl: string) {
+  openSmart(realUrl, true); // Force redirect for streams by default (safer for Firefox)
 }
