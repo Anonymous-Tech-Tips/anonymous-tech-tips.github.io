@@ -191,21 +191,6 @@ export const Navbar: React.FC = () => {
 
             {/* Auth Button & Actions */}
             <div className="hidden md:flex items-center gap-2">
-              {isAuthenticated && (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/rewards"
-                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-gamer-accent/20 border border-gamer-accent/30 hover:bg-gamer-accent/30 transition-colors"
-                >
-                  <Gift className="h-4 w-4 text-amber-400" />
-                  <span className="text-sm font-bold text-amber-400">Shop</span>
-                </Link>
-                <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-gamer-accent/20 border border-gamer-accent/30">
-                  <Coins className="h-4 w-4 text-amber-400" />
-                  <span className="text-sm font-bold text-amber-400">{points}</span>
-                </div>
-              </div>
-            )}
               <StreakBadge />
               <Button
                 variant="ghost"
