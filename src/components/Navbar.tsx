@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Menu, X, Command, Coins, Gift, LogOut, Sparkles, TrendingUp, ChevronDown } from "lucide-react";
+
+import React, { useState, useEffect } from "react";
+import { Menu, X, Command, LogOut, ChevronDown, User, Sparkles } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProgression } from "@/contexts/ProgressionContext";
-import { ShareButton } from "./ShareButton";
-import { StreakBadge } from "./StreakBadge";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -14,16 +13,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Navbar: React.FC = () => {
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { progress, getCurrentRank, getLevelProgress, getNextRank } = useProgression();
-
+  const { progress, getCurrentRank } = useProgression();
   const currentRank = getCurrentRank();
-  const nextRank = getNextRank();
+  const [scrolled, setScrolled] = useState(false);
+
+  // Handle scroll effect for glass navbar
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { label: "Home", href: "/", isRoute: true },
@@ -32,7 +38,6 @@ export const Navbar: React.FC = () => {
         { label: "Games", href: "/games", requiresAuth: true, isRoute: true },
         { label: "Entertainment", href: "/entertainment", requiresAuth: true, isRoute: true },
         { label: "Utilities", href: "/utilities", requiresAuth: true, isRoute: true },
-        // Education removed from authenticated navbar
       ]
       : [
         { label: "Utilities", href: "#utilities", isRoute: false },
@@ -43,305 +48,165 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <>
-      <nav className={`sticky top-0 z-50 transition-colors duration-normal backdrop-blur-md ${isAuthenticated
-          ? "bg-gamer-card/90 border-b border-gamer-border"
-          : "bg-white/90 border-b border-slate-200"
-        }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center gap-3">
-              <Link to="/" className={`text-2xl font-bold tracking-tight ${isAuthenticated ? "text-gamer-text" : "text-slate-900"
-                }`} style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                TechTips
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || isMenuOpen
+          ? isAuthenticated
+            ? "bg-black/40 backdrop-blur-xl border-b border-white/5"
+            : "bg-white/80 backdrop-blur-md border-b border-slate-200"
+          : "bg-transparent border-b border-transparent"
+        }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+
+        {/* LOGO */}
+        <Link to="/" className="group relative z-50">
+          <h1 className={`text-2xl md:text-3xl font-bold tracking-tighter ${isAuthenticated ? "text-white" : "text-slate-900"
+            } transition-colors font-serif italic`}>
+            TechTips<span className="text-blue-500">.</span>
+          </h1>
+        </Link>
+
+        {/* DESKTOP NAV */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => {
+            if (link.requiresAuth && !isAuthenticated) return null;
+            const isActive = location.pathname === link.href;
+
+            return link.isRoute ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                className={`text-sm tracking-widest uppercase font-medium relative py-1 hover:opacity-100 transition-opacity ${isAuthenticated ? "text-white/60 hover:text-white" : "text-slate-500 hover:text-slate-900"
+                  } ${isActive ? (isAuthenticated ? "text-white opacity-100" : "text-slate-900") : ""}`}
+              >
+                {link.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="navIndicator"
+                    className={`absolute -bottom-1 left-0 right-0 h-px ${isAuthenticated ? "bg-white" : "bg-slate-900"}`}
+                  />
+                )}
               </Link>
-            </div>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`text-sm tracking-widest uppercase font-medium hover:opacity-100 transition-opacity ${isAuthenticated ? "text-white/60 hover:text-white" : "text-slate-500 hover:text-slate-900"
+                  }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
+        </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-3">
-              {isAuthenticated && (
-                <>
-                  {/* Single Primary Indicator with Dropdown */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gamer-card/80 border border-gamer-border hover:bg-gamer-card transition-colors"
-                        title="View progression details"
-                      >
-                        <span className="text-xl">{currentRank.icon}</span>
-                        <div className="flex flex-col items-start">
-                          <span className="text-xs text-gamer-muted leading-none">Lv.{progress.level}</span>
-                          <span className="text-sm font-semibold text-gamer-text leading-tight">{currentRank.name}</span>
-                        </div>
-                        <ChevronDown className="w-4 h-4 text-gamer-muted ml-1" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-72 bg-gamer-card border-gamer-border">
-                      <DropdownMenuLabel className="text-gamer-text">Your Progress</DropdownMenuLabel>
-                      <DropdownMenuSeparator className="bg-gamer-border" />
-
-                      {/* Points */}
-                      <div className="px-2 py-3 space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-gamer-muted flex items-center gap-1">
-                            <Coins className="w-4 h-4 text-yellow-500" />
-                            Points
-                          </span>
-                          <span className="text-sm font-bold text-gamer-text">{progress.totalPoints.toLocaleString()}</span>
-                        </div>
-
-                        {/* Level Progress */}
-                        <div>
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs text-gamer-muted">Level Progress</span>
-                            <span className="text-xs text-gamer-muted">{Math.round(getLevelProgress())}%</span>
-                          </div>
-                          <div className="w-full h-2 bg-gamer-bg rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-gradient-to-r from-gamer-accent to-amber-500 transition-all duration-300"
-                              style={{ width: `${getLevelProgress()}%` }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Streak */}
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-gamer-muted flex items-center gap-1">
-                            <span>🔥</span>
-                            Streak
-                          </span>
-                          <span className="text-sm font-bold text-gamer-text">{progress.streakCount} days</span>
-                        </div>
-
-                        {/* Next Rank */}
-                        {nextRank && (
-                          <div className="flex items-center justify-between pt-2 border-t border-gamer-border">
-                            <span className="text-xs text-gamer-muted">Next Rank</span>
-                            <span className="text-sm font-semibold text-gamer-text">{nextRank.icon} {nextRank.name}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <DropdownMenuSeparator className="bg-gamer-border" />
-
-                      <DropdownMenuItem
-                        onClick={() => navigate('/profile')}
-                        className="text-gamer-text hover:bg-gamer-bg cursor-pointer"
-                      >
-                        <TrendingUp className="w-4 h-4 mr-2" />
-                        View Full Stats
-                      </DropdownMenuItem>
-
-                      <DropdownMenuItem
-                        onClick={() => navigate('/shop')}
-                        className="text-gamer-text hover:bg-gamer-bg cursor-pointer"
-                      >
-                        <Sparkles className="w-4 h-4 mr-2" />
-                        Visit Shop
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </>
-              )}
-              {navLinks.map((link) => {
-                if (link.requiresAuth && !isAuthenticated) return null;
-                if (link.isRoute) {
-                  return (
-                    <Link
-                      key={link.href}
-                      to={link.href}
-                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-fast ${isAuthenticated
-                          ? "text-gamer-muted hover:text-gamer-text hover:bg-gamer-border/30"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                        }`}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                } else {
-                  return (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={(e) => {
-                        if (link.href.startsWith('#')) {
-                          e.preventDefault();
-                          const targetId = link.href.substring(1);
-                          const targetElement = document.getElementById(targetId);
-                          if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth' });
-                          }
-                        }
-                      }}
-                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-fast ${isAuthenticated
-                          ? "text-gamer-muted hover:text-gamer-text hover:bg-gamer-border/30"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                        }`}
-                    >
-                      {link.label}
-                    </a>
-                  );
-                }
-              })}
-            </div>
-
-            {/* Auth Button & Actions */}
-            <div className="hidden md:flex items-center gap-2">
-              <StreakBadge />
+        {/* ACTIONS & PROFILE */}
+        <div className="hidden md:flex items-center gap-6">
+          {isAuthenticated ? (
+            <>
               <Button
                 variant="ghost"
-                size="sm"
-                className={`text-xs ${isAuthenticated ? "text-gamer-muted hover:text-gamer-text" : "text-muted-foreground"}`}
+                size="icon"
                 onClick={() => {
-                  const event = new KeyboardEvent("keydown", {
-                    key: "k",
-                    metaKey: true,
-                    ctrlKey: true,
-                  });
+                  const event = new KeyboardEvent("keydown", { key: "k", metaKey: true, ctrlKey: true });
                   document.dispatchEvent(event);
                 }}
+                className="text-white/40 hover:text-white transition-colors"
               >
-                <Command className="h-3 w-3 mr-1" />
-                ⌘K
+                <Command className="w-5 h-5" />
               </Button>
-              <ShareButton />
-              {isAuthenticated ? (
-                <Button
-                  onClick={async () => {
-                    await logout();
-                    navigate("/");
-                  }}
-                  size="sm"
-                  variant="ghost"
-                  className="rounded-full px-4 py-1 
-                             bg-transparent border border-gamer-border 
-                             text-gamer-text 
-                             hover:bg-gamer-border/30 hover:text-gamer-accent
-                             transition-colors"
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-3 group outline-none">
+                    <div className="text-right hidden lg:block">
+                      <div className="text-[10px] uppercase tracking-widest text-white/40 group-hover:text-blue-400 transition-colors">
+                        Lv.{progress.level}
+                      </div>
+                      <div className="text-sm font-medium text-white group-hover:underline decoration-blue-500 underline-offset-4 decoration-1">
+                        {currentRank.name}
+                      </div>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl overflow-hidden group-hover:border-blue-500/50 transition-colors">
+                      {currentRank.icon}
+                    </div>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-[#0A0A0A] border-white/10 text-white/80 p-2 shadow-2xl backdrop-blur-xl">
+                  <DropdownMenuLabel className="text-[10px] uppercase tracking-widest text-white/40 mb-2">My Account</DropdownMenuLabel>
+                  <DropdownMenuItem onClick={() => navigate('/profile')} className="text-sm cursor-pointer hover:bg-white/10 hover:text-white focus:bg-white/10 focus:text-white rounded-md">
+                    <User className="w-4 h-4 mr-2" /> Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/shop')} className="text-sm cursor-pointer hover:bg-white/10 hover:text-white focus:bg-white/10 focus:text-white rounded-md">
+                    <Sparkles className="w-4 h-4 mr-2" /> Shop
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-white/10" />
+                  <DropdownMenuItem onClick={logout} className="text-sm cursor-pointer hover:bg-red-900/20 hover:text-red-400 focus:bg-red-900/20 focus:text-red-400 rounded-md text-red-500">
+                    <LogOut className="w-4 h-4 mr-2" /> Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <Link to="/login">
+              <Button className="rounded-full px-8 bg-slate-900 text-white hover:bg-slate-800 transition-all font-medium text-sm">
+                Login
+              </Button>
+            </Link>
+          )}
+        </div>
+
+        {/* MOBILE TOGGLE */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className={`md:hidden p-2 ${isAuthenticated ? "text-white" : "text-slate-900"}`}
+        >
+          {isMenuOpen ? <X /> : <Menu />}
+        </button>
+
+      </div>
+
+      {/* MOBILE MENU OVERLAY */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: '100vh' }}
+            exit={{ opacity: 0, height: 0 }}
+            className={`md:hidden absolute top-24 left-0 right-0 ${isAuthenticated ? "bg-black/95 text-white" : "bg-white/95 text-slate-900"
+              } border-t ${isAuthenticated ? "border-white/10" : "border-slate-200"} p-6 flex flex-col gap-6 backdrop-blur-xl`}
+          >
+            {navLinks.map((link) => {
+              if (link.requiresAuth && !isAuthenticated) return null;
+              return (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-2xl font-bold tracking-tight hover:opacity-50 transition-opacity"
                 >
-                  <LogOut className="h-4 w-4 mr-2" />
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            <div className="mt-auto pb-24 space-y-4">
+              {isAuthenticated ? (
+                <Button onClick={logout} variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
                   Logout
                 </Button>
               ) : (
-                <Button
-                  onClick={() => navigate("/login")}
-                  size="sm"
-                  className={isAuthenticated ? "bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card" : ""}
-                >
-                  Login
-                </Button>
+                <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full bg-slate-900 text-white">Login</Button>
+                </Link>
               )}
             </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2 rounded-md ${isAuthenticated ? "text-gamer-text" : "text-foreground"
-                }`}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden py-4 space-y-2">
-              {navLinks.map((link) => {
-                if (link.requiresAuth && !isAuthenticated) return null;
-                if (link.isRoute) {
-                  return (
-                    <Link
-                      key={link.href}
-                      to={link.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors duration-fast ${isAuthenticated
-                          ? "text-gamer-muted hover:text-gamer-text hover:bg-gamer-border/30"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                        }`}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                } else {
-                  return (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={(e) => {
-                        if (link.href.startsWith('#')) {
-                          e.preventDefault();
-                          setIsMenuOpen(false);
-                          const targetId = link.href.substring(1);
-                          const targetElement = document.getElementById(targetId);
-                          if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth' });
-                          }
-                        } else {
-                          setIsMenuOpen(false);
-                        }
-                      }}
-                      className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors duration-fast ${isAuthenticated
-                          ? "text-gamer-muted hover:text-gamer-text hover:bg-gamer-border/30"
-                          : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                        }`}
-                    >
-                      {link.label}
-                    </a>
-                  );
-                }
-              })}
-              <div className="pt-2 space-y-2">
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`flex-1 text-xs ${isAuthenticated ? "text-gamer-muted" : "text-muted-foreground"}`}
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      const event = new KeyboardEvent("keydown", {
-                        key: "k",
-                        metaKey: true,
-                        ctrlKey: true,
-                      });
-                      document.dispatchEvent(event);
-                    }}
-                  >
-                    <Command className="h-3 w-3 mr-1" />
-                    ⌘K
-                  </Button>
-                  <ShareButton size="sm" className="flex-1" />
-                </div>
-                {isAuthenticated ? (
-                  <Button
-                    onClick={async () => {
-                      await logout();
-                      navigate("/");
-                    }}
-                    size="sm"
-                    variant="ghost"
-                    className="w-full rounded-full px-4 py-1 
-                               bg-transparent border border-gamer-border 
-                               text-gamer-text 
-                               hover:bg-gamer-border/30 hover:text-gamer-accent
-                               transition-colors"
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Logout
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => navigate("/login")}
-                    size="sm"
-                    className={`w-full ${isAuthenticated ? "bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card" : ""}`}
-                  >
-                    Login
-                  </Button>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-    </>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { Wrench, Shield, Globe, Zap, Lock, Eye, FileText } from "lucide-react";
 import { ShareBanner } from "@/components/ShareBanner";
 import { ContentSection } from "@/components/ContentSection";
+import { SnowDayPredictor } from "@/components/utilities/SnowDayPredictor";
 import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { useAuth } from "@/contexts/AuthContext";
@@ -71,6 +72,11 @@ const UtilitiesPage = () => {
                 🛠️ Utilities & Tools
               </h1>
 
+              {/* Snow Day Predictor Feature */}
+              <div className="mb-12">
+                <SnowDayPredictor />
+              </div>
+
               {/* Premium Utilities */}
               <ContentSection
                 id="premium-utilities"
@@ -111,6 +117,10 @@ const UtilitiesPage = () => {
             {/* Unauthenticated view - public layout */}
             <ShareBanner />
             <TopBannerAd />
+
+            <div className="max-w-4xl mx-auto px-4 py-8">
+              <SnowDayPredictor />
+            </div>
 
             <ContentSection
               id="utilities"

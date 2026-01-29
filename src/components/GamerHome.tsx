@@ -1,9 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Gamepad2, Flame, Trophy, Zap, Play,
-  ChevronRight, Star, Clock, Search, Tv, Users
+  Play, ChevronRight, Star, Clock, Search, Zap, Users, ArrowRight
 } from "lucide-react";
 import { useUserPrefs } from "@/contexts/UserPrefsContext";
 import { TopBannerAd, InContentAd, BottomAd } from "@/components/GoogleAd";
@@ -12,7 +12,6 @@ import FriendsGallery from "@/components/FriendsGallery";
 import { games } from "@/data/games";
 import fallbackThumbnail from "@/assets/thumbnails/_fallback.png";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 export const GamerHome = () => {
   const { prefs } = useUserPrefs();
@@ -21,297 +20,263 @@ export const GamerHome = () => {
   const [randomFeatured, setRandomFeatured] = useState(games[0]);
   const [trendingGames, setTrendingGames] = useState<typeof games>([]);
 
-  // Logic: Get History & Favorites
   const continueIds = prefs.history.filter(h => h.itemType === 'game').map(h => h.itemId);
   const uniqueContinue = [...new Set(continueIds)];
   const continueItems = uniqueContinue.map(id => games.find(g => g.id === id)).filter(Boolean) as typeof games;
   const favItems = prefs.favorites.map(id => games.find(g => g.id === id)).filter(Boolean) as typeof games;
 
-  // Logic: Cycle "Featured" game & Randomize Trending
   useEffect(() => {
-    // 1. Featured Cycling
     const popular = games.filter(g => g.tags.includes('popular') || g.tags.includes('featured'));
+    if (popular.length > 0) setRandomFeatured(popular[Math.floor(Math.random() * popular.length)]);
 
-    // Initial set
-    if (popular.length > 0) {
-      setRandomFeatured(popular[Math.floor(Math.random() * popular.length)]);
-    }
-
-    // Cycle every 8 seconds
     const interval = setInterval(() => {
-      if (popular.length > 0) {
-        setRandomFeatured(popular[Math.floor(Math.random() * popular.length)]);
-      }
+      if (popular.length > 0) setRandomFeatured(popular[Math.floor(Math.random() * popular.length)]);
     }, 8000);
 
-    // 2. Trending Randomization
     const shuffled = [...games].sort(() => 0.5 - Math.random());
     setTrendingGames(shuffled.slice(0, 5));
 
     return () => clearInterval(interval);
   }, []);
 
-  // Filter for search
   const filteredGames = searchQuery
     ? games.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 6)
     : [];
 
   return (
-    <div className="min-h-screen pb-24 bg-[#121217] text-white overflow-x-hidden gamer-mode">
+    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30 overflow-x-hidden gamer-mode font-sans">
 
-      {/* 1. TOP BAR: Search & Stats */}
-      <div className="sticky top-0 z-40 bg-[#121217]/90 backdrop-blur-md border-b border-white/5 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 items-center justify-between">
+      {/* AMBIENT BACKGROUND */}
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/10 via-black to-black pointer-events-none" />
 
-          {/* Search Bar */}
-          <div className="relative w-full md:w-96 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-orange-500 transition-colors" size={18} />
-            <Input
-              placeholder="Find a game..."
-              className="bg-[#1E1E24] border-white/10 pl-10 text-white placeholder:text-slate-500 focus:border-orange-500/50 rounded-full"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {/* Search Dropdown */}
-            {searchQuery && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#1E1E24] border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
-                {filteredGames.length > 0 ? (
-                  filteredGames.map(game => (
-                    <Link
-                      key={game.id}
-                      to={`/games/${game.id}`}
-                      className="flex items-center gap-3 p-3 hover:bg-white/5 transition-colors"
-                    >
-                      <img src={game.thumbnail || fallbackThumbnail} className="w-10 h-10 rounded object-cover" />
-                      <span className="font-medium text-sm">{game.title}</span>
-                    </Link>
-                  ))
-                ) : (
-                  <div className="p-4 text-center text-slate-500 text-sm">No games found</div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Hype Stats */}
-          <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-orange-500/10 to-red-500/10 px-4 py-2 rounded-full border border-orange-500/20">
-              <Flame className="text-orange-500 fill-orange-500 animate-pulse" size={18} />
-              <span className="font-bold text-orange-400">{prefs.settings.streakCount || 0} Day Streak</span>
-            </div>
-            <DailyReward streakCount={prefs.settings.streakCount || 0} />
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-
-        {/* 2. HERO SECTION: "The Main Event" */}
+      {/* HERO SECTION - CINEMATIC */}
+      <div className="relative h-[85vh] w-full flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-24 overflow-hidden group">
+        {/* Background Image */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={randomFeatured ? randomFeatured.id : "loading"}
-            initial={{ opacity: 0, scale: 0.98 }}
+            key={randomFeatured?.id}
+            initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.5 }}
-            className="relative rounded-3xl overflow-hidden aspect-[21/9] md:aspect-[24/9] mb-12 group"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="absolute inset-0 z-0"
           >
-            {/* Background Image with Overlay */}
-            <div className="absolute inset-0">
-              <img
-                src={randomFeatured?.thumbnail || fallbackThumbnail}
-                alt="Featured"
-                className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#121217] via-[#121217]/60 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#121217] via-[#121217]/40 to-transparent" />
-            </div>
-
-            {/* Hero Content */}
-            <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-12">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">
-                  FEATURED GAME
-                </div>
-                <h1 className="text-4xl md:text-6xl font-rowdies text-white mb-4 leading-tight">
-                  {randomFeatured?.title}
-                </h1>
-                <p className="text-slate-300 max-w-xl text-lg mb-8 line-clamp-2">
-                  Join thousands of other students playing {randomFeatured?.title} right now.
-                  Experience best version unblocked and optimized.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button
-                    onClick={() => navigate(`/games/${randomFeatured?.id}`)}
-                    className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 rounded-xl text-lg font-bold shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] transition-all"
-                  >
-                    <Play className="fill-white mr-2" size={20} /> Play Now
-                  </Button>
-                  <Button
-                    onClick={() => navigate('/games')}
-                    variant="outline"
-                    className="bg-white/5 border-white/10 text-white hover:bg-white/10 px-8 py-6 rounded-xl text-lg backdrop-blur-md"
-                  >
-                    Browse All
-                  </Button>
-                </div>
-              </motion.div>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent z-10" />
+            <img
+              src={randomFeatured?.thumbnail || fallbackThumbnail}
+              className="w-full h-full object-cover opacity-60"
+              alt="Hero BG"
+            />
           </motion.div>
         </AnimatePresence>
 
-        {/* 3. ADS (Monetization) */}
-        <div className="mb-12">
-          <TopBannerAd />
-        </div>
-
-        {/* 4. CONTINUE PLAYING (Netflix Rail) */}
-        {continueItems.length > 0 && (
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-6 px-2">
-              <h2 className="text-2xl font-bold flex items-center gap-2">
-                <Clock className="text-purple-400" /> Jump Back In
-              </h2>
+        {/* Hero Content */}
+        <div className="relative z-20 max-w-4xl space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex items-center gap-4"
+          >
+            <span className="px-3 py-1 border border-white/20 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium backdrop-blur-md">
+              Spotlight
+            </span>
+            <div className="flex items-center gap-2 text-sm font-medium text-white/80">
+              <Star className="w-4 h-4 text-blue-500 fill-blue-500" />
+              <span>4.9/5 Rating</span>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {continueItems.slice(0, 6).map((game, i) => (
-                <GameCard key={game.id} game={game} index={i} />
-              ))}
-            </div>
-          </section>
-        )}
+          </motion.div>
 
-        {/* 5. QUICK CATEGORY PILLS */}
-        <div className="flex flex-wrap gap-3 mb-12">
-          {['Action', 'Racing', 'Sports', 'Multiplayer', 'Strategy'].map((tag) => (
-            <Link
-              key={tag}
-              to={`/games?category=${tag.toLowerCase()}`}
-              className="px-6 py-3 rounded-xl bg-[#1E1E24] border border-white/5 text-slate-300 font-medium hover:bg-white/10 hover:text-white hover:border-orange-500/30 transition-all"
+          <motion.h1
+            key={randomFeatured?.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-6xl md:text-8xl lg:text-9xl font-serif italic font-bold tracking-tighter leading-[0.85] text-white mix-blend-overlay"
+          >
+            {randomFeatured?.title}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            transition={{ delay: 0.5 }}
+            className="text-lg md:text-xl font-light text-white/80 max-w-xl leading-relaxed"
+          >
+            Experience the next evolution of browser gaming. High performance, zero latency, and fully unblocked access.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="flex flex-wrap gap-4 pt-4"
+          >
+            <Button
+              onClick={() => navigate(`/games/${randomFeatured?.id}`)}
+              className="h-14 px-8 rounded-full bg-white text-black hover:bg-slate-200 transition-colors text-base font-bold flex items-center gap-2"
             >
-              {tag}
-            </Link>
-          ))}
-          <Link to="/entertainment" className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-500/30 text-purple-200 font-bold hover:shadow-[0_0_15px_rgba(168,85,247,0.2)] transition-all flex items-center gap-2">
-            <Tv size={18} /> Movies & TV
-          </Link>
+              <Play className="fill-black w-4 h-4" /> Play Now
+            </Button>
+            <Button
+              onClick={() => navigate('/games')}
+              variant="outline"
+              className="h-14 px-8 rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-md transition-all text-base font-medium"
+            >
+              Explore Collection
+            </Button>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* DASHBOARD CONTENT */}
+      <div className="relative z-20 max-w-[1600px] mx-auto px-6 py-24 space-y-32">
+
+        {/* SEARCH & FILTERS */}
+        <div className="flex flex-col md:flex-row gap-8 items-end justify-between border-b border-white/10 pb-8">
+          <div className="relative w-full max-w-md group">
+            <Search className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 text-white/40 group-focus-within:text-white transition-colors" />
+            <input
+              type="text"
+              placeholder="Search library..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-transparent border-none text-3xl font-light text-white placeholder-white/20 focus:ring-0 px-12 py-2"
+            />
+            {searchQuery && (
+              <div className="absolute top-full left-0 right-0 mt-4 bg-[#0A0A0A] border border-white/10 rounded-xl overflow-hidden z-50">
+                {filteredGames.length > 0 ? filteredGames.map(game => (
+                  <Link to={`/games/${game.id}`} key={game.id} className="flex items-center gap-4 p-4 hover:bg-white/5 transition-colors">
+                    <img src={game.thumbnail} className="w-12 h-12 object-cover rounded" />
+                    <span className="text-lg font-medium">{game.title}</span>
+                  </Link>
+                )) : <div className="p-4 text-white/40">No results found.</div>}
+              </div>
+            )}
+          </div>
+          <div className="flex gap-2 text-sm font-medium text-white/60">
+            {['Action', 'Strategy', 'Racing', 'RPG'].map(tag => (
+              <Link key={tag} to={`/games?category=${tag.toLowerCase()}`} className="px-4 py-2 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all">
+                {tag}
+              </Link>
+            ))}
+          </div>
         </div>
 
-        {/* 6. TRENDING GRID (Bento Style) */}
-        {trendingGames.length >= 5 && (
-          <section className="mb-16">
-            <div className="flex items-center justify-between mb-6 px-2">
-              <h2 className="text-2xl font-bold flex items-center gap-2">
-                <Zap className="text-yellow-400" /> Trending Now
-              </h2>
-              <button
-                onClick={() => {
-                  console.log('View All button clicked, navigating to /games');
-                  navigate('/games');
-                }}
-                className="text-sm text-slate-400 hover:text-white flex items-center gap-1 transition-colors bg-transparent border-none cursor-pointer relative z-10"
-              >
-                View all <ChevronRight size={16} />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[600px] md:h-[400px]">
-              {/* Big Trending Item - Using first item from shuffled list */}
-              <div className="md:col-span-2 md:row-span-2 relative group rounded-2xl overflow-hidden cursor-pointer border border-white/5" onClick={() => navigate(`/games/${trendingGames[0].id}`)}>
-                <img src={trendingGames[0].thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 p-6">
-                  <div className="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded mb-2 inline-block">HOT</div>
-                  <h3 className="text-3xl font-rowdies">{trendingGames[0].title}</h3>
-                  <p className="text-slate-300 text-sm line-clamp-1">{trendingGames[0].tags.join(" • ")}</p>
-                </div>
+        {/* CONTINUE PLAYING */}
+        {continueItems.length > 0 && (
+          <section className="space-y-8">
+            <div className="flex items-end justify-between">
+              <h2 className="text-4xl md:text-5xl font-serif italic font-bold">Jump Back In</h2>
+              <div className="flex items-center gap-2 text-sm text-white/40 uppercase tracking-widest">
+                <Clock className="w-4 h-4" /> Recent Activity
               </div>
-
-              {/* Smaller Items - Using next 4 items */}
-              {trendingGames.slice(1, 5).map((game) => (
-                <div key={game.id} className="relative group rounded-2xl overflow-hidden cursor-pointer border border-white/5" onClick={() => navigate(`/games/${game.id}`)}>
-                  <img src={game.thumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                  <div className="absolute bottom-0 left-0 p-4">
-                    <h3 className="font-bold truncate">{game.title}</h3>
-                  </div>
-                </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {continueItems.slice(0, 6).map((game, i) => (
+                <MinimalCard key={game.id} game={game} index={i} />
               ))}
             </div>
           </section>
         )}
 
-        <InContentAd />
+        {/* TRENDING BENTO GRID */}
+        <section className="space-y-8">
+          <div className="flex items-end justify-between">
+            <h2 className="text-4xl md:text-5xl font-serif italic font-bold">Trending Now</h2>
+            <Link to="/games" className="group flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
+              VIEW ALL <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
 
-        {/* 7. THE SQUAD (Social Proof) */}
-        <section className="mb-16 bg-[#1A1C2C] rounded-3xl p-8 border border-white/5 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10">
-            <h2 className="text-2xl font-bold flex items-center gap-2 mb-6">
-              <Users className="text-blue-400" /> The Squad
-            </h2>
-            <FriendsGallery />
-            <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10 flex items-center justify-between">
-              <div>
-                <h4 className="font-bold text-orange-400">Invite Friends</h4>
-                <p className="text-xs text-slate-400">Earn 500 points for every referral.</p>
+          <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-[600px]">
+            {/* MAIN FEATURE */}
+            {trendingGames.length > 0 && trendingGames[0] ? (
+              <div
+                onClick={() => navigate(`/games/${trendingGames[0].id}`)}
+                className="md:col-span-2 md:row-span-2 relative group rounded-md overflow-hidden bg-white/5 cursor-pointer"
+              >
+                <img src={trendingGames[0].thumbnail || fallbackThumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
+                <div className="absolute bottom-8 left-8 space-y-2">
+                  <div className="px-2 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-widest inline-block">Popular</div>
+                  <h3 className="text-4xl font-serif italic">{trendingGames[0].title}</h3>
+                </div>
               </div>
-              <Button size="sm" className="bg-white text-black hover:bg-slate-200">Copy Link</Button>
+            ) : (
+              <div className="md:col-span-2 md:row-span-2 bg-white/5 animate-pulse rounded-md" />
+            )}
+
+            {/* SECONDARY ITEMS */}
+            {trendingGames.slice(1, 5).map((game) => (
+              <div
+                key={game.id}
+                onClick={() => navigate(`/games/${game.id}`)}
+                className="relative group rounded-md overflow-hidden bg-white/5 cursor-pointer"
+              >
+                <img src={game.thumbnail || fallbackThumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
+                <div className="absolute bottom-4 left-4">
+                  <h3 className="text-xl font-medium">{game.title}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SOCIAL PROOF / SQUAD */}
+        <section className="border-t border-white/10 pt-24">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-serif italic font-bold">The Squad</h2>
+              <p className="text-white/60 leading-relaxed font-light text-lg">
+                See what your friends are playing, compete for high scores, and earn daily rewards for maintaining your streak.
+              </p>
+              <div className="flex items-center gap-4 pt-4">
+                <div className="text-center px-6 py-4 border border-white/10 rounded-xl bg-white/5">
+                  <div className="text-3xl font-light">{prefs.settings.streakCount}</div>
+                  <div className="text-[10px] uppercase tracking-widest text-white/40">Day Streak</div>
+                </div>
+                <DailyReward streakCount={prefs.settings.streakCount || 0} />
+              </div>
+            </div>
+            <div className="lg:col-span-2 bg-[#0A0A0A] border border-white/10 rounded-2xl p-8">
+              <FriendsGallery />
             </div>
           </div>
         </section>
 
-        {/* 8. FAVORITES */}
-        {favItems.length > 0 && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold flex items-center gap-2 mb-6 px-2">
-              <Star className="text-yellow-400 fill-yellow-400" /> Your Favorites
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {favItems.map((game, i) => (
-                <GameCard key={game.id} game={game} index={i} />
-              ))}
-            </div>
-          </section>
-        )}
-
       </div>
-      <BottomAd />
+
+      <div className="max-w-7xl mx-auto px-6 pb-12">
+        <BottomAd />
+      </div>
+
     </div>
   );
 };
 
-// --- PRETTY CARD COMPONENT ---
-const GameCard = ({ game, index }: { game: any, index: number }) => (
+// MINI CARD COMPONENT
+const MinimalCard = ({ game, index }: { game: any, index: number }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: index * 0.05 }}
+    transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+    className="group cursor-pointer"
   >
-    <Link
-      to={`/games/${game.id}`}
-      className="group relative block bg-[#1E1E24] rounded-xl overflow-hidden border border-white/5 hover:border-orange-500/50 transition-all duration-300 hover:shadow-[0_0_20px_rgba(249,115,22,0.2)] hover:-translate-y-1"
-    >
-      <div className="aspect-[16/9] overflow-hidden">
+    <Link to={`/games/${game.id}`} className="block space-y-4">
+      <div className="aspect-[3/4] overflow-hidden rounded-sm bg-white/5 relative">
         <img
           src={game.thumbnail || fallbackThumbnail}
           alt={game.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 opacity-80 group-hover:opacity-100"
         />
-        {/* Hover Play Button Overlay */}
-        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-          <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300">
-            <Play className="fill-white text-white ml-1" size={16} />
-          </div>
-        </div>
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
       </div>
-      <div className="p-3">
-        <h3 className="font-bold text-sm text-slate-200 group-hover:text-white truncate">{game.title}</h3>
-        <p className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-1">{game.tags[0]}</p>
+      <div>
+        <h3 className="text-lg font-medium leading-none group-hover:text-blue-400 transition-colors">{game.title}</h3>
+        <p className="text-xs text-white/40 mt-2 uppercase tracking-wider">{game.tags[0]}</p>
       </div>
     </Link>
   </motion.div>

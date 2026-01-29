@@ -14,6 +14,7 @@ import { Footer } from "@/components/Footer";
 import { useAuth } from "@/contexts/AuthContext";
 import { GamerHome } from "@/components/GamerHome";
 import { toast } from "sonner";
+import { SnowDayPredictor } from "@/components/utilities/SnowDayPredictor";
 
 // --- 🏫 PUBLIC ACADEMIC PAGE ---
 
@@ -106,31 +107,31 @@ const AcademicHome = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-sm font-semibold border border-teal-100">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-sm font-bold border border-teal-200 shadow-sm">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-600"></span>
               </span>
               Academic Portal v2.4 Live
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
               Accelerate Your <br />
-              <span className="text-teal-700">Learning Potential</span>
+              <span className="text-teal-700 decoration-teal-300/30 underline decoration-4 underline-offset-4">Learning Potential</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-xl leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-700 max-w-xl leading-relaxed font-medium">
               Access essential tools, curated research databases, and study optimization resources.
               Designed for the modern scholar.
             </p>
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button
                 onClick={scrollToResources}
                 size="lg"
-                className="bg-teal-700 hover:bg-teal-800 text-white rounded-md px-8 h-14 text-lg shadow-sm transition-all hover:shadow-lg"
+                className="bg-teal-700 hover:bg-teal-800 text-white rounded-lg px-8 h-14 text-lg font-bold shadow-teal-900/10 shadow-lg transition-all hover:-translate-y-1"
               >
                 Explore Resources
               </Button>
               <Link to="/login">
-                <Button variant="outline" size="lg" className="bg-white border-slate-300 text-slate-900 h-14 px-8 text-lg hover:bg-slate-50 transition-all">
+                <Button variant="outline" size="lg" className="bg-white border-slate-300 text-slate-800 font-semibold h-14 px-8 text-lg hover:bg-slate-50 transition-all border-2">
                   Student Portal Login
                 </Button>
               </Link>
@@ -143,56 +144,66 @@ const AcademicHome = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden"
+            className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden ring-1 ring-slate-900/5"
           >
-            <div className="bg-slate-100 px-6 py-3 border-b border-slate-200 flex items-center gap-2">
+            <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center gap-2">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-slate-300"></div>
-                <div className="w-3 h-3 rounded-full bg-slate-300"></div>
-                <div className="w-3 h-3 rounded-full bg-slate-300"></div>
+                <div className="w-3 h-3 rounded-full bg-red-400 shadow-sm"></div>
+                <div className="w-3 h-3 rounded-full bg-amber-400 shadow-sm"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400 shadow-sm"></div>
               </div>
-              <span className="text-xs font-medium text-slate-500 ml-2">Quick Tools</span>
+              <span className="text-sm font-semibold text-slate-600 ml-2">Quick Tools</span>
             </div>
 
             <Tabs defaultValue="timer" className="w-full">
-              <TabsList className="w-full grid grid-cols-3 bg-slate-50 p-1 border-b border-slate-200">
-                <TabsTrigger value="timer" className="data-[state=active]:bg-white data-[state=active]:shadow-sm text-xs md:text-sm">Focus Timer</TabsTrigger>
-                <TabsTrigger value="calc" className="data-[state=active]:bg-white data-[state=active]:shadow-sm text-xs md:text-sm">Grade Calc</TabsTrigger>
-                <TabsTrigger value="cite" className="data-[state=active]:bg-white data-[state=active]:shadow-sm text-xs md:text-sm">Citation</TabsTrigger>
+              <TabsList className="w-full grid grid-cols-4 bg-slate-100 p-1 border-b border-slate-200 h-auto">
+                {/* TABS UPDATED FOR BETTER READABILITY */}
+                <TabsTrigger value="timer" className="py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-teal-700 text-slate-600 font-semibold text-xs md:text-sm">Focus Timer</TabsTrigger>
+                <TabsTrigger value="calc" className="py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-teal-700 text-slate-600 font-semibold text-xs md:text-sm">Grade Calc</TabsTrigger>
+                <TabsTrigger value="cite" className="py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-teal-700 text-slate-600 font-semibold text-xs md:text-sm">Citation</TabsTrigger>
+                <TabsTrigger value="snow" className="py-2.5 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 text-slate-600 font-semibold text-xs md:text-sm">Snow Day</TabsTrigger>
               </TabsList>
+
+              {/* SNOW DAY PREDICTOR */}
+              <TabsContent value="snow" className="p-0">
+                <div className="h-[400px]">
+                  <SnowDayPredictor />
+                </div>
+              </TabsContent>
 
               {/* POMODORO */}
               <TabsContent value="timer" className="p-8 text-center space-y-6">
-                <div className="text-6xl font-mono font-bold text-slate-800 tracking-wider">
+                <div className="text-7xl font-mono font-bold text-slate-800 tracking-wider tabular-nums">
                   {formatTime(timeLeft)}
                 </div>
                 <div className="flex justify-center gap-4">
                   <Button
                     onClick={() => setIsActive(!isActive)}
-                    className={isActive ? "bg-amber-600 hover:bg-amber-700 text-white" : "bg-teal-600 hover:bg-teal-700 text-white"}
+                    className={`font-bold text-lg px-8 h-12 ${isActive ? "bg-amber-600 hover:bg-amber-700 text-white" : "bg-teal-600 hover:bg-teal-700 text-white"}`}
                   >
                     {isActive ? "Pause Session" : "Start Focus"}
                   </Button>
-                  <Button variant="outline" onClick={() => { setIsActive(false); setTimeLeft(25 * 60); }}>
+                  <Button variant="outline" className="font-semibold text-slate-700 border-slate-300 h-12 px-6" onClick={() => { setIsActive(false); setTimeLeft(25 * 60); }}>
                     Reset
                   </Button>
                 </div>
-                <p className="text-xs text-slate-400">Standard Pomodoro: 25m Focus / 5m Break</p>
+                <p className="text-sm font-medium text-slate-500">Standard Pomodoro: 25m Focus / 5m Break</p>
               </TabsContent>
 
               {/* GRADE CALC */}
-              <TabsContent value="calc" className="p-6 space-y-4">
-                <div className="space-y-2">
-                  <div className="flex gap-2 text-sm text-slate-500 font-medium">
+              <TabsContent value="calc" className="p-6 space-y-5">
+                <div className="space-y-3">
+                  <div className="flex gap-2 text-sm text-slate-700 font-bold">
                     <span className="flex-1">Grade (0-100)</span>
-                    <span className="w-20">Weight</span>
+                    <span className="w-24">Weight (0-1.0)</span>
                   </div>
                   {grades.map((g, i) => (
                     <div key={i} className="flex gap-2">
                       <Input
-                        placeholder="95"
+                        placeholder="e.g. 95"
                         value={g.grade}
                         type="number"
+                        className="font-medium text-slate-900 placeholder:text-slate-400 border-slate-300 focus:border-teal-500"
                         onChange={(e) => {
                           const newGrades = [...grades];
                           newGrades[i].grade = e.target.value;
@@ -201,7 +212,7 @@ const AcademicHome = () => {
                       />
                       <Input
                         placeholder="1.0"
-                        className="w-20"
+                        className="w-24 font-medium text-slate-900 placeholder:text-slate-400 border-slate-300 focus:border-teal-500"
                         value={g.weight}
                         type="number"
                         onChange={(e) => {
@@ -212,32 +223,33 @@ const AcademicHome = () => {
                       />
                     </div>
                   ))}
-                  <Button variant="link" onClick={() => setGrades([...grades, { grade: '', weight: '' }])} className="text-teal-600 h-auto p-0 text-xs">
-                    + Add Course
+                  <Button variant="link" onClick={() => setGrades([...grades, { grade: '', weight: '' }])} className="text-teal-700 font-bold h-auto p-0 text-sm hover:text-teal-800">
+                    + Add Another Course
                   </Button>
                 </div>
-                <div className="flex justify-between items-center bg-slate-100 p-3 rounded-lg border border-slate-200">
-                  <Button onClick={calculateGPA} size="sm" className="bg-slate-800 hover:bg-slate-900 text-white">Calculate</Button>
+                <div className="flex justify-between items-center bg-slate-100 p-4 rounded-xl border border-slate-200">
+                  <Button onClick={calculateGPA} size="sm" className="bg-slate-900 hover:bg-black text-white px-6 font-bold">Calculate GPA</Button>
                   <div className="text-right">
-                    <span className="text-xs text-slate-500 block uppercase tracking-wide">Weighted GPA (4.0)</span>
-                    <span className="text-xl font-bold text-teal-700">{gpa !== null ? gpa.toFixed(2) : '--'}</span>
+                    <span className="text-xs text-slate-500 block uppercase tracking-wide font-bold">Weighted GPA</span>
+                    <span className="text-2xl font-black text-teal-700">{gpa !== null ? gpa.toFixed(2) : '--'}</span>
                   </div>
                 </div>
               </TabsContent>
 
               {/* CITATION */}
-              <TabsContent value="cite" className="p-6 space-y-4">
-                <div className="space-y-3">
-                  <div className="space-y-1">
-                    <label className="text-xs font-semibold text-slate-500">Source URL</label>
+              <TabsContent value="cite" className="p-6 space-y-5">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">Source URL</label>
                     <Input
                       placeholder="https://www.example.com/article"
                       value={citeUrl}
+                      className="border-slate-300 text-slate-900 focus:border-teal-500"
                       onChange={(e) => setCiteUrl(e.target.value)}
                     />
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-semibold text-slate-500">Style</label>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700">Citation Style</label>
                     <div className="flex gap-2">
                       {["MLA 9", "APA 7", "Chicago"].map((style) => (
                         <Button
@@ -245,7 +257,7 @@ const AcademicHome = () => {
                           onClick={() => setCiteStyle(style)}
                           variant="outline"
                           size="sm"
-                          className={`flex-1 ${citeStyle === style ? "bg-teal-50 border-teal-200 text-teal-700" : ""}`}
+                          className={`flex-1 font-semibold ${citeStyle === style ? "bg-teal-50 border-teal-500 text-teal-800 ring-1 ring-teal-500" : "text-slate-600 border-slate-300"}`}
                         >
                           {style}
                         </Button>
@@ -254,9 +266,9 @@ const AcademicHome = () => {
                   </div>
                   <Button
                     onClick={handleCitation}
-                    className="w-full bg-slate-800 hover:bg-slate-900 text-white mt-2"
+                    className="w-full bg-slate-900 hover:bg-black text-white mt-2 h-12 font-bold text-base"
                   >
-                    <Copy className="w-4 h-4 mr-2" /> Generate & Copy
+                    <Copy className="w-5 h-5 mr-2" /> Generate & Copy Citation
                   </Button>
                 </div>
               </TabsContent>
@@ -265,35 +277,36 @@ const AcademicHome = () => {
         </div>
       </section>
 
-      {/* --- ORIGINAL EDUCATIONAL CONTENT SECTION --- */}
-      <section id="education" className="max-w-7xl mx-auto px-6 py-16 scroll-mt-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-slate-900 mb-3">Master Your Learning Journey</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Evidence-based study techniques and comprehensive guides to help you learn more effectively
+      {/* --- CONTENT SECTIONS (Updated for Contrast) --- */}
+      <section id="education" className="max-w-7xl mx-auto px-6 py-20 scroll-mt-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Master Your Learning Journey</h2>
+          <p className="text-xl text-slate-700 max-w-2xl mx-auto font-medium">
+            Evidence-based study techniques and comprehensive guides to help you learn more effectively.
           </p>
         </div>
 
         {/* Study Techniques Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
 
           {/* The Feynman Technique */}
-          <Card className="bg-white border-slate-200 shadow-sm">
+          <Card className="bg-white border-slate-200 shadow-md hover:shadow-xl transition-shadow duration-300">
             <CardHeader>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0">
-                  <BookOpen className="h-5 w-5 text-teal-600" />
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="h-6 w-6 text-teal-700" />
                 </div>
                 <div>
-                  <CardTitle className="text-xl font-bold text-slate-900">The Feynman Technique</CardTitle>
-                  <p className="text-sm text-slate-500 mt-1">Learn by Teaching</p>
+                  <CardTitle className="text-2xl font-bold text-slate-900">The Feynman Technique</CardTitle>
+                  <p className="text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wide">Learn by Teaching</p>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-slate-900 leading-relaxed">
-                Named after Nobel Prize-winning physicist Richard Feynman, this technique helps you truly understand concepts by explaining them in simple terms. It's one of the most powerful learning methods available.
+            <CardContent className="space-y-5">
+              <p className="text-slate-700 leading-relaxed text-base font-medium">
+                Named after Nobel Prize-winning physicist Richard Feynman, this technique helps you truly understand concepts by explaining them in simple terms.
               </p>
+
               <div className="space-y-3">
                 <h4 className="font-semibold text-slate-900">How to Use It:</h4>
                 <ol className="space-y-2 text-sm text-slate-900">

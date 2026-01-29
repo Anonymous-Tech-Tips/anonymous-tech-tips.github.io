@@ -81,43 +81,78 @@ All colors MUST be HSL.
 
     /* Premium Spacing Scale */
     --space-1: 0.25rem;
-    /* 4px */
     --space-2: 0.5rem;
-    /* 8px */
     --space-3: 0.75rem;
-    /* 12px */
     --space-4: 1rem;
-    /* 16px */
     --space-6: 1.5rem;
-    /* 24px */
     --space-8: 2rem;
-    /* 32px */
     --space-12: 3rem;
-    /* 48px */
     --space-16: 4rem;
-    /* 64px */
     --space-20: 5rem;
-    /* 80px */
-    --space-24: 6rem;
-    /* 96px */
-    --space-32: 8rem;
-    /* 128px */
 
-    /* Smooth Easing Functions */
-    --ease-in: cubic-bezier(0.4, 0, 1, 1);
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Animation Easings */
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  }
 
-    /* Animations */
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* PREMIUM LUXURY MODE (Replaces previous "Gamer" aesthetic) */
+  .gamer-mode {
+    /* Deep Ambient Black Backgrounds */
+    --background: 240 10% 3.9%;
+    /* #09090b - Zinc 950 */
+    --foreground: 0 0% 98%;
+    /* White */
+
+    /* Glass Panels */
+    --card: 240 10% 4%;
+    /* Near black */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Accents - Subtle Blue/Purple Glow */
+    --primary: 217 91% 60%;
+    /* Electric Blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 20%;
+    /* Dark Grey */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 6% 15%;
+    /* Very subtle borders */
+    --input: 240 6% 15%;
+    --ring: 240 5% 65%;
+
+    /* Specific "Gamer" variables mapped to Premium */
+    --gamer-bg: 0 0% 3%;
+    /* #080808 */
+    --gamer-text: 0 0% 95%;
+    --gamer-accent: 217 91% 60%;
+    --gamer-card: 0 0% 0%;
+    /* Pure black for cards */
+    --gamer-border: 0 0% 12%;
+    --gamer-muted: 0 0% 40%;
+
+    /* Typography Overrides for Premium Feel */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
   }
 
   /* Christmas Theme - Dec 1 - Jan 6 */
   .christmas-theme {
+    /* ... existing christmas theme ... */
+
     --background: 120 30% 97%;
     --foreground: 150 40% 15%;
     --card: 40 40% 97%;
