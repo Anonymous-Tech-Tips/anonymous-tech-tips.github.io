@@ -564,4 +564,20 @@ All colors MUST be HSL.
     padding: 0.2em 0.4em;
     border-radius: 0.25rem;
   }
+
+  /* Gamer Mode Overrides - Reset to Sans-Serif */
+  .gamer-mode h1,
+  .gamer-mode h2,
+  .gamer-mode h3,
+  .gamer-mode h4,
+  .gamer-mode h5,
+  .gamer-mode h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: normal;
+  }
+
+  .gamer-mode .font-rowdies {
+    font-family: 'Rowdies', cursive;
+    letter-spacing: 0.05em;
+  }
 }

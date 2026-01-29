@@ -103,7 +103,7 @@ const AppContent = () => {
       <CommandPalette />
       <PWAInstallPrompt />
       <CoachMarks />
-      <div className="relative min-h-screen">
+      <div className={`relative min-h-screen ${isAuthenticated ? 'gamer-mode' : ''}`}>
         <OfflineModeIndicator />
         <Routes>
           {/* Routes WITHOUT Layout (no navbar) */}
