@@ -154,6 +154,15 @@ export const SnowDayPredictor = () => {
         // Apply User Factors
         rawScore = (rawScore * budgetMultiplier) + sentimentBonus + safetyBonus;
 
+        // --- CALC PROBABILITY (PERCENTAGE) ---
+        // Score of 40 is basically a lock (4" snow). Map 0-40 to 0-99%.
+        // Sigmoid-ish map so small scores don't look scary.
+        let chance = Math.min(99, Math.round((rawScore / 40) * 100));
+        if (chance < 1) chance = 1;
+
+        // Overrides
+        if (existingDepth > 10 || userFactors.roadStatus === 'icy' || userFactors.roadStatus === 'unplowed') chance = 99;
+
         // --- STATUS MAPPING ---
         let status = "Business as Usual";
         let subtext = "School is likely to open on time.";
@@ -195,6 +204,7 @@ export const SnowDayPredictor = () => {
                 spread: spreadIn.toFixed(1),
                 tempMin: minTempF.toFixed(0),
                 windMax: Math.max(...hourlyGusts).toFixed(0),
+                chance: chance.toString() // Pass percentage
             }
         };
     };
@@ -205,11 +215,12 @@ export const SnowDayPredictor = () => {
         let confidence = "High";
         let reasons = [];
         const score = parseFloat(result.metrics.rawScore || "0");
+        const chance = parseInt(result.metrics.chance || "0");
 
-        if (score > 35) {
+        if (score > 35 || chance > 85) {
             headline = "SNOW DAY!";
             confidence = "High";
-        } else if (score > 15) {
+        } else if (score > 15 || chance > 40) {
             headline = "Delay / Closing Likely";
             confidence = "Medium";
         } else if (score > 5) {
@@ -443,11 +454,16 @@ export const SnowDayPredictor = () => {
                                     <div className="space-y-6">
                                         <div>
                                             <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Likely Outcome</div>
-                                            <h1 className={`text-4xl md:text-5xl font-black tracking-tight leading-tight ${studentView.headline.includes("OPEN") ? 'text-emerald-400' :
-                                                studentView.headline.includes("CLOSED") ? 'text-red-400' : 'text-yellow-400'
-                                                }`}>
-                                                {studentView.headline}
-                                            </h1>
+                                            <div className="flex items-baseline gap-4">
+                                                <h1 className={`text-4xl md:text-5xl font-black tracking-tight leading-tight ${studentView.headline.includes("OPEN") ? 'text-emerald-400' :
+                                                    studentView.headline.includes("CLOSED") ? 'text-red-400' : 'text-yellow-400'
+                                                    }`}>
+                                                    {studentView.headline}
+                                                </h1>
+                                                <span className="text-3xl md:text-4xl font-thin text-white/20">
+                                                    {result.metrics.chance}%
+                                                </span>
+                                            </div>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <div className={`px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider ${studentView.confidence === 'High' ? 'bg-white/10 text-white' : 'bg-white/5 text-white/50'
