@@ -70,6 +70,19 @@ import highwayTraffic from "@/assets/thumbnails/highway-traffic.png";
 import offroaderV5 from "@/assets/thumbnails/offroader-v5.png";
 import templeOfBoom from "@/assets/thumbnails/temple-of-boom.png";
 import murderGame from "@/assets/thumbnails/murder.png";
+import hillsOfSteel from "@/assets/thumbnails/hills-of-steel.png";
+import chickenMerge from "@/assets/thumbnails/chicken-merge.png";
+import goldDiggerFrvr from "@/assets/thumbnails/gold-digger-frvr.png";
+import tigerSimulator3d from "@/assets/thumbnails/tiger-simulator-3d.png";
+import makeItMeme from "@/assets/thumbnails/make-it-meme.png";
+import getawayShootout from "@/assets/thumbnails/getaway-shootout.png";
+import levelDevil from "@/assets/thumbnails/level-devil.png";
+import blumgiDragon from "@/assets/thumbnails/blumgi-dragon.png";
+import baconMayDie from "@/assets/thumbnails/bacon-may-die.png";
+import flipBros from "@/assets/thumbnails/flip-bros.png";
+import gunspin from "@/assets/thumbnails/gunspin.png";
+import impossibleQuiz from "@/assets/thumbnails/impossible-quiz.png";
+import trafficEscape from "@/assets/thumbnails/traffic-escape.png";
 
 export interface Game {
   id: string;
@@ -215,20 +228,20 @@ export const games: Game[] = [
   { id: "temple-run-2", title: "Temple Run 2", tags: ["action", "endless runner"], thumbnail: templeRun2New, url: "https://vaz63.github.io/g26/class-405" },
   { id: "temple-of-boom", title: "Temple Of Boom", tags: ["action", "shooter"], thumbnail: templeOfBoom, url: "https://vaz63.github.io/g69/class-411" },
   { id: "murder", title: "Murder", tags: ["action", "stealth"], thumbnail: murderGame, url: "https://vaz63.github.io/g72/class-580" },
-  { id: "hills-of-steel", title: "Hills Of Steel", tags: ["action", "tanks"], url: "https://vaz63.github.io/g22/class-359" },
-  { id: "getaway-shootout", title: "Getaway Shootout", tags: ["action", "multiplayer"], url: "https://vaz63.github.io/g9/class-479" },
-  { id: "level-devil", title: "Level Devil", tags: ["action", "platformer"], url: "https://vaz63.github.io/g22/class-356" },
-  { id: "blumgi-dragon", title: "Blumgi Dragon", tags: ["action", "adventure"], url: "https://vaz63.github.io/g22/class-363" },
-  { id: "bacon-may-die", title: "Bacon May Die", tags: ["action", "fighting"], url: "https://vaz63.github.io/g177/class-334" },
-  { id: "flip-bros", title: "Flip Bros", tags: ["action", "multiplayer"], url: "https://vaz63.github.io/g22/class-358" },
+  { id: "hills-of-steel", title: "Hills Of Steel", tags: ["action", "tanks"], thumbnail: hillsOfSteel, url: "https://vaz63.github.io/g22/class-359" },
+  { id: "getaway-shootout", title: "Getaway Shootout", tags: ["action", "multiplayer"], thumbnail: getawayShootout, url: "https://vaz63.github.io/g9/class-479" },
+  { id: "level-devil", title: "Level Devil", tags: ["action", "platformer"], thumbnail: levelDevil, url: "https://vaz63.github.io/g22/class-356" },
+  { id: "blumgi-dragon", title: "Blumgi Dragon", tags: ["action", "adventure"], thumbnail: blumgiDragon, url: "https://vaz63.github.io/g22/class-363" },
+  { id: "bacon-may-die", title: "Bacon May Die", tags: ["action", "fighting"], thumbnail: baconMayDie, url: "https://vaz63.github.io/g177/class-334" },
+  { id: "flip-bros", title: "Flip Bros", tags: ["action", "multiplayer"], thumbnail: flipBros, url: "https://vaz63.github.io/g22/class-358" },
 
   // --- 🎯 Shooting Games ---
-  { id: "gunspin", title: "Gunspin", tags: ["shooting", "arcade"], url: "https://vaz63.github.io/g5/class-533" },
+  { id: "gunspin", title: "Gunspin", tags: ["shooting", "arcade"], thumbnail: gunspin, url: "https://vaz63.github.io/g5/class-533" },
 
   // --- 🧩 Puzzle Games ---
   { id: "2048", title: "2048", tags: ["puzzle", "numbers"], thumbnail: game2048, url: "https://lizzyben1.github.io/poopygamesbeta/play/2048/" },
   { id: "water-color-sort", title: "Water Color Sort", tags: ["puzzle", "casual"], thumbnail: waterColorSort, url: "https://vaz63.github.io/g69/class-635" },
-  { id: "impossible-quiz", title: "The Impossible Quiz", tags: ["puzzle", "quiz"], url: "https://vaz63.github.io/g26/class-480" },
+  { id: "impossible-quiz", title: "The Impossible Quiz", tags: ["puzzle", "quiz"], thumbnail: impossibleQuiz, url: "https://vaz63.github.io/g26/class-480" },
   { id: "tomb-of-mask", title: "Tomb Of The Mask", tags: ["puzzle", "thinking"], thumbnail: tombOfMask, url: "https://vaz63.github.io/g26/class-438" },
   { id: "master-chess", title: "Master Chess", tags: ["puzzle", "strategy"], thumbnail: masterChessNew, url: "https://vaz63.github.io/g97/class-506" },
   { id: "traffic-escape", title: "Traffic Escape", tags: ["puzzle", "casual"], url: "https://vaz63.github.io/g22/class-357" },
@@ -263,15 +276,15 @@ export const games: Game[] = [
   { id: "monkey-mart", title: "Monkey Mart", tags: ["idle", "management"], thumbnail: monkeyMart, url: "https://vaz63.github.io/g77/class-829" },
   { id: "doge-miner", title: "Doge Miner", tags: ["clicker", "idle"], url: "https://vaz63.github.io/g97/class-476" },
   { id: "idle-ants", title: "Idle Ants", tags: ["idle", "simulation"], url: "https://vaz63.github.io/g72/class-631" },
-  { id: "chicken-merge", title: "Chicken Merge", tags: ["idle", "merge"], url: "https://vaz63.github.io/g9/class-641" },
+  { id: "chicken-merge", title: "Chicken Merge", tags: ["idle", "merge"], thumbnail: chickenMerge, url: "https://vaz63.github.io/g9/class-641" },
 
   // --- 🌸 Casual & Relaxing Games ---
-  { id: "gold-digger-frvr", title: "Gold Digger Frvr", tags: ["casual", "mining"], url: "https://vaz63.github.io/g9/class-584" },
+  { id: "gold-digger-frvr", title: "Gold Digger Frvr", tags: ["casual", "mining"], thumbnail: goldDiggerFrvr, url: "https://vaz63.github.io/g9/class-584" },
 
   // --- 🐯 Simulation Games ---
-  { id: "tiger-simulator-3d", title: "Tiger Simulator 3D", tags: ["simulation", "3d"], url: "https://vaz63.github.io/g69/class-587" },
+  { id: "tiger-simulator-3d", title: "Tiger Simulator 3D", tags: ["simulation", "3d"], thumbnail: tigerSimulator3d, url: "https://vaz63.github.io/g69/class-587" },
 
   // --- 🎭 Creative & Party Games ---
-  { id: "make-it-meme", title: "Make it meme", tags: ["multiplayer", "creative"], url: "https://vaz63.github.io/g22/class-368" },
+  { id: "make-it-meme", title: "Make it meme", tags: ["multiplayer", "creative"], thumbnail: makeItMeme, url: "https://vaz63.github.io/g22/class-368" },
 ];
 

@@ -31,9 +31,15 @@ export interface WeatherData {
 export const WeatherService = {
     async getCoordinates(city: string): Promise<GeoResult | null> {
         try {
+            // v4.0 Zip Code Support: If 5 digits, assume US Zip and append context
+            let query = city.trim();
+            if (/^\d{5}$/.test(query)) {
+                query += " United States";
+            }
+
             const response = await fetch(
                 `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
-                    city
+                    query
                 )}&count=1&language=en&format=json`
             );
             const data = await response.json();

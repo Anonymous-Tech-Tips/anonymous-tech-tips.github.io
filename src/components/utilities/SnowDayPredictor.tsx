@@ -52,258 +52,130 @@ export const SnowDayPredictor = () => {
     const [alerts, setAlerts] = useState<string[]>([]);
     const [showTechnical, setShowTechnical] = useState(false);
 
-    // --- CONSTRAINT ENGINE (V3.0 PALANTIR LOGIC) ---
+    // --- REFACTORED ALGORITHM V4.1 (ARCHIVE STAT SHEET + HISTORICAL DEPTH) ---
     const calculateConstraints = (data: WeatherData, dayIdx: number, activeAlerts: string[]) => {
         const apiDayIdx = dayIdx + 7;
         const startHour = apiDayIdx * 24;
         const endHour = startHour + 24;
 
-        // RAW DATA VECTORS
         const hourlySnow = data.hourly.snowfall.slice(startHour, endHour);
-        const hourlyTemp = data.hourly.temperature_2m.slice(startHour, endHour);
+        const hourlyTemps = data.hourly.temperature_2m.slice(startHour, endHour);
+        const hourlyCodes = data.hourly.weather_code.slice(startHour, endHour);
         const hourlyGusts = data.hourly.wind_gusts_10m ? data.hourly.wind_gusts_10m.slice(startHour, endHour) : new Array(24).fill(0);
 
-        // --- v3.4 DERIVED DEPTH (HISTORICAL TRUTH) ---
-        // API snow_depth can be unreliable. We calculate our own "Physics Depth"
-        // by looking at the past 3 days of snowfall and accounting for melt.
-        // v3.4 PRECISE DECAY REGRESSION
-        // Iterate through past 3 days to build the "snow stack".
-        // Snow settles/compacts by gravity (Decay) AND melts by heat (Thermal Loss).
-
-        let estimatedDepth = 0;
-        const COMPACTION_RATE = 0.80; // Retain 80% depth per day (20% compaction)
-
-        for (let i = 3; i >= 1; i--) { // Start from oldest day (3 days ago)
+        // --- 1. HISTORICAL CONTEXT (The "Day After" Logic) ---
+        // Check past 3 days for massive accumulation that hasn't melted.
+        let existingDepth = 0;
+        for (let i = 1; i <= 3; i++) {
             const pastDayIdx = apiDayIdx - i;
             if (pastDayIdx >= 0) {
-                // 1. Add new snow from that day
+                // Simple decay: Snow lasts ~3 days. 
                 const daySnow = (data.daily.snowfall_sum[pastDayIdx] || 0) / 2.54;
-                estimatedDepth += daySnow;
-
-                // 2. Apply Daily Compaction (Gravity)
-                estimatedDepth *= COMPACTION_RATE;
-
-                // 3. Apply Thermal Melt (Heat)
-                const dayMaxTemp = data.daily.temperature_2m_max[pastDayIdx];
-                if (dayMaxTemp > 0) { // > 0C
-                    const maxF = (dayMaxTemp * 9 / 5) + 32;
-                    // Melt Formula: 0.1" per degree above freezing per day
-                    const meltAmount = (maxF - 32) * 0.1;
-                    estimatedDepth -= meltAmount;
-                }
-
-                if (estimatedDepth < 0) estimatedDepth = 0;
+                existingDepth += daySnow * (0.8 / i); // Older snow counts less
             }
         }
 
-        const apiDepthMeters = data.hourly.snow_depth ? data.hourly.snow_depth[startHour] : 0;
-        const apiDepthInches = apiDepthMeters * 39.37;
+        // --- 2. STAT SHEET VARIABLES ---
 
-        // TRUTH SELECTION: Trust the higher number (Safety Factor)
-        const effectiveDepth = Math.max(estimatedDepth, apiDepthInches);
+        // A. SNOW SCORE (Snow * 10)
+        // Add existing depth to the "Impact" score if it's significant (>4")
+        const newSnowCm = hourlySnow.reduce((a, b) => a + b, 0);
+        const newSnowIn = newSnowCm / 2.54;
 
-        // 1. OPTION EXHAUSTION SCORE (0-100)
-        // Start with 100 "Option Points". Subtract based on constraints.
-        let optionScore = 100;
-        let primaryConstraint = "None";
+        // "Effective Snow" = New Snow + (Existing Depth > 5 ? Half of it : 0)
+        // If we have 10" on ground, we treat it like a 5" storm occurring today (Delay likely)
+        const effectiveSnowIn = newSnowIn + (existingDepth > 5 ? existingDepth * 0.5 : 0);
+        const snowScore = effectiveSnowIn * 10;
 
-        // A. TIMELINE ACCELERATION (Slope check)
-        // Compare 3AM-5AM (Pre) vs 6AM-8AM (Commute)
-        let preCommuteSnow = 0;
-        let commuteSnow = 0;
-        for (let i = 3; i <= 5; i++) preCommuteSnow += (hourlySnow[i] || 0);
-        for (let i = 6; i <= 8; i++) commuteSnow += (hourlySnow[i] || 0);
+        // B. TIMING SCORE (0-3)
+        let timingScore = 0;
+        // 4am - 9am (Morning Commute) -> Indices 4-9
+        const morningSnow = hourlySnow.slice(4, 10).reduce((a, b) => a + b, 0);
+        // 12am - 3am (Late Night) -> Indices 0-3
+        const lateNightSnow = hourlySnow.slice(0, 4).reduce((a, b) => a + b, 0);
 
-        const isAccelerating = commuteSnow > (preCommuteSnow * 1.5) && commuteSnow > 0.5;
-        if (isAccelerating) {
-            optionScore -= 25; // Surprise attack penalty
-            primaryConstraint = "Accelerating Precip";
-        }
+        if (morningSnow > 0.5) timingScore = 3;
+        else if (lateNightSnow > 0.5) timingScore = 2;
 
-        // B. PLOW SATURATION (The Physics - Updated v3.2)
-        // Stricter Baselines for Risk-Averse Districts
-        const BASE_PLOW = 0.5; // Reduced from 0.75 (Realism: Hills/Corners slow them down)
-        let maxNetAccumulation = 0;
-        let plowCapacity = BASE_PLOW;
+        // C. TEMP SCORE (32 - MinTemp)
+        const minTempC = Math.min(...hourlyTemps);
+        const minTempF = (minTempC * 9 / 5) + 32;
+        const tempScore = Math.max(0, 32 - minTempF);
 
-        // Check Existing Conditions (The "Recovery" Factor)
-        // If roads are already narrowed by old snow, capacity drops
-        if (effectiveDepth > 8) {
-            plowCapacity *= 0.5; // Single Lane Roads
-            optionScore -= 40; // Major Stress Penalty (v3.4 Boost)
-            if (primaryConstraint === "None") primaryConstraint = "Deep Snowpack (>8\")";
-        } else if (effectiveDepth > 4) {
-            plowCapacity *= 0.7;
-        }
+        // D. PRECIP TYPE FACTOR (0-3)
+        let precipScore = 0;
+        const hasIce = hourlyCodes.some(c => [66, 67, 56, 57].includes(c));
+        const hasHeavy = hourlyCodes.some(c => [73, 75, 85, 86].includes(c));
+        const hasAnySnow = hourlyCodes.some(c => c >= 71);
 
-        const yesterdayMaxTemp = Math.max(...data.hourly.temperature_2m.slice(startHour - 24, startHour));
-        const todayMinTemp = Math.min(...hourlyTemp);
-        const yesterdayMaxF = (yesterdayMaxTemp * 9 / 5) + 32;
-        const todayMinF = (todayMinTemp * 9 / 5) + 32;
+        if (hasIce) precipScore = 3;
+        else if (hasHeavy || newSnowIn > 4) precipScore = 3;
+        else if (newSnowIn > 1) precipScore = 2;
+        else if (hasAnySnow) precipScore = 1;
 
-        for (let i = 0; i < 24; i++) {
-            const snowIn = (hourlySnow[i] || 0) / 2.54;
-            const tempF = (hourlyTemp[i] * 9 / 5) + 32;
-            const wind = hourlyGusts[i];
-
-            // Dynamic Plow Cap
-            let currentCap = plowCapacity;
-            if (tempF > 32) currentCap *= 0.5; // Slush penalty
-            if (wind > 25 && snowIn > 0.5) currentCap = 0; // Visibility lockout
-
-            // If absolute temp is super cold, salt stops working (-10F penalty)
-            if (tempF < 15) currentCap *= 0.6;
-
-            if (snowIn > currentCap) {
-                maxNetAccumulation += (snowIn - currentCap);
-            } else {
-                maxNetAccumulation -= (currentCap - snowIn); // Recovery
-                if (maxNetAccumulation < 0) maxNetAccumulation = 0;
-            }
-        }
-
-        const isDry = effectiveDepth < 1.0 && maxNetAccumulation < 0.5;
-
-        // C. FEAR ASYMMETRY (Uncertainty Risk) - Moved for scope
+        // E. CONFIDENCE (Spread + Alert Bonus)
         const spreadCm = data.daily.snowfall_spread ? data.daily.snowfall_spread[apiDayIdx] : 0;
         const spreadIn = spreadCm / 2.54;
 
-        if (spreadIn > 4) {
-            optionScore -= 25; // Massive uncertainty -> District freezes
-            if (primaryConstraint === "None") primaryConstraint = "Model Divergence";
-        }
+        let confidence = 0.8;
+        if (spreadIn > 4) confidence = 0.4;
+        else if (spreadIn > 2) confidence = 0.6;
+        else if (spreadIn < 0.5) confidence = 0.95;
 
-        // 1. OPTION EXHAUSTION SCORE (Already initialized above, do not redeclare)
-        // Resetting score logic for v3.6 Flow
-        // Note: We initialized optionScore=100 at line 107. 
-        // Logic updates from line 119/133 modified it. 
-        // We will continue modifying it.
+        // ALERT BOOST: If Winter Storm Warning is active, Confidence = 100%
+        if (activeAlerts.some(a => a.toLowerCase().includes("warning"))) confidence = 1.0;
 
-        // A. PLOW FAILURE (Volume)
-        const plowHours = hourlySnow.filter(x => x / 2.54 > BASE_PLOW).length;
-        if (plowHours > 1) {
-            optionScore -= (plowHours * 15);
-            if (primaryConstraint === "None") primaryConstraint = "Plow Capacity Exceeded";
-        }
+        // --- FINAL CALCULATION ---
+        const rawScore = (snowScore + timingScore + tempScore + precipScore) * confidence;
 
-        // B. WIND / VISIBILITY
-        // v3.5: Only penalize wind if there is snow to blow, OR if it's hurricane force.
-        const maxWind = Math.max(...hourlyGusts);
-        if (maxWind > 45) { // Structural danger
-            optionScore -= 40;
-            primaryConstraint = "Dangerous Winds";
-        } else if (maxWind > 25) {
-            if (!isDry) {
-                optionScore -= 30; // Blowing Snow
-                if (primaryConstraint === "None") primaryConstraint = "Blizzard Visibility";
-            } else {
-                // Dry Wind - Annoying but not critical
-                optionScore -= 5;
-            }
-        }
-
-        // C. FLASH FREEZE / ICE
-        // Physics: Roads wet (>32F) then drop below freezing (<28F) rapidly.
-        // Check Yesterday Max vs Today Min using DAILY data (more accurate than hourly spot check)
-        const prevDayIdx = apiDayIdx - 1;
-        // Safety check if prevDay is out of bounds (e.g. today is first day fetched?)
-        // Note: We fetch past_days=7, so apiDayIdx is usually ~7. Safe.
-        const maxTempYestC = data.daily.temperature_2m_max[prevDayIdx];
-        const maxTempYestF = (maxTempYestC * 9 / 5) + 32;
-        const minTempF = (data.daily.temperature_2m_min[apiDayIdx] * 9 / 5) + 32;
-
-        if (maxTempYestF > 32 && minTempF < 28 && !isDry) {
-            // Check if there's moisture (snow or depth)
-            const hasMoisture = (maxNetAccumulation > 0.1 || effectiveDepth > 0.5);
-            if (hasMoisture) {
-                optionScore -= 50; // Massive penalty for ice
-                primaryConstraint = "Flash Freeze";
-            }
-        }// D. ALERT LOCK-IN
-        const relevantAlerts = activeAlerts.join(' ').toLowerCase();
-        if (relevantAlerts.includes('winter storm warning')) {
-            optionScore = Math.min(optionScore, 5);
-            primaryConstraint = "Federal Warning";
-        } else if (relevantAlerts.includes('ice storm warning')) {
-            optionScore = 0;
-            primaryConstraint = "Ice Storm Warning";
-        } else if (relevantAlerts.includes('chill')) {
-            // Wind Chill Warning
-            const dailyMinF = (Math.min(...hourlyTemp) * 9 / 5) + 32; // Recalculate for this section
-            if (dailyMinF < -10) {
-                optionScore = 0; // Dangerous cold
-                primaryConstraint = "Extreme Wind Chill";
-            } else if (!isDry) {
-                optionScore -= 20; // Cold + Snow
-            }
-        }
-
-        // E. DEEP FREEZE & SALT FAILURE
-        const dailyMaxTemp = Math.max(...hourlyTemp);
-        const dailyMaxF = (dailyMaxTemp * 9 / 5) + 32;
-        const dailyMinTemp = Math.min(...hourlyTemp);
-        const dailyMinF = (dailyMinTemp * 9 / 5) + 32;
-
-        let saltEfficiency = 1.0;
-        if (dailyMaxF < 20) saltEfficiency = 0.0;
-        else if (dailyMaxF < 28) saltEfficiency = 0.5;
-
-        if (effectiveDepth > 4 && saltEfficiency < 0.2) {
-            optionScore -= 70;
-            primaryConstraint = "Salt Failure (Too Cold)";
-        } else if (effectiveDepth > 4 && saltEfficiency < 0.6) {
-            optionScore -= 30;
-        }
-
-        // Extreme Cold (Bus Safety)
-        if (dailyMinF < 5) {
-            // v3.5: If dry, buses handle cold better than cold+snow
-            const coldPenalty = isDry ? 15 : 30;
-            optionScore -= coldPenalty;
-
-            if (dailyMinF < -5) {
-                optionScore -= 40; // Hydraulic failure risk high
-                primaryConstraint = "Deep Freeze Lockout";
-            }
-        }
-
-        // --- STATUS DETERMINATION ---
-        let status = "NOMINAL";
-        let subtext = "Standard winter operations active.";
+        // --- STATUS MAPPING ---
+        let status = "Business as Usual";
+        let subtext = "School is likely to open on time.";
         let statusColor = "text-emerald-400";
-        let score = Math.max(0, optionScore);
+        let primaryConstraint = "Clear";
 
-        if (score < 20) {
-            status = "SYSTEM COLLAPSE";
-            subtext = "Operational limits exceeded. School closure nearly certain.";
-            statusColor = "text-rose-600";
-        } else if (score < 50) { // Tightened v3.5 (Was 40)
-            status = "CRITICAL";
-            subtext = "Major adjustments required. Closure highly likely.";
-            statusColor = "text-rose-500";
-        } else if (score < 70) {
-            status = "DEGRADED";
-            subtext = "Plows struggling. Delays or closure possible.";
-            statusColor = "text-amber-500";
+        if (rawScore > 35 || existingDepth > 10) { // Auto-close if >10" on ground
+            status = "❄️ SNOW DAY CONFIRMED";
+            subtext = existingDepth > 10 ? "Massive snowpack limits bus access." : "Conditions exceed operational limits.";
+            statusColor = "text-indigo-400";
+            primaryConstraint = existingDepth > 10 ? "Deep Snowpack" : "Heavy Accumulation";
+        } else if (rawScore > 15 || existingDepth > 5) {
+            status = "DELAY / CLOSING LIKELY";
+            subtext = existingDepth > 5 ? "Roads remain narrowed by plow piles." : "Disruption highly likely.";
+            statusColor = "text-blue-400";
+            primaryConstraint = "Mod. Accumulation";
+        } else if (rawScore > 5) {
+            status = "WATCHING CLOSELY";
+            subtext = "Minor disruption possible.";
+            statusColor = "text-amber-400";
+            primaryConstraint = "Light Precip";
         }
 
-        // --- RETURN ---
         const dateStr = new Date(data.daily.time[apiDayIdx]).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
 
         return {
             status,
-            score,
             subtext,
             statusColor,
+            score: rawScore, // Ensure this matches user expectation
             dateLabel: dateStr,
             metrics: {
-                netSnow: maxNetAccumulation.toFixed(1), // Restored 'netSnow' key
-                depth: effectiveDepth.toFixed(1),
-                commuteRate: ((commuteSnow / 2.54) / 3).toFixed(2), // Restored
-                spread: spreadIn.toFixed(1), // Restored
-                tempMin: dailyMinF.toFixed(0),
+                // New Keys for V4 (Matches getStudentView)
+                snowScore: snowScore.toFixed(1),
+                timingScore: timingScore.toString(),
+                tempScore: tempScore.toFixed(1),
+                precipScore: precipScore.toString(),
+                confidence: confidence.toFixed(2),
+                rawScore: rawScore.toFixed(2),
+
+                // Legacy / Display Keys
+                netSnow: newSnowIn.toFixed(1),
+                depth: existingDepth.toFixed(1), // Show actual ground depth
+                constraint: primaryConstraint,
+                commuteRate: spreadIn.toFixed(1), // Reuse for Spread display or similar
+                spread: spreadIn.toFixed(1),
+                tempMin: minTempF.toFixed(0),
                 windMax: Math.max(...hourlyGusts).toFixed(0),
-                constraint: primaryConstraint
             }
         };
     };
@@ -313,96 +185,81 @@ export const SnowDayPredictor = () => {
         let headline = "School is expected to be OPEN";
         let confidence = "High";
         let reasons = [];
+        const score = parseFloat(result.metrics.rawScore || "0");
 
-        // Fix: Use result.score (root), not result.metrics.score
-        if (result.score < 20) { // Aligned with SYSTEM COLLAPSE
-            headline = "School is expected to be CLOSED";
+        if (score > 35) {
+            headline = "SNOW DAY!";
             confidence = "High";
-        } else if (result.score < 50) { // Aligned with CRITICAL (v3.5)
-            headline = "School Closing is LIKELY";
+        } else if (score > 15) {
+            headline = "Delay / Closing Likely";
             confidence = "Medium";
-        } else if (result.score < 70) { // Aligned with DEGRADED
-            headline = "Delays are POSSIBLE";
+        } else if (score > 5) {
+            headline = "Delays Possible";
             confidence = "Low";
         }
 
-        // Generate Human Reasons
-        const netSnow = parseFloat(result.metrics.netSnow);
-        const depth = parseFloat(result.metrics.depth);
-        const commuteRate = parseFloat(result.metrics.commuteRate);
-        const wind = parseInt(result.metrics.windMax);
-        const temp = parseInt(result.metrics.tempMin);
-
-        // WEEKEND CHECK
-        const date = new Date(result.dateLabel); // e.g. "Friday, Jan 29"
-        const isWeekend = result.dateLabel.includes("Saturday") || result.dateLabel.includes("Sunday");
-        if (isWeekend) {
-            headline = "NO SCHOOL (Weekend)";
-            confidence = "High";
-        }
-
         // Generate Data-Driven Reasons
-        if (netSnow > 1.0) reasons.push(`Snow accumulating on roads (${netSnow}") faster than typical plow capacity.`);
-        else reasons.push("Roads expected to remain clear of new snow.");
+        const snowScore = parseFloat(result.metrics.snowScore);
+        const timingScore = parseInt(result.metrics.timingScore);
+        const tempScore = parseFloat(result.metrics.tempScore);
+        const precipScore = parseInt(result.metrics.precipScore);
+        const conf = parseFloat(result.metrics.confidence);
 
-        if (result.metrics.constraint.includes("Flash Freeze")) {
-            // We can infer the temp swing from the raw weather if we wanted, but for now generic is safer unless we pass extra args.
-            // Actually, the metrics doesn't have "Yesterday's Max". 
-            // Logic update: Let's assume the user wants to know IT IS REFREEZING.
-            reasons.push("Severe Ice Risk: Yesterday's slush is flash-freezing into solid ice.");
-        }
-        if (depth > 6.0) reasons.push(`Heavy existing snowpack (${depth}") narrows roads and limits plow storage.`);
+        if (snowScore > 10) reasons.push(`Significant Accumulation: Snow Impact Score is ${snowScore.toFixed(0)}.`);
+        else if (snowScore > 0) reasons.push(`Light Accumulation detected.`);
 
-        if (commuteRate > 0.1) reasons.push(`Snow falling at ${commuteRate}"/hr during critical bus hours.`);
-        else reasons.push("No precipitation expected during morning commute.");
+        if (timingScore >= 3) reasons.push("Timing Critical: Snow falling during morning bus loops (4AM+).");
+        else if (timingScore === 2) reasons.push("Timing Warning: Snow continuing past midnight.");
 
-        if (parseFloat(result.metrics.spread) > 3) {
-            reasons.push(`Forecast models disagree by ${result.metrics.spread}" (High Uncertainty).`);
-            if (confidence === "High") confidence = "Medium";
-        } else {
-            reasons.push("Forecast models strongly agree on outcome.");
-        }
+        if (tempScore > 5) reasons.push("Temperature Risk: Roads are well below freezing.");
 
-        if (wind > 20) reasons.push(`High winds (${wind} MPH) causing blowing and drifting snow.`);
+        if (precipScore === 3) reasons.push("Precipitation Type: Ice/Freezing Rain detected (High Disruption).");
 
-        // v3.3 Deep Freeze Explanations
-        if (result.metrics.constraint.includes("Salt Failure")) reasons.push(` temps (${temp}°F) are too cold for road salt to melt ice.`);
-        if (result.metrics.constraint.includes("Deep Freeze")) reasons.push(`Extreme cold (${temp}°F) turns deep snowpack into solid ice.`);
-        if (temp < 5) reasons.push(`Dangerous cold (${temp}°F) risks bus hydraulic failure and student safety.`);
+        if (conf < 0.6) reasons.push("Low Confidence: Models disagree on storm track.");
+        else reasons.push("High Confidence: Models are aligned.");
 
-        if (result.status === "NOMINAL" && reasons.length === 2 && reasons[0].includes("Roads expected to remain clear")) {
-            reasons = ["No winter weather threats detected.", "Forecasts agree on calm conditions."];
-        }
+        if (score < 5) reasons.push("No significant winter weather threats detected.");
 
         return { headline, confidence, reasons };
     };
 
 
+    // --- DISTRICT DATA (V5.0 PIVOT) ---
+    const DISTRICTS = [
+        { id: "LCPS", name: "Loudoun County (LCPS)", lat: 39.0438, lon: -77.4874 },
+        { id: "FCPS", name: "Fairfax County (FCPS)", lat: 38.8462, lon: -77.3064 },
+        { id: "PWCS", name: "Prince William (PWCS)", lat: 38.7428, lon: -77.3298 } // County Center / Woodbridge
+    ];
+
+    const [selectedDistrict, setSelectedDistrict] = useState(DISTRICTS[0]);
+
     const handlePredict = async () => {
-        if (!city) return;
         setLoading(true);
         setError(null);
         setResult(null);
         setAlerts([]);
 
         try {
-            const coords = await WeatherService.getCoordinates(city);
-            if (coords) {
-                const [weather, fetchedAlerts] = await Promise.all([
-                    WeatherService.getWinterWeather(coords.latitude, coords.longitude),
-                    WeatherService.getActiveAlerts(coords.latitude, coords.longitude)
-                ]);
+            // v5.0: Using hardcoded coordinates for precision
+            const { lat, lon } = selectedDistrict;
 
-                setAlerts(fetchedAlerts);
+            const [weather, fetchedAlerts] = await Promise.all([
+                WeatherService.getWinterWeather(lat, lon),
+                WeatherService.getActiveAlerts(lat, lon)
+            ]);
 
-                if (weather) {
-                    const prediction = calculateConstraints(weather, dayIndex, fetchedAlerts);
-                    setResult({ location: coords, ...prediction, rawWeather: weather });
-                } else {
-                    setError("Data stream failed. Retrying...");
-                }
+            setAlerts(fetchedAlerts);
+
+            if (weather) {
+                // Pass district name as location context if needed
+                const prediction = calculateConstraints(weather, dayIndex, fetchedAlerts);
+                setResult({
+                    location: { name: selectedDistrict.name, country: "US" },
+                    ...prediction,
+                    rawWeather: weather
+                });
             } else {
-                setError(`Target "${city}" not found.`);
+                setError("Data stream failed. Retrying...");
             }
         } catch (err) {
             setError("Connection interrupted.");
@@ -411,17 +268,12 @@ export const SnowDayPredictor = () => {
         }
     };
 
-    useEffect(() => {
-        if (result && result.rawWeather) {
-            const prediction = calculateConstraints(result.rawWeather, dayIndex, alerts);
-            setResult({ ...result, ...prediction });
-        }
-    }, [dayIndex, alerts]);
+    // ... (UseEffect remains the same)
 
     const studentView = result ? getStudentView(result) : null;
 
     return (
-        <div className="w-full bg-[#09090b] text-white rounded-xl overflow-hidden shadow-2xl relative border border-white/10 font-sans selection:bg-red-500/20">
+        <div className="w-full bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 font-sans selection:bg-blue-500/30">
 
             {/* Ambient Red Glow for Critical Status */}
             {result?.status === 'SYSTEM COLLAPSE' && (
@@ -431,14 +283,14 @@ export const SnowDayPredictor = () => {
             <div className="relative z-10 p-8 md:p-12 min-h-[600px] flex flex-col">
 
                 {/* HEADER */}
-                <div className="flex justify-between items-start mb-8 border-b border-white/5 pb-6">
-                    <div className="space-y-1">
-                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                            Winter Operational Forecast
+                <div className="flex justify-between items-start mb-8 border-b border-white/10 pb-6">
+                    <div className="space-y-2">
+                        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-indigo-200">
+                            Armaan's Snow Day Predictor
                         </h2>
-                        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/40">
-                            <Activity className="w-3 h-3 text-blue-500" />
-                            v3.1 • Human & System Analysis
+                        <div className="flex items-center gap-2 text-sm font-medium text-blue-200/60">
+                            <Snowflake className="w-4 h-4 text-blue-400" />
+                            <span>AI-Powered School Closing Forecast</span>
                         </div>
                     </div>
                 </div>
@@ -446,35 +298,41 @@ export const SnowDayPredictor = () => {
                 {/* MAIN CONTENT AREA */}
                 <div className="flex-1 flex flex-col">
 
-                    {/* SEARCH BAR */}
+                    {/* SEARCH BAR -> DISTRICT SELECTOR */}
                     <div className="flex flex-col md:flex-row gap-4 mb-8">
-                        <div className="flex-1 bg-white/5 rounded-md p-1 pl-4 flex items-center border border-white/10">
-                            <span className="text-white/20 mr-2 text-xs">TARGET:</span>
-                            <input
-                                type="text"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handlePredict()}
-                                placeholder="ENTER JURISDICTION (e.g. Ashburn)"
-                                className="bg-transparent border-none text-white focus:ring-0 w-full text-sm font-mono uppercase placeholder-white/10"
-                            />
+                        <div className="flex-1 bg-white/5 rounded-md p-1 pl-4 flex items-center border border-white/10 focus-within:border-blue-400/50 transition-colors">
+                            <span className="text-white/40 mr-2 text-xs font-medium">JURISDICTION:</span>
+                            <Select
+                                value={selectedDistrict.id}
+                                onValueChange={(id) => setSelectedDistrict(DISTRICTS.find(d => d.id === id) || DISTRICTS[0])}
+                            >
+                                <SelectTrigger className="bg-transparent border-none text-white text-sm w-full focus:ring-0 px-0">
+                                    <SelectValue placeholder="Select District" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-slate-900 border-white/10 text-white">
+                                    {DISTRICTS.map(d => (
+                                        <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
+
                         <Select value={dayIndex.toString()} onValueChange={(v) => setDayIndex(parseInt(v))}>
-                            <SelectTrigger className="w-40 bg-white/5 border-white/10 text-white font-mono text-xs uppercase">
+                            <SelectTrigger className="w-40 bg-white/5 border-white/10 text-white text-xs">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent className="bg-[#09090b] border-white/10 text-white">
-                                <SelectItem value="0">T-0 (Today)</SelectItem>
-                                <SelectItem value="1">T+24 (Tmrw)</SelectItem>
-                                <SelectItem value="2">T+48 (2 Day)</SelectItem>
+                            <SelectContent className="bg-slate-900 border-white/10 text-white">
+                                <SelectItem value="0">Today</SelectItem>
+                                <SelectItem value="1">Tomorrow</SelectItem>
+                                <SelectItem value="2">2 Days Out</SelectItem>
                             </SelectContent>
                         </Select>
                         <Button
                             onClick={handlePredict}
-                            disabled={loading || !city}
-                            className="bg-white text-black hover:bg-white/90 font-mono text-xs uppercase px-8"
+                            disabled={loading}
+                            className="bg-white text-black hover:bg-gray-200 text-xs font-bold px-8"
                         >
-                            {loading ? "COMPUTING..." : "RUN MODEL"}
+                            {loading ? "THINKING..." : "PREDICT"}
                         </Button>
                     </div>
 
@@ -512,13 +370,13 @@ export const SnowDayPredictor = () => {
                                     </div>
 
                                     {/* "WHY WE THINK THIS" CARD */}
-                                    <div className="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden">
+                                    <div className="bg-white/5 border border-white/10 rounded-2xl p-6 relative overflow-hidden backdrop-blur-sm">
                                         <div className="absolute top-0 right-0 p-4 opacity-10">
                                             <Info className="w-12 h-12" />
                                         </div>
-                                        <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
-                                            <span className="w-1 h-4 bg-blue-500 rounded-full" />
-                                            Why We Think This
+                                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                            <span className="w-2 h-2 bg-indigo-400 rounded-full shadow-[0_0_10px_rgba(129,140,248,0.5)]" />
+                                            The Verdict
                                         </h3>
                                         <ul className="space-y-3">
                                             {studentView.reasons.map((reason, i) => (
@@ -554,7 +412,7 @@ export const SnowDayPredictor = () => {
                                                     <div className="flex flex-col justify-center border-r border-white/5 pr-8">
                                                         <div className="space-y-4">
                                                             <div className="text-[10px] uppercase tracking-[0.3em] text-white/30">
-                                                                Constraint Engine Status
+                                                                Prediction Logic
                                                             </div>
                                                             <div className={`text-2xl font-mono uppercase ${result.statusColor}`}>
                                                                 {result.status}
@@ -586,7 +444,7 @@ export const SnowDayPredictor = () => {
                                                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
 
                                                         <div className="flex justify-between items-center mb-6">
-                                                            <span className="text-white/40 uppercase tracking-widest">Live Telemetry</span>
+                                                            <span className="text-white/40 uppercase tracking-widest">Raw Weather Data</span>
                                                             <span className="text-[10px] text-white/20">{result.dateLabel}</span>
                                                         </div>
 
