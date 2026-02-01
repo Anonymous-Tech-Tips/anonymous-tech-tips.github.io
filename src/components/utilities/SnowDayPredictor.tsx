@@ -118,6 +118,12 @@ export const SnowDayPredictor = () => {
         else if (newSnowIn > 1) precipScore = 2;
         else if (hasAnySnow) precipScore = 1;
 
+        // FIX: Only count temp score if there is precip or existing snow/wet/ice.
+        // Gate: If dry and no snow on ground, cold doesn't matter for roads.
+        if (effectiveSnowIn < 0.1 && !hasIce && !hasAnySnow) {
+            tempScore = 0;
+        }
+
         // E. CONFIDENCE (Spread + Alert Bonus)
         const spreadCm = data.daily.snowfall_spread ? data.daily.snowfall_spread[apiDayIdx] : 0;
         const spreadIn = spreadCm / 2.54;
@@ -209,7 +215,6 @@ export const SnowDayPredictor = () => {
                 commuteRate: spreadIn.toFixed(1),
                 spread: spreadIn.toFixed(1),
                 tempMin: minTempF.toFixed(0),
-                windMax: Math.max(...hourlyGusts).toFixed(0),
                 windMax: Math.max(...hourlyGusts).toFixed(0),
                 probOpen: pOpen.toString(),
                 probDelay: pDelay.toString(),
