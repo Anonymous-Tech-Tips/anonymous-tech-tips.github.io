@@ -41,7 +41,7 @@ const ProfilePage = () => {
             <h1 className="text-3xl font-bold text-gamer-text">Profile & Progress</h1>
             <Button
               onClick={() => navigate('/shop')}
-              className="bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card"
+              className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white rounded-full shadow-lg shadow-violet-500/20 border border-white/10"
             >
               <ShoppingBag className="h-4 w-4 mr-2" />
               Visit Shop

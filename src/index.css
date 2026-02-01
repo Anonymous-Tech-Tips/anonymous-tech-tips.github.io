@@ -96,56 +96,23 @@ All colors MUST be HSL.
   }
 
   /* PREMIUM LUXURY MODE (Replaces previous "Gamer" aesthetic) */
+  /* PREMIUM COZY MODE (Friendlier Dark Mode) */
   .gamer-mode {
-    /* Deep Ambient Black Backgrounds */
-    --background: 240 10% 3.9%;
-    /* #09090b - Zinc 950 */
-    --foreground: 0 0% 98%;
-    /* White */
+    /* Deep Warm Space (Not Black) */
+    --gamer-bg: 240 10% 12%;
+    --gamer-text: 260 10% 95%;
 
-    /* Glass Panels */
-    --card: 240 10% 4%;
-    /* Near black */
-    --card-foreground: 0 0% 98%;
+    --gamer-accent: 260 80% 80%;
+    /* Bright Lavender - Friendly Pop */
+    --gamer-card: 240 10% 18%;
+    /* Soft Card background */
+    --gamer-border: 240 10% 25%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --gamer-muted: 240 10% 60%;
 
-    /* Accents - Subtle Blue/Purple Glow */
-    --primary: 217 91% 60%;
-    /* Electric Blue */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 240 5% 20%;
-    /* Dark Grey */
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
-
-    --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 6% 15%;
-    /* Very subtle borders */
-    --input: 240 6% 15%;
-    --ring: 240 5% 65%;
-
-    /* Specific "Gamer" variables mapped to Premium */
-    --gamer-bg: 0 0% 3%;
-    /* #080808 */
-    --gamer-text: 0 0% 95%;
-    --gamer-accent: 217 91% 60%;
-    --gamer-card: 0 0% 0%;
-    /* Pure black for cards */
-    --gamer-border: 0 0% 12%;
-    --gamer-muted: 0 0% 40%;
-
-    /* Typography Overrides for Premium Feel */
-    --font-heading: 'Playfair Display', serif;
+    /* Typography Overrides for Friendly Feel */
+    --font-heading: 'Outfit', sans-serif;
+    /* Rounder, modern */
     --font-body: 'Inter', sans-serif;
   }
 

@@ -51,10 +51,12 @@ export const GamerHome = () => {
     : [];
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30 overflow-x-hidden gamer-mode font-sans">
+    <div className="min-h-screen bg-[#1a1a2e] text-white selection:bg-purple-500/30 overflow-x-hidden gamer-mode font-sans">
 
-      {/* AMBIENT BACKGROUND */}
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/10 via-black to-black pointer-events-none" />
+      {/* HERO SECTION - CINEMATIC, COZY */}
+      {/* Background: Dreamy Mesh Gradient instead of Void Black */}
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#1a1a2e] to-[#1a1a2e] pointer-events-none" />
+      <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
 
       {/* HERO SECTION - CINEMATIC */}
       <div className="relative h-[85vh] w-full flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-24 overflow-hidden group">
@@ -86,11 +88,11 @@ export const GamerHome = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex items-center gap-4"
           >
-            <span className="px-3 py-1 border border-white/20 rounded-full text-[10px] uppercase tracking-[0.2em] font-medium backdrop-blur-md">
-              Spotlight
+            <span className="px-4 py-1.5 bg-white/10 rounded-full text-xs font-medium backdrop-blur-md border border-white/5 text-purple-200">
+              Featured Pick
             </span>
             <div className="flex items-center gap-2 text-sm font-medium text-white/80">
-              <Star className="w-4 h-4 text-blue-500 fill-blue-500" />
+              <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
               <span>4.9/5 Rating</span>
             </div>
           </motion.div>
