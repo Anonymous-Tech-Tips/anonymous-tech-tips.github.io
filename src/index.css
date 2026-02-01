@@ -8,91 +8,61 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Calm Cozy Gaming Palette - Soft & Soothing */
-    --background: 220 25% 10%;
-    /* Soft dark blue-grey */
-    --foreground: 0 0% 95%;
-    /* Soft white */
+    /* COZY STUDIO PALETTE - GLOBAL DEFAULT */
+    --background: 240 10% 12%;
+    /* Warm Charcoal */
+    --foreground: 0 0% 98%;
 
-    --card: 220 20% 14%;
-    /* Gentle dark blue */
-    --card-foreground: 0 0% 95%;
+    --card: 240 10% 16%;
+    /* Soft Charcoal */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 220 20% 14%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 240 10% 16%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 240 60% 65%;
-    /* Soft periwinkle blue */
-    --primary-foreground: 0 0% 100%;
+    --primary: 260 60% 75%;
+    /* Soft Lavender */
+    --primary-foreground: 260 50% 15%;
 
-    --secondary: 280 40% 60%;
-    /* Gentle lavender */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 20 50% 75%;
+    /* Warm Peach */
+    --secondary-foreground: 20 60% 15%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 10% 70%;
 
-    --accent: 200 50% 55%;
-    /* Calm cyan */
-    --accent-foreground: 0 0% 100%;
+    --accent: 330 60% 75%;
+    /* Soft Rose */
+    --accent-foreground: 330 60% 15%;
 
-    --destructive: 0 70% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 60% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 240 60% 65%;
+    --border: 240 10% 22%;
+    --input: 240 10% 22%;
+    --ring: 260 60% 75%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;
+    /* Rounder corners */
 
-    /* Calm Gaming Colors */
-    --gaming-blue: 240 60% 65%;
-    /* Soft periwinkle */
-    --gaming-lavender: 280 40% 60%;
-    /* Gentle lavender */
-    --gaming-cyan: 200 50% 55%;
-    /* Calm cyan */
-    --gaming-peach: 20 70% 70%;
-    /* Warm peach */
-    --gaming-mint: 160 40% 60%;
-    /* Soft mint */
-
-    /* Background Layers */
-    --bg-primary: 220 25% 10%;
-    --bg-secondary: 220 20% 14%;
-    --bg-tertiary: 230 20% 16%;
-
-    /* Gamer Mode Colors - Calm & Cozy */
-    --gamer-bg: 220 25% 12%;
-    --gamer-text: 0 0% 95%;
-    --gamer-accent: 240 60% 65%;
-    --gamer-card: 220 20% 16%;
-    --gamer-border: 240 30% 35%;
-    --gamer-muted: 0 0% 60%;
-
-    --sidebar-background: 220 25% 12%;
-    --sidebar-foreground: 0 0% 92%;
-    --sidebar-primary: 240 60% 65%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 20% 16%;
-    --sidebar-accent-foreground: 0 0% 92%;
-    --sidebar-border: 220 15% 20%;
-    --sidebar-ring: 240 60% 65%;
-
-    /* Premium Spacing Scale */
-    --space-1: 0.25rem;
-    --space-2: 0.5rem;
-    --space-3: 0.75rem;
-    --space-4: 1rem;
-    --space-6: 1.5rem;
-    --space-8: 2rem;
-    --space-12: 3rem;
-    --space-16: 4rem;
-    --space-20: 5rem;
+    /* Map Gamer Variables to Root for compatibility */
+    --gamer-bg: var(--background);
+    --gamer-text: var(--foreground);
+    --gamer-accent: var(--primary);
+    --gamer-card: var(--card);
+    --gamer-border: var(--border);
+    --gamer-muted: var(--muted);
 
     /* Animation Easings */
     --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
     --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  }
+
+  /* .gamer-mode block removed as it is now default */
+  .gamer-mode {
+    /* Legacy support - just inherit */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
   }
 
   /* PREMIUM LUXURY MODE (Replaces previous "Gamer" aesthetic) */

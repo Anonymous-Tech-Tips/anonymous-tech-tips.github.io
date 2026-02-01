@@ -51,11 +51,10 @@ export const GamerHome = () => {
     : [];
 
   return (
-    <div className="min-h-screen bg-[#1a1a2e] text-white selection:bg-purple-500/30 overflow-x-hidden gamer-mode font-sans">
-
+    <div className="min-h-screen bg-background text-white selection:bg-purple-500/30 overflow-x-hidden gamer-mode font-sans">
       {/* HERO SECTION - CINEMATIC, COZY */}
       {/* Background: Dreamy Mesh Gradient instead of Void Black */}
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#1a1a2e] to-[#1a1a2e] pointer-events-none" />
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-background to-background pointer-events-none" />
       <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
 
       {/* HERO SECTION - CINEMATIC */}

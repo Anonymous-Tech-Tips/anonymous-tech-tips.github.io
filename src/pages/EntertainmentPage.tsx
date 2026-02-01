@@ -14,55 +14,68 @@ import { openSmart } from "@/utils/openGameSandbox";
 import { Button } from "@/components/ui/button";
 
 // 🎬 DATA SOURCES
+
+const streamingList = [
+  { title: "Cineby", url: "https://www.cineby.gd/", desc: "Movies / TV", thumb: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Popular"] },
+  { title: "XPrime", url: "https://xprime.today/", desc: "Premium Streaming", thumb: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["HD"] },
+  { title: "Rive", url: "https://rivestream.org/", desc: "Fast & Clean", thumb: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Fast"] },
+  { title: "P-Stream", url: "https://pstream.mov/", desc: "Movie Database", thumb: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Movies"] },
+  { title: "FlickyStream", url: "https://flickystream.ru/", desc: "Reliable Player", thumb: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["New"] },
+  { title: "VeloraTV", url: "https://veloratv.ru/", desc: "TV Series Focus", thumb: "https://images.unsplash.com/photo-1593784697956-14185ac9489f?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["TV"] },
+  { title: "SpenFlix", url: "https://watch.spencerdevs.xyz/", desc: "Developer's Choice", thumb: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Dev"] },
+  { title: "Cinegram", url: "https://cinegram.net/", desc: "Modern UI", thumb: "https://images.unsplash.com/photo-1586899028174-e7098604235b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["UI"] },
+];
+
+const singleServerList = [
+  { title: "Nepu", url: "https://nepu.to/", desc: "High Reliability", thumb: "https://images.unsplash.com/photo-1517604931442-710c8ed05254?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Stable"] },
+  { title: "EE3", url: "https://ee3.me/", desc: "Fast Loads", thumb: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Speed"] },
+  { title: "yFlix", url: "https://yflix.to/", desc: "Less Mislabeled", thumb: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Quality"] },
+];
+
+const aggregatorsList = [
+  { title: "Flixer", url: "https://flixer.sh/", desc: "Multi-Source", thumb: "https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Search"] },
+  { title: "Cinezo", url: "https://www.cinezo.net/", desc: "Aggregator", thumb: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["All"] },
+  { title: "bCine", url: "https://bcine.app/", desc: "App-like Experience", thumb: "https://images.unsplash.com/photo-1586899028174-e7098604235b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Clean"] },
+  { title: "Filmex", url: "https://filmex.to/", desc: "Large Database", thumb: "https://images.unsplash.com/photo-1535016120720-40c6874c3b1c?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Huge"] },
+];
+
 const animeList = [
-  { title: "HiAnime", url: "https://hianime.to/", desc: "Sub / Dub / Auto-Next", thumb: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Popular", "HD"] },
-  { title: "AnimeKai", url: "https://animekai.to/", desc: "Hard Subs / Dub", thumb: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Dub"] },
-  { title: "Miruro", url: "https://miruro.tv/", desc: "Clean UI / No Ads", thumb: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["No Ads"] },
-  { title: "Crunchyroll", url: "https://docs.google.com/presentation/d/11emRJ473ihU1R5lKucb1e9xJDbHy4-myZBw3sMzBiac/edit?usp=sharing", desc: "Anime Streaming", thumb: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Official"] },
+  { title: "AnimeKai", url: "https://animekai.to/home", desc: "Top Tier Anime", thumb: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Anime"] },
+  { title: "Miruro", url: "https://www.miruro.com/", desc: "Clean Player", thumb: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Sub"] },
+  { title: "Anime Realms", url: "https://www.animerealms.org/", desc: "Community Fav", thumb: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Dub"] },
+  { title: "All Manga", url: "https://allmanga.to/", desc: "Manga & Anime", thumb: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Reader"] },
 ];
 
-const movieList = [
-  { title: "Cineby", url: "https://cineby.app/", desc: "Movies / TV / Anime", thumb: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["4K"] },
-  { title: "Rive", url: "https://rfrsh.rive.app/", desc: "Premium Streaming", thumb: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Fast"] },
-  { title: "Flixer", url: "https://flixer.vip/", desc: "Auto-Next Feature", thumb: "https://images.unsplash.com/photo-1517604931442-710c8ed05254?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Movies"] },
-  { title: "VeloraTV", url: "https://veloratv.su/", desc: "High Quality Streams", thumb: "https://images.unsplash.com/photo-1593784697956-14185ac9489f?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Series"] },
-  { title: "Aether", url: "https://aether.mom/", desc: "Modern UI", thumb: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["New"] },
+const liveTvList = [
+  { title: "PlayTorrio", url: "https://iptv.playtorrio.xyz/", desc: "IPTV Channels", thumb: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["IPTV"] },
+  { title: "Famelack", url: "https://famelack.com/", desc: "Live Networks", thumb: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Live"] },
+  { title: "NTV", url: "https://ntvstream.cx/", desc: "Global Streams", thumb: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["World"] },
+  { title: "EasyWebTV", url: "https://zhangboheng.github.io/Easy-Web-TV-M3u8/routes/countries.html", desc: "Web TV", thumb: "https://images.unsplash.com/photo-1584905066893-7d5c142abc4e?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Web"] },
+  { title: "RgShows", url: "https://www.rgshows.ru/livetv/", desc: "Russian/Global", thumb: "https://images.unsplash.com/photo-1505673542670-a5e3ff5b14a3?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["RU"] },
 ];
 
-const premiumList = [
-  { title: "Disney+", url: "https://docs.google.com/presentation/d/1cqMoS7rNvOX77938GusdWNi6mYVPOfETCVsAVW9I9ps/edit?usp=sharing", desc: "Magic & Entertainment", thumb: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Disney"] },
-  { title: "Netflix", url: "https://netflix-offical.my.canva.site/", desc: "Unlimited Entertainment", thumb: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Netflix"] },
-  { title: "Netflix Alt", url: "https://docs.google.com/presentation/d/149GpUX0v2xNpwbUTv0Ra1bXSBJ8VImN3yQXMYA9ZhKA/edit?usp=sharing", desc: "Alternative Access", thumb: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Mirror"] },
-  { title: "Roku", url: "https://docs.google.com/presentation/d/1OjrWHYHz5xbxhVYfWbDF4J0NdM3AYHC9x2pTchv4GuU/edit#slide=id.g26f6dcac621_1_0", desc: "Streaming Platform", thumb: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["TV"] },
-  { title: "Tubi", url: "https://docs.google.com/presentation/d/1MKUZLOhfS1PyOtbz-uhfdNqewzDJIqZxBEfMeWPhJpE/edit#slide=id.g2d03a5085ad_0_68", desc: "Free Movies & TV", thumb: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Free"] },
-  { title: "YouTube", url: "https://docs.google.com/presentation/d/1KBqFsMZ10Buf485l-AzkcjIDzFQyyg_O6EfX3vJmYTY/edit?usp=sharing", desc: "Video Platform", thumb: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Social"] },
-];
-
-const liveContentList = [
-  { title: "StreamEast", url: "https://streameast.app/", desc: "The GOAT of Sports", thumb: "https://images.unsplash.com/photo-1522770179533-24471fcdba45?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Sports"] },
-  { title: "MethStreams", url: "https://crackstreams.biz/", desc: "MMA / Boxing / NFL", thumb: "https://images.unsplash.com/photo-1599586120429-48285b6a8a81?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["MMA"] },
-  { title: "Streamed.su", url: "https://streamed.su/", desc: "Clean Sports Aggregator", thumb: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Live"] },
-  { title: "DaddyLive", url: "https://daddylive.mp/", desc: "24/7 Live TV Channels", thumb: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["IPTV"] },
-  { title: "Sportsurge", url: "https://v2.sportsurge.net/", desc: "Link Aggregator", thumb: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Links"] },
-  { title: "NFLBite", url: "https://nflbite.com/", desc: "American Football", thumb: "https://images.unsplash.com/photo-1611000271746-59914442df7f?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["NFL"] },
-  { title: "NBAMonster", url: "https://nbamonster.xyz/", desc: "Basketball Streams", thumb: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["NBA"] },
-  { title: "SportyHunter", url: "https://sportyhunter.com/", desc: "Live Schedule", thumb: "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["sched"] },
-  { title: "NLive", url: "https://docs.google.com/presentation/u/0/d/1qs4zcgOXev4PIHqncEnXB4t9pTwOdn8bgJY55NBv11w/edit", desc: "Live TV Channels", thumb: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["TV"] },
+const liveSportsList = [
+  { title: "Streamed", url: "https://streamed.pk/", desc: "Sports Events", thumb: "https://images.unsplash.com/photo-1522770179533-24471fcdba45?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Events"] },
+  { title: "SportyHunter", url: "https://sportyhunter.com/", desc: "Match Schedule", thumb: "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Sched"] },
+  { title: "WatchSports", url: "https://watchsports.to/", desc: "Live Action", thumb: "https://images.unsplash.com/photo-1599586120429-48285b6a8a81?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Live"] },
 ];
 
 export const EntertainmentPage = () => {
   const { prefs } = useUserPrefs();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const allStreams = [...animeList, ...movieList, ...premiumList, ...liveContentList];
-  const featured = animeList[0];
+  const allStreams = [...streamingList, ...singleServerList, ...aggregatorsList, ...animeList, ...liveTvList, ...liveSportsList];
+  const featured = streamingList[0];
 
   const filteredStreams = searchQuery
     ? allStreams.filter(s => s.title.toLowerCase().includes(searchQuery.toLowerCase()) || s.desc.toLowerCase().includes(searchQuery.toLowerCase()))
     : null;
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-white selection:bg-rose-500/30 overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-gamer-bg text-white selection:bg-rose-500/30 overflow-x-hidden font-sans">
+      {/* COZY MESH GRADIENT OVERLAY */}
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-rose-900/10 via-gamer-bg to-gamer-bg pointer-events-none" />
+      <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
 
       {/* 1. CINEMATIC HERO */}
       {!searchQuery && (
@@ -73,8 +86,8 @@ export const EntertainmentPage = () => {
               className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[2s]"
               alt="Hero"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/40 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#09090b] via-[#09090b]/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gamer-bg via-gamer-bg/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-gamer-bg via-gamer-bg/80 to-transparent" />
           </div>
 
           <div className="absolute bottom-0 left-0 w-full p-8 md:p-24 z-10 flex flex-col items-start gap-6">
@@ -111,7 +124,7 @@ export const EntertainmentPage = () => {
       )}
 
       {/* 2. OVERLAY SEARCH BAR */}
-      <div className={`sticky top-0 z-50 transition-all duration-300 ${searchQuery ? "bg-[#09090b] py-4 shadow-xl" : "bg-gradient-to-b from-transparent to-[#09090b]/80 -mt-24 pt-8 pb-12"}`}>
+      <div className={`sticky top-0 z-50 transition-all duration-300 ${searchQuery ? "bg-gamer-bg/95 backdrop-blur-md py-4 shadow-xl" : "bg-gradient-to-b from-transparent to-gamer-bg/80 -mt-24 pt-8 pb-12"}`}>
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex items-center justify-between">
           <div className={`relative transition-all duration-300 ${searchQuery ? "w-full" : "w-full md:w-96"}`}>
             <Search className="absolute left-0 top-1/2 -translate-y-1/2 text-white/50" />
@@ -148,15 +161,19 @@ export const EntertainmentPage = () => {
           </div>
         ) : (
           <>
-            <ContentRow title="Trending Anime" items={animeList} />
-            <ContentRow title="Blockbuster Movies" items={movieList} />
+            <>
+              <ContentRow title="Streaming Services" items={streamingList} />
+              <ContentRow title="High-Speed Single Server" items={singleServerList} />
 
-            <div className="py-8">
-              <TopBannerAd />
-            </div>
+              <div className="py-8">
+                <TopBannerAd />
+              </div>
 
-            <ContentRow title="Premium Collections" items={premiumList} />
-            <ContentRow title="Live Sports & TV" items={liveContentList} />
+              <ContentRow title="Stream Aggregators" items={aggregatorsList} />
+              <ContentRow title="Anime Universe" items={animeList} />
+              <ContentRow title="Live TV Channels" items={liveTvList} />
+              <ContentRow title="Live Sports" items={liveSportsList} />
+            </>
           </>
         )}
 
@@ -199,7 +216,7 @@ const PosterCard = ({ stream, index }: { stream: any, index: number }) => (
     onClick={() => openSmart(stream.url, stream.redirect)}
     className="group cursor-pointer space-y-3"
   >
-    <div className="relative aspect-[2/3] overflow-hidden rounded-sm bg-white/5">
+    <div className="relative aspect-[2/3] overflow-hidden rounded-xl bg-white/5 shadow-lg border border-white/5">
       <img
         src={stream.thumb}
         alt={stream.title}
