@@ -6,16 +6,23 @@ import {
   Play, ChevronRight, Star, Clock, Search, Zap, Users, ArrowRight
 } from "lucide-react";
 import { useUserPrefs } from "@/contexts/UserPrefsContext";
+import { useProgression } from "@/contexts/ProgressionContext";
 import { TopBannerAd, InContentAd, BottomAd } from "@/components/GoogleAd";
 import { DailyReward } from "@/components/DailyReward";
 import FriendsGallery from "@/components/FriendsGallery";
 import { games } from "@/data/games";
 import fallbackThumbnail from "@/assets/thumbnails/_fallback.png";
+import { DiscoveryFeed } from '@/components/rewards/DiscoveryFeed';
 import { Button } from "@/components/ui/button";
 
 export const GamerHome = () => {
   const { prefs } = useUserPrefs();
+  const { purchases } = useProgression();
   const navigate = useNavigate();
+  const hasQuickLaunch = purchases.includes('quick-launch-slots');
+  const hasDiscoveryFeed = purchases.includes('discovery-feed');
+  const hasHistoryTracker = purchases.includes('recently-played-tracker');
+
   const [searchQuery, setSearchQuery] = useState("");
   const [randomFeatured, setRandomFeatured] = useState(games[0]);
   const [trendingGames, setTrendingGames] = useState<typeof games>([]);
@@ -164,6 +171,37 @@ export const GamerHome = () => {
           </div>
         </div>
 
+        {/* QUICK LAUNCH (Shop Feature) */}
+        {hasQuickLaunch && favItems.length > 0 && (
+          <section className="space-y-4 animate-in fade-in slide-in-from-left-4">
+            <div className="flex items-center gap-2 text-sm text-yellow-500 font-bold uppercase tracking-widest">
+              <Zap className="w-4 h-4" /> Quick Launch
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+              {favItems.slice(0, 5).map(game => (
+                <motion.button
+                  key={game.id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate(`/games/${game.id}`)}
+                  className="flex-shrink-0 w-48 h-16 bg-[#1A1A1A] border-l-2 border-yellow-500 rounded-r-lg flex items-center gap-3 px-3 hover:bg-[#252525] transition-colors"
+                >
+                  <img src={game.thumbnail || fallbackThumbnail} className="w-10 h-10 rounded object-cover" />
+                  <div className="text-left overflow-hidden">
+                    <div className="text-sm font-bold truncate text-white">{game.title}</div>
+                    <div className="text-[10px] text-white/50 uppercase">Instant Play</div>
+                  </div>
+                </motion.button>
+              ))}
+              {favItems.length < 5 && (
+                <div className="flex-shrink-0 w-48 h-16 border border-dashed border-white/10 rounded-lg flex items-center justify-center text-xs text-white/30">
+                  Add Favorites to Fill
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {/* CONTINUE PLAYING */}
         {continueItems.length > 0 && (
           <section className="space-y-8">
@@ -174,9 +212,17 @@ export const GamerHome = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {continueItems.slice(0, 6).map((game, i) => (
+              {continueItems.slice(0, hasHistoryTracker ? 12 : 3).map((game, i) => (
                 <MinimalCard key={game.id} game={game} index={i} />
               ))}
+              {!hasHistoryTracker && continueItems.length > 3 && (
+                <div className="col-span-1 flex items-center justify-center border border-white/10 rounded-lg bg-white/5 p-4 text-center">
+                  <div className="text-xs text-white/50 space-y-2">
+                    <p>+ {continueItems.length - 3} more</p>
+                    <Link to="/shop" className="text-blue-400 hover:underline">Unlock History Tracker</Link>
+                  </div>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -224,6 +270,13 @@ export const GamerHome = () => {
             ))}
           </div>
         </section>
+
+        {/* DISCOVERY FEED (Shop Feature) */}
+        {hasDiscoveryFeed && (
+          <section className="animate-in fade-in slide-in-from-bottom-8">
+            <DiscoveryFeed />
+          </section>
+        )}
 
         {/* SOCIAL PROOF / SQUAD */}
         <section className="border-t border-white/10 pt-24">

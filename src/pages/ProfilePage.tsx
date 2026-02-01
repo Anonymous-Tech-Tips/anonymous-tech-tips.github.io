@@ -5,6 +5,8 @@ import { GameRequestForm } from '@/components/rewards/GameRequestForm';
 import { ThemeEditor } from '@/components/rewards/ThemeEditor';
 import { MusicPlayer } from '@/components/rewards/MusicPlayer';
 import { OfflineModeIndicator } from '@/components/rewards/OfflineModeIndicator';
+import { GameCollections } from '@/components/rewards/GameCollections';
+import { ActivityTimeline, AchievementShowcase } from '@/components/rewards/RewardComponents';
 import { ProgressBar } from '@/components/ProgressBar';
 import { RecentlyPlayed } from '@/components/RecentlyPlayed';
 import { useRewardEffects } from '@/hooks/useRewardEffects';
@@ -16,7 +18,15 @@ import { useNavigate } from 'react-router-dom';
 import { ShoppingBag } from 'lucide-react';
 
 const ProfilePage = () => {
-  const { hasGameRequest, hasThemeEditor, hasGameStats, hasBackgroundMusic } = useRewardEffects();
+  const {
+    hasGameRequest,
+    hasThemeEditor,
+    hasGameStats,
+    hasBackgroundMusic,
+    hasCollections,
+    hasTimeline,
+    hasShowcase
+  } = useRewardEffects();
   const { progress } = useProgression();
   const navigate = useNavigate();
 
@@ -37,25 +47,32 @@ const ProfilePage = () => {
               Visit Shop
             </Button>
           </div>
-          
+
           <div className="space-y-6">
             {/* Progression Overview */}
             <ProgressBar />
-            
+
             <div className="grid gap-6 md:grid-cols-2">
               {/* Recently Played Games */}
               <RecentlyPlayed />
-              
+
               {/* Profile Customization */}
               <ProfileSection />
             </div>
-            
+
             <div className="grid gap-6 md:grid-cols-2">
               {hasGameStats && <GameStats />}
               {hasThemeEditor && <ThemeEditor />}
               {hasBackgroundMusic && <MusicPlayer />}
               {hasGameRequest && <GameRequestForm />}
             </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {hasCollections && <GameCollections />}
+              {hasTimeline && <ActivityTimeline />}
+            </div>
+
+            {hasShowcase && <AchievementShowcase />}
           </div>
           <BottomAd />
         </div>

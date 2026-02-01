@@ -5,7 +5,7 @@ import { useUserPrefs } from '@/contexts/UserPrefsContext';
 export const useRewardEffects = () => {
   const { purchases } = useProgression();
   const { prefs, setSetting } = useUserPrefs();
-  
+
   const activeTheme = prefs.settings.activeTheme;
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const useRewardEffects = () => {
         'halloween-theme',
         'valentines-theme'
       );
-      
+
       switch (activeTheme) {
         case 'dark-mode-pro':
           document.documentElement.classList.add('dark-mode-pro-enabled');
@@ -67,9 +67,9 @@ export const useRewardEffects = () => {
   const awardPoints = (amount: number, source?: string) => {
     const doublePointsUntil = prefs.settings.doublePointsActiveUntil;
     const isDoubleActive = doublePointsUntil && new Date(doublePointsUntil) > new Date();
-    
+
     const finalAmount = isDoubleActive ? amount * 2 : amount;
-    
+
     // Return the amount so caller can use it
     return finalAmount;
   };
@@ -102,46 +102,56 @@ export const useRewardEffects = () => {
     hasAdFree: purchases.includes('ad-free-experience'),
     hasPremiumGames: purchases.includes('premium-games-pack'),
     hasVIP: purchases.includes('vip-status'),
-    hasDoublePoints: purchases.includes('double-points'),
-    hasEarlyAccess: purchases.includes('early-access'),
+    hasDoublePoints: purchases.includes('double-points') || purchases.includes('vip-status'),
+    hasEarlyAccess: purchases.includes('early-access') || purchases.includes('vip-status'),
 
-    // Themes - check if purchased AND enabled
-    hasThemeEditor: activeTheme === 'custom-theme-editor' && purchases.includes('custom-theme-editor'),
-    hasRainbowTheme: activeTheme === 'rainbow-theme' && purchases.includes('rainbow-theme'),
-    hasNeonTheme: activeTheme === 'neon-theme' && purchases.includes('neon-theme'),
-    hasDarkModePro: activeTheme === 'dark-mode-pro' && purchases.includes('dark-mode-pro'),
-    hasRetroTheme: activeTheme === 'retro-theme' && purchases.includes('retro-theme'),
-    hasOceanTheme: activeTheme === 'ocean-theme' && purchases.includes('ocean-theme'),
+    // Themes - check if purchased AND enabled (VIP gets all access but needs to enable)
+    hasThemeEditor: (activeTheme === 'custom-theme-editor' && purchases.includes('custom-theme-editor')) || purchases.includes('vip-status'),
+    hasRainbowTheme: (activeTheme === 'rainbow-theme' && purchases.includes('rainbow-theme')) || (purchases.includes('vip-status') && activeTheme === 'rainbow-theme'),
 
-    // Effects
-    hasParticles: purchases.includes('particle-effects'),
-    hasNameGlow: purchases.includes('name-glow'),
-    hasAnimatedBg: purchases.includes('animated-backgrounds'),
-    hasCustomCursor: purchases.includes('custom-cursor'),
-    hasScreenShake: purchases.includes('screen-shake'),
+    // Effects (VIP gets all)
+    hasParticles: purchases.includes('particle-effects') || purchases.includes('vip-status'),
+    hasNameGlow: purchases.includes('name-glow') || purchases.includes('vip-status'),
+    hasAnimatedBg: purchases.includes('animated-backgrounds') || purchases.includes('vip-status'),
+    hasCustomCursor: purchases.includes('custom-cursor') || purchases.includes('vip-status'),
+    hasScreenShake: purchases.includes('screen-shake') || purchases.includes('vip-status'),
 
-    // Profile
-    hasProfilePack: purchases.includes('profile-customization'),
-    hasBadgeCollection: purchases.includes('badge-collection'),
-    hasEmojiReactions: purchases.includes('emoji-reactions'),
-    hasProfileBorder: purchases.includes('profile-border'),
-    hasUsernameFont: purchases.includes('username-font'),
+    // Profile (VIP gets all)
+    hasProfilePack: purchases.includes('profile-customization') || purchases.includes('vip-status'),
+    hasBadgeCollection: purchases.includes('badge-collection') || purchases.includes('vip-status'),
+    hasEmojiReactions: purchases.includes('emoji-reactions') || purchases.includes('vip-status'),
+    hasProfileBorder: purchases.includes('profile-border') || purchases.includes('vip-status'),
+    hasUsernameFont: purchases.includes('username-font') || purchases.includes('vip-status'),
+    hasCustomTitle: purchases.includes('custom-title') || purchases.includes('vip-status'),
+    hasShowcase: purchases.includes('achievement-showcase') || purchases.includes('vip-status'),
+    hasTimeline: purchases.includes('activity-timeline') || purchases.includes('vip-status'),
+    hasCollections: purchases.includes('game-collections') || purchases.includes('vip-status'),
+    hasDeveloperSupporter: purchases.includes('developer-supporter'), // VIP doesn't auto-unlock this specific badge usually, but let's leave independent unless specified
 
-    // Gameplay
-    hasSpeedBoost: purchases.includes('speed-boost'),
-    hasUnlimitedFavorites: purchases.includes('unlimited-favorites'),
-    hasGameStats: purchases.includes('game-stats'),
-    hasOfflineMode: purchases.includes('offline-mode'),
-    hasAutoSave: purchases.includes('auto-save'),
+    // Gameplay (VIP gets all)
+    hasSpeedBoost: purchases.includes('speed-boost') || purchases.includes('vip-status'),
+    hasUnlimitedFavorites: purchases.includes('unlimited-favorites') || purchases.includes('vip-status'),
+    hasGameStats: purchases.includes('game-stats') || purchases.includes('vip-status'),
+    hasOfflineMode: purchases.includes('offline-mode') || purchases.includes('vip-status'),
+    hasAutoSave: purchases.includes('auto-save') || purchases.includes('vip-status'),
+    hasGameNotes: purchases.includes('game-notes') || purchases.includes('vip-status'),
 
-    // Audio
-    hasSoundEffects: purchases.includes('sound-effects-pack'),
-    hasBackgroundMusic: purchases.includes('background-music'),
-    hasVictorySounds: purchases.includes('victory-sounds'),
+    // Discovery
+    hasAdvancedSearch: purchases.includes('advanced-search') || purchases.includes('vip-status'),
+    hasTrends: purchases.includes('trending-insights') || purchases.includes('vip-status'),
+    hasSmartRecs: purchases.includes('smart-recommendations') || purchases.includes('vip-status'),
+    hasDiscoveryFeed: purchases.includes('discovery-feed') || purchases.includes('vip-status'),
+    hasQuickLaunch: purchases.includes('quick-launch-slots') || purchases.includes('vip-status'),
+    hasExclusiveGames: purchases.includes('exclusive-games-pack') || purchases.includes('vip-status'),
+
+    // Audio (VIP gets all)
+    hasSoundEffects: purchases.includes('sound-effects-pack') || purchases.includes('vip-status'),
+    hasBackgroundMusic: purchases.includes('background-music') || purchases.includes('vip-status'),
+    hasVictorySounds: purchases.includes('victory-sounds') || purchases.includes('vip-status'),
 
     // Special
-    hasGameRequest: purchases.includes('game-request'),
-    hasSecretGame: purchases.includes('secret-game'),
+    hasGameRequest: purchases.includes('game-request') || purchases.includes('vip-status'),
+    hasSecretGame: purchases.includes('secret-game') || purchases.includes('vip-status'),
     hasMysteryBox: purchases.includes('mystery-box'),
     hasDailyBonus: purchases.includes('daily-bonus'),
 

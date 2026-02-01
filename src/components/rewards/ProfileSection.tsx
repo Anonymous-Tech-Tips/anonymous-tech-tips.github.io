@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useRewards } from '@/contexts/RewardsContext';
 import { useUserPrefs } from '@/contexts/UserPrefsContext';
 import { User, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { DeveloperBadge } from './RewardComponents';
+import { useProgression } from '@/contexts/ProgressionContext';
 
 const badges = [
   { id: 'early-adopter', name: 'Early Adopter', icon: '🏆' },
@@ -33,17 +34,32 @@ const fontStyles = [
   { id: 'handwritten', name: 'Handwritten', class: 'font-serif italic' },
 ];
 
+const titleOptions = [
+  { id: 'novice', name: 'Novice' },
+  { id: 'started', name: 'Just Started' },
+  { id: 'gamer', name: 'Gamer' },
+  { id: 'pro', name: 'Pro Gamer' },
+  { id: 'elite', name: 'Elite' },
+  { id: 'legend', name: 'Legend' },
+  { id: 'speedrunner', name: 'Speedrunner' },
+  { id: 'collector', name: 'Collector' },
+  { id: 'strategist', name: 'Strategist' },
+];
+
 export const ProfileSection: React.FC = () => {
-  const { purchases } = useRewards();
+  const { purchases } = useProgression();
   const { prefs, setSetting } = useUserPrefs();
-  
+
   const hasProfilePack = purchases.includes('profile-customization');
   const hasBadges = purchases.includes('badge-collection');
   const hasProfileBorder = purchases.includes('profile-border');
   const hasUsernameFont = purchases.includes('username-font');
-  
+  const hasCustomTitle = purchases.includes('custom-title');
+  const hasDeveloperBadge = purchases.includes('developer-supporter');
+
   const [selectedBorder, setSelectedBorder] = useState(prefs.settings.profileBorder || 'none');
   const [selectedFont, setSelectedFont] = useState(prefs.settings.usernameFont || 'default');
+  const [selectedTitle, setSelectedTitle] = useState(prefs.settings.profileTitle || 'novice');
 
   const handleBorderChange = (value: string) => {
     if (!hasProfilePack && !hasProfileBorder) return;
@@ -57,8 +73,15 @@ export const ProfileSection: React.FC = () => {
     setSetting('usernameFont', value);
   };
 
+  const handleTitleChange = (value: string) => {
+    if (!hasProfilePack && !hasCustomTitle) return;
+    setSelectedTitle(value);
+    setSetting('profileTitle', value);
+  };
+
   const currentBorderClass = borderStyles.find(b => b.id === selectedBorder)?.class || '';
   const currentFontClass = fontStyles.find(f => f.id === selectedFont)?.class || '';
+  const currentTitleName = titleOptions.find(t => t.id === selectedTitle)?.name || '';
 
   return (
     <Card className={`${currentBorderClass} transition-all duration-300`}>
@@ -70,9 +93,15 @@ export const ProfileSection: React.FC = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-center">
-          <div className={`text-2xl font-bold ${currentFontClass}`}>
+          <div className={`text-2xl font-bold ${currentFontClass} flex items-center justify-center gap-2`}>
             Player
+            {hasDeveloperBadge && <DeveloperBadge />}
           </div>
+          {hasCustomTitle && (
+            <div className="text-sm font-medium text-muted-foreground mt-1">
+              {currentTitleName}
+            </div>
+          )}
         </div>
 
         {hasBadges && (
@@ -143,6 +172,31 @@ export const ProfileSection: React.FC = () => {
             {!hasProfilePack && !hasUsernameFont && (
               <p className="text-xs text-muted-foreground mt-1">
                 Unlock in Rewards Shop
+              </p>
+            )}
+          </div>
+
+          <div>
+            <Label>Profile Title</Label>
+            <Select
+              value={selectedTitle}
+              onValueChange={handleTitleChange}
+              disabled={!hasCustomTitle}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {titleOptions.map((t) => (
+                  <SelectItem key={t.id} value={t.id}>
+                    {t.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {!hasCustomTitle && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Unlock "Custom Titles" in Shop
               </p>
             )}
           </div>

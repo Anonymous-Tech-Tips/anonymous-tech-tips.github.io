@@ -203,13 +203,23 @@ export const SnowDayPredictor = () => {
         }
 
         // C. FLASH FREEZE / ICE
-        // Only trigger if wet
-        if (yesterdayMaxF > 35 && todayMinF < 28 && !isDry) {
-            optionScore -= 50; // Massive penalty for ice
-            primaryConstraint = "Flash Freeze";
-        }
+        // Physics: Roads wet (>32F) then drop below freezing (<28F) rapidly.
+        // Check Yesterday Max vs Today Min using DAILY data (more accurate than hourly spot check)
+        const prevDayIdx = apiDayIdx - 1;
+        // Safety check if prevDay is out of bounds (e.g. today is first day fetched?)
+        // Note: We fetch past_days=7, so apiDayIdx is usually ~7. Safe.
+        const maxTempYestC = data.daily.temperature_2m_max[prevDayIdx];
+        const maxTempYestF = (maxTempYestC * 9 / 5) + 32;
+        const minTempF = (data.daily.temperature_2m_min[apiDayIdx] * 9 / 5) + 32;
 
-        // D. ALERT LOCK-IN
+        if (maxTempYestF > 32 && minTempF < 28 && !isDry) {
+            // Check if there's moisture (snow or depth)
+            const hasMoisture = (maxNetAccumulation > 0.1 || effectiveDepth > 0.5);
+            if (hasMoisture) {
+                optionScore -= 50; // Massive penalty for ice
+                primaryConstraint = "Flash Freeze";
+            }
+        }// D. ALERT LOCK-IN
         const relevantAlerts = activeAlerts.join(' ').toLowerCase();
         if (relevantAlerts.includes('winter storm warning')) {
             optionScore = Math.min(optionScore, 5);
@@ -335,7 +345,12 @@ export const SnowDayPredictor = () => {
         if (netSnow > 1.0) reasons.push(`Snow accumulating on roads (${netSnow}") faster than typical plow capacity.`);
         else reasons.push("Roads expected to remain clear of new snow.");
 
-        if (result.metrics.constraint.includes("Flash Freeze")) reasons.push(`Severe flash freeze risk: Temperatures dropping rapidly.`);
+        if (result.metrics.constraint.includes("Flash Freeze")) {
+            // We can infer the temp swing from the raw weather if we wanted, but for now generic is safer unless we pass extra args.
+            // Actually, the metrics doesn't have "Yesterday's Max". 
+            // Logic update: Let's assume the user wants to know IT IS REFREEZING.
+            reasons.push("Severe Ice Risk: Yesterday's slush is flash-freezing into solid ice.");
+        }
         if (depth > 6.0) reasons.push(`Heavy existing snowpack (${depth}") narrows roads and limits plow storage.`);
 
         if (commuteRate > 0.1) reasons.push(`Snow falling at ${commuteRate}"/hr during critical bus hours.`);

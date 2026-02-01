@@ -38,21 +38,16 @@ const ShopPage: React.FC = () => {
       return;
     }
 
-    // Check if this is an ad-skip item and if it's allowed
-    if ((item.id === 'ad-skip-tokens-1hr' || item.id === 'ad-skip-tokens-1day') && !canPurchaseAdSkip()) {
-      toast.error('Ad-skip rewards not available yet', {
-        description: 'This feature will be enabled once ads are live on the site.',
-        duration: 4000,
-      });
-      return;
-    }
+    // Ad-skip items are now fully functional client-side
+    // Proceed to purchase logic
+
 
     if (progress.totalPoints >= item.cost) {
       if (purchaseItem(item.id, item.cost)) {
-        
+
         toast.success(`🎉 Purchased ${item.name}!`, {
-          description: item.category === 'visual' 
-            ? 'Toggle the switch to enable it!' 
+          description: item.category === 'visual'
+            ? 'Toggle the switch to enable it!'
             : 'Check your profile to use it!',
           duration: 4000,
         });
@@ -78,15 +73,6 @@ const ShopPage: React.FC = () => {
 
   const getCategoryItems = (category: string) => {
     const items = SHOP_ITEMS.filter(item => item.category === category);
-    
-    // Filter out ad-skip items if not enabled
-    if (!canPurchaseAdSkip()) {
-      return items.filter(item => 
-        item.id !== 'ad-skip-tokens-1hr' && 
-        item.id !== 'ad-skip-tokens-1day'
-      );
-    }
-    
     return items;
   };
 
@@ -106,20 +92,20 @@ const ShopPage: React.FC = () => {
 
   return (
     <>
-      <SEO 
-        title="Shop | Tech Tips" 
-        description="Unlock themes, features, and upgrades with your points" 
+      <SEO
+        title="Shop | Tech Tips"
+        description="Unlock themes, features, and upgrades with your points"
       />
       <div className="min-h-screen bg-gamer-bg">
         <TopBannerAd />
-        
+
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header with Stats */}
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold font-rowdies text-gamer-text mb-4">
               🛒 Points Shop
             </h1>
-            
+
             {/* Stats Bar */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <Card className="bg-gamer-card border-gamer-border">
@@ -181,8 +167,8 @@ const ShopPage: React.FC = () => {
           <Tabs defaultValue="visual" className="w-full" onValueChange={setSelectedCategory}>
             <TabsList className="grid grid-cols-5 w-full max-w-3xl mx-auto mb-8 bg-gamer-card">
               {Object.entries(CATEGORY_INFO).map(([key, info]) => (
-                <TabsTrigger 
-                  key={key} 
+                <TabsTrigger
+                  key={key}
                   value={key}
                   className="data-[state=active]:bg-gamer-accent data-[state=active]:text-gamer-card"
                 >
@@ -217,9 +203,8 @@ const ShopPage: React.FC = () => {
                         whileHover={{ y: -5 }}
                         transition={{ type: 'spring', stiffness: 300 }}
                       >
-                        <Card className={`h-full flex flex-col bg-gamer-card border-2 ${
-                          owned ? 'border-green-500/50' : 'border-gamer-border'
-                        } ${isActive ? 'ring-2 ring-gamer-accent' : ''}`}>
+                        <Card className={`h-full flex flex-col bg-gamer-card border-2 ${owned ? 'border-green-500/50' : 'border-gamer-border'
+                          } ${isActive ? 'ring-2 ring-gamer-accent' : ''}`}>
                           <CardHeader>
                             <div className="flex items-start justify-between mb-2">
                               <div className="text-4xl">{item.icon}</div>
@@ -232,10 +217,10 @@ const ShopPage: React.FC = () => {
                               {owned && <Check className="h-4 w-4 text-green-400" />}
                             </CardTitle>
                           </CardHeader>
-                          
+
                           <CardContent className="flex-grow">
                             <p className="text-gamer-muted text-sm mb-4">{item.description}</p>
-                            
+
                             {item.effects && item.effects.length > 0 && (
                               <div className="space-y-1 mb-4">
                                 {item.effects.map((effect, idx) => (
@@ -246,18 +231,18 @@ const ShopPage: React.FC = () => {
                                 ))}
                               </div>
                             )}
-                            
+
                             <div className="flex items-center justify-between mt-auto">
                               <p className="text-xl font-bold text-gamer-accent flex items-center gap-1">
                                 <span>🪙</span>
                                 {item.cost}
                               </p>
-                              
+
                               {item.preview && (
                                 <Dialog>
                                   <DialogTrigger asChild>
-                                    <Button 
-                                      variant="ghost" 
+                                    <Button
+                                      variant="ghost"
                                       size="sm"
                                       className="text-gamer-muted hover:text-gamer-text"
                                     >
@@ -279,7 +264,7 @@ const ShopPage: React.FC = () => {
                               )}
                             </div>
                           </CardContent>
-                          
+
                           <CardFooter className="flex flex-col gap-2">
                             {owned ? (
                               isTheme ? (
@@ -303,11 +288,10 @@ const ShopPage: React.FC = () => {
                               <Button
                                 onClick={() => handlePurchase(item)}
                                 disabled={!canAfford}
-                                className={`w-full ${
-                                  canAfford 
-                                    ? 'bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card' 
-                                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                                }`}
+                                className={`w-full ${canAfford
+                                  ? 'bg-gamer-accent hover:bg-gamer-accent/90 text-gamer-card'
+                                  : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                                  }`}
                               >
                                 {canAfford ? (
                                   <>

@@ -53,6 +53,23 @@ import masterChessNew from "@/assets/thumbnails/master-chess-new.jpg";
 import maskedForcesNew from "@/assets/thumbnails/masked-forces-new.jpg";
 import clusterRushNew from "@/assets/thumbnails/cluster-rush-new.jpg";
 import paperIo2New from "@/assets/thumbnails/paper-io-2-new.jpg";
+import run3Editor from "@/assets/thumbnails/run-3-editor.png";
+import soccerSkillsCL from "@/assets/thumbnails/soccer-skills-cl.png";
+import superLiquidSoccer from "@/assets/thumbnails/super-liquid-soccer.png";
+import penaltyShooters2 from "@/assets/thumbnails/penalty-shooters-2.png";
+import rocketSoccerDerby from "@/assets/thumbnails/rocket-soccer-derby.png";
+import tinyFishing from "@/assets/thumbnails/tiny-fishing.png";
+import game4thAndGoal from "@/assets/thumbnails/4th-and-goal-2022.png";
+import blumgiBall from "@/assets/thumbnails/blumgi-ball.png";
+import dreadheadParkour from "@/assets/thumbnails/dreadhead-parkour.png";
+import tanukiSunset from "@/assets/thumbnails/tanuki-sunset.png";
+import snowRider3D from "@/assets/thumbnails/snow-rider-3d.png";
+import parkingFuryBeach from "@/assets/thumbnails/parking-fury-beach.png";
+import madalinStuntCars3 from "@/assets/thumbnails/madalin-stunt-cars-3.png";
+import highwayTraffic from "@/assets/thumbnails/highway-traffic.png";
+import offroaderV5 from "@/assets/thumbnails/offroader-v5.png";
+import templeOfBoom from "@/assets/thumbnails/temple-of-boom.png";
+import murderGame from "@/assets/thumbnails/murder.png";
 
 export interface Game {
   id: string;
@@ -153,7 +170,7 @@ export const games: Game[] = [
   { id: "parkour-race", title: "Parkour Race", tags: ["running", "parkour"], thumbnail: parkourRace, url: "https://vaz63.github.io/g77/class-830" },
   { id: "cluster-rush", title: "Cluster Rush", tags: ["running", "arcade"], thumbnail: clusterRushNew, url: "https://vaz63.github.io/g26/class-526" },
   { id: "slope-2", title: "Slope 2", tags: ["running", "arcade"], thumbnail: slope2, url: "https://vaz63.github.io/g2/class-437" },
-  { id: "run-3-editor", title: "Run 3 Editor", tags: ["running", "endless"], url: "https://vaz63.github.io/g/class-819" },
+  { id: "run-3-editor", title: "Run 3 Editor", tags: ["running", "endless"], thumbnail: run3Editor, url: "https://vaz63.github.io/g/class-819" },
   { id: "ovo", title: "Ovo", tags: ["jumping", "platformer"], thumbnail: ovo, url: "https://vaz63.github.io/g5/class-456" },
 
   // --- 🏀 Sports Games ---
@@ -161,15 +178,15 @@ export const games: Game[] = [
   { id: "basket-bros", title: "Basket Bros", tags: ["sports", "basketball"], thumbnail: basketBros, url: "https://vaz63.github.io/g97/class-482" },
   { id: "basket-random", title: "Basket Random", tags: ["sports", "basketball"], thumbnail: soccerRandom, url: "https://vaz63.github.io/g26/class-436" },
   { id: "soccer-random", title: "Soccer Random", tags: ["sports", "soccer"], thumbnail: soccerRandom, url: "https://vaz63.github.io/g26/class-511" },
-  { id: "soccer-skills-cl", title: "Soccer Skills Champions League", tags: ["sports", "soccer"], url: "https://vaz63.github.io/g2/class-588" },
-  { id: "super-liquid-soccer", title: "Super Liquid Soccer", tags: ["sports", "soccer"], url: "https://vaz63.github.io/g69/class-628" },
-  { id: "penalty-shooters-2", title: "Penalty Shooters 2", tags: ["sports", "soccer"], url: "https://vaz63.github.io/g2/class-627" },
-  { id: "rocket-soccer-derby", title: "Rocket Soccer Derby", tags: ["sports", "soccer"], url: "https://vaz63.github.io/g2/class-527" },
-  { id: "tiny-fishing", title: "Tiny Fishing", tags: ["sports", "fishing"], url: "https://vaz63.github.io/g5/class-451" },
-  { id: "4th-and-goal-2022", title: "4th And Goal 2022", tags: ["sports", "football"], url: "https://vaz63.github.io/g16/class-685" },
-  { id: "blumgi-ball", title: "Blumgi Ball", tags: ["sports", "basketball"], url: "https://vaz63.github.io/g16/class-419" },
-  { id: "dreadhead-parkour", title: "Dreadhead Parkour", tags: ["sports", "parkour"], url: "https://vaz63.github.io/g97/class-412" },
-  { id: "tanuki-sunset", title: "Tanuki Sunset", tags: ["sports", "skateboarding"], url: "https://vaz63.github.io/g26/class-488" },
+  { id: "soccer-skills-cl", title: "Soccer Skills Champions League", tags: ["sports", "soccer"], thumbnail: soccerSkillsCL, url: "https://vaz63.github.io/g2/class-588" },
+  { id: "super-liquid-soccer", title: "Super Liquid Soccer", tags: ["sports", "soccer"], thumbnail: superLiquidSoccer, url: "https://vaz63.github.io/g69/class-628" },
+  { id: "penalty-shooters-2", title: "Penalty Shooters 2", tags: ["sports", "soccer"], thumbnail: penaltyShooters2, url: "https://vaz63.github.io/g2/class-627" },
+  { id: "rocket-soccer-derby", title: "Rocket Soccer Derby", tags: ["sports", "soccer"], thumbnail: rocketSoccerDerby, url: "https://vaz63.github.io/g2/class-527" },
+  { id: "tiny-fishing", title: "Tiny Fishing", tags: ["sports", "fishing"], thumbnail: tinyFishing, url: "https://vaz63.github.io/g5/class-451" },
+  { id: "4th-and-goal-2022", title: "4th And Goal 2022", tags: ["sports", "football"], thumbnail: game4thAndGoal, url: "https://vaz63.github.io/g16/class-685" },
+  { id: "blumgi-ball", title: "Blumgi Ball", tags: ["sports", "basketball"], thumbnail: blumgiBall, url: "https://vaz63.github.io/g16/class-419" },
+  { id: "dreadhead-parkour", title: "Dreadhead Parkour", tags: ["sports", "parkour"], thumbnail: dreadheadParkour, url: "https://vaz63.github.io/g97/class-412" },
+  { id: "tanuki-sunset", title: "Tanuki Sunset", tags: ["sports", "skateboarding"], thumbnail: tanukiSunset, url: "https://vaz63.github.io/g26/class-488" },
   { id: "speed-pool-king", title: "Speed Pool King", tags: ["sports", "pool"], thumbnail: speedPoolKing, url: "https://vaz63.github.io/g97/class-146" },
 
   // --- 🏎️ Racing Games ---
@@ -179,12 +196,12 @@ export const games: Game[] = [
   { id: "drift-hunters", title: "Drift Hunters", tags: ["racing", "drift"], thumbnail: driftHuntersNew, url: "https://vaz63.github.io/g5/class-447" },
   { id: "car-drift-racers-2", title: "Car Drift Racers 2", tags: ["racing", "drift"], thumbnail: carDriftRacers2, url: "https://vaz63.github.io/g3/class-601" },
   { id: "poly-track", title: "Poly Track", tags: ["racing", "arcade"], thumbnail: polyTrack, url: "https://polytrack-online.github.io/file/" },
-  { id: "snow-rider", title: "Snow Rider 3D", tags: ["racing", "winter"], url: "https://snow-rider3d.github.io/file/" },
+  { id: "snow-rider", title: "Snow Rider 3D", tags: ["racing", "winter"], thumbnail: snowRider3D, url: "https://snow-rider3d.github.io/file/" },
   { id: "furious-racing-3d", title: "Furious Racing 3D", tags: ["racing", "cars"], thumbnail: furiousRacing3d, url: "https://vaz63.github.io/g97/class-793" },
-  { id: "parking-fury-beach", title: "Parking Fury 3D Beach City", tags: ["racing", "parking"], url: "https://vaz63.github.io/g3/class-724" },
-  { id: "madalin-stunt-cars-3", title: "Madalin Stunt Cars 3", tags: ["racing", "stunts"], url: "https://vaz63.github.io/g5/class-566" },
-  { id: "highway-traffic", title: "Highway Traffic", tags: ["racing", "cars"], url: "https://vaz63.github.io/g97/class-522" },
-  { id: "offroader-v5", title: "Offroader V5", tags: ["racing", "offroad"], url: "https://vaz63.github.io/g72/class-751" },
+  { id: "parking-fury-beach", title: "Parking Fury 3D Beach City", tags: ["racing", "parking"], thumbnail: parkingFuryBeach, url: "https://vaz63.github.io/g3/class-724" },
+  { id: "madalin-stunt-cars-3", title: "Madalin Stunt Cars 3", tags: ["racing", "stunts"], thumbnail: madalinStuntCars3, url: "https://vaz63.github.io/g5/class-566" },
+  { id: "highway-traffic", title: "Highway Traffic", tags: ["racing", "cars"], thumbnail: highwayTraffic, url: "https://vaz63.github.io/g97/class-522" },
+  { id: "offroader-v5", title: "Offroader V5", tags: ["racing", "offroad"], thumbnail: offroaderV5, url: "https://vaz63.github.io/g72/class-751" },
 
   // --- 🎮 Action Games ---
   { id: "stickman-hook", title: "Stickman Hook", tags: ["action", "stickman"], thumbnail: stickmanHook, url: "https://vaz63.github.io/g5/class-406" },
@@ -196,8 +213,8 @@ export const games: Game[] = [
   { id: "red-ball-4", title: "Red Ball 4", tags: ["action", "platformer"], thumbnail: redBall4, url: "https://vaz63.github.io/g22/class-491" },
   { id: "bob-robber-4", title: "Bob The Robber 4", tags: ["action", "stealth"], thumbnail: bobRobber4, url: "https://vaz63.github.io/g97/class-568" },
   { id: "temple-run-2", title: "Temple Run 2", tags: ["action", "endless runner"], thumbnail: templeRun2New, url: "https://vaz63.github.io/g26/class-405" },
-  { id: "temple-of-boom", title: "Temple Of Boom", tags: ["action", "shooter"], url: "https://vaz63.github.io/g69/class-411" },
-  { id: "murder", title: "Murder", tags: ["action", "stealth"], url: "https://vaz63.github.io/g72/class-580" },
+  { id: "temple-of-boom", title: "Temple Of Boom", tags: ["action", "shooter"], thumbnail: templeOfBoom, url: "https://vaz63.github.io/g69/class-411" },
+  { id: "murder", title: "Murder", tags: ["action", "stealth"], thumbnail: murderGame, url: "https://vaz63.github.io/g72/class-580" },
   { id: "hills-of-steel", title: "Hills Of Steel", tags: ["action", "tanks"], url: "https://vaz63.github.io/g22/class-359" },
   { id: "getaway-shootout", title: "Getaway Shootout", tags: ["action", "multiplayer"], url: "https://vaz63.github.io/g9/class-479" },
   { id: "level-devil", title: "Level Devil", tags: ["action", "platformer"], url: "https://vaz63.github.io/g22/class-356" },

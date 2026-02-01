@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain } from "lucide-react";
+import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Flame, Sparkles, SortAsc, SortDesc } from "lucide-react";
+import { useProgression } from "@/contexts/ProgressionContext";
 import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Link, useSearchParams } from "react-router-dom";
@@ -11,8 +12,15 @@ const GamesPage = () => {
   const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") || "all";
 
+
+  const { purchases } = useProgression();
+  const hasAdvancedSearch = purchases.includes('advanced-search');
+  const hasSmartRecs = purchases.includes('smart-recommendations');
+  const hasTrending = purchases.includes('trending-insights');
+
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [sortBy, setSortBy] = useState<'az' | 'za'>('az');
 
   // Filter Logic - map categories to tags
   const filteredGames = games.filter((game) => {
@@ -24,7 +32,15 @@ const GamesPage = () => {
       (activeCategory === "strategy" && (game.tags.includes("puzzle") || game.tags.includes("strategy"))) ||
       (activeCategory === "multiplayer" && game.tags.includes("multiplayer"));
     return matchesSearch && matchesCategory;
+  }).sort((a, b) => {
+    if (sortBy === 'az') return a.title.localeCompare(b.title);
+    if (sortBy === 'za') return b.title.localeCompare(a.title);
+    return 0;
   });
+
+  // Mock Data for Features
+  const trendingGames = games.slice(0, 5); // Just first 5 for now
+  const recommendedGames = games.slice(5, 10); // Next 5
 
   const categories = [
     { id: "all", label: "All Games", icon: Gamepad2 },
@@ -48,16 +64,72 @@ const GamesPage = () => {
             <p className="text-slate-400">Browse {games.length} unblocked games</p>
           </div>
 
-          <div className="relative w-full md:w-96">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
-            <Input
-              placeholder="Search games..."
-              className="pl-12 bg-[#1E1E24] border-slate-800 text-white h-12 rounded-xl focus:ring-orange-500"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          <div className="flex flex-col gap-4 w-full md:w-auto">
+            <div className="relative w-full md:w-96">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
+              <Input
+                placeholder="Search games..."
+                className="pl-12 bg-[#1E1E24] border-slate-800 text-white h-12 rounded-xl focus:ring-orange-500"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            {hasAdvancedSearch && (
+              <div className="flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+                <Filter size={16} className="text-orange-400" />
+                <span className="text-xs text-orange-400 font-bold uppercase tracking-wider">Advanced Search Unlocked</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'az' | 'za')}
+                  className="bg-[#1E1E24] border-slate-800 text-slate-200 text-sm rounded-lg px-3 py-1 ml-auto outline-none focus:ring-1 focus:ring-orange-500"
+                >
+                  <option value="az">A-Z</option>
+                  <option value="za">Z-A</option>
+                </select>
+              </div>
+            )}
           </div>
         </div>
+
+        {/* UNLOCKED FEATURES Sections */}
+        {(hasTrending || hasSmartRecs) && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+
+            {hasTrending && (
+              <div className="bg-[#1E1E24]/50 p-6 rounded-2xl border border-orange-500/20">
+                <h2 className="flex items-center gap-2 text-xl font-bold text-white mb-4">
+                  <Flame className="text-orange-500" /> Trending Now
+                </h2>
+                <div className="grid grid-cols-3 gap-3">
+                  {trendingGames.slice(0, 3).map(game => (
+                    <Link key={game.id} to={`/games/${game.id}`} className="block group">
+                      <img src={game.thumbnail || fallback} className="rounded-lg aspect-square object-cover mb-2 group-hover:scale-105 transition-transform" />
+                      <p className="text-xs text-slate-300 truncate font-medium group-hover:text-orange-400">{game.title}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {hasSmartRecs && (
+              <div className="bg-[#1E1E24]/50 p-6 rounded-2xl border border-purple-500/20">
+                <h2 className="flex items-center gap-2 text-xl font-bold text-white mb-4">
+                  <Sparkles className="text-purple-500" /> Recommended For You
+                </h2>
+                <div className="grid grid-cols-3 gap-3">
+                  {recommendedGames.slice(0, 3).map(game => (
+                    <Link key={game.id} to={`/games/${game.id}`} className="block group">
+                      <img src={game.thumbnail || fallback} className="rounded-lg aspect-square object-cover mb-2 group-hover:scale-105 transition-transform" />
+                      <p className="text-xs text-slate-300 truncate font-medium group-hover:text-purple-400">{game.title}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+          </div>
+        )}
 
         {/* CATEGORY TABS */}
         <div className="flex overflow-x-auto pb-4 gap-2 mb-8 no-scrollbar">
@@ -66,8 +138,8 @@ const GamesPage = () => {
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap transition-all font-medium border ${activeCategory === cat.id
-                  ? "bg-orange-600 border-orange-500 text-white shadow-lg shadow-orange-900/50"
-                  : "bg-[#1E1E24] border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-white"
+                ? "bg-orange-600 border-orange-500 text-white shadow-lg shadow-orange-900/50"
+                : "bg-[#1E1E24] border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-white"
                 }`}
             >
               <cat.icon size={16} />
