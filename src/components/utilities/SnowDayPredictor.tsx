@@ -52,8 +52,16 @@ export const SnowDayPredictor = () => {
     const [alerts, setAlerts] = useState<string[]>([]);
     const [showTechnical, setShowTechnical] = useState(false);
 
-    // --- REFACTORED ALGORITHM V4.1 (ARCHIVE STAT SHEET + HISTORICAL DEPTH) ---
-    const calculateConstraints = (data: WeatherData, dayIdx: number, activeAlerts: string[]) => {
+    // --- POST-API ADJUSTMENT FACTORS ---
+    const [factors, setFactors] = useState({
+        daysUsed: 2, // Default: Early season (generous)
+        delaysUsed: 0,
+        sentiment: 'neutral', // neutral, viral, angry
+        roadStatus: 'normal' // normal, spotty, icy, unplowed
+    });
+
+    // --- REFACTORED ALGORITHM V4.2 (ARCHIVE STAT SHEET + HISTORICAL DEPTH + USER FACTORS) ---
+    const calculateConstraints = (data: WeatherData, dayIdx: number, activeAlerts: string[], userFactors: any) => {
         const apiDayIdx = dayIdx + 7;
         const startHour = apiDayIdx * 24;
         const endHour = startHour + 24;
@@ -61,37 +69,28 @@ export const SnowDayPredictor = () => {
         const hourlySnow = data.hourly.snowfall.slice(startHour, endHour);
         const hourlyTemps = data.hourly.temperature_2m.slice(startHour, endHour);
         const hourlyCodes = data.hourly.weather_code.slice(startHour, endHour);
+        // ... (existing variable declarations remain same)
         const hourlyGusts = data.hourly.wind_gusts_10m ? data.hourly.wind_gusts_10m.slice(startHour, endHour) : new Array(24).fill(0);
 
-        // --- 1. HISTORICAL CONTEXT (The "Day After" Logic) ---
-        // Check past 3 days for massive accumulation that hasn't melted.
+        // --- 1. HISTORICAL CONTEXT ---
         let existingDepth = 0;
         for (let i = 1; i <= 3; i++) {
             const pastDayIdx = apiDayIdx - i;
             if (pastDayIdx >= 0) {
-                // Simple decay: Snow lasts ~3 days. 
                 const daySnow = (data.daily.snowfall_sum[pastDayIdx] || 0) / 2.54;
-                existingDepth += daySnow * (0.8 / i); // Older snow counts less
+                existingDepth += daySnow * (0.8 / i);
             }
         }
 
         // --- 2. STAT SHEET VARIABLES ---
-
-        // A. SNOW SCORE (Snow * 10)
-        // Add existing depth to the "Impact" score if it's significant (>4")
         const newSnowCm = hourlySnow.reduce((a, b) => a + b, 0);
         const newSnowIn = newSnowCm / 2.54;
-
-        // "Effective Snow" = New Snow + (Existing Depth > 5 ? Half of it : 0)
-        // If we have 10" on ground, we treat it like a 5" storm occurring today (Delay likely)
         const effectiveSnowIn = newSnowIn + (existingDepth > 5 ? existingDepth * 0.5 : 0);
         const snowScore = effectiveSnowIn * 10;
 
         // B. TIMING SCORE (0-3)
         let timingScore = 0;
-        // 4am - 9am (Morning Commute) -> Indices 4-9
         const morningSnow = hourlySnow.slice(4, 10).reduce((a, b) => a + b, 0);
-        // 12am - 3am (Late Night) -> Indices 0-3
         const lateNightSnow = hourlySnow.slice(0, 4).reduce((a, b) => a + b, 0);
 
         if (morningSnow > 0.5) timingScore = 3;
@@ -122,11 +121,38 @@ export const SnowDayPredictor = () => {
         else if (spreadIn > 2) confidence = 0.6;
         else if (spreadIn < 0.5) confidence = 0.95;
 
-        // ALERT BOOST: If Winter Storm Warning is active, Confidence = 100%
+        // ALERT BOOST
         if (activeAlerts.some(a => a.toLowerCase().includes("warning"))) confidence = 1.0;
 
+        // --- F. USER ADJUSTMENT FACTORS (V6.0 Weighted) ---
+        // --- F. USER ADJUSTMENT FACTORS (V6.0 Weighted) ---
+        // 1. Budget Score (Days Used + Delays)
+        // 0-3 Used: Generous (+10%). 4-8: Neutral. 9+: Stingy (-20%).
+        let budgetMultiplier = 1.0;
+        if (userFactors.daysUsed <= 3) budgetMultiplier = 1.1;
+        else if (userFactors.daysUsed >= 9) budgetMultiplier = 0.8;
+
+        // Delays wear down patience too, but less than full days.
+        // If > 5 delays used, slight penalty.
+        if (userFactors.delaysUsed > 5) budgetMultiplier -= 0.05;
+
+        // 2. Sentiment Bonus (Peer Pressure - Re-weighted)
+        let sentimentBonus = 0;
+        if (userFactors.sentiment === 'viral') sentimentBonus = 10; // Capped at 10.
+        else if (userFactors.sentiment === 'angry') sentimentBonus = 5;
+
+        // 3. Road Safety Override (Re-weighted)
+        let safetyBonus = 0;
+        if (userFactors.roadStatus === 'icy') safetyBonus = 30; // Ice is critical.
+        else if (userFactors.roadStatus === 'unplowed') safetyBonus = 20; // Widespread.
+        else if (userFactors.roadStatus === 'spotty') safetyBonus = 10; // Localized/Uncertain.
+        else if (userFactors.roadStatus === 'clear') safetyBonus = -15; // Push to open.
+
         // --- FINAL CALCULATION ---
-        const rawScore = (snowScore + timingScore + tempScore + precipScore) * confidence;
+        let rawScore = ((snowScore + timingScore + tempScore + precipScore) * confidence);
+
+        // Apply User Factors
+        rawScore = (rawScore * budgetMultiplier) + sentimentBonus + safetyBonus;
 
         // --- STATUS MAPPING ---
         let status = "Business as Usual";
@@ -134,16 +160,16 @@ export const SnowDayPredictor = () => {
         let statusColor = "text-emerald-400";
         let primaryConstraint = "Clear";
 
-        if (rawScore > 35 || existingDepth > 10) { // Auto-close if >10" on ground
+        if (rawScore > 35 || existingDepth > 10 || userFactors.roadStatus === 'icy') {
             status = "❄️ SNOW DAY CONFIRMED";
-            subtext = existingDepth > 10 ? "Massive snowpack limits bus access." : "Conditions exceed operational limits.";
+            subtext = userFactors.roadStatus === 'icy' ? "Severe icing reported." : existingDepth > 10 ? "Massive snowpack limits bus access." : "Conditions exceed operational limits.";
             statusColor = "text-indigo-400";
-            primaryConstraint = existingDepth > 10 ? "Deep Snowpack" : "Heavy Accumulation";
-        } else if (rawScore > 15 || existingDepth > 5) {
+            primaryConstraint = userFactors.roadStatus === 'icy' ? "Severe Icing" : (existingDepth > 10 ? "Deep Snowpack" : "Heavy Accumulation");
+        } else if (rawScore > 15 || existingDepth > 5 || userFactors.roadStatus === 'unplowed') {
             status = "DELAY / CLOSING LIKELY";
-            subtext = existingDepth > 5 ? "Roads remain narrowed by plow piles." : "Disruption highly likely.";
+            subtext = userFactors.roadStatus === 'unplowed' ? "Roads reported as unplowed." : "Disruption highly likely.";
             statusColor = "text-blue-400";
-            primaryConstraint = "Mod. Accumulation";
+            primaryConstraint = userFactors.roadStatus === 'unplowed' ? "Road Conditions" : "Mod. Accumulation";
         } else if (rawScore > 5) {
             status = "WATCHING CLOSELY";
             subtext = "Minor disruption possible.";
@@ -154,25 +180,18 @@ export const SnowDayPredictor = () => {
         const dateStr = new Date(data.daily.time[apiDayIdx]).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
 
         return {
-            status,
-            subtext,
-            statusColor,
-            score: rawScore, // Ensure this matches user expectation
-            dateLabel: dateStr,
+            status, subtext, statusColor, score: rawScore, dateLabel: dateStr,
             metrics: {
-                // New Keys for V4 (Matches getStudentView)
                 snowScore: snowScore.toFixed(1),
                 timingScore: timingScore.toString(),
                 tempScore: tempScore.toFixed(1),
                 precipScore: precipScore.toString(),
                 confidence: confidence.toFixed(2),
                 rawScore: rawScore.toFixed(2),
-
-                // Legacy / Display Keys
                 netSnow: newSnowIn.toFixed(1),
-                depth: existingDepth.toFixed(1), // Show actual ground depth
+                depth: existingDepth.toFixed(1),
                 constraint: primaryConstraint,
-                commuteRate: spreadIn.toFixed(1), // Reuse for Spread display or similar
+                commuteRate: spreadIn.toFixed(1),
                 spread: spreadIn.toFixed(1),
                 tempMin: minTempF.toFixed(0),
                 windMax: Math.max(...hourlyGusts).toFixed(0),
@@ -252,7 +271,8 @@ export const SnowDayPredictor = () => {
 
             if (weather) {
                 // Pass district name as location context if needed
-                const prediction = calculateConstraints(weather, dayIndex, fetchedAlerts);
+                // Pass district name as location context if needed
+                const prediction = calculateConstraints(weather, dayIndex, fetchedAlerts, factors);
                 setResult({
                     location: { name: selectedDistrict.name, country: "US" },
                     ...prediction,
@@ -268,7 +288,14 @@ export const SnowDayPredictor = () => {
         }
     };
 
-    // ... (UseEffect remains the same)
+    // Updated Effect to watch factors
+    useEffect(() => {
+        if (result && result.rawWeather) {
+            const prediction = calculateConstraints(result.rawWeather, dayIndex, alerts, factors);
+            setResult({ ...result, ...prediction });
+        }
+    }, [dayIndex, alerts, factors]);
+
 
     const studentView = result ? getStudentView(result) : null;
 
@@ -298,8 +325,8 @@ export const SnowDayPredictor = () => {
                 {/* MAIN CONTENT AREA */}
                 <div className="flex-1 flex flex-col">
 
-                    {/* SEARCH BAR -> DISTRICT SELECTOR */}
-                    <div className="flex flex-col md:flex-row gap-4 mb-8">
+                    {/* SELECTOR BAR (DISTRICT + TIME) */}
+                    <div className="flex flex-col md:flex-row gap-4 mb-4">
                         <div className="flex-1 bg-white/5 rounded-md p-1 pl-4 flex items-center border border-white/10 focus-within:border-blue-400/50 transition-colors">
                             <span className="text-white/40 mr-2 text-xs font-medium">JURISDICTION:</span>
                             <Select
@@ -334,6 +361,70 @@ export const SnowDayPredictor = () => {
                         >
                             {loading ? "THINKING..." : "PREDICT"}
                         </Button>
+                    </div>
+
+                    {/* TUNING CONTROLS (USER FACTORS) */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 p-4 bg-white/5 rounded-lg border border-white/10">
+                        {/* 1. BUDGET */}
+                        {/* 1. BUDGET (DAYS + DELAYS) */}
+                        <div className="space-y-4">
+                            {/* Days Used */}
+                            <div className="space-y-1">
+                                <div className="flex justify-between items-center text-[10px] uppercase tracking-widest text-white/50">
+                                    <label>Snow Days</label>
+                                    <span className={factors.daysUsed > 10 ? "text-red-400" : "text-emerald-400"}>
+                                        {factors.daysUsed} / 15
+                                    </span>
+                                </div>
+                                <input
+                                    type="range" min="0" max="15" value={factors.daysUsed}
+                                    onChange={(e) => setFactors({ ...factors, daysUsed: parseInt(e.target.value) })}
+                                    className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                                />
+                            </div>
+
+                            {/* Delays Used */}
+                            <div className="space-y-1">
+                                <div className="flex justify-between items-center text-[10px] uppercase tracking-widest text-white/50">
+                                    <label>Delays</label>
+                                    <span className="text-white/70">{factors.delaysUsed}</span>
+                                </div>
+                                <input
+                                    type="range" min="0" max="15" value={factors.delaysUsed}
+                                    onChange={(e) => setFactors({ ...factors, delaysUsed: parseInt(e.target.value) })}
+                                    className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                                />
+                            </div>
+                        </div>
+
+                        {/* 2. SENTIMENT */}
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase tracking-widest text-white/50">Social Media Vibe</label>
+                            <Select value={factors.sentiment} onValueChange={(v) => setFactors({ ...factors, sentiment: v })}>
+                                <SelectTrigger className="bg-black/20 border-white/10 text-xs h-8 text-white"><SelectValue /></SelectTrigger>
+                                <SelectContent className="bg-slate-900 border-white/10 text-white">
+                                    <SelectItem value="neutral">Silent / Neutral</SelectItem>
+                                    <SelectItem value="viral">Trending / Viral</SelectItem>
+                                    <SelectItem value="angry">Angry Parents</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        {/* 3. ROADS */}
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase tracking-widest text-white/50">My Neighborhood</label>
+                            <Select value={factors.roadStatus} onValueChange={(v) => setFactors({ ...factors, roadStatus: v })}>
+                                <SelectTrigger className="bg-black/20 border-white/10 text-xs h-8 text-white"><SelectValue /></SelectTrigger>
+                                <SelectContent className="bg-slate-900 border-white/10 text-white">
+                                    <SelectItem value="normal">Normal</SelectItem>
+                                    <SelectItem value="slush">Slushy</SelectItem>
+                                    <SelectItem value="icy">Ice Sheet</SelectItem>
+                                    <SelectItem value="unplowed">Unplowed</SelectItem>
+                                    <SelectItem value="spotty">Spotty / Variable</SelectItem>
+                                    <SelectItem value="clear">Bone Dry</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
 
                     {error && <div className="text-red-500 text-xs font-mono mb-4">ERROR: {error}</div>}
