@@ -97,9 +97,15 @@ export const SnowDayPredictor = () => {
         else if (lateNightSnow > 0.5) timingScore = 2;
 
         // C. TEMP SCORE (32 - MinTemp)
+        // FIX: Only count temp score if there is precip or existing snow/wet/ice.
         const minTempC = Math.min(...hourlyTemps);
         const minTempF = (minTempC * 9 / 5) + 32;
-        const tempScore = Math.max(0, 32 - minTempF);
+        let tempScore = Math.max(0, 32 - minTempF);
+
+        // Gate: If dry and no snow on ground, cold doesn't matter for roads.
+        if (effectiveSnowIn < 0.1 && !hasIce && !hasAnySnow) {
+            tempScore = 0;
+        }
 
         // D. PRECIP TYPE FACTOR (0-3)
         let precipScore = 0;
@@ -204,7 +210,10 @@ export const SnowDayPredictor = () => {
                 spread: spreadIn.toFixed(1),
                 tempMin: minTempF.toFixed(0),
                 windMax: Math.max(...hourlyGusts).toFixed(0),
-                chance: chance.toString() // Pass percentage
+                windMax: Math.max(...hourlyGusts).toFixed(0),
+                probOpen: pOpen.toString(),
+                probDelay: pDelay.toString(),
+                probClose: pClose.toString()
             }
         };
     };
@@ -215,12 +224,12 @@ export const SnowDayPredictor = () => {
         let confidence = "High";
         let reasons = [];
         const score = parseFloat(result.metrics.rawScore || "0");
-        const chance = parseInt(result.metrics.chance || "0");
+        const pClose = parseInt(result.metrics.probClose || "0");
 
-        if (score > 35 || chance > 85) {
+        if (pClose > 60) {
             headline = "SNOW DAY!";
             confidence = "High";
-        } else if (score > 15 || chance > 40) {
+        } else if (pClose > 30 || parseInt(result.metrics.probDelay) > 50) {
             headline = "Delay / Closing Likely";
             confidence = "Medium";
         } else if (score > 5) {
@@ -454,15 +463,26 @@ export const SnowDayPredictor = () => {
                                     <div className="space-y-6">
                                         <div>
                                             <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Likely Outcome</div>
-                                            <div className="flex items-baseline gap-4">
-                                                <h1 className={`text-4xl md:text-5xl font-black tracking-tight leading-tight ${studentView.headline.includes("OPEN") ? 'text-emerald-400' :
-                                                    studentView.headline.includes("CLOSED") ? 'text-red-400' : 'text-yellow-400'
-                                                    }`}>
-                                                    {studentView.headline}
-                                                </h1>
-                                                <span className="text-3xl md:text-4xl font-thin text-white/20">
-                                                    {result.metrics.chance}%
-                                                </span>
+                                            <h1 className={`text-4xl md:text-5xl font-black tracking-tight leading-tight ${studentView.headline.includes("OPEN") ? 'text-emerald-400' :
+                                                studentView.headline.includes("CLOSED") ? 'text-red-400' : 'text-yellow-400'
+                                                }`}>
+                                                {studentView.headline}
+                                            </h1>
+
+                                            {/* 3-WAY PROBABILITY DISPLAY */}
+                                            <div className="flex gap-2 mt-4">
+                                                <div className="flex flex-col items-center bg-white/5 px-3 py-2 rounded border border-white/10 min-w-[70px]">
+                                                    <span className="text-[10px] text-white/40 uppercase">Open</span>
+                                                    <span className="text-xl font-bold text-emerald-400">{result.metrics.probOpen}%</span>
+                                                </div>
+                                                <div className="flex flex-col items-center bg-white/5 px-3 py-2 rounded border border-white/10 min-w-[70px]">
+                                                    <span className="text-[10px] text-white/40 uppercase">Delay</span>
+                                                    <span className="text-xl font-bold text-yellow-400">{result.metrics.probDelay}%</span>
+                                                </div>
+                                                <div className="flex flex-col items-center bg-white/5 px-3 py-2 rounded border border-white/10 min-w-[70px]">
+                                                    <span className="text-[10px] text-white/40 uppercase">Close</span>
+                                                    <span className="text-xl font-bold text-red-400">{result.metrics.probClose}%</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-3">
