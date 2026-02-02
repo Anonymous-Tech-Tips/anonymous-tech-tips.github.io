@@ -7,11 +7,10 @@ export const Footer: React.FC = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <footer className={`py-8 text-center border-t ${
-      isAuthenticated
+    <footer className={`py-8 text-center border-t ${isAuthenticated
         ? "bg-gamer-card border-gamer-border text-gamer-muted"
         : "bg-card border-border text-muted-foreground"
-    }`}>
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-sm mb-4">
           © 2024 Tech Tips. Your source for games, utilities, and tech resources.
@@ -39,6 +38,13 @@ export const Footer: React.FC = () => {
               🔍 SEO Setup
             </Link>
           )}
+          <a
+            href="/sitemap.xml"
+            target="_blank"
+            className={`hover:underline ${isAuthenticated ? "text-gamer-accent" : "text-primary"}`}
+          >
+            🗺️ Sitemap
+          </a>
         </div>
         <div className="flex justify-center">
           <VisitorCounter variant="inline" />

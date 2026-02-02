@@ -51,7 +51,7 @@ const basePath = '';
 const navigationHandler = createHandlerBoundToURL(`${basePath}/index.html`);
 const navigationRoute = new NavigationRoute(navigationHandler, {
   allowlist: [new RegExp(`^${basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/.*$`)],
-  denylist: [/\/api\/.*$/, /\.(?:css|js|json|png|jpg|jpeg|svg|gif|webp|woff2?)$/],
+  denylist: [/\/api\/.*$/, /\.(?:css|js|json|png|jpg|jpeg|svg|gif|webp|woff2?)$/, /\/sitemap\.xml$/],
 });
 registerRoute(navigationRoute);
 
@@ -61,8 +61,8 @@ registerRoute(
   new NetworkFirst({
     cacheName: `html-${CACHE_VERSION}`,
     plugins: [
-      new ExpirationPlugin({ 
-        maxEntries: 10, 
+      new ExpirationPlugin({
+        maxEntries: 10,
         maxAgeSeconds: 60 * 60 // 1 hour
       })
     ],
@@ -75,8 +75,8 @@ registerRoute(
   new NetworkFirst({
     cacheName: `static-assets-${CACHE_VERSION}`,
     plugins: [
-      new ExpirationPlugin({ 
-        maxEntries: 200, 
+      new ExpirationPlugin({
+        maxEntries: 200,
         maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
       })
     ],
