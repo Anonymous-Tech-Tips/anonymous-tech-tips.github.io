@@ -297,7 +297,6 @@ export const SnowDayPredictor = () => {
         <div className="w-full bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 font-sans shadow-indigo-900/20">
             {/* Background Effects */}
             <FallingSnow count={40} />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay" />
 
             <div className="relative z-10 p-6 md:p-10 min-h-[600px] flex flex-col">
                 {/* HEADER */}
