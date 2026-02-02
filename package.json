@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d docs",
+    "deploy": "gh-pages -d dist",
     "validate:data": "tsx scripts/validate-data.ts",
     "generate:sitemap": "tsx scripts/generate-sitemap.ts",
     "type-check": "tsc --noEmit"

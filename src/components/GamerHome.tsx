@@ -59,7 +59,7 @@ export const GamerHome = () => {
     : [];
 
   return (
-    <div className="min-h-screen bg-background text-white selection:bg-purple-500/30 overflow-x-hidden gamer-mode font-sans">
+    <div className="min-h-screen bg-transparent text-white selection:bg-purple-500/30 overflow-x-hidden gamer-mode font-sans">
       {/* HERO SECTION - CINEMATIC, COZY */}
       {/* HERO SECTION - CINEMATIC, COZY */}
       {/* Background: Global GamerBackground handles this now */}
