@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://armaans-tech-tips.github.io/sitemap.xml
+Sitemap: https://anonymous-tech-tips.github.io/sitemap.xml
