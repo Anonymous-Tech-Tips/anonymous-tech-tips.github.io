@@ -53,10 +53,10 @@ export const Navbar: React.FC = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || isMenuOpen
-          ? isAuthenticated
-            ? "bg-black/40 backdrop-blur-xl border-b border-white/5"
-            : "bg-white/80 backdrop-blur-md border-b border-slate-200"
-          : "bg-transparent border-b border-transparent"
+        ? isAuthenticated
+          ? "bg-background/60 backdrop-blur-xl border-b border-white/5"
+          : "bg-white/80 backdrop-blur-md border-b border-slate-200"
+        : "bg-transparent border-b border-transparent"
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">

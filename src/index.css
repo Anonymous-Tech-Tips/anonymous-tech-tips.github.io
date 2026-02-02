@@ -8,42 +8,44 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* COZY STUDIO PALETTE - GLOBAL DEFAULT */
-    --background: 240 10% 12%;
-    /* Warm Charcoal */
-    --foreground: 0 0% 98%;
+    /* COZY EARTH PALETTE - TRUE WARMTH 🧸☕ */
+    --background: 27 12% 11%;
+    /* Deep Warm Espresso */
+    --foreground: 30 20% 96%;
+    /* Creamy White */
 
-    --card: 240 10% 16%;
-    /* Soft Charcoal */
-    --card-foreground: 0 0% 98%;
+    --card: 27 15% 15%;
+    /* Lighter Espresso */
+    --card-foreground: 30 20% 96%;
 
-    --popover: 240 10% 16%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 27 15% 15%;
+    --popover-foreground: 30 20% 96%;
 
-    --primary: 260 60% 75%;
-    /* Soft Lavender */
-    --primary-foreground: 260 50% 15%;
+    --primary: 22 65% 72%;
+    /* Soft Coral/Peach */
+    --primary-foreground: 22 20% 15%;
 
-    --secondary: 20 50% 75%;
-    /* Warm Peach */
-    --secondary-foreground: 20 60% 15%;
+    --secondary: 270 20% 25%;
+    /* Deep Muted Plum */
+    --secondary-foreground: 270 20% 90%;
 
-    --muted: 240 10% 20%;
-    --muted-foreground: 240 10% 70%;
+    --muted: 27 10% 20%;
+    --muted-foreground: 27 10% 70%;
 
-    --accent: 330 60% 75%;
-    /* Soft Rose */
-    --accent-foreground: 330 60% 15%;
+    --accent: 340 50% 75%;
+    /* Dusty Rose */
+    --accent-foreground: 340 50% 15%;
 
     --destructive: 0 60% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 10% 22%;
-    --input: 240 10% 22%;
-    --ring: 260 60% 75%;
+    --border: 27 15% 20%;
+    --input: 27 15% 20%;
+    --ring: 22 65% 72%;
+    /* Peach Ring */
 
-    --radius: 1.5rem;
-    /* Rounder corners */
+    --radius: 1.75rem;
+    /* Super Soft Corners */
 
     /* Map Gamer Variables to Root for compatibility */
     --gamer-bg: var(--background);

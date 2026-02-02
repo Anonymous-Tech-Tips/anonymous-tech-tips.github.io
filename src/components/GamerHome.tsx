@@ -26,6 +26,7 @@ export const GamerHome = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [randomFeatured, setRandomFeatured] = useState(games[0]);
   const [trendingGames, setTrendingGames] = useState<typeof games>([]);
+  const [arrivalTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
   const continueIds = prefs.history.filter(h => h.itemType === 'game').map(h => h.itemId);
   const uniqueContinue = [...new Set(continueIds)];
@@ -46,6 +47,13 @@ export const GamerHome = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    return "Good evening";
+  };
+
   const filteredGames = searchQuery
     ? games.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 6)
     : [];
@@ -53,88 +61,89 @@ export const GamerHome = () => {
   return (
     <div className="min-h-screen bg-background text-white selection:bg-purple-500/30 overflow-x-hidden gamer-mode font-sans">
       {/* HERO SECTION - CINEMATIC, COZY */}
-      {/* Background: Dreamy Mesh Gradient instead of Void Black */}
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-background to-background pointer-events-none" />
-      <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
+      {/* HERO SECTION - CINEMATIC, COZY */}
+      {/* Background: Global GamerBackground handles this now */}
 
       {/* HERO SECTION - CINEMATIC */}
-      <div className="relative h-[85vh] w-full flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-24 overflow-hidden group">
-        {/* Background Image */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={randomFeatured?.id}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="absolute inset-0 z-0"
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent z-10" />
-            <img
-              src={randomFeatured?.thumbnail || fallbackThumbnail}
-              className="w-full h-full object-cover opacity-60"
-              alt="Hero BG"
-            />
-          </motion.div>
-        </AnimatePresence>
+      {/* HERO SECTION - SANCTUARY STYLE */}
+      <div className="relative pt-32 pb-12 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto space-y-12">
 
-        {/* Hero Content */}
-        <div className="relative z-20 max-w-4xl space-y-6">
+          {/* PERSONAL GREETING */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center gap-4"
+            className="space-y-2"
           >
-            <span className="px-4 py-1.5 bg-white/10 rounded-full text-xs font-medium backdrop-blur-md border border-white/5 text-purple-200">
-              Featured Pick
-            </span>
-            <div className="flex items-center gap-2 text-sm font-medium text-white/80">
-              <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-              <span>4.9/5 Rating</span>
-            </div>
+            <h1 className="text-5xl md:text-7xl font-serif italic text-white/90">
+              {getGreeting()}, <span className="text-primary">Gamer</span>.
+            </h1>
+            <p className="text-xl text-white/60 font-light max-w-2xl flex items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-xs font-mono uppercase tracking-widest text-white/40">
+                <Clock className="w-3 h-3" /> Arrived: {arrivalTime}
+              </span>
+              <span>Your sanctuary is ready.</span>
+            </p>
           </motion.div>
 
-          <motion.h1
-            key={randomFeatured?.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-serif italic font-bold tracking-tighter leading-[0.85] text-white mix-blend-overlay"
-          >
-            {randomFeatured?.title}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
-            transition={{ delay: 0.5 }}
-            className="text-lg md:text-xl font-light text-white/80 max-w-xl leading-relaxed"
-          >
-            Experience the next evolution of browser gaming. High performance, zero latency, and fully unblocked access.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-wrap gap-4 pt-4"
-          >
-            <Button
+          {/* BENTO GRID FEATURE */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-[500px]">
+            {/* LARGE FEATURE CARD (8 cols) */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
               onClick={() => navigate(`/games/${randomFeatured?.id}`)}
-              className="h-14 px-8 rounded-full bg-white text-black hover:bg-slate-200 transition-colors text-base font-bold flex items-center gap-2"
+              className="md:col-span-8 relative group rounded-[2.5rem] overflow-hidden bg-card cursor-pointer shadow-xl shadow-black/20"
             >
-              <Play className="fill-black w-4 h-4" /> Play Now
-            </Button>
-            <Button
-              onClick={() => navigate('/games')}
-              variant="outline"
-              className="h-14 px-8 rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-md transition-all text-base font-medium"
-            >
-              Explore Collection
-            </Button>
-          </motion.div>
+              <img src={randomFeatured?.thumbnail || fallbackThumbnail} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+
+              <div className="absolute bottom-8 left-8 right-8 z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/10 text-xs font-bold uppercase tracking-widest text-primary mb-4">
+                  <Star className="w-3 h-3 fill-primary" /> Warning: Addictive
+                </div>
+                <h2 className="text-4xl md:text-6xl font-serif italic font-medium text-white mb-2">{randomFeatured?.title}</h2>
+                <p className="text-white/70 line-clamp-2 max-w-xl text-lg font-light">Experience the seamless gameplay and stunning visuals of this community favorite.</p>
+              </div>
+            </motion.div>
+
+            {/* SIDE STACK (4 cols) */}
+            <div className="md:col-span-4 flex flex-col gap-6">
+              {/* STATUS CARD */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="flex-1 bg-secondary/20 rounded-[2rem] p-6 border border-white/5 flex flex-col justify-center items-start gap-4 hover:bg-secondary/30 transition-colors"
+              >
+                <div className="w-12 h-12 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center">
+                  <Zap className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-white">{prefs.settings.streakCount} Day</div>
+                  <div className="text-white/60 text-sm">Reward Streak Active</div>
+                </div>
+              </motion.div>
+
+              {/* RANDOM ACTION */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                onClick={() => navigate('/games')}
+                className="flex-1 bg-primary/20 rounded-[2rem] p-6 border border-white/5 flex flex-col justify-center items-start gap-4 hover:bg-primary/30 transition-colors cursor-pointer group"
+              >
+                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Search className="w-6 h-6" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-white">Browse</div>
+                  <div className="text-white/60 text-sm">Find your next obsession</div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
         </div>
       </div>
 

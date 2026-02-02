@@ -10,12 +10,12 @@ interface Snowflake {
   opacity: number;
 }
 
-export const FallingSnow = () => {
+export const FallingSnow = ({ count = 20 }: { count?: number }) => {
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
 
   useEffect(() => {
     // Subtle snow - just simple white dots
-    const newSnowflakes: Snowflake[] = Array.from({ length: 20 }, (_, i) => ({
+    const newSnowflakes: Snowflake[] = Array.from({ length: count }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       animationDuration: 12 + Math.random() * 8,
@@ -24,7 +24,7 @@ export const FallingSnow = () => {
       opacity: 0.3 + Math.random() * 0.3,
     }));
     setSnowflakes(newSnowflakes);
-  }, []);
+  }, [count]);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-40">

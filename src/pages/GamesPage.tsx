@@ -52,7 +52,7 @@ const GamesPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#121217] text-slate-100 font-sans">
+    <div className="min-h-screen text-slate-100 font-sans">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         {/* HEADER & SEARCH */}

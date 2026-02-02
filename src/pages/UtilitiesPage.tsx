@@ -61,7 +61,7 @@ const UtilitiesPage = () => {
         description="Free online utilities including password generator, color picker, text converter, QR code generator, and more essential tools for students."
         keywords="password generator, color picker, text converter, qr code generator, free utilities, online tools, adblocker, vpn, proxy, streaming"
       />
-      <div className={`min-h-screen ${isAuthenticated ? "bg-gamer-bg" : "bg-background"}`}>
+      <div className={`min-h-screen ${isAuthenticated ? "" : "bg-background"}`}>
         {isAuthenticated ? (
           <>
             {/* Authenticated view - consistent with Games/Profile/Rewards pages */}

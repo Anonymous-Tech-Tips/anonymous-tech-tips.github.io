@@ -18,6 +18,7 @@ import { SeasonalEffects } from "@/components/SeasonalEffects";
 import { useRewardEffects } from "@/hooks/useRewardEffects";
 import "./styles/thanksgiving.css";
 import { Layout } from "@/components/Layout";
+import { GamerBackground } from "@/components/GamerBackground";
 import Index from "./pages/Index";
 import LoginPage from "./pages/LoginPage";
 
@@ -104,6 +105,7 @@ const AppContent = () => {
       <PWAInstallPrompt />
       <CoachMarks />
       <div className={`relative min-h-screen ${isAuthenticated ? 'gamer-mode' : ''}`}>
+        {isAuthenticated && <GamerBackground />}
         <OfflineModeIndicator />
         <Routes>
           {/* Routes WITHOUT Layout (no navbar) */}

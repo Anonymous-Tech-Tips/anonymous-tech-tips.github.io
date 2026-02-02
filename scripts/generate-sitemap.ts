@@ -22,6 +22,11 @@ const urls = [
   { loc: `${baseUrl}/#/optimizations`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
   { loc: `${baseUrl}/#/education`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
   { loc: `${baseUrl}/#/entertainment`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/#/links`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
+  { loc: `${baseUrl}/#/updates`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/#/legal`, lastmod: today, changefreq: 'monthly', priority: 0.5 },
+  { loc: `${baseUrl}/#/shop`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
+  { loc: `${baseUrl}/#/login`, lastmod: today, changefreq: 'monthly', priority: 0.5 },
   { loc: `${baseUrl}/#/collections`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
   { loc: `${baseUrl}/#/rewards`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
   { loc: `${baseUrl}/#/leaderboard`, lastmod: today, changefreq: 'daily', priority: 0.7 },
@@ -45,7 +50,7 @@ ${all.map(u => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-const out = join(__dirname, '../dist/sitemap.xml');
+const out = join(__dirname, '../public/sitemap.xml');
 const outDir = dirname(out);
 mkdirSync(outDir, { recursive: true });
 writeFileSync(out, sitemap);
