@@ -282,6 +282,7 @@ export const SnowDayPredictor = () => {
         }
     };
 
+
     // Effect to update result if factors change
     useEffect(() => {
         if (result && result.rawWeather) {
@@ -293,62 +294,112 @@ export const SnowDayPredictor = () => {
     const studentView = result ? getStudentView(result) : null;
 
     return (
-        <div className="w-full bg-gradient-to-br from-[#00c6ff] to-[#0072ff] text-white rounded-3xl overflow-hidden shadow-2xl relative border border-white/20 font-sans shadow-blue-500/20">
+        <div className="w-full bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 font-sans shadow-indigo-900/20">
             {/* Background Effects */}
             <FallingSnow count={40} />
-            <div className="absolute inset-0 bg-white/5 pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay" />
 
-            <div className="relative z-10 p-8 md:p-12 min-h-[600px] flex flex-col">
+            <div className="relative z-10 p-6 md:p-10 min-h-[600px] flex flex-col">
                 {/* HEADER */}
-                <div className="flex justify-between items-start mb-8 border-b border-white/20 pb-6">
+                <div className="flex justify-between items-start mb-8 border-b border-white/10 pb-6">
                     <div className="space-y-2">
-                        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white drop-shadow-md">
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-xl relative z-10">
                             Snow Day Predictor
                         </h2>
-                        <div className="flex items-center gap-2 text-sm font-medium text-white/80">
-                            <Sparkles className="w-4 h-4" />
-                            <span>Will you have school off?</span>
+                        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-indigo-200/80">
+                            <Sparkles className="w-4 h-4 text-indigo-400" />
+                            <span>Oracle Engine v4.2</span>
                         </div>
                     </div>
                 </div>
 
                 {/* CONTROLS */}
-                <div className="flex flex-col md:flex-row gap-4 mb-8">
-                    <div className="flex-1 bg-white/20 backdrop-blur-md rounded-xl p-2 pl-4 flex items-center border border-white/20">
-                        <span className="text-white/70 mr-2 text-xs font-bold uppercase">District:</span>
-                        <Select
-                            value={selectedDistrict.id}
-                            onValueChange={(id) => setSelectedDistrict(DISTRICTS.find(d => d.id === id) || DISTRICTS[0])}
-                        >
-                            <SelectTrigger className="bg-transparent border-none text-white font-bold text-lg w-full focus:ring-0">
+                <div className="space-y-6 mb-8">
+                    {/* Primary Controls */}
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <div className="flex-1 bg-white/5 backdrop-blur-md rounded-xl p-1 pl-4 flex items-center border border-white/10 hover:border-white/20 transition-colors">
+                            <span className="text-white/50 mr-2 text-[10px] font-bold uppercase tracking-widest">District</span>
+                            <Select
+                                value={selectedDistrict.id}
+                                onValueChange={(id) => setSelectedDistrict(DISTRICTS.find(d => d.id === id) || DISTRICTS[0])}
+                            >
+                                <SelectTrigger className="bg-transparent border-none text-white font-bold text-lg w-full focus:ring-0 shadow-none">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent className="bg-slate-900 border-indigo-500/20 text-white font-bold">
+                                    {DISTRICTS.map(d => (
+                                        <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <Select value={dayIndex.toString()} onValueChange={(v) => setDayIndex(parseInt(v))}>
+                            <SelectTrigger className="w-full md:w-48 bg-white/5 backdrop-blur-md border-white/10 text-white font-bold rounded-xl h-auto py-3">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent className="bg-white/90 text-blue-900 border-none font-bold">
-                                {DISTRICTS.map(d => (
-                                    <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
-                                ))}
+                            <SelectContent className="bg-slate-900 border-indigo-500/20 text-white font-bold">
+                                <SelectItem value="0">Today</SelectItem>
+                                <SelectItem value="1">Tomorrow</SelectItem>
+                                <SelectItem value="2">2 Days Out</SelectItem>
                             </SelectContent>
                         </Select>
+
+                        <Button
+                            onClick={handlePredict}
+                            disabled={loading}
+                            className="bg-indigo-500 hover:bg-indigo-400 text-white text-lg font-black px-8 py-3 h-auto rounded-xl shadow-lg shadow-indigo-500/20 active:translate-y-1 transition-all flex-none"
+                        >
+                            {loading ? <Loader2 className="animate-spin" /> : "PROPHESIZE"}
+                        </Button>
                     </div>
 
-                    <Select value={dayIndex.toString()} onValueChange={(v) => setDayIndex(parseInt(v))}>
-                        <SelectTrigger className="w-40 bg-white/20 backdrop-blur-md border-white/20 text-white font-bold rounded-xl">
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white/90 text-blue-900 border-none font-bold">
-                            <SelectItem value="0">Today</SelectItem>
-                            <SelectItem value="1">Tomorrow</SelectItem>
-                            <SelectItem value="2">2 Days Out</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                    <Button
-                        onClick={handlePredict}
-                        disabled={loading}
-                        className="bg-white text-blue-600 hover:bg-white/90 text-lg font-black px-8 py-6 rounded-xl shadow-lg border-b-4 border-blue-200 active:border-b-0 active:translate-y-1 transition-all"
-                    >
-                        {loading ? <Loader2 className="animate-spin" /> : "PROPHESIZE"}
-                    </Button>
+                    {/* Advanced Factors (Restored) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-black/20 rounded-xl border border-white/5">
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest">Road Conditions</label>
+                            <Select value={factors.roadStatus} onValueChange={(v) => setFactors({ ...factors, roadStatus: v })}>
+                                <SelectTrigger className="bg-white/5 border-white/10 h-8 text-xs font-bold"><SelectValue /></SelectTrigger>
+                                <SelectContent className="bg-slate-900 text-white border-white/10">
+                                    <SelectItem value="clear">Clear</SelectItem>
+                                    <SelectItem value="spotty">Spotty Ice</SelectItem>
+                                    <SelectItem value="icy">Severe Icing</SelectItem>
+                                    <SelectItem value="unplowed">Unplowed</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest">Social Media</label>
+                            <Select value={factors.sentiment} onValueChange={(v) => setFactors({ ...factors, sentiment: v })}>
+                                <SelectTrigger className="bg-white/5 border-white/10 h-8 text-xs font-bold"><SelectValue /></SelectTrigger>
+                                <SelectContent className="bg-slate-900 text-white border-white/10">
+                                    <SelectItem value="neutral">Neutral</SelectItem>
+                                    <SelectItem value="viral">Viral Panic</SelectItem>
+                                    <SelectItem value="angry">Angry Parents</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest flex justify-between">
+                                Snow Days Used <span className="text-white">{factors.daysUsed}</span>
+                            </label>
+                            <input
+                                type="range" min="0" max="10" value={factors.daysUsed}
+                                onChange={(e) => setFactors({ ...factors, daysUsed: parseInt(e.target.value) })}
+                                className="w-full accent-indigo-400 bg-white/10 h-1 rounded-full appearance-none"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest flex justify-between">
+                                Delays Used <span className="text-white">{factors.delaysUsed}</span>
+                            </label>
+                            <input
+                                type="range" min="0" max="10" value={factors.delaysUsed}
+                                onChange={(e) => setFactors({ ...factors, delaysUsed: parseInt(e.target.value) })}
+                                className="w-full accent-indigo-400 bg-white/10 h-1 rounded-full appearance-none"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* ERROR MESSAGE */}
@@ -358,7 +409,7 @@ export const SnowDayPredictor = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         className="bg-red-500/20 border border-red-500/50 rounded-xl p-6 text-center text-white font-bold mb-8 backdrop-blur-md"
                     >
-                        <AlertTriangle className="w-8 h-8 mx-auto mb-2" />
+                        <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-red-200" />
                         {error}
                         <Button variant="link" onClick={handlePredict} className="text-white underline block mx-auto mt-2">Try Again</Button>
                     </motion.div>
@@ -373,15 +424,16 @@ export const SnowDayPredictor = () => {
                             animate={{ opacity: 1, y: 0 }}
                             className="space-y-8"
                         >
-                            <div className={`p-8 rounded-3xl bg-gradient-to-br ${result.bgGradient} border border-white/20 shadow-inner backdrop-blur-md`}>
-                                <div className="text-center space-y-4">
-                                    <div className="inline-block px-4 py-1 bg-white/20 rounded-full text-xs font-bold uppercase tracking-widest text-white/90">
+                            <div className={`p-8 md:p-12 rounded-3xl bg-gradient-to-br ${result.bgGradient} border border-white/20 shadow-2xl relative overflow-hidden group`}>
+                                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40 mix-blend-overlay" />
+                                <div className="relative z-10 text-center space-y-4">
+                                    <div className="inline-block px-4 py-1.5 bg-black/30 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-widest text-white/90 border border-white/10 shadow-lg">
                                         The Oracle Speaks
                                     </div>
-                                    <h1 className="text-5xl md:text-7xl font-black text-white drop-shadow-lg">
+                                    <h1 className="text-5xl md:text-7xl font-black text-white drop-shadow-2xl tracking-tight leading-none">
                                         {studentView.headline}
                                     </h1>
-                                    <p className="text-xl text-white/80 font-medium max-w-2xl mx-auto">
+                                    <p className="text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed">
                                         {studentView.reasons[0]}
                                     </p>
                                 </div>
@@ -389,23 +441,23 @@ export const SnowDayPredictor = () => {
 
                             {/* DETAILS */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div className="bg-white/10 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
-                                    <div className="text-white/60 text-xs font-bold uppercase mb-2">Confidence</div>
-                                    <div className="text-3xl font-bold">{studentView.confidence}</div>
+                                <div className="bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
+                                    <div className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-2">Confidence Level</div>
+                                    <div className="text-3xl font-black tracking-tight">{studentView.confidence}</div>
                                 </div>
-                                <div className="bg-white/10 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
-                                    <div className="text-white/60 text-xs font-bold uppercase mb-2">Snow Score</div>
-                                    <div className="text-3xl font-bold">{result.metrics.snowScore}<span className="text-sm opacity-50">/100</span></div>
+                                <div className="bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
+                                    <div className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-2">Snow Score</div>
+                                    <div className="text-3xl font-black tracking-tight">{result.metrics.snowScore}<span className="text-sm font-medium opacity-40 ml-1">/ 100</span></div>
                                 </div>
-                                <div className="bg-white/10 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
-                                    <div className="text-white/60 text-xs font-bold uppercase mb-2">Probability</div>
-                                    <div className="text-3xl font-bold">{result.metrics.probClose}% <span className="text-sm opacity-50">Close</span></div>
+                                <div className="bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
+                                    <div className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-2">Chance to Close</div>
+                                    <div className="text-3xl font-black tracking-tight text-white">{result.metrics.probClose}%</div>
                                 </div>
                             </div>
 
                             <button
                                 onClick={() => setShowTechnical(!showTechnical)}
-                                className="w-full py-4 text-center text-white/40 hover:text-white text-xs uppercase tracking-widest font-bold transition-colors"
+                                className="w-full py-4 text-center text-white/30 hover:text-white text-[10px] uppercase tracking-[0.2em] font-bold transition-all hover:scale-105 active:scale-95"
                             >
                                 {showTechnical ? "Hide Nerd Stats" : "Show Nerd Stats"}
                             </button>
@@ -414,26 +466,29 @@ export const SnowDayPredictor = () => {
                                 <motion.div
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: 'auto', opacity: 1 }}
-                                    className="bg-black/20 rounded-xl p-6 font-mono text-xs overflow-hidden"
+                                    className="bg-black/40 rounded-xl p-6 font-mono text-xs overflow-hidden border border-white/5"
                                 >
-                                    <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                         {Object.entries(result.metrics).map(([k, v]) => (
-                                            <div key={k} className="flex justify-between border-b border-white/5 py-1">
-                                                <span className="opacity-50">{k}</span>
-                                                <span className="font-bold">{String(v)}</span>
+                                            <div key={k} className="flex flex-col gap-1">
+                                                <span className="text-white/30 uppercase text-[9px] tracking-wider">{k}</span>
+                                                <span className="font-bold text-white">{String(v)}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </motion.div>
                             )}
 
-
                         </motion.div>
                     ) : (
                         !loading && (
-                            <div className="flex flex-col items-center justify-center py-12 text-center text-white/40">
-                                <Smile className="w-16 h-16 mb-4 opacity-50" />
-                                <p className="text-lg font-medium">Select a district and date to see your fate.</p>
+                            <div className="flex flex-col items-center justify-center py-24 text-center text-white/30 space-y-4">
+                                <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center animate-pulse-subtle">
+                                    <Sparkles className="w-8 h-8 opacity-50" />
+                                </div>
+                                <p className="text-lg font-medium max-w-xs mx-auto">
+                                    Configure the engine above and consult the Oracle for the latest prophecy.
+                                </p>
                             </div>
                         )
                     )}
