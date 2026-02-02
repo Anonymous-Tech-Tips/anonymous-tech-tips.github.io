@@ -24,7 +24,7 @@ const defaultPrefs: UserPrefs = {
 type Ctx = {
   prefs: UserPrefs;
   toggleFavorite: (id: string) => void;
-  pushHistory: (itemId: string, itemType: 'game'|'utility'|'guide') => void;
+  pushHistory: (itemId: string, itemType: 'game' | 'utility' | 'guide') => void;
   setSetting: <K extends keyof UserPrefs['settings']>(k: K, v: UserPrefs['settings'][K]) => void;
   resetPrefs: () => void;
   exportPrefs: () => string;
@@ -48,7 +48,7 @@ const safeParse = (raw: string | null): UserPrefs => {
   }
 };
 
-export const UserPrefsProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+export const UserPrefsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [prefs, setPrefs] = useState<UserPrefs>(() => safeParse(localStorage.getItem(KEY)));
 
   // streaks and achievements
@@ -56,18 +56,18 @@ export const UserPrefsProvider: React.FC<{children: React.ReactNode}> = ({ child
     const today = new Date().toDateString();
     const last = prefs.settings.lastVisitDate;
     if (last === today) return;
-    
+
     const yesterday = new Date(Date.now() - 86400000).toDateString();
     const streakCount = last === yesterday ? (prefs.settings.streakCount ?? 0) + 1 : 1;
-    
-    setPrefs(p => ({ ...p, settings: { ...p.settings, lastVisitDate: today, streakCount }}));
-    
+
+    setPrefs(p => ({ ...p, settings: { ...p.settings, lastVisitDate: today, streakCount } }));
+
     // Check for achievements on next render
     setTimeout(() => {
       const uniqueGames = new Set(prefs.history.filter(h => h.itemType === 'game').map(h => h.itemId)).size;
       const achievements = prefs.settings.achievements || [];
       const newAchievements = checkAchievements(streakCount, uniqueGames, achievements);
-      
+
       newAchievements.forEach((achievement: any) => {
         showAchievement(achievement);
         setPrefs(p => ({
@@ -79,6 +79,7 @@ export const UserPrefsProvider: React.FC<{children: React.ReactNode}> = ({ child
         }));
       });
     }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -95,7 +96,7 @@ export const UserPrefsProvider: React.FC<{children: React.ReactNode}> = ({ child
 
       setPrefs(p => {
         const exists = p.favorites.includes(id);
-        
+
         // If adding and at limit, show toast and return unchanged
         if (!exists && p.favorites.length >= maxFavorites) {
           import('sonner').then(({ toast }) => {
@@ -108,7 +109,7 @@ export const UserPrefsProvider: React.FC<{children: React.ReactNode}> = ({ child
           });
           return p;
         }
-        
+
         return { ...p, favorites: exists ? p.favorites.filter(x => x !== id) : [...p.favorites, id] };
       });
     },

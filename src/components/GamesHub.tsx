@@ -31,15 +31,15 @@ export const GamesHub: React.FC = () => {
   }, [searchQuery, selectedTag]);
 
   // Get top 10 most played games based on actual play counts
-  const gameStats = prefs.settings.gameStats || {};
-  
+  const gameStats = useMemo(() => prefs.settings.gameStats || {}, [prefs.settings.gameStats]);
+
   const popularGames = useMemo(() => {
     // Sort filtered games by play count
     const gamesWithStats = filteredGames.map(game => ({
       ...game,
       playCount: gameStats[game.id]?.playCount || 0
     }));
-    
+
     // Sort by play count descending, then by featured flag as tiebreaker
     return gamesWithStats
       .sort((a, b) => {
@@ -52,7 +52,7 @@ export const GamesHub: React.FC = () => {
   }, [filteredGames, gameStats]);
 
   const exportGamesList = () => {
-    const gamesList = filteredGames.map((game, index) => 
+    const gamesList = filteredGames.map((game, index) =>
       `${index + 1}. ${game.title}\n   🎮 Tags: ${game.tags.join(", ")}\n   🔗 ${window.location.origin}/#/games/${game.id}\n`
     ).join("\n");
 
@@ -80,7 +80,7 @@ Visit Armaan's Tech Tips: ${window.location.origin}/
               Games Hub
             </h2>
           </div>
-          <Button 
+          <Button
             onClick={exportGamesList}
             variant="outline"
             className="flex items-center gap-2"
@@ -127,15 +127,15 @@ Visit Armaan's Tech Tips: ${window.location.origin}/
         {/* Tabs */}
         <Tabs defaultValue="popular" className="w-full">
           <TabsList className="bg-gamer-card border border-gamer-border mb-6 p-1.5 gap-2">
-            <TabsTrigger 
-              value="popular" 
+            <TabsTrigger
+              value="popular"
               className="flex items-center gap-2 px-6 py-2.5"
             >
               <TrendingUp size={16} />
               Popular
             </TabsTrigger>
-            <TabsTrigger 
-              value="all" 
+            <TabsTrigger
+              value="all"
               className="px-6 py-2.5"
             >
               All Games ({filteredGames.length})
@@ -176,9 +176,9 @@ const GameGrid: React.FC<GameGridProps> = ({ games, gameStats = {} }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {games.map((game) => (
-        <GameCard 
-          key={game.id} 
-          game={game} 
+        <GameCard
+          key={game.id}
+          game={game}
           playCount={gameStats[game.id]?.playCount || 0}
         />
       ))}

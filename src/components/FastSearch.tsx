@@ -141,6 +141,24 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
     }
   }, [query, searchIndex]);
 
+  const handleSelect = React.useCallback((item: SearchResult) => {
+    let path = '';
+    switch (item.type) {
+      case 'game':
+        path = `/games/${item.slug}`;
+        break;
+      case 'utility':
+        path = `/utilities/${item.slug}`;
+        break;
+      case 'guide':
+        path = `/#guides`;
+        break;
+    }
+
+    navigate(path);
+    onClose();
+  }, [navigate, onClose]);
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -170,25 +188,9 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, selectedIndex, results, onClose]);
+  }, [isOpen, selectedIndex, results, onClose, handleSelect]);
 
-  const handleSelect = (item: SearchResult) => {
-    let path = '';
-    switch (item.type) {
-      case 'game':
-        path = `/games/${item.slug}`;
-        break;
-      case 'utility':
-        path = `/utilities/${item.slug}`;
-        break;
-      case 'guide':
-        path = `/#guides`;
-        break;
-    }
 
-    navigate(path);
-    onClose();
-  };
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -243,11 +245,10 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
                 {results.map((result, index) => (
                   <div
                     key={`${result.type}-${result.id}`}
-                    className={`p-3 rounded-lg border cursor-pointer transition-all duration-fast ${
-                      index === selectedIndex
-                        ? 'bg-gamer-accent/20 border-gamer-accent'
-                        : 'bg-gamer-bg border-gamer-border hover:bg-gamer-bg/50 hover:border-gamer-accent/50'
-                    }`}
+                    className={`p-3 rounded-lg border cursor-pointer transition-all duration-fast ${index === selectedIndex
+                      ? 'bg-gamer-accent/20 border-gamer-accent'
+                      : 'bg-gamer-bg border-gamer-border hover:bg-gamer-bg/50 hover:border-gamer-accent/50'
+                      }`}
                     onClick={() => handleSelect(result)}
                   >
                     <div className="flex items-start gap-3">

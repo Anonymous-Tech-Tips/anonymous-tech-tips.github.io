@@ -206,7 +206,7 @@ export const SnowDayPredictor = () => {
     const getStudentView = (result: any) => {
         let headline = "School is OPEN";
         let confidence = "High";
-        let reasons = [];
+        const reasons = [];
         const pClose = parseInt(result.metrics.probClose || "0");
 
         if (pClose > 60) {
@@ -285,10 +285,13 @@ export const SnowDayPredictor = () => {
 
     // Effect to update result if factors change
     useEffect(() => {
-        if (result && result.rawWeather) {
-            const prediction = calculateConstraints(result.rawWeather, dayIndex, alerts, factors);
-            setResult({ ...result, ...prediction });
-        }
+        setResult((prev: any) => {
+            if (prev && prev.rawWeather) {
+                const prediction = calculateConstraints(prev.rawWeather, dayIndex, alerts, factors);
+                return { ...prev, ...prediction };
+            }
+            return prev;
+        });
     }, [dayIndex, alerts, factors]);
 
     const studentView = result ? getStudentView(result) : null;

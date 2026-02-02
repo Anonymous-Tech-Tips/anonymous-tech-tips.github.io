@@ -12,23 +12,23 @@ export interface UserProgress {
   level: number;
   xp: number;
   rank: string;
-  
+
   // Streaks & Activity
   streakCount: number;
   lastVisit: string;
   firstGameToday: boolean;
-  
+
   // Session Tracking
   gamesPlayedToday: string[];
   utilitiesUsedToday: string[];
   pagesVisitedToday: string[];
-  
+
   // Lifetime Stats
   uniqueGamesPlayed: string[];
   recentlyPlayed: Array<{ gameId: string; timestamp: string; gameName: string }>;
   totalGamesPlayed: number;
   featuresDiscovered: string[];
-  
+
   // Milestones
   milestonesAchieved: string[];
   lastMilestoneCheck: string;
@@ -54,34 +54,34 @@ export interface Rank {
 
 interface ProgressionContextType {
   progress: UserProgress;
-  
+
   // Point Actions
   awardPoints: (amount: number, source: string, silent?: boolean) => void;
   spendPoints: (amount: number) => boolean;
-  
+
   // Purchases (unified from RewardsContext)
   purchases: string[];
   purchaseItem: (itemId: string, cost: number) => boolean;
-  
+
   // Activity Tracking
   trackGamePlay: (gameId: string, gameName: string) => void;
   trackUtilityUse: (utilityId: string) => void;
   trackPageVisit: (pageId: string) => void;
-  
+
   // Progression
   getCurrentRank: () => Rank;
   getNextRank: () => Rank | null;
   getXPForNextLevel: () => number;
   getLevelProgress: () => number;
-  
+
   // Discovery
   getRecentlyPlayed: () => Array<{ gameId: string; timestamp: string; gameName: string }>;
   getRecommendations: (currentGameId?: string) => string[];
-  
+
   // Milestones
   checkMilestones: () => void;
   getMilestones: () => Milestone[];
-  
+
   // Reset (for testing)
   resetProgress: () => void;
 }
@@ -282,7 +282,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const lastVisitDate = new Date(progress.lastVisit);
       const todayDate = new Date(today);
       const daysDiff = Math.floor((todayDate.getTime() - lastVisitDate.getTime()) / (1000 * 60 * 60 * 24));
-      
+
       if (daysDiff === 1) {
         // Consecutive day - increase streak
         setProgress(prev => ({
@@ -290,7 +290,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
           streakCount: prev.streakCount + 1,
           lastVisit: today,
         }));
-        
+
         // Award daily login bonus
         const streakBonus = Math.min(Math.floor(progress.streakCount / 7) * 10, 100);
         const dailyReward = 50 + streakBonus;
@@ -316,6 +316,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       }));
       awardPoints(50, 'Welcome Bonus!', false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ===========================
@@ -335,15 +336,15 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const newTotal = prev.totalPoints + amount;
       const newXP = prev.xp + amount;
       const xpNeeded = LEVEL_XP_REQUIREMENTS(prev.level);
-      
+
       let newLevel = prev.level;
       let remainingXP = newXP;
-      
+
       // Check for level up
       if (remainingXP >= xpNeeded) {
         remainingXP -= xpNeeded;
         newLevel += 1;
-        
+
         if (!silent) {
           setTimeout(() => {
             celebrateWithConfetti();
@@ -354,10 +355,10 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
           }, 500);
         }
       }
-      
+
       // Determine new rank
       const newRank = RANKS.find(r => newTotal >= r.minPoints && newTotal <= r.maxPoints)?.name || 'Master';
-      
+
       // Check for rank up
       if (newRank !== prev.rank && !silent) {
         setTimeout(() => {
@@ -369,14 +370,14 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
           });
         }, 1000);
       }
-      
+
       if (!silent) {
         toast.success(`+${amount} points`, {
           description: source,
           duration: 2000,
         });
       }
-      
+
       return {
         ...prev,
         totalPoints: newTotal,
@@ -402,7 +403,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
     if (spendPoints(cost)) {
       const newPurchases = [...purchases, itemId];
       setPurchases(newPurchases);
-      
+
       // Special handling for time-limited ad-skip tokens
       if (itemId === 'ad-skip-tokens-1hr') {
         const expiryDate = new Date();
@@ -413,7 +414,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
         expiryDate.setHours(expiryDate.getHours() + 24);
         localStorage.setItem('adSkipActiveUntil', expiryDate.toISOString());
       }
-      
+
       return true;
     }
     return false;
@@ -421,34 +422,34 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const trackGamePlay = (gameId: string, gameName: string) => {
     const today = new Date().toDateString();
-    
+
     setProgress(prev => {
       const isNewGame = !prev.uniqueGamesPlayed.includes(gameId);
       const isFirstToday = !prev.firstGameToday;
       const todayCount = prev.gamesPlayedToday.length;
-      
+
       // Award points for first game of the day
       if (isFirstToday && todayCount < DAILY_CAPS.uniqueGamesPoints) {
         setTimeout(() => awardPoints(25, 'First game today!'), 100);
       }
-      
+
       // Award points for trying new game (first time ever)
       if (isNewGame && todayCount < DAILY_CAPS.uniqueGamesPoints) {
         setTimeout(() => awardPoints(30, `Discovered: ${gameName}`), 200);
       }
-      
+
       // Award variety bonus (3 different games in one session)
       if (todayCount === 2 && !prev.gamesPlayedToday.includes(gameId)) {
         setTimeout(() => awardPoints(20, 'Variety bonus!'), 300);
       }
-      
+
       return {
         ...prev,
         firstGameToday: true,
-        gamesPlayedToday: prev.gamesPlayedToday.includes(gameId) 
-          ? prev.gamesPlayedToday 
+        gamesPlayedToday: prev.gamesPlayedToday.includes(gameId)
+          ? prev.gamesPlayedToday
           : [...prev.gamesPlayedToday, gameId],
-        uniqueGamesPlayed: isNewGame 
+        uniqueGamesPlayed: isNewGame
           ? [...prev.uniqueGamesPlayed, gameId]
           : prev.uniqueGamesPlayed,
         recentlyPlayed: [
@@ -458,7 +459,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
         totalGamesPlayed: prev.totalGamesPlayed + 1,
       };
     });
-    
+
     // Check milestones after state update
     setTimeout(() => checkMilestones(), 500);
   };
@@ -468,11 +469,11 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const featureKey = `utility_${utilityId}`;
       const isNew = !prev.featuresDiscovered.includes(featureKey);
       const todayCount = prev.utilitiesUsedToday.filter(u => !prev.utilitiesUsedToday.includes(u)).length;
-      
+
       if (isNew && todayCount < DAILY_CAPS.utilitiesPoints) {
         setTimeout(() => awardPoints(15, 'Tried new utility!'), 100);
       }
-      
+
       return {
         ...prev,
         utilitiesUsedToday: prev.utilitiesUsedToday.includes(utilityId)
@@ -483,7 +484,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
           : prev.featuresDiscovered,
       };
     });
-    
+
     setTimeout(() => checkMilestones(), 500);
   };
 
@@ -492,11 +493,11 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const featureKey = `page_${pageId}`;
       const isNew = !prev.featuresDiscovered.includes(featureKey);
       const todayCount = prev.pagesVisitedToday.filter(p => !prev.pagesVisitedToday.includes(p)).length;
-      
+
       if (isNew && todayCount < DAILY_CAPS.pagesPoints) {
         setTimeout(() => awardPoints(10, 'Explored new page!'), 100);
       }
-      
+
       return {
         ...prev,
         pagesVisitedToday: prev.pagesVisitedToday.includes(pageId)
@@ -542,7 +543,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const newMilestones = MILESTONES.filter(
       m => !progress.milestonesAchieved.includes(m.id) && m.requirement(progress)
     );
-    
+
     newMilestones.forEach((milestone, index) => {
       setTimeout(() => {
         celebrateWithConfetti();
@@ -551,7 +552,7 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
           duration: 5000,
         });
         awardPoints(milestone.reward, `Milestone: ${milestone.name}`, true);
-        
+
         setProgress(prev => ({
           ...prev,
           milestonesAchieved: [...prev.milestonesAchieved, milestone.id],
