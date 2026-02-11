@@ -21,6 +21,7 @@ import { Layout } from "@/components/Layout";
 import { GamerBackground } from "@/components/GamerBackground";
 import Index from "./pages/Index";
 import LoginPage from "./pages/LoginPage";
+import { GlobalChat } from "@/components/chat/GlobalChat";
 
 // 🔐 TEMPORARY: Generate encrypted links in console
 import { encryptLink } from "@/utils/crypto";
@@ -133,6 +134,7 @@ const AppContent = () => {
             <Route path="*" element={<ProtectedRoute><NotFound /></ProtectedRoute>} />
           </Route>
         </Routes>
+        <GlobalChat />
       </div>
     </>
   );
