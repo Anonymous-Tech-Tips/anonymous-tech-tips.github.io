@@ -47,7 +47,7 @@ import {
     DialogFooter
 } from "@/components/ui/dialog";
 import { format, isSameDay, isToday, isYesterday } from 'date-fns';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 interface Message {
     id: string;
