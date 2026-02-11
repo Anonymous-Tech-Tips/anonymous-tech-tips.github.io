@@ -9,6 +9,8 @@ export interface Message {
     createdAt: Timestamp;
     roomId: string;
     imageUrl?: string;
+    isEdited?: boolean;
+    lastEditedAt?: Timestamp;
 }
 
 export interface Room {
