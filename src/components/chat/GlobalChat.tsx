@@ -9,7 +9,9 @@ import {
     onSnapshot,
     serverTimestamp,
     Timestamp,
-    where
+    where,
+    getDocs,
+    writeBatch
 } from 'firebase/firestore';
 import { updateProfile } from 'firebase/auth';
 import { useAuth } from '@/contexts/AuthContext';
@@ -23,8 +25,8 @@ import {
     Maximize2,
     Settings,
     Hash,
-    Check,
-    AlertTriangle
+    AlertTriangle,
+    Loader2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -69,6 +71,7 @@ export const GlobalChat: React.FC = () => {
     // Settings States
     const [showSettings, setShowSettings] = useState(false);
     const [customName, setCustomName] = useState('');
+    const [isUpdating, setIsUpdating] = useState(false);
     const [indexError, setIndexError] = useState<string | null>(null);
 
     // Initialize custom name
@@ -148,11 +151,45 @@ export const GlobalChat: React.FC = () => {
 
     const handleUpdateName = async () => {
         if (!user || !customName.trim()) return;
+
+        setIsUpdating(true);
         try {
+            // 1. Update Auth Profile
             await updateProfile(user, { displayName: customName });
+
+            // 2. Update all recent messages (last 7 days) to reflect new name
+            // Note: This requires a composite index on 'uid' + 'createdAt'
+            const sevenDaysAgo = Timestamp.fromMillis(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+            const q = query(
+                collection(db, 'chat'),
+                where('uid', '==', user.uid),
+                where('createdAt', '>', sevenDaysAgo)
+            );
+
+            const snapshot = await getDocs(q);
+            const batch = writeBatch(db);
+
+            let updateCount = 0;
+            if (!snapshot.empty) {
+                snapshot.docs.forEach((doc) => {
+                    batch.update(doc.ref, { displayName: customName });
+                    updateCount++;
+                });
+                if (updateCount > 0) {
+                    await batch.commit();
+                }
+            }
+
             setShowSettings(false);
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error updating profile:", error);
+            if (error.code === 'failed-precondition') {
+                // This usually means missing index for the batch query
+                setIndexError("Link for Name Update Index in Console");
+            }
+        } finally {
+            setIsUpdating(false);
         }
     };
 
@@ -238,8 +275,10 @@ export const GlobalChat: React.FC = () => {
                                                 <Button
                                                     onClick={handleUpdateName}
                                                     className="bg-indigo-600 hover:bg-indigo-500 text-white"
+                                                    disabled={isUpdating}
                                                 >
-                                                    Save Changes
+                                                    {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                                    {isUpdating ? 'Updating History...' : 'Save Changes'}
                                                 </Button>
                                             </DialogFooter>
                                         </DialogContent>
@@ -258,7 +297,7 @@ export const GlobalChat: React.FC = () => {
                                     {indexError && (
                                         <div className="ml-4 flex items-center gap-1 text-[10px] text-red-400 bg-red-400/10 px-2 py-1 rounded">
                                             <AlertTriangle size={10} />
-                                            Needs Index
+                                            Needs Index (Check Console)
                                         </div>
                                     )}
                                 </div>
