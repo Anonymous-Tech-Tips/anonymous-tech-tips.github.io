@@ -197,9 +197,51 @@ export const GlobalChat: React.FC = () => {
         }
     };
 
+    // Cleanup Old Messages on Mount (Free Tier Protection)
+    useEffect(() => {
+        if (!user) return;
+
+        const cleanupOldMessages = async () => {
+            const sevenDaysAgo = Timestamp.fromMillis(Date.now() - 7 * 24 * 60 * 60 * 1000);
+            try {
+                // Only clean up messages in currently active room to avoid massive reads across all rooms
+                // Or better, querying globally relative to user if they are admin? 
+                // Let's just do a simple cleanup of *any* old messages we can find to keep db small.
+                // But to be safe and avoid index requirements on every field combination, let's stick to the simple query.
+                // Actually, for free tier, we want to delete ALL old messages regardless of room.
+                // We need an index on 'createdAt'.
+
+                const q = query(
+                    collection(db, 'chat'),
+                    where('createdAt', '<', sevenDaysAgo),
+                    limit(50)
+                );
+
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    const batch = writeBatch(db);
+                    snapshot.docs.forEach(doc => {
+                        batch.delete(doc.ref);
+                    });
+                    await batch.commit();
+                    console.log(`Cleaned up ${snapshot.size} old messages.`);
+                }
+            } catch (error) {
+                console.error("Cleanup Error:", error);
+            }
+        };
+
+        cleanupOldMessages();
+    }, [user]);
+
     const deleteMessage = async (messageId: string) => {
         try {
-            await deleteDoc(doc(db, 'chat', messageId));
+            await updateDoc(doc(db, 'chat', messageId), {
+                text: 'Message deleted',
+                imageUrl: '',
+                isDeleted: true,
+                lastEditedAt: serverTimestamp()
+            });
             toast({ title: "Message Deleted" });
         } catch (error) {
             console.error("Error deleting message:", error);
@@ -220,12 +262,10 @@ export const GlobalChat: React.FC = () => {
         setIsUpdating(true);
         try {
             await updateProfile(user, { displayName: customName });
-            const sevenDaysAgo = Timestamp.fromMillis(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
             const q = query(
                 collection(db, 'chat'),
-                where('uid', '==', user.uid),
-                where('createdAt', '>', sevenDaysAgo)
+                where('uid', '==', user.uid)
             );
 
             const snapshot = await getDocs(q);

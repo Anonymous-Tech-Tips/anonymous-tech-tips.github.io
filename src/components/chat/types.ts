@@ -11,6 +11,7 @@ export interface Message {
     imageUrl?: string;
     isEdited?: boolean;
     lastEditedAt?: Timestamp;
+    isDeleted?: boolean;
 }
 
 export interface Room {

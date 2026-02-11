@@ -188,7 +188,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
                                     </div>
                                 ) : (
                                     <div className="group relative">
-                                        {isMe && !editingId && (
+                                        {!msg.isDeleted && isMe && !editingId && (
                                             <div className="absolute top-0 -left-8 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <DropdownMenu>
                                                     <DropdownMenuTrigger asChild>
@@ -217,12 +217,14 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
                                             </div>
                                         )}
                                         {msg.text && (
-                                            <div className={`px-4 py-2 text-[14px] leading-relaxed shadow-sm break-words whitespace-pre-wrap relative ${isMe
-                                                ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-sm'
-                                                : 'bg-[#252830] text-gray-200 rounded-2xl rounded-tl-sm'
+                                            <div className={`px-4 py-2 text-[14px] leading-relaxed shadow-sm break-words whitespace-pre-wrap relative ${msg.isDeleted
+                                                    ? 'bg-white/5 text-white/40 italic border border-white/5 shadow-none rounded-2xl'
+                                                    : isMe
+                                                        ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-sm'
+                                                        : 'bg-[#252830] text-gray-200 rounded-2xl rounded-tl-sm'
                                                 }`}>
                                                 {msg.text}
-                                                {msg.isEdited && (
+                                                {msg.isEdited && !msg.isDeleted && (
                                                     <span className="text-[10px] opacity-50 ml-1 italic">(edited)</span>
                                                 )}
                                             </div>
