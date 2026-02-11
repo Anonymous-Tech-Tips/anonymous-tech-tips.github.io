@@ -34,14 +34,17 @@ export const GamerHome = () => {
   const favItems = prefs.favorites.map(id => games.find(g => g.id === id)).filter(Boolean) as typeof games;
 
   useEffect(() => {
-    const popular = games.filter(g => g.tags.includes('popular') || g.tags.includes('featured'));
+    // Filter out blocked games from ALL recommendations
+    const validGames = games.filter(g => !g.tags.includes("blocked"));
+
+    const popular = validGames.filter(g => g.tags.includes('popular') || g.tags.includes('featured'));
     if (popular.length > 0) setRandomFeatured(popular[Math.floor(Math.random() * popular.length)]);
 
     const interval = setInterval(() => {
       if (popular.length > 0) setRandomFeatured(popular[Math.floor(Math.random() * popular.length)]);
     }, 8000);
 
-    const shuffled = [...games].sort(() => 0.5 - Math.random());
+    const shuffled = [...validGames].sort(() => 0.5 - Math.random());
     setTrendingGames(shuffled.slice(0, 5));
 
     return () => clearInterval(interval);
@@ -55,7 +58,10 @@ export const GamerHome = () => {
   };
 
   const filteredGames = searchQuery
-    ? games.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 6)
+    ? games.filter(g =>
+      !g.tags.includes("blocked") &&
+      g.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 6)
     : [];
 
   return (
@@ -173,8 +179,8 @@ export const GamerHome = () => {
             )}
           </div>
           <div className="flex gap-2 text-sm font-medium text-white/60">
-            {['Action', 'Strategy', 'Racing', 'RPG'].map(tag => (
-              <Link key={tag} to={`/games?category=${tag.toLowerCase()}`} className="px-4 py-2 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all">
+            {['Action', 'Strategy', 'Racing', 'RPG', 'Blocked'].map(tag => (
+              <Link key={tag} to={`/games?category=${tag.toLowerCase()}`} className={`px-4 py-2 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all ${tag === 'Blocked' ? 'text-red-400 border-red-500/30' : ''}`}>
                 {tag}
               </Link>
             ))}

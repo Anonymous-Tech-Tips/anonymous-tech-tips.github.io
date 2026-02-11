@@ -14,7 +14,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, loginAnonymously, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +34,21 @@ const LoginPage = () => {
       navigate("/");
     } else {
       setError(result.error || "Login failed");
+      setLoading(false);
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    setError("");
+    setLoading(true);
+
+    // @ts-ignore - loginAnonymously is added to context but typescript might not see it yet if types aren't fully reloaded
+    const result = await loginAnonymously();
+
+    if (result.success) {
+      navigate("/");
+    } else {
+      setError(result.error || "Guest login failed");
       setLoading(false);
     }
   };
@@ -219,6 +234,26 @@ const LoginPage = () => {
                   }}
                 >
                   Demo Student Account →
+                </Button>
+
+                <div className="relative my-4">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-slate-200" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white px-2 text-slate-400">
+                      OR
+                    </span>
+                  </div>
+                </div>
+
+                <Button
+                  type="button"
+                  onClick={handleGuestLogin}
+                  className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white font-semibold transition-all"
+                  disabled={loading}
+                >
+                  Continue as Guest (No Account)
                 </Button>
 
                 <div className="text-center">

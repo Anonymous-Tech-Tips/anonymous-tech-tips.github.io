@@ -3,6 +3,11 @@
 export function openSmart(url: string, forceRedirect: boolean = false) {
   if (!url || url === "#") return;
 
+  // Resolve relative URLs to absolute URLs
+  if (url.startsWith('/')) {
+    url = window.location.origin + url;
+  }
+
   const win = window.open("about:blank", "_blank");
   if (!win) return;
 
@@ -26,8 +31,8 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
         </body>
       </html>
     `);
-  } 
-  
+  }
+
   // STRATEGY B: THE "BLACK BOX" CLOAK (For Slides, Games, Proxies)
   // This hides the URL in the address bar (stays as about:blank)
   // AND prevents rivals from right-clicking to inspect the iframe source.
@@ -73,7 +78,7 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
 
 // BACKWARDS COMPATIBILITY
 export function openGameSandbox(realUrl: string) {
-  openSmart(realUrl, false); 
+  openSmart(realUrl, false);
 }
 
 export function openStream(realUrl: string) {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Flame, Sparkles, SortAsc, SortDesc } from "lucide-react";
+import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Flame, Sparkles, SortAsc, SortDesc, Ban } from "lucide-react";
+
 import { useProgression } from "@/contexts/ProgressionContext";
 import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,6 @@ const GamesPage = () => {
   const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") || "all";
 
-
   const { purchases } = useProgression();
   const hasAdvancedSearch = purchases.includes('advanced-search');
   const hasSmartRecs = purchases.includes('smart-recommendations');
@@ -24,14 +24,29 @@ const GamesPage = () => {
 
   // Filter Logic - map categories to tags
   const filteredGames = games.filter((game) => {
+    const isBlocked = game.tags.includes("blocked");
+
+    // CRITICAL: Hide blocked games UNLESS specific blocked category is active
+    if (activeCategory !== "blocked" && isBlocked) return false;
+
+    // If category is blocked, ONLY show blocked games
+    if (activeCategory === "blocked" && !isBlocked) return false;
+
     const matchesSearch = game.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = activeCategory === "all" ||
+
+    if (!matchesSearch) return false;
+
+    // Category matching (already handled blocked vs non-blocked above)
+    if (activeCategory === "blocked") return true; // We know it's blocked from above check
+    if (activeCategory === "all") return true;
+
+    return (
       (activeCategory === "action" && game.tags.includes("action")) ||
       (activeCategory === "racing" && game.tags.includes("racing")) ||
       (activeCategory === "sports" && game.tags.includes("sports")) ||
       (activeCategory === "strategy" && (game.tags.includes("puzzle") || game.tags.includes("strategy"))) ||
-      (activeCategory === "multiplayer" && game.tags.includes("multiplayer"));
-    return matchesSearch && matchesCategory;
+      (activeCategory === "multiplayer" && game.tags.includes("multiplayer"))
+    );
   }).sort((a, b) => {
     if (sortBy === 'az') return a.title.localeCompare(b.title);
     if (sortBy === 'za') return b.title.localeCompare(a.title);
@@ -39,8 +54,9 @@ const GamesPage = () => {
   });
 
   // Mock Data for Features
-  const trendingGames = games.slice(0, 5); // Just first 5 for now
-  const recommendedGames = games.slice(5, 10); // Next 5
+  const validGames = games.filter(g => !g.tags.includes("blocked"));
+  const trendingGames = validGames.slice(0, 5);
+  const recommendedGames = validGames.slice(5, 10);
 
   const categories = [
     { id: "all", label: "All Games", icon: Gamepad2 },
@@ -49,6 +65,7 @@ const GamesPage = () => {
     { id: "sports", label: "Sports", icon: Trophy },
     { id: "strategy", label: "Strategy & Puzzle", icon: Brain },
     { id: "multiplayer", label: "Multiplayer", icon: Ghost },
+    { id: "blocked", label: "Blocked", icon: Ban },
   ];
 
   return (

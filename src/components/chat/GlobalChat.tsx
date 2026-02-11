@@ -36,11 +36,28 @@ import { Message } from './types';
 import { compressImage } from './utils';
 
 export const GlobalChat: React.FC = () => {
-    const { user } = useAuth();
+    const { user, deviceId } = useAuth();
     const { toast } = useToast();
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
     const [isBoardOpen, setIsBoardOpen] = useState(false);
+
+    // Identity Logic
+    // If using the shared demo account, use deviceId as the identifier.
+    // Otherwise use the actual specific user ID.
+    const isDemoAccount = user?.email === 'BlasterBoy28@gmail.com';
+    const effectiveUid = isDemoAccount ? deviceId : (user?.uid || '');
+
+    // Persistent Name for Demo Account
+    // We cannot use user.displayName because it's shared.
+    // We must use localStorage to persist name per device.
+    const [demoName, setDemoName] = useState(() => {
+        return localStorage.getItem(`chat_name_${deviceId}`) || '';
+    });
+
+    const effectiveDisplayName = isDemoAccount
+        ? (demoName || 'Demo Student')
+        : (user?.displayName || 'Anonymous Gamer');
 
     // Room State
     const [activeRoom, setActiveRoom] = useState('general');
@@ -53,16 +70,17 @@ export const GlobalChat: React.FC = () => {
     const [isUploading, setIsUploading] = useState(false);
 
     // Settings States
+    // Initialize custom name from effective display name
     const [customName, setCustomName] = useState('');
     const [isUpdating, setIsUpdating] = useState(false);
     const [indexError, setIndexError] = useState<string | null>(null);
 
     // Initialize custom name
     useEffect(() => {
-        if (user?.displayName) {
-            setCustomName(user.displayName);
+        if (effectiveDisplayName) {
+            setCustomName(effectiveDisplayName);
         }
-    }, [user]);
+    }, [effectiveDisplayName]);
 
     // Check URL Params or Pending Room on Mount
     useEffect(() => {
@@ -171,8 +189,8 @@ export const GlobalChat: React.FC = () => {
             await addDoc(collection(db, 'chat'), {
                 text,
                 imageUrl, // Empty string if no image
-                uid: user.uid,
-                displayName: user.displayName || 'Anonymous Gamer',
+                uid: effectiveUid, // Use effective ID (device or auth)
+                displayName: effectiveDisplayName,
                 photoURL: user.photoURL || '',
                 createdAt: serverTimestamp(),
                 roomId: activeRoom
@@ -204,13 +222,6 @@ export const GlobalChat: React.FC = () => {
         const cleanupOldMessages = async () => {
             const sevenDaysAgo = Timestamp.fromMillis(Date.now() - 7 * 24 * 60 * 60 * 1000);
             try {
-                // Only clean up messages in currently active room to avoid massive reads across all rooms
-                // Or better, querying globally relative to user if they are admin? 
-                // Let's just do a simple cleanup of *any* old messages we can find to keep db small.
-                // But to be safe and avoid index requirements on every field combination, let's stick to the simple query.
-                // Actually, for free tier, we want to delete ALL old messages regardless of room.
-                // We need an index on 'createdAt'.
-
                 const q = query(
                     collection(db, 'chat'),
                     where('createdAt', '<', sevenDaysAgo),
@@ -249,23 +260,27 @@ export const GlobalChat: React.FC = () => {
         }
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage(e as any);
-        }
-    };
+    // handleKeyDown removed (handled in ChatInput)
 
     const handleUpdateName = async () => {
         if (!user || !customName.trim()) return;
 
         setIsUpdating(true);
-        try {
-            await updateProfile(user, { displayName: customName });
 
+        try {
+            if (isDemoAccount) {
+                // For demo account, strict local only
+                localStorage.setItem(`chat_name_${deviceId}`, customName);
+                setDemoName(customName);
+            } else {
+                // For regular users, update profile
+                await updateProfile(user, { displayName: customName });
+            }
+
+            // Update *past messages* for this effective ID
             const q = query(
                 collection(db, 'chat'),
-                where('uid', '==', user.uid)
+                where('uid', '==', effectiveUid)
             );
 
             const snapshot = await getDocs(q);
@@ -311,6 +326,13 @@ export const GlobalChat: React.FC = () => {
         ? PUBLIC_ROOMS.find(r => r.id === activeRoom)!
         : { id: activeRoom, name: activeRoom, color: 'text-pink-400', bg: 'bg-pink-500/10' };
 
+    // We mock the user object passed to children to carry the effective Display Name and UID
+    const effectiveUser = {
+        ...user,
+        uid: effectiveUid,
+        displayName: effectiveDisplayName
+    };
+
     return (
         <>
             <motion.button
@@ -346,7 +368,7 @@ export const GlobalChat: React.FC = () => {
                                 setActiveRoom={setActiveRoom}
                                 privateRooms={privateRooms}
                                 setPrivateRooms={setPrivateRooms}
-                                user={user}
+                                user={effectiveUser as any}
                                 customName={customName}
                                 setCustomName={setCustomName}
                                 handleUpdateName={handleUpdateName}
@@ -372,7 +394,7 @@ export const GlobalChat: React.FC = () => {
                                     <ChatMessageList
                                         messages={messages}
                                         isLoading={isLoading}
-                                        currentUser={user}
+                                        currentUser={effectiveUser as any}
                                         isPublicRoom={isPublicRoom}
                                         currentRoom={currentRoom}
                                         activeRoom={activeRoom}
@@ -384,7 +406,7 @@ export const GlobalChat: React.FC = () => {
                                         newMessage={newMessage}
                                         setNewMessage={setNewMessage}
                                         onSendMessage={sendMessage}
-                                        onKeyDown={handleKeyDown}
+                                        onKeyDown={() => { }} // No-op, managed internally now
                                         isUploading={isUploading}
                                         isUpdating={isUpdating}
                                         isPublicRoom={isPublicRoom}
@@ -401,7 +423,7 @@ export const GlobalChat: React.FC = () => {
                 roomId={activeRoom}
                 isOpen={isBoardOpen}
                 onClose={() => setIsBoardOpen(false)}
-                user={user}
+                user={effectiveUser as any}
             />
         </>
     );

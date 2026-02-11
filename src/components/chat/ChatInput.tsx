@@ -115,7 +115,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                                 e.preventDefault();
                                 handleSubmit(e);
                             }
-                            onKeyDown(e);
+                            // Don't call parent onKeyDown here to avoid double submits if parent also submits
                         }}
                         placeholder={isUploading ? "Uploading image..." : selectedFile ? "Add a caption..." : `Message #${currentRoomName}`}
                         className="w-full bg-transparent border-0 text-white placeholder:text-white/30 focus:ring-0 resize-none min-h-[44px] max-h-[120px] py-2.5 px-3 text-sm scrollbar-thin scrollbar-thumb-white/10"
