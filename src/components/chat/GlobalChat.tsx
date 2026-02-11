@@ -30,7 +30,11 @@ import {
     Loader2,
     Calendar,
     Image as ImageIcon,
-    Paperclip
+    Paperclip,
+    Plus,
+    Link as LinkIcon,
+    Copy,
+    Lock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -43,6 +47,7 @@ import {
     DialogFooter
 } from "@/components/ui/dialog";
 import { format, isSameDay, isToday, isYesterday } from 'date-fns';
+import { useToast } from "@/components/ui/use-toast";
 
 interface Message {
     id: string;
@@ -55,7 +60,7 @@ interface Message {
     imageUrl?: string;
 }
 
-const ROOMS = [
+const PUBLIC_ROOMS = [
     { id: 'general', name: 'General', color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20' },
     { id: 'gaming', name: 'Gaming', color: 'text-green-400', bg: 'bg-green-500/10', border: 'border-green-500/20' },
     { id: 'tech', name: 'Tech', color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
@@ -64,9 +69,15 @@ const ROOMS = [
 
 export const GlobalChat: React.FC = () => {
     const { user } = useAuth();
+    const { toast } = useToast();
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
+
+    // Room State
     const [activeRoom, setActiveRoom] = useState('general');
+    const [privateRooms, setPrivateRooms] = useState<string[]>([]);
+    const [newRoomCode, setNewRoomCode] = useState('');
+    const [showJoinRoom, setShowJoinRoom] = useState(false);
 
     // Data States
     const [messages, setMessages] = useState<Message[]>([]);
@@ -88,6 +99,41 @@ export const GlobalChat: React.FC = () => {
             setCustomName(user.displayName);
         }
     }, [user]);
+
+    // Check URL Params or Pending Room on Mount
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        let roomParam = params.get('room');
+
+        // Check for pending room from pre-login (sessionStorage)
+        const pendingRoom = sessionStorage.getItem('pendingRoom');
+        if (!roomParam && pendingRoom) {
+            roomParam = pendingRoom;
+            sessionStorage.removeItem('pendingRoom');
+        }
+
+        if (roomParam) {
+            // If it's not a public room, add it to private rooms list
+            const isPublic = PUBLIC_ROOMS.some(r => r.id === roomParam);
+            if (!isPublic && !privateRooms.includes(roomParam)) {
+                setPrivateRooms(prev => [...prev, roomParam!]);
+            }
+            setActiveRoom(roomParam);
+            setIsOpen(true); // Auto-open chat if room is specified
+        }
+    }, []);
+
+    // Update URL when Room Changes
+    useEffect(() => {
+        if (!isOpen) return;
+        const newUrl = new URL(window.location.href);
+        if (activeRoom === 'general') {
+            newUrl.searchParams.delete('room'); // Default room, clean URL
+        } else {
+            newUrl.searchParams.set('room', activeRoom);
+        }
+        window.history.pushState({}, '', newUrl.toString());
+    }, [activeRoom, isOpen]);
 
     // Handle Messages Subscription
     useEffect(() => {
@@ -162,21 +208,16 @@ export const GlobalChat: React.FC = () => {
         const file = e.target.files?.[0];
         if (!file || !user) return;
 
-        // Reset input logic
-        if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-        }
+        if (fileInputRef.current) fileInputRef.current.value = '';
 
         setIsUploading(true);
         try {
-            // Upload to Firebase Storage
             const storageRef = ref(storage, `chat-uploads/${user.uid}/${Date.now()}_${file.name}`);
             const snapshot = await uploadBytes(storageRef, file);
             const downloadURL = await getDownloadURL(snapshot.ref);
 
-            // Send message with image
             await addDoc(collection(db, 'chat'), {
-                text: '', // Empty text for image-only messages, or we could add caption support later
+                text: '',
                 imageUrl: downloadURL,
                 uid: user.uid,
                 displayName: user.displayName || 'Anonymous Gamer',
@@ -188,7 +229,11 @@ export const GlobalChat: React.FC = () => {
 
         } catch (error) {
             console.error("Error uploading image:", error);
-            // Ideally show toast error here
+            toast({
+                title: "Upload Failed",
+                description: "Check your internet or try a smaller image.",
+                variant: "destructive"
+            });
         } finally {
             setIsUploading(false);
         }
@@ -228,8 +273,8 @@ export const GlobalChat: React.FC = () => {
                     await batch.commit();
                 }
             }
-
             setShowSettings(false);
+            toast({ title: "Profile Updated", description: "Your display name has been changed." });
         } catch (error: any) {
             console.error("Error updating profile:", error);
             if (error.code === 'failed-precondition') {
@@ -238,6 +283,25 @@ export const GlobalChat: React.FC = () => {
         } finally {
             setIsUpdating(false);
         }
+    };
+
+    const joinPrivateRoom = () => {
+        if (!newRoomCode.trim()) return;
+        const code = newRoomCode.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-'); // Sanitize
+        if (!privateRooms.includes(code) && !PUBLIC_ROOMS.some(r => r.id === code)) {
+            setPrivateRooms([...privateRooms, code]);
+        }
+        setActiveRoom(code);
+        setNewRoomCode('');
+        setShowJoinRoom(false);
+        toast({ title: "Joined Room", description: `Entered channel #${code}` });
+    };
+
+    const copyRoomLink = () => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('room', activeRoom);
+        navigator.clipboard.writeText(url.toString());
+        toast({ title: "Link Copied", description: "Share this link to invite others!" });
     };
 
     const toggleChat = () => {
@@ -253,7 +317,10 @@ export const GlobalChat: React.FC = () => {
 
     if (!user) return null;
 
-    const currentRoom = ROOMS.find(r => r.id === activeRoom) || ROOMS[0];
+    const isPublicRoom = PUBLIC_ROOMS.some(r => r.id === activeRoom);
+    const currentRoom = isPublicRoom
+        ? PUBLIC_ROOMS.find(r => r.id === activeRoom)!
+        : { id: activeRoom, name: activeRoom, color: 'text-pink-400', bg: 'bg-pink-500/10' };
 
     return (
         <>
@@ -287,31 +354,81 @@ export const GlobalChat: React.FC = () => {
                         {!isMinimized && (
                             <div className="w-full md:w-60 bg-black/40 border-r border-white/5 flex flex-col">
                                 <div className="p-4 border-b border-white/5">
-                                    <h2 className="text-sm font-bold text-white tracking-wider flex items-center gap-2">
-                                        <MessageSquare size={16} className="text-indigo-400" />
-                                        CHANNELS
+                                    <h2 className="text-xs font-bold text-white/60 tracking-wider flex items-center gap-2 mb-2">
+                                        PUBLIC CHANNELS
                                     </h2>
-                                </div>
-
-                                <div className="p-2 space-y-1 overflow-y-auto flex-1">
-                                    {ROOMS.map(room => (
-                                        <button
-                                            key={room.id}
-                                            onClick={() => setActiveRoom(room.id)}
-                                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all group ${activeRoom === room.id
+                                    <div className="space-y-1">
+                                        {PUBLIC_ROOMS.map(room => (
+                                            <button
+                                                key={room.id}
+                                                onClick={() => setActiveRoom(room.id)}
+                                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all group ${activeRoom === room.id
                                                     ? `${room.bg} text-white font-medium`
                                                     : 'text-white/40 hover:text-white hover:bg-white/5'
-                                                }`}
-                                        >
-                                            <Hash size={18} className={`${activeRoom === room.id ? room.color : 'opacity-40 group-hover:opacity-100 group-hover:text-white'
-                                                } transition-opacity`} />
-                                            {room.name}
-                                            {activeRoom === room.id && <div className={`ml-auto w-1.5 h-1.5 rounded-full ${room.color.replace('text-', 'bg-')}`} />}
-                                        </button>
-                                    ))}
+                                                    }`}
+                                            >
+                                                <Hash size={16} className={`${activeRoom === room.id ? room.color : 'opacity-40 group-hover:opacity-100 group-hover:text-white'
+                                                    } transition-opacity`} />
+                                                {room.name}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    <div className="mt-6 flex items-center justify-between mb-2">
+                                        <h2 className="text-xs font-bold text-white/60 tracking-wider">
+                                            PRIVATE
+                                        </h2>
+                                        <Dialog open={showJoinRoom} onOpenChange={setShowJoinRoom}>
+                                            <DialogTrigger asChild>
+                                                <button className="text-white/40 hover:text-white transition-colors">
+                                                    <Plus size={14} />
+                                                </button>
+                                            </DialogTrigger>
+                                            <DialogContent className="bg-[#1a1d24] border-white/10 text-white sm:max-w-md">
+                                                <DialogHeader>
+                                                    <DialogTitle>Join Private Channel</DialogTitle>
+                                                    <DialogDescription className="text-white/60">
+                                                        Enter a unique channel code. Anyone with this code can join.
+                                                    </DialogDescription>
+                                                </DialogHeader>
+                                                <div className="space-y-4 py-4">
+                                                    <Input
+                                                        value={newRoomCode}
+                                                        onChange={(e) => setNewRoomCode(e.target.value)}
+                                                        placeholder="e.g. secret-base-123"
+                                                        className="bg-black/30 border-white/10 text-white"
+                                                    />
+                                                </div>
+                                                <DialogFooter>
+                                                    <Button onClick={joinPrivateRoom} className="bg-indigo-600 text-white">
+                                                        Join Channel
+                                                    </Button>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
+                                    </div>
+                                    <div className="space-y-1">
+                                        {privateRooms.map(room => (
+                                            <button
+                                                key={room}
+                                                onClick={() => setActiveRoom(room)}
+                                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all group ${activeRoom === room
+                                                    ? 'bg-pink-500/10 text-white font-medium'
+                                                    : 'text-white/40 hover:text-white hover:bg-white/5'
+                                                    }`}
+                                            >
+                                                <Lock size={14} className={`${activeRoom === room ? 'text-pink-400' : 'opacity-40'
+                                                    }`} />
+                                                <span className="truncate">{room}</span>
+                                            </button>
+                                        ))}
+                                        {privateRooms.length === 0 && (
+                                            <p className="text-[10px] text-white/20 px-2 italic">No private channels joined.</p>
+                                        )}
+                                    </div>
                                 </div>
 
-                                <div className="p-3 border-t border-white/5 bg-black/20">
+                                <div className="mt-auto p-3 border-t border-white/5 bg-black/20">
                                     <Dialog open={showSettings} onOpenChange={setShowSettings}>
                                         <DialogTrigger asChild>
                                             <button className="flex items-center gap-3 px-3 py-2 text-xs text-white/50 hover:text-white hover:bg-white/5 transition-all w-full rounded-lg">
@@ -322,9 +439,6 @@ export const GlobalChat: React.FC = () => {
                                         <DialogContent className="bg-[#1a1d24] border-white/10 text-white sm:max-w-md">
                                             <DialogHeader>
                                                 <DialogTitle>Chat Profile</DialogTitle>
-                                                <DialogDescription className="text-white/60">
-                                                    Update how you appear to others in the global chat.
-                                                </DialogDescription>
                                             </DialogHeader>
                                             <div className="space-y-4 py-4">
                                                 <div className="space-y-2">
@@ -332,19 +446,18 @@ export const GlobalChat: React.FC = () => {
                                                     <Input
                                                         value={customName}
                                                         onChange={(e) => setCustomName(e.target.value)}
-                                                        className="bg-black/30 border-white/10 text-white focus:border-indigo-500/50"
-                                                        placeholder="Enter a new name..."
+                                                        className="bg-black/30 border-white/10 text-white"
                                                     />
                                                 </div>
                                             </div>
                                             <DialogFooter>
                                                 <Button
                                                     onClick={handleUpdateName}
-                                                    className="bg-indigo-600 hover:bg-indigo-500 text-white w-full sm:w-auto"
+                                                    className="bg-indigo-600 text-white"
                                                     disabled={isUpdating}
                                                 >
                                                     {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                                    {isUpdating ? 'Apply to All Messages...' : 'Save Changes'}
+                                                    Save Changes
                                                 </Button>
                                             </DialogFooter>
                                         </DialogContent>
@@ -358,19 +471,43 @@ export const GlobalChat: React.FC = () => {
                             {/* Header */}
                             <div className="h-14 flex items-center justify-between px-6 border-b border-white/5 bg-white/[0.02] shrink-0 backdrop-blur-sm">
                                 <div className="flex items-center gap-3">
-                                    <Hash size={20} className={currentRoom.color} />
+                                    {isPublicRoom ? (
+                                        <Hash size={20} className={currentRoom.color} />
+                                    ) : (
+                                        <Lock size={20} className="text-pink-400" />
+                                    )}
                                     <div>
-                                        <h3 className="font-bold text-white text-sm leading-none">{currentRoom.name}</h3>
-                                        <span className="text-[10px] text-white/30 font-medium tracking-wide">GLOBAL CHAT</span>
+                                        <h3 className="font-bold text-white text-sm leading-none flex items-center gap-2">
+                                            {isPublicRoom ? currentRoom.name : activeRoom}
+                                            {!isPublicRoom && (
+                                                <span className="px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-300 text-[9px] border border-pink-500/20 uppercase tracking-widest">
+                                                    Private
+                                                </span>
+                                            )}
+                                        </h3>
+                                        <span className="text-[10px] text-white/30 font-medium tracking-wide">
+                                            {isPublicRoom ? 'GLOBAL CHAT' : 'ENCRYPTED CHANNEL'}
+                                        </span>
                                     </div>
                                     {indexError && (
-                                        <div className="ml-4 flex items-center gap-1.5 text-[10px] text-red-400 bg-red-500/10 border border-red-500/20 px-2 py-1 rounded-md animate-in fade-in slide-in-from-top-1">
+                                        <div className="ml-4 flex items-center gap-1.5 text-[10px] text-red-400 bg-red-500/10 border border-red-500/20 px-2 py-1 rounded-md">
                                             <AlertTriangle size={10} />
-                                            Needs Index (Check Console)
+                                            Needs Index
                                         </div>
                                     )}
                                 </div>
                                 <div className="flex items-center gap-2">
+                                    {!isPublicRoom && (
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={copyRoomLink}
+                                            className="h-8 px-2 text-xs text-white/60 hover:text-white hover:bg-white/10 gap-1.5"
+                                        >
+                                            <LinkIcon size={12} />
+                                            Share
+                                        </Button>
+                                    )}
                                     <button
                                         onClick={() => setIsMinimized(!isMinimized)}
                                         className="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-lg transition-colors text-white/50 hover:text-white"
@@ -391,12 +528,21 @@ export const GlobalChat: React.FC = () => {
                                             </div>
                                         ) : messages.length === 0 ? (
                                             <div className="flex flex-col items-center justify-center h-full text-white/20 space-y-4">
-                                                <div className={`w-16 h-16 rounded-2xl ${currentRoom.bg} flex items-center justify-center`}>
-                                                    <Hash size={32} className={currentRoom.color} />
+                                                <div className={`w-16 h-16 rounded-2xl ${isPublicRoom ? currentRoom.bg : 'bg-pink-500/10'} flex items-center justify-center`}>
+                                                    {isPublicRoom ? <Hash size={32} className={currentRoom.color} /> : <Lock size={32} className="text-pink-400" />}
                                                 </div>
                                                 <div className="text-center">
-                                                    <p className="text-sm font-medium text-white/40">Welcome to #{currentRoom.name}</p>
+                                                    <p className="text-sm font-medium text-white/40">Welcome to #{isPublicRoom ? currentRoom.name : activeRoom}</p>
                                                     <p className="text-xs text-white/20 mt-1">This is the start of the conversation.</p>
+                                                    {!isPublicRoom && (
+                                                        <Button
+                                                            variant="link"
+                                                            className="text-pink-400 text-xs mt-2"
+                                                            onClick={copyRoomLink}
+                                                        >
+                                                            <Copy size={12} className="mr-1" /> Copy Invite Link
+                                                        </Button>
+                                                    )}
                                                 </div>
                                             </div>
                                         ) : (
@@ -406,7 +552,7 @@ export const GlobalChat: React.FC = () => {
 
                                                 const isSameUser = prevMsg && prevMsg.uid === msg.uid;
                                                 const isWithinTime = prevMsg && msg.createdAt && prevMsg.createdAt &&
-                                                    (msg.createdAt.toMillis() - prevMsg.createdAt.toMillis() < 5 * 60 * 1000); // 5 mins
+                                                    (msg.createdAt.toMillis() - prevMsg.createdAt.toMillis() < 5 * 60 * 1000);
                                                 const isGrouped = isSameUser && isWithinTime;
 
                                                 const date = msg.createdAt?.toDate();
@@ -472,8 +618,8 @@ export const GlobalChat: React.FC = () => {
 
                                                                 {msg.text && (
                                                                     <div className={`px-4 py-2 text-[14px] leading-relaxed shadow-sm break-words whitespace-pre-wrap ${isMe
-                                                                            ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-sm'
-                                                                            : 'bg-[#252830] text-gray-200 rounded-2xl rounded-tl-sm'
+                                                                        ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-sm'
+                                                                        : 'bg-[#252830] text-gray-200 rounded-2xl rounded-tl-sm'
                                                                         }`}>
                                                                         {msg.text}
                                                                     </div>
@@ -513,7 +659,7 @@ export const GlobalChat: React.FC = () => {
                                                     value={newMessage}
                                                     onChange={(e) => setNewMessage(e.target.value)}
                                                     onKeyDown={handleKeyDown}
-                                                    placeholder={isUploading ? "Uploading image..." : `Message #${currentRoom.name}`}
+                                                    placeholder={isUploading ? "Uploading image..." : `Message #${isPublicRoom ? currentRoom.name : activeRoom}`}
                                                     className="w-full bg-transparent border-0 text-white placeholder:text-white/30 focus:ring-0 resize-none min-h-[44px] max-h-[120px] py-2.5 px-3 text-sm scrollbar-thin scrollbar-thumb-white/10"
                                                     rows={1}
                                                     style={{ height: 'auto', minHeight: '44px' }}
@@ -523,8 +669,8 @@ export const GlobalChat: React.FC = () => {
                                                     type="submit"
                                                     size="icon"
                                                     className={`shrink-0 transition-all ${newMessage.trim()
-                                                            ? 'bg-indigo-600 hover:bg-indigo-500 text-white'
-                                                            : 'bg-white/5 text-white/20 hover:bg-white/10'
+                                                        ? 'bg-indigo-600 hover:bg-indigo-500 text-white'
+                                                        : 'bg-white/5 text-white/20 hover:bg-white/10'
                                                         }`}
                                                     disabled={!newMessage.trim() || isUploading}
                                                 >

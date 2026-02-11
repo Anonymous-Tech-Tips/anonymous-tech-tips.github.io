@@ -74,6 +74,16 @@ const AppContent = () => {
     });
   }, []);
 
+  // Check for pending private room invite (if not logged in)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const roomParam = params.get('room');
+    if (!isAuthenticated && roomParam) {
+      console.log("Saving pending room invite:", roomParam);
+      sessionStorage.setItem('pendingRoom', roomParam);
+    }
+  }, [location, isAuthenticated]);
+
   // Global error listeners for development debugging
   useEffect(() => {
     if (import.meta.env.DEV) {
