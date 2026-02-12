@@ -44,8 +44,8 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
           <title>Classroom Activity</title>
           <style>
             * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { background: #000; overflow: hidden; }
-            iframe { width: 100vw; height: 100vh; border: none; }
+            html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+            iframe { width: 100vw; height: 100vh; border: none; display: block; position: absolute; top: 0; left: 0; }
           </style>
           <script>
             // 🛡️ ANTI-THEFT PROTECTION 🛡️

@@ -51,7 +51,7 @@ const basePath = '';
 const navigationHandler = createHandlerBoundToURL(`${basePath}/index.html`);
 const navigationRoute = new NavigationRoute(navigationHandler, {
   allowlist: [new RegExp(`^${basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/.*$`)],
-  denylist: [/\/api\/.*$/, /\.(?:css|js|json|png|jpg|jpeg|svg|gif|webp|woff2?)$/, /\/sitemap\.xml$/],
+  denylist: [/\/api\/.*$/, /\.(?:css|js|json|png|jpg|jpeg|svg|gif|webp|woff2?|html|swf|wasm)$/, /\/strongdog\/.*$/, /\/topvaz66\/.*$/, /\/sitemap\.xml$/],
 });
 registerRoute(navigationRoute);
 
