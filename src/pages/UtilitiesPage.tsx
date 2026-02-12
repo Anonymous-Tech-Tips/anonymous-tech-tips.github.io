@@ -14,7 +14,6 @@ const UtilitiesPage = () => {
   // Premium utilities for logged-in users
   const premiumUtilities: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr"; cloakedUrl?: string }> = [
     { text: "❄️ Snow Day Predictor", url: "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/edit?usp=sharing" },
-    { text: "🌐 Holy Unblocker - Web Proxy", url: "https://holyubofficial.net/" },
     { text: "🔓 Unbl0ck3r", cloakedUrl: "https://uvrays.synology.me:8443/" },
   ];
 
@@ -34,25 +33,11 @@ const UtilitiesPage = () => {
 
 
 
-  // Productivity & Tools
-  const productivity: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr" }> = [
-    { text: "🔐 Password Generator", utility: "password" },
-    { text: "🎨 Color Picker", utility: "color" },
-    { text: "📝 Text Converter", utility: "text" },
-    { text: "📱 QR Code Generator", utility: "qr" },
-    { text: "⚡ Speedtest.net", url: "https://www.speedtest.net/" },
-    { text: "🌐 Google Translate", url: "https://translate.google.com/" },
-  ];
+  // Productivity & Tools (Simplified)
+  const productivity: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr" }> = [];
 
   // Public utilities (not logged in)
   const publicItems: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr"; cloakedUrl?: string }> = [
-    { text: "🔐 Password Generator", utility: "password" },
-    { text: "🎨 Color Picker", utility: "color" },
-    { text: "📝 Text Converter", utility: "text" },
-    { text: "📱 QR Code Generator", utility: "qr" },
-    { text: "🛡️ uBlock Origin - Best Adblocker", url: "https://ublockorigin.com/" },
-    { text: "⚡ Speedtest.net - Internet Speed", url: "https://www.speedtest.net/" },
-    { text: "🌐 Google Translate", url: "https://translate.google.com/" },
     { text: "🔓 Unbl0ck3r", cloakedUrl: "https://uvrays.synology.me:8443/" },
   ];
 
@@ -90,16 +75,6 @@ const UtilitiesPage = () => {
 
               <InContentAd />
 
-              {/* Privacy & Security */}
-              <ContentSection
-                id="privacy-security"
-                icon={Shield}
-                title="🔐 Privacy & Security"
-                description="Adblocking, VPN, proxy, and privacy tools"
-                items={privacySecurity}
-              />
-
-              <InContentAd />
 
               {/* Productivity */}
               <ContentSection

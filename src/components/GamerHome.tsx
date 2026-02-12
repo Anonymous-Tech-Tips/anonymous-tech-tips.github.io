@@ -131,20 +131,20 @@ export const GamerHome = () => {
                 </div>
               </motion.div>
 
-              {/* RANDOM ACTION */}
+              {/* UNBLOCKER EMPHASIS */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                onClick={() => navigate('/games')}
-                className="flex-1 bg-primary/20 rounded-[2rem] p-6 border border-white/5 flex flex-col justify-center items-start gap-4 hover:bg-primary/30 transition-colors cursor-pointer group"
+                onClick={() => navigate('/utilities')}
+                className="flex-1 bg-teal-500/20 rounded-[2rem] p-6 border border-teal-500/20 flex flex-col justify-center items-start gap-4 hover:bg-teal-500/30 transition-colors cursor-pointer group"
               >
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Search className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-full bg-teal-500 text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-teal-500/40">
+                  <Zap className="w-6 h-6 fill-current" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-white">Browse</div>
-                  <div className="text-white/60 text-sm">Find your next obsession</div>
+                  <div className="text-2xl font-bold text-white tracking-tight">Unbl*cker</div>
+                  <div className="text-white/60 text-sm">Access Restricted Content</div>
                 </div>
               </motion.div>
             </div>

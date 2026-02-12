@@ -26,7 +26,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ scrollToResources }) =
                 <span className="text-teal-700 decoration-teal-300/30 underline decoration-4 underline-offset-4">Learning Potential</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-700 max-w-xl leading-relaxed font-medium">
-                Access essential tools, curated research databases, and study optimization resources.
+                Access essential tools, curated research databases, and our built-in <span className="text-teal-700 font-bold decoration-teal-300/30 underline decoration-2 underline-offset-4">Unbl*cker</span> resources.
                 Designed for the modern scholar.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
