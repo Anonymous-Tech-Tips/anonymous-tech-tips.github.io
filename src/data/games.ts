@@ -103,14 +103,14 @@ export const games: Game[] = [
     title: "Slope",
     tags: ["arcade", "reflex", "running"],
     thumbnail: "/strongdog/img/tunnelrush.webp",
-    url: "/strongdog/html/tank trouble 2.html",
+    url: "https://games.construct.net/82/latest",
     featured: true,
   },
   {
     id: "retro-bowl",
     title: "Retro Bowl",
     tags: ["blocked", "sports", "football"],
-    thumbnail: "/strongdog/img/red ball 4.jpg",
+    thumbnail: "/fallback.png",
     url: "https://vaz63.github.io/g5/class-400",
     featured: true,
   },
@@ -118,7 +118,7 @@ export const games: Game[] = [
     id: "1v1-lol",
     title: "1v1.lol",
     tags: ["blocked", "shooter", "multiplayer"],
-    thumbnail: "/strongdog/img/idle ants.jpg",
+    thumbnail: "/fallback.png",
     url: "https://vaz63.github.io/g77/class-439",
     featured: true,
   },
@@ -134,7 +134,7 @@ export const games: Game[] = [
     id: "super-mario-bros",
     title: "Super Mario Bros",
     tags: ["blocked", "platform", "classic"],
-    thumbnail: "/strongdog/img/gunspin.jpg",
+    thumbnail: "/fallback.png",
     url: "https://vaz63.github.io/g/class-826",
     featured: true,
   },
@@ -158,7 +158,7 @@ export const games: Game[] = [
     id: "bitlife",
     title: "Bitlife",
     tags: ["blocked", "simulation", "life"],
-    thumbnail: "/strongdog/img/we become what we behold.jpg",
+    thumbnail: "/fallback.png",
     url: "https://vaz63.github.io/g5/class-441",
     featured: true,
   },
@@ -174,26 +174,26 @@ export const games: Game[] = [
     id: "eggy-car",
     title: "Eggy Car",
     tags: ["blocked", "racing", "physics"],
-    thumbnail: "/strongdog/img/tag.jpg",
+    thumbnail: "/fallback.png",
     url: "https://vaz63.github.io/g5/class-463",
     featured: true,
   },
 
   // --- 🏃 Running & Parkour Games ---
   { id: "parkour-race", title: "Parkour Race", tags: ["blocked", "running", "parkour"], thumbnail: "/strongdog/img/level devil.jpg", url: "https://vaz63.github.io/g77/class-830" },
-  { id: "cluster-rush", title: "Cluster Rush", tags: ["blocked", "running", "arcade"], thumbnail: "/strongdog/img/water color sort.png", url: "https://vaz63.github.io/g26/class-526" },
+  { id: "cluster-rush", title: "Cluster Rush", tags: ["blocked", "running", "arcade"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g26/class-526" },
   { id: "slope-2", title: "Slope 2", tags: ["running", "arcade"], thumbnail: "/topvaz66/img/class-437.png", url: "/topvaz66/source/class-437/index.html" },
-  { id: "run-3-editor", title: "Run 3 Editor", tags: ["blocked", "running", "endless"], thumbnail: "/strongdog/img/supper liquid soccer.jfif", url: "https://vaz63.github.io/g/class-819" },
-  { id: "ovo", title: "Ovo", tags: ["blocked", "jumping", "platformer"], thumbnail: "/strongdog/img/basket and ball.jfif", url: "https://vaz63.github.io/g5/class-456" },
+  { id: "run-3-editor", title: "Run 3 Editor", tags: ["blocked", "running", "endless"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g/class-819" },
+  { id: "ovo", title: "Ovo", tags: ["blocked", "jumping", "platformer"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g5/class-456" },
 
   // --- 🏀 Sports Games ---
-  { id: "basketball-stars", title: "Basketball Stars", tags: ["blocked", "sports", "basketball"], thumbnail: "/strongdog/img/adventure drivers.jfif", url: "https://vaz63.github.io/g5/class-449" },
+  { id: "basketball-stars", title: "Basketball Stars", tags: ["blocked", "sports", "basketball"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g5/class-449" },
   { id: "basket-bros", title: "Basket Bros", tags: ["sports", "basketball"], thumbnail: "/topvaz66/img/class-482.png", url: "/topvaz66/source/class-482/index.html" },
-  { id: "basket-random", title: "Basket Random", tags: ["blocked", "sports", "basketball"], thumbnail: "/strongdog/img/draw the hill.jfif", url: "https://vaz63.github.io/g26/class-436" },
-  { id: "soccer-random", title: "Soccer Random", tags: ["blocked", "sports", "soccer"], thumbnail: "/strongdog/img/toumb-of-the-mask.png", url: "https://vaz63.github.io/g26/class-511" },
-  { id: "soccer-skills-cl", title: "Soccer Skills Champions League", tags: ["blocked", "sports", "soccer"], thumbnail: "/strongdog/img/adofai.png", url: "https://vaz63.github.io/g2/class-588" },
-  { id: "super-liquid-soccer", title: "Super Liquid Soccer", tags: ["blocked", "sports", "soccer"], thumbnail: "/strongdog/img/knights blade.webp", url: "https://vaz63.github.io/g69/class-628" },
-  { id: "penalty-shooters-2", title: "Penalty Shooters 2", tags: ["blocked", "sports", "soccer"], thumbnail: "/strongdog/img/polytrack.jfif", url: "https://vaz63.github.io/g2/class-627" },
+  { id: "basket-random", title: "Basket Random", tags: ["blocked", "sports", "basketball"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g26/class-436" },
+  { id: "soccer-random", title: "Soccer Random", tags: ["blocked", "sports", "soccer"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g26/class-511" },
+  { id: "soccer-skills-cl", title: "Soccer Skills Champions League", tags: ["blocked", "sports", "soccer"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g2/class-588" },
+  { id: "super-liquid-soccer", title: "Super Liquid Soccer", tags: ["blocked", "sports", "soccer"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g69/class-628" },
+  { id: "penalty-shooters-2", title: "Penalty Shooters 2", tags: ["blocked", "sports", "soccer"], thumbnail: "/fallback.png", url: "https://vaz63.github.io/g2/class-627" },
   { id: "rocket-soccer-derby", title: "Rocket Soccer Derby", tags: ["sports", "soccer"], thumbnail: "/topvaz66/img/class-527.png", url: "/topvaz66/source/class-527/index.html" },
   { id: "tiny-fishing", title: "Tiny Fishing", tags: ["sports", "fishing"], thumbnail: "/topvaz66/img/class-451.png", url: "/topvaz66/source/class-451/index.html" },
   { id: "4th-and-goal-2022", title: "4th And Goal 2022", tags: ["blocked", "sports", "football"], thumbnail: "/strongdog/img/yohoho.io.jfif", url: "https://vaz63.github.io/g16/class-685" },
@@ -244,8 +244,10 @@ export const games: Game[] = [
   { id: "impossible-quiz", title: "The Impossible Quiz", tags: ["blocked", "puzzle", "quiz"], thumbnail: impossibleQuiz, url: "https://vaz63.github.io/g26/class-480" },
   { id: "tomb-of-mask", title: "Tomb Of The Mask", tags: ["blocked", "puzzle", "thinking"], thumbnail: tombOfMask, url: "https://vaz63.github.io/g26/class-438" },
   { id: "master-chess", title: "Master Chess", tags: ["blocked", "puzzle", "strategy"], thumbnail: masterChessNew, url: "https://vaz63.github.io/g97/class-506" },
-  { id: "traffic-escape", title: "Traffic Escape", tags: ["puzzle", "casual"], thumbnail: "/topvaz66/img/class-357.png",
-    url: "/topvaz66/source/class-357/index.html" },
+  {
+    id: "traffic-escape", title: "Traffic Escape", tags: ["puzzle", "casual"], thumbnail: "/topvaz66/img/class-357.png",
+    url: "/topvaz66/source/class-357/index.html"
+  },
   { id: "growmi", title: "Growmi", tags: ["blocked", "puzzle", "platformer"], url: "https://vaz63.github.io/g4/class-182" },
 
   // --- 🎵 Rhythm Games ---
@@ -471,7 +473,7 @@ export const games: Game[] = [
     id: "free-kick-classic",
     title: "free kick classic",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/free kick classic.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/free kick classic/index.html",
   },
 
@@ -479,7 +481,7 @@ export const games: Game[] = [
     id: "idle-restaurants-tycoon",
     title: "idle restaurants tycoon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/idle restaurants tycoon.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/idle restaurants tycoon/index.html",
   },
 
@@ -487,7 +489,7 @@ export const games: Game[] = [
     id: "jewels-blitz-2",
     title: "jewels blitz 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/jewels blitz 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/jewels blitz 2/index.html",
   },
 
@@ -495,7 +497,7 @@ export const games: Game[] = [
     id: "infinite-soccer",
     title: "infinite soccer",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/infinite soccer.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/infinite soccer/index.html",
   },
 
@@ -503,7 +505,7 @@ export const games: Game[] = [
     id: "save-the-doge",
     title: "save the doge",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/save the doge.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/save the doge/index.html",
   },
 
@@ -511,7 +513,7 @@ export const games: Game[] = [
     id: "rise-of-neon-square",
     title: "rise of neon square",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/rise of neon square.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/rise of neon square/index.html",
   },
 
@@ -519,7 +521,7 @@ export const games: Game[] = [
     id: "b-side",
     title: "b-side",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/b-side.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/b-side/index.html",
   },
 
@@ -527,7 +529,7 @@ export const games: Game[] = [
     id: "baw",
     title: "baw",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/baw.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/baw/index.html",
   },
 
@@ -535,7 +537,7 @@ export const games: Game[] = [
     id: "pixel-gun-apocalypse-2",
     title: "pixel gun apocalypse 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pixel gun apocalypse 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pixel gun apocalypse 2/index.html",
   },
 
@@ -543,7 +545,7 @@ export const games: Game[] = [
     id: "minecraft-case-simulator",
     title: "minecraft case simulator",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/minecraft case simulator.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/minecraft case simulator/index.html",
   },
 
@@ -551,7 +553,7 @@ export const games: Game[] = [
     id: "roper",
     title: "roper",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/roper.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/roper/index.html",
   },
 
@@ -559,7 +561,7 @@ export const games: Game[] = [
     id: "bit-planes",
     title: "bit planes",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/bit planes.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/bit planes/index.html",
   },
 
@@ -567,7 +569,7 @@ export const games: Game[] = [
     id: "idle-tree-city",
     title: "idle tree city",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/idle tree city.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/idle tree city/index.html",
   },
 
@@ -575,7 +577,7 @@ export const games: Game[] = [
     id: "little-alchemy-2",
     title: "little alchemy 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/little alchemy 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/little alchemy 2/index.html",
   },
 
@@ -583,7 +585,7 @@ export const games: Game[] = [
     id: "hanger",
     title: "hanger",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/hanger.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/hanger/index.html",
   },
 
@@ -591,7 +593,7 @@ export const games: Game[] = [
     id: "get-on-top",
     title: "get on top",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/get on top.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/get on top/index.html",
   },
 
@@ -599,7 +601,7 @@ export const games: Game[] = [
     id: "running-fred",
     title: "running fred",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/running fred.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/running fred/index.html",
   },
 
@@ -607,7 +609,7 @@ export const games: Game[] = [
     id: "mutazone",
     title: "mutazone",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mutazone.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mutazone/index.html",
   },
 
@@ -615,7 +617,7 @@ export const games: Game[] = [
     id: "moto-maniac-3",
     title: "moto maniac 3",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/moto maniac 3.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/moto maniac 3/index.html",
   },
 
@@ -623,7 +625,7 @@ export const games: Game[] = [
     id: "gobdun",
     title: "gobdun",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gobdun.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gobdun/index.html",
   },
 
@@ -631,7 +633,7 @@ export const games: Game[] = [
     id: "money-rush",
     title: "money rush",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/money rush.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/money rush/index.html",
   },
 
@@ -639,7 +641,7 @@ export const games: Game[] = [
     id: "ovo-3d",
     title: "ovo 3d",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ovo 3d.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ovo 3d/index.html",
   },
 
@@ -647,7 +649,7 @@ export const games: Game[] = [
     id: "ragdoll-hit",
     title: "ragdoll hit",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ragdoll hit.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ragdoll hit/index.html",
   },
 
@@ -655,7 +657,7 @@ export const games: Game[] = [
     id: "skyblock",
     title: "skyblock",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/skyblock.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/skyblock/index.html",
   },
 
@@ -663,7 +665,7 @@ export const games: Game[] = [
     id: "cannon-basketball",
     title: "cannon basketball",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cannon basketball.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cannon basketball/index.html",
   },
 
@@ -671,7 +673,7 @@ export const games: Game[] = [
     id: "cannon-basketball-2",
     title: "cannon basketball 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cannon basketball 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cannon basketball 2/index.html",
   },
 
@@ -679,7 +681,7 @@ export const games: Game[] = [
     id: "president-simulator",
     title: "president simulator",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/president simulator.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/president simulator/index.html",
   },
 
@@ -687,7 +689,7 @@ export const games: Game[] = [
     id: "sausage-flipping",
     title: "sausage flipping",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sausage flip.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sausage flipping/index.html",
   },
 
@@ -695,7 +697,7 @@ export const games: Game[] = [
     id: "pixel-smash-duel",
     title: "pixel smash duel",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pixel smash duel.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pixel smash duel/index.html",
   },
 
@@ -703,7 +705,7 @@ export const games: Game[] = [
     id: "rocket-soccer-durbey",
     title: "rocket soccer durbey",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/rocket soccer durbey.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/rocket soccer durbey/index.html",
   },
 
@@ -711,7 +713,7 @@ export const games: Game[] = [
     id: "rolly-vortex-ball",
     title: "rolly vortex ball",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/rolly vortex ball.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/rolly vortex ball/index.html",
   },
 
@@ -719,7 +721,7 @@ export const games: Game[] = [
     id: "pacman-remake",
     title: "pacman remake",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pacman remake.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pacman remake/index.html",
   },
 
@@ -727,7 +729,7 @@ export const games: Game[] = [
     id: "cannon-basketball-3",
     title: "cannon basketball 3",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cannon basketball 3.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cannon basketball 3/index.html",
   },
 
@@ -735,7 +737,7 @@ export const games: Game[] = [
     id: "trafficmania",
     title: "trafficmania",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/trafficmania.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/trafficmania/index.html",
   },
 
@@ -743,7 +745,7 @@ export const games: Game[] = [
     id: "candy-clicker",
     title: "candy clicker",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/candy clicker.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/candy clicker/index.html",
   },
 
@@ -751,7 +753,7 @@ export const games: Game[] = [
     id: "babel-tower",
     title: "babel tower",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/babel tower.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/babel tower/index.html",
   },
 
@@ -759,7 +761,7 @@ export const games: Game[] = [
     id: "top-speed-3d",
     title: "top speed 3d",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/top speed 3d.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/top speed 3d/index.html",
   },
 
@@ -767,7 +769,7 @@ export const games: Game[] = [
     id: "time-shooter-3",
     title: "time shooter 3",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/time shooter 3.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/time shooter 3/index.html",
   },
 
@@ -775,7 +777,7 @@ export const games: Game[] = [
     id: "timber-man",
     title: "timber man",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/timber man.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/timber man/index.html",
   },
 
@@ -783,7 +785,7 @@ export const games: Game[] = [
     id: "tap-tap-shots",
     title: "tap tap shots",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tap tap shots.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tap tap shots/index.html",
   },
 
@@ -791,7 +793,7 @@ export const games: Game[] = [
     id: "gunblood",
     title: "gunblood",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gunblood.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/gunblood/index.html",
   },
 
@@ -799,7 +801,7 @@ export const games: Game[] = [
     id: "tennis-random",
     title: "tennis random",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tennis random.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tennis random/index.html",
   },
 
@@ -807,7 +809,7 @@ export const games: Game[] = [
     id: "zompocalypse",
     title: "zompocalypse",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/zompocalypse.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/zompocalypse/index.html",
   },
 
@@ -815,7 +817,7 @@ export const games: Game[] = [
     id: "zuck-vs-musk-beatdown",
     title: "zuck vs musk beatdown",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/zuck vs musk beatdown.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/zuck vs musk beatdown/index.html",
   },
 
@@ -823,7 +825,7 @@ export const games: Game[] = [
     id: "ultimate-offroad-simulator",
     title: "ultimate offroad simulator",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ultimate offroad simulator.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ultimate offroad simulator/index.html",
   },
 
@@ -831,7 +833,7 @@ export const games: Game[] = [
     id: "turn-turn",
     title: "turn turn",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/turn turn.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/turn turn/index.html",
   },
 
@@ -839,7 +841,7 @@ export const games: Game[] = [
     id: "stickman-boost-2",
     title: "stickman boost 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/stickman boost 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/stickman boost 2/index.html",
   },
 
@@ -847,7 +849,7 @@ export const games: Game[] = [
     id: "stickman-boost",
     title: "stickman boost",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/stickman boost.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/stickman boost/index.html",
   },
 
@@ -855,7 +857,7 @@ export const games: Game[] = [
     id: "stick-duel-battle",
     title: "stick duel battle",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/stick duel battle.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/stick duel battle/index.html",
   },
 
@@ -863,7 +865,7 @@ export const games: Game[] = [
     id: "stick-archers-battle",
     title: "stick archers battle",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/stick archers battle.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/stick archers battle/index.html",
   },
 
@@ -871,7 +873,7 @@ export const games: Game[] = [
     id: "starblast-io",
     title: "starblast.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/starblast.io.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/starblast.io/index.html",
   },
 
@@ -879,7 +881,7 @@ export const games: Game[] = [
     id: "sprinter",
     title: "sprinter",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sprinter.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sprinter/index.html",
   },
 
@@ -887,7 +889,7 @@ export const games: Game[] = [
     id: "soccer-skills-euro-cup",
     title: "soccer skills euro cup",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/soccer skills euro cup.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/soccer skills euro cup/index.html",
   },
 
@@ -895,7 +897,7 @@ export const games: Game[] = [
     id: "snow-battle-io",
     title: "snow battle.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/snow battle.io.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/snow battle.io/index.html",
   },
 
@@ -903,7 +905,7 @@ export const games: Game[] = [
     id: "sniper-shot",
     title: "sniper shot",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sniper shot.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sniper shot/index.html",
   },
 
@@ -927,7 +929,7 @@ export const games: Game[] = [
     id: "tube-clicker",
     title: "tube clicker",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tube clicker.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tube clicker/index.html",
   },
 
@@ -935,7 +937,7 @@ export const games: Game[] = [
     id: "crossy-cat",
     title: "crossy cat",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/crossy cat.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/crossy cat/game/index.html",
   },
 
@@ -943,7 +945,7 @@ export const games: Game[] = [
     id: "twin-shot-2",
     title: "twin shot 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/twin shot 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/twin shot 2/index.html",
   },
 
@@ -951,7 +953,7 @@ export const games: Game[] = [
     id: "block-shooter-frenzy",
     title: "block shooter frenzy",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/block shooter frenzy.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/block shooter frenzy/index.html",
   },
 
@@ -959,7 +961,7 @@ export const games: Game[] = [
     id: "three-goblets",
     title: "three goblets",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/three goblets.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/three goblets/index.html",
   },
 
@@ -967,7 +969,7 @@ export const games: Game[] = [
     id: "super-pickleball-adventure",
     title: "super pickleball adventure",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/super pickleball adventure.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/super pickleball adventure/index.html",
   },
 
@@ -975,7 +977,7 @@ export const games: Game[] = [
     id: "squarex",
     title: "squareX",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/squarex.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/squareX/index.html",
   },
 
@@ -983,7 +985,7 @@ export const games: Game[] = [
     id: "metrocubevania",
     title: "metrocubevania",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/metrocubevania.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/metrocubevania/index.html",
   },
 
@@ -991,7 +993,7 @@ export const games: Game[] = [
     id: "knightin",
     title: "knightin",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/knightin.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/knightin/index.html",
   },
 
@@ -999,7 +1001,7 @@ export const games: Game[] = [
     id: "islander",
     title: "ISLANDER",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ISLANDER.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ISLANDER/index.html",
   },
 
@@ -1015,7 +1017,7 @@ export const games: Game[] = [
     id: "delia-the-traveling-witch",
     title: "delia the traveling witch",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/delia the traveling witch.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/delia the traveling witch/index.html",
   },
 
@@ -1023,7 +1025,7 @@ export const games: Game[] = [
     id: "dark-tomb",
     title: "dark tomb",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/dark tomb.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/dark tomb/index.html",
   },
 
@@ -1031,7 +1033,7 @@ export const games: Game[] = [
     id: "another-gentlemans-adventure",
     title: "another gentlemans adventure",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/another gentlemans adventure.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/another gentlemans adventure/index.html",
   },
 
@@ -1047,7 +1049,7 @@ export const games: Game[] = [
     id: "westoon",
     title: "westoon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/westoon.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/westoon/index.html",
   },
 
@@ -1055,7 +1057,7 @@ export const games: Game[] = [
     id: "thumb-fighter-christmas",
     title: "thumb fighter christmas",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/thumb fighter christmas.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/thumb fighter christmas/index.html",
   },
 
@@ -1063,7 +1065,7 @@ export const games: Game[] = [
     id: "sink-it",
     title: "sink it",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sink it.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sink it/index.html",
   },
 
@@ -1071,7 +1073,7 @@ export const games: Game[] = [
     id: "minibattles",
     title: "minibattles",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/minibattles.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/minibattles/index.html",
   },
 
@@ -1079,7 +1081,7 @@ export const games: Game[] = [
     id: "blocky-snakes",
     title: "blocky snakes",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/blocky snakes.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/blocky snakes/index.html",
   },
 
@@ -1087,7 +1089,7 @@ export const games: Game[] = [
     id: "tiny-heist",
     title: "tiny heist",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tiny heist.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tiny heist/index.html",
   },
 
@@ -1095,7 +1097,7 @@ export const games: Game[] = [
     id: "poker",
     title: "poker",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/poker.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/poker/index.html",
   },
 
@@ -1103,7 +1105,7 @@ export const games: Game[] = [
     id: "blackjack",
     title: "blackjack",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/blackjack.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/blackjack/index.html",
   },
 
@@ -1111,7 +1113,7 @@ export const games: Game[] = [
     id: "leader-strike",
     title: "leader strike",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/leader-strike.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/leader-strike/index.html",
   },
 
@@ -1119,7 +1121,7 @@ export const games: Game[] = [
     id: "idle-lumber-inc",
     title: "idle lumber inc",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/idle lumber inc.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/idle lumber inc/index.html",
   },
 
@@ -1127,7 +1129,7 @@ export const games: Game[] = [
     id: "idle-digging-tycoon",
     title: "idle digging tycoon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/idle digging tycoon.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/idle digging tycoon/index.html",
   },
 
@@ -1135,7 +1137,7 @@ export const games: Game[] = [
     id: "bomber-royale",
     title: "bomber royale",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/bomber royale.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/bomber royale/index.html",
   },
 
@@ -1143,7 +1145,7 @@ export const games: Game[] = [
     id: "blumgi-paintball",
     title: "blumgi paintball",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/blumgi paintball.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/blumgi paintball/index.html",
   },
 
@@ -1151,7 +1153,7 @@ export const games: Game[] = [
     id: "badegg-io",
     title: "badegg.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/badegg.io.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/badegg.io/index.html",
   },
 
@@ -1159,7 +1161,7 @@ export const games: Game[] = [
     id: "cactus-mccoy",
     title: "cactus mccoy",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cactus mccoy.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/cactus mccoy/index.html",
   },
 
@@ -1167,7 +1169,7 @@ export const games: Game[] = [
     id: "cactus-mccoy-2",
     title: "cactus mccoy 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cactus mccoy 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/cactus mccoy 2/index.html",
   },
 
@@ -1175,7 +1177,7 @@ export const games: Game[] = [
     id: "terretorial-io",
     title: "terretorial.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/terretorial.io.jpeg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/terretorial.io/index.html",
   },
 
@@ -1183,7 +1185,7 @@ export const games: Game[] = [
     id: "just-passing-2",
     title: "just passing 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/just passing 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/just passing 2/index.html",
   },
 
@@ -1191,7 +1193,7 @@ export const games: Game[] = [
     id: "jacksmith",
     title: "jacksmith",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/jacksmith.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/jacksmith/index.html",
   },
 
@@ -1199,7 +1201,7 @@ export const games: Game[] = [
     id: "pre-civilization-bronze-age",
     title: "Pre Civilization Bronze Age",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/Pre Civilization Bronze Age.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/Pre Civilization Bronze Age/index.html",
   },
 
@@ -1207,7 +1209,7 @@ export const games: Game[] = [
     id: "strongdog-chat",
     title: "Strongdog Chat",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/strongdog chat.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/strongdog chat/index.html",
   },
 
@@ -1215,7 +1217,7 @@ export const games: Game[] = [
     id: "shipo-io",
     title: "shipo.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/shipo.io.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/shipo.io/index.html",
   },
 
@@ -1223,7 +1225,7 @@ export const games: Game[] = [
     id: "conq-io",
     title: "conq.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/conq.io.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/conq.io/index.html",
   },
 
@@ -1231,7 +1233,7 @@ export const games: Game[] = [
     id: "sheep-party",
     title: "sheep party",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sheep party.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sheep party/index.html",
   },
 
@@ -1239,7 +1241,7 @@ export const games: Game[] = [
     id: "friday-night-funkin",
     title: "friday night funkin",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/friday night funkin.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/friday night funkin/index.html",
   },
 
@@ -1247,7 +1249,7 @@ export const games: Game[] = [
     id: "tanko-io",
     title: "tanko.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tanko.io.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tanko.io/index.html",
   },
 
@@ -1255,7 +1257,7 @@ export const games: Game[] = [
     id: "checkers",
     title: "checkers",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/checkers.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/checkers/index.html",
   },
 
@@ -1263,7 +1265,7 @@ export const games: Game[] = [
     id: "gladihoppers",
     title: "gladihoppers",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gladdihoppers.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gladihoppers/index.html",
   },
 
@@ -1271,7 +1273,7 @@ export const games: Game[] = [
     id: "fireboy-and-watergirl-6",
     title: "fireboy and watergirl 6",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/fireboy and watergirl 6.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/fireboy and watergirl 6/index.html",
   },
 
@@ -1279,7 +1281,7 @@ export const games: Game[] = [
     id: "fireboy-and-watergirl-5",
     title: "Fireboy and Watergirl 5",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/Fireboy and Watergirl 5.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/Fireboy and Watergirl 5/index.html",
   },
 
@@ -1287,7 +1289,7 @@ export const games: Game[] = [
     id: "fireboy-and-watergirl-4",
     title: "Fireboy and Watergirl 4",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/Fireboy and Watergirl 4.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/Fireboy and Watergirl 4/index.html",
   },
 
@@ -1295,7 +1297,7 @@ export const games: Game[] = [
     id: "fireboy-and-watergirl-3",
     title: "Fireboy and Watergirl 3",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/Fireboy and Watergirl 3.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/Fireboy and Watergirl 3/index.html",
   },
 
@@ -1303,7 +1305,7 @@ export const games: Game[] = [
     id: "fireboy-and-watergirl-2",
     title: "Fireboy and Watergirl 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/Fireboy and Watergirl 2.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/Fireboy and Watergirl 2/index.html",
   },
 
@@ -1311,7 +1313,7 @@ export const games: Game[] = [
     id: "fireboy-and-watergirl-1",
     title: "Fireboy and Watergirl 1",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/Fireboy and Watergirl 1.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/Fireboy and Watergirl 1/index.html",
   },
 
@@ -1319,7 +1321,7 @@ export const games: Game[] = [
     id: "earn-to-die",
     title: "earn to die",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/earn to die.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/earn to die/index.html",
   },
 
@@ -1327,7 +1329,7 @@ export const games: Game[] = [
     id: "paper-minecraft-ender-dragon",
     title: "paper minecraft ender dragon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/paper minecraft ender dragon.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/paper minecraft ender dragon/index.html",
   },
 
@@ -1335,7 +1337,7 @@ export const games: Game[] = [
     id: "grindcraft",
     title: "grindcraft",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/grindcraft.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/grindcraft/index.html",
   },
 
@@ -1343,7 +1345,7 @@ export const games: Game[] = [
     id: "pixwars-2",
     title: "pixwars 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pixwars 2.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pixwars 2/index.html",
   },
 
@@ -1351,7 +1353,7 @@ export const games: Game[] = [
     id: "strike-force-heros",
     title: "strike force heros",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/strke force heros.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/strike force heros/index.html",
   },
 
@@ -1359,7 +1361,7 @@ export const games: Game[] = [
     id: "burger-tycoon",
     title: "burger tycoon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/burger tycoon.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/burger tycoon/index.html",
   },
 
@@ -1367,7 +1369,7 @@ export const games: Game[] = [
     id: "miragine-war",
     title: "miragine war",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/miragine war.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/miragine war/index.html",
   },
 
@@ -1375,7 +1377,7 @@ export const games: Game[] = [
     id: "traffic-tour",
     title: "traffic tour",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/traffic tour.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/traffic tour/index.html",
   },
 
@@ -1383,7 +1385,7 @@ export const games: Game[] = [
     id: "superfighters",
     title: "superfighters",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/superfighters.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/superfighters/index.html",
   },
 
@@ -1391,7 +1393,7 @@ export const games: Game[] = [
     id: "spelunky",
     title: "spelunky",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/spelunky.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/spelunky/index.html",
   },
 
@@ -1399,7 +1401,7 @@ export const games: Game[] = [
     id: "rabbit-samurai-2",
     title: "rabbit samurai 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/rabbit samurai 2.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/rabbit samurai 2/index.html",
   },
 
@@ -1407,7 +1409,7 @@ export const games: Game[] = [
     id: "rabbit-samurai",
     title: "rabbit samurai",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/rabbit samurai.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/rabbit samurai/index.html",
   },
 
@@ -1415,7 +1417,7 @@ export const games: Game[] = [
     id: "quake",
     title: "quake",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/quake.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/quake/index.html",
   },
 
@@ -1423,7 +1425,7 @@ export const games: Game[] = [
     id: "pizza-tower",
     title: "pizza tower",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pizza tower.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pizza tower/index.html",
   },
 
@@ -1431,7 +1433,7 @@ export const games: Game[] = [
     id: "party-project",
     title: "party project",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/party project.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/party project/index.html",
   },
 
@@ -1439,7 +1441,7 @@ export const games: Game[] = [
     id: "onion-boy",
     title: "onion boy",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/onion boy.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/onion boy/index.html",
   },
 
@@ -1447,7 +1449,7 @@ export const games: Game[] = [
     id: "ng-stars",
     title: "NG stars",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/NG stars.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/NG stars/index.html",
   },
 
@@ -1455,7 +1457,7 @@ export const games: Game[] = [
     id: "n-gon",
     title: "n-gon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/n-gon.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/n-gon/index.html",
   },
 
@@ -1463,7 +1465,7 @@ export const games: Game[] = [
     id: "gunnight",
     title: "gunnight",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gunnight.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gunnight/index.html",
   },
 
@@ -1471,7 +1473,7 @@ export const games: Game[] = [
     id: "freefall-tournament",
     title: "freefall tournament",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/freefall tournament.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/freefall tournament/index.html",
   },
 
@@ -1479,7 +1481,7 @@ export const games: Game[] = [
     id: "fighter-aircraft-piolet",
     title: "fighter aircraft piolet",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/fighter aircraft piolet.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/fighter aircraft piolet/index.html",
   },
 
@@ -1487,7 +1489,7 @@ export const games: Game[] = [
     id: "die-in-the-dungeon",
     title: "die in the dungeon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/die in the dungeon.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/die in the dungeon/index.html",
   },
 
@@ -1495,7 +1497,7 @@ export const games: Game[] = [
     id: "cannon-basketball-4",
     title: "cannon basketball 4",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cannon basketball.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cannon basketball 4/index.html",
   },
 
@@ -1503,7 +1505,7 @@ export const games: Game[] = [
     id: "burrito-bison",
     title: "burrito bison",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/burrito bison.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/burrito bison/index.html",
   },
 
@@ -1511,7 +1513,7 @@ export const games: Game[] = [
     id: "bumpyball-io",
     title: "bumpyball.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/bumpyball.io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/bumpyball.io/index.html",
   },
 
@@ -1519,7 +1521,7 @@ export const games: Game[] = [
     id: "basket-legend-2020",
     title: "basket legend 2020",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/basket legend 2020.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/basket legend 2020/index.html",
   },
 
@@ -1527,7 +1529,7 @@ export const games: Game[] = [
     id: "tank-trouble-2",
     title: "tank trouble 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tank trouble 2.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tank trouble 2/index.html",
   },
 
@@ -1535,7 +1537,7 @@ export const games: Game[] = [
     id: "super-santa-kicker",
     title: "super santa kicker",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/super santa kicker.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/super santa kicker/index.html",
   },
 
@@ -1543,7 +1545,7 @@ export const games: Game[] = [
     id: "solitaire",
     title: "solitaire",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/solitaire.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/solitaire/index.html",
   },
 
@@ -1551,7 +1553,7 @@ export const games: Game[] = [
     id: "nitroclash-io",
     title: "nitroclash.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/nitroclash.io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/nitroclash.io/index.html",
   },
 
@@ -1559,7 +1561,7 @@ export const games: Game[] = [
     id: "gravity-soccer",
     title: "gravity soccer",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gravity soccer.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gravity soccer/index.html",
   },
 
@@ -1567,7 +1569,7 @@ export const games: Game[] = [
     id: "going-balls",
     title: "going balls",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/going balls.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/going balls/index.html",
   },
 
@@ -1575,7 +1577,7 @@ export const games: Game[] = [
     id: "falling-fox",
     title: "falling fox",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/falling fox.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/falling fox/index.html",
   },
 
@@ -1583,7 +1585,7 @@ export const games: Game[] = [
     id: "color-switch",
     title: "color switch",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/color switch.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/color switch/index.html",
   },
 
@@ -1591,7 +1593,7 @@ export const games: Game[] = [
     id: "brawlguys-io",
     title: "brawlguys.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/brawlguys.io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/brawlguys.io/index.html",
   },
 
@@ -1599,7 +1601,7 @@ export const games: Game[] = [
     id: "basketbros-io",
     title: "basketbros.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/basketbros.io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/basketbros.io/index.html",
   },
 
@@ -1607,7 +1609,7 @@ export const games: Game[] = [
     id: "ballistic",
     title: "ballistic",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ballistic.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ballistic/index.html",
   },
 
@@ -1615,7 +1617,7 @@ export const games: Game[] = [
     id: "two-punk-racing",
     title: "two punk racing",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/two-punk-racing.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/two-punk-racing/index.html",
   },
 
@@ -1623,7 +1625,7 @@ export const games: Game[] = [
     id: "tube-jumpers",
     title: "tube jumpers",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tube-jumpers.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tube-jumpers/index.html",
   },
 
@@ -1631,7 +1633,7 @@ export const games: Game[] = [
     id: "tank-io",
     title: "tank.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tank.io.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tank-io/index.html",
   },
 
@@ -1639,7 +1641,7 @@ export const games: Game[] = [
     id: "racing-turbo-drift",
     title: "racing turbo drift",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/supra-speed-racing-turbo-drift.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/supra-speed-racing-turbo-drift/index.html",
   },
 
@@ -1647,7 +1649,7 @@ export const games: Game[] = [
     id: "sports",
     title: "sports",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sports.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sports/index.html",
   },
 
@@ -1655,7 +1657,7 @@ export const games: Game[] = [
     id: "sonic-revert",
     title: "sonic revert",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sonic-revert.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sonic-revert/index.html",
   },
 
@@ -1663,7 +1665,7 @@ export const games: Game[] = [
     id: "pixel-foosball",
     title: "pixel foosball",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pixel-foosball.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pixelfoosball/index.html",
   },
 
@@ -1671,7 +1673,7 @@ export const games: Game[] = [
     id: "penguin-io",
     title: "Penguin.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/penguin-io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/Penguinio/index.html",
   },
 
@@ -1679,7 +1681,7 @@ export const games: Game[] = [
     id: "nova-billiards",
     title: "nova billiards",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/nova-billiards.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/novabilliards/index.html",
   },
 
@@ -1687,7 +1689,7 @@ export const games: Game[] = [
     id: "madalin-cars",
     title: "madalin cars",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/madalin-cars.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/madalin-cars/index.html",
   },
 
@@ -1695,7 +1697,7 @@ export const games: Game[] = [
     id: "kart-fight-io",
     title: "kart fight.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/kart-fight-io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/kart-fight-io/index.html",
   },
 
@@ -1703,7 +1705,7 @@ export const games: Game[] = [
     id: "blocky-gangster",
     title: "blocky gangster",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gungame-shooting-warfare-blocky-gangster.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gungame-shooting-warfare-blocky-gangster/index.html",
   },
 
@@ -1711,7 +1713,7 @@ export const games: Game[] = [
     id: "grab-party-io",
     title: "grab party.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/grab-party-io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/grab-party-io/index.html",
   },
 
@@ -1719,7 +1721,7 @@ export const games: Game[] = [
     id: "dunkers",
     title: "dunkers",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/dunkers.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/dunkers/index.html",
   },
 
@@ -1727,7 +1729,7 @@ export const games: Game[] = [
     id: "drift",
     title: "drift",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/drift.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/drift/index.html",
   },
 
@@ -1735,7 +1737,7 @@ export const games: Game[] = [
     id: "doomz-io",
     title: "doomz.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/doomz-io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/doomz-io/index.html",
   },
 
@@ -1743,7 +1745,7 @@ export const games: Game[] = [
     id: "disc-us",
     title: "disc us",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/discus.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/discus/index.html",
   },
 
@@ -1751,7 +1753,7 @@ export const games: Game[] = [
     id: "death-run-3d",
     title: "death run 3d",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/death-run-3d.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/death-run-3d/index.html",
   },
 
@@ -1759,7 +1761,7 @@ export const games: Game[] = [
     id: "cube-flip",
     title: "cube flip",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cube-flip.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cube-flip/index.html",
   },
 
@@ -1767,7 +1769,7 @@ export const games: Game[] = [
     id: "pixel-apocalypse",
     title: "pixel apocalypse",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/crazy-pixel-apocalypse-3.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/crazy-pixel-apocalypse-3/index.html",
   },
 
@@ -1775,7 +1777,7 @@ export const games: Game[] = [
     id: "cleanup-io",
     title: "cleanup.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cleanupio.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cleanupio/index.html",
   },
 
@@ -1783,7 +1785,7 @@ export const games: Game[] = [
     id: "call-of-ops-2",
     title: "call of ops 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/call-of-ops-2.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/call-of-ops-2/index.html",
   },
 
@@ -1791,7 +1793,7 @@ export const games: Game[] = [
     id: "blocky-gun-paintball",
     title: "blocky gun paintball",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/blocky-gun-paintball-3.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/blocky-gun-paintball-3/index.html",
   },
 
@@ -1799,7 +1801,7 @@ export const games: Game[] = [
     id: "basketball-io",
     title: "basketball.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/basketball_io.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/basketball_io/index.html",
   },
 
@@ -1807,7 +1809,7 @@ export const games: Game[] = [
     id: "baseball-fury",
     title: "baseball fury",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/baseballfury.jfif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/baseballfury/index.html",
   },
 
@@ -1815,7 +1817,7 @@ export const games: Game[] = [
     id: "ball-mayhem",
     title: "ball mayhem",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ball-mayhem.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ball-mayhem/index.html",
   },
 
@@ -1831,7 +1833,7 @@ export const games: Game[] = [
     id: "greedy-mimic",
     title: "greedy mimic",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/greedy mimic.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/greedy mimic/index.html",
   },
 
@@ -1839,7 +1841,7 @@ export const games: Game[] = [
     id: "sticky-sourcerer",
     title: "sticky sourcerer",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sticky sourcerer.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sticky sorcerer/index.html",
   },
 
@@ -1847,7 +1849,7 @@ export const games: Game[] = [
     id: "yarne",
     title: "yarne",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/yarne.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/yarne/index.html",
   },
 
@@ -1855,7 +1857,7 @@ export const games: Game[] = [
     id: "two-timin-towers",
     title: "two timin towers",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/two timin towers.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/two timin towers/index.html",
   },
 
@@ -1863,7 +1865,7 @@ export const games: Game[] = [
     id: "slimoban-2",
     title: "slimoban 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/slimoban 2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/slimoban 2/index.html",
   },
 
@@ -1871,7 +1873,7 @@ export const games: Game[] = [
     id: "slide-fill",
     title: "slide fill",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/slide fill.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/slide fill/index.html",
   },
 
@@ -1879,7 +1881,7 @@ export const games: Game[] = [
     id: "sheep",
     title: "sheep",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sheep.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sheep/index.html",
   },
 
@@ -1887,7 +1889,7 @@ export const games: Game[] = [
     id: "roll-merge-3d",
     title: "roll merge 3d",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/roll merge 3d.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/roll merge 3d/index.html",
   },
 
@@ -1895,7 +1897,7 @@ export const games: Game[] = [
     id: "ordeals-of-december",
     title: "ordeals of december",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ordeals of december.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ordeals of december/index.html",
   },
 
@@ -1903,7 +1905,7 @@ export const games: Game[] = [
     id: "one-screen-run-2",
     title: "one screen run 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/one screen run 2.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/one screen run 2/index.html",
   },
 
@@ -1911,7 +1913,7 @@ export const games: Game[] = [
     id: "indestructotank-gb",
     title: "indestructotank gb",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/indestructotank gb.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/indestructotank gb/index.html",
   },
 
@@ -1919,7 +1921,7 @@ export const games: Game[] = [
     id: "gaia",
     title: "gaia",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gaia.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gaia/index.html",
   },
 
@@ -1927,7 +1929,7 @@ export const games: Game[] = [
     id: "bokdown",
     title: "bokdown",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/bokdown.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/bokdown/index.html",
   },
 
@@ -1943,7 +1945,7 @@ export const games: Game[] = [
     id: "top-outpost",
     title: "top outpost",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/top outpost.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/top outpost/index.html",
   },
 
@@ -1951,7 +1953,7 @@ export const games: Game[] = [
     id: "spirit-dungeons",
     title: "spirit dungeons",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/spirit dungeons.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/spirit dungeons/index.html",
   },
 
@@ -1959,7 +1961,7 @@ export const games: Game[] = [
     id: "pixel-tap-dungeon",
     title: "pixel tap dungeon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pixel tap dungeon.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pixel tap dungeon/index.html",
   },
 
@@ -1967,7 +1969,7 @@ export const games: Game[] = [
     id: "out-of-ctrl",
     title: "out of ctrl",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/out of ctrl.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/out of ctrl/index.html",
   },
 
@@ -1975,7 +1977,7 @@ export const games: Game[] = [
     id: "mad-pirate-skeleton",
     title: "mad pirate skeleton",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mad pirate skeleton.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mad pirate skeleton/index.html",
   },
 
@@ -1983,7 +1985,7 @@ export const games: Game[] = [
     id: "kity-builder-prototype",
     title: "kity builder prototype",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/kity builder prototype.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/kity builder prototype/index.html",
   },
 
@@ -1991,7 +1993,7 @@ export const games: Game[] = [
     id: "jetscout-boot-camp",
     title: "jetscout boot camp",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/jetscout boot camp.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/jetscout boot camp/index.html",
   },
 
@@ -1999,7 +2001,7 @@ export const games: Game[] = [
     id: "idle-fill-factory",
     title: "idle fill factory",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/idle fill factory.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/idle fill factory/index.html",
   },
 
@@ -2007,7 +2009,7 @@ export const games: Game[] = [
     id: "find-a-way-out",
     title: "find a way out",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/find a way out.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/find a way out/index.html",
   },
 
@@ -2015,7 +2017,7 @@ export const games: Game[] = [
     id: "cursed-travels-flame-of-the-banshee",
     title: "cursed travels flame of the banshee",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cursed travels flame of the banshee.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cursed travels flame of the banshee/index.html",
   },
 
@@ -2023,7 +2025,7 @@ export const games: Game[] = [
     id: "cognite",
     title: "cognite",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cognite.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cognite/index.html",
   },
 
@@ -2031,7 +2033,7 @@ export const games: Game[] = [
     id: "white-pen-road",
     title: "white pen road",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/white pen road.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/white pen road/index.html",
   },
 
@@ -2039,7 +2041,7 @@ export const games: Game[] = [
     id: "space-cowboy",
     title: "space cowboy",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/space cowboy.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/space cowboy/index.html",
   },
 
@@ -2047,7 +2049,7 @@ export const games: Game[] = [
     id: "rail-connect",
     title: "rail connect",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/rail connect.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/rail connect/index.html",
   },
 
@@ -2055,7 +2057,7 @@ export const games: Game[] = [
     id: "put-a-ring-on-it",
     title: "put a ring on it",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/put a ring on it.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/put a ring on it/index.html",
   },
 
@@ -2063,7 +2065,7 @@ export const games: Game[] = [
     id: "mutual-destruction",
     title: "mutual destruction",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mutual destruction.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mutual destruction/index.html",
   },
 
@@ -2071,7 +2073,7 @@ export const games: Game[] = [
     id: "mini-bubbles",
     title: "mini bubbles",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mini bubbles.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mini bubbles/index.html",
   },
 
@@ -2079,7 +2081,7 @@ export const games: Game[] = [
     id: "leapoid",
     title: "leapoid",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/leapoid.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/leapoid/index.html",
   },
 
@@ -2087,7 +2089,7 @@ export const games: Game[] = [
     id: "keyholder",
     title: "keyholder",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/keyholder.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/keyholder/index.html",
   },
 
@@ -2095,7 +2097,7 @@ export const games: Game[] = [
     id: "icy-north",
     title: "icy north",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/icy north.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/icy north/index.html",
   },
 
@@ -2103,7 +2105,7 @@ export const games: Game[] = [
     id: "evolutionary-psychol",
     title: "evolutionary psychol",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/evolutionary psychology.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/evolutionary psychol/index.html",
   },
 
@@ -2111,7 +2113,7 @@ export const games: Game[] = [
     id: "escape-kid",
     title: "escape kid",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/escape kid.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/escape kid/index.html",
   },
 
@@ -2119,7 +2121,7 @@ export const games: Game[] = [
     id: "cursed-travels-the-shattered-labyrinth",
     title: "cursed travels the shattered labyrinth",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cursed travels the shattered labyrinth.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cursed travels the shattered labyrinth/index.html",
   },
 
@@ -2127,7 +2129,7 @@ export const games: Game[] = [
     id: "crystal-wizards",
     title: "crystal wizards",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/crystal wizards.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/crystal wizards/index.html",
   },
 
@@ -2135,7 +2137,7 @@ export const games: Game[] = [
     id: "calturin",
     title: "calturin",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/calturin.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/calturin/index.html",
   },
 
@@ -2143,7 +2145,7 @@ export const games: Game[] = [
     id: "binary",
     title: "binary",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/binary.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/binary/index.html",
   },
 
@@ -2151,7 +2153,7 @@ export const games: Game[] = [
     id: "are-you-human",
     title: "are you human",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/are you human.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/are you human/index.html",
   },
 
@@ -2159,7 +2161,7 @@ export const games: Game[] = [
     id: "anyek-the-keyboard-puzzle",
     title: "anyek the keyboard puzzle",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/anyek the keyboard puzzle.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/anyek the keyboard puzzle/index.html",
   },
 
@@ -2167,7 +2169,7 @@ export const games: Game[] = [
     id: "adventure-boy-jailbreak",
     title: "adventure boy jailbreak",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/adventure boy jailbreak.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/adventure boy jailbreak/index.html",
   },
 
@@ -2175,7 +2177,7 @@ export const games: Game[] = [
     id: "the-impossible-quiz-2",
     title: "the impossible quiz 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/the impossible quiz 2.avif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/the impossible quiz 2/index.html",
   },
 
@@ -2183,7 +2185,7 @@ export const games: Game[] = [
     id: "shaky-structure",
     title: "shaky structure",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/shaky structure.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/shaky structure/index.html",
   },
 
@@ -2191,7 +2193,7 @@ export const games: Game[] = [
     id: "orb-of-creation",
     title: "orb of creation",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/orb of creation.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/orb of creation/index.html",
   },
 
@@ -2199,7 +2201,7 @@ export const games: Game[] = [
     id: "incub8",
     title: "incub8",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/incub8.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/incub8/index.html",
   },
 
@@ -2207,7 +2209,7 @@ export const games: Game[] = [
     id: "tryh4rd",
     title: "tryh4rd",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/tryh4rd.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/tryh4rd/index.html",
   },
 
@@ -2215,7 +2217,7 @@ export const games: Game[] = [
     id: "runick",
     title: "runick",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/runick.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/runick/index.html",
   },
 
@@ -2223,7 +2225,7 @@ export const games: Game[] = [
     id: "laqueus-escape-chapter-5",
     title: "laqueus escape chapter 5",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/laqueus escape chapter 5.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/laqueus escape chapter 5/index.html",
   },
 
@@ -2231,7 +2233,7 @@ export const games: Game[] = [
     id: "drag-box",
     title: "drag box",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/drag box.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/drag box/index.html",
   },
 
@@ -2239,7 +2241,7 @@ export const games: Game[] = [
     id: "cloudhopper",
     title: "cloudhopper",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cloudhopper.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cloudhopper/index.html",
   },
 
@@ -2247,7 +2249,7 @@ export const games: Game[] = [
     id: "yarn-untangled",
     title: "yarn untangled",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/yarn untangled.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/yarn untangled/index.html",
   },
 
@@ -2255,7 +2257,7 @@ export const games: Game[] = [
     id: "towerland",
     title: "towerland",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/towerland.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/towerland/index.html",
   },
 
@@ -2263,7 +2265,7 @@ export const games: Game[] = [
     id: "the-mage",
     title: "the mage",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/the mage.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/the mage/index.html",
   },
 
@@ -2271,7 +2273,7 @@ export const games: Game[] = [
     id: "telepobox-2",
     title: "telepobox 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/telepobox2.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/telepobox 2/index.html",
   },
 
@@ -2279,7 +2281,7 @@ export const games: Game[] = [
     id: "snail-trail",
     title: "snail trail",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/snail trail.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/snail trail/index.html",
   },
 
@@ -2287,7 +2289,7 @@ export const games: Game[] = [
     id: "robox",
     title: "robox",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/robox.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/robox/index.html",
   },
 
@@ -2295,7 +2297,7 @@ export const games: Game[] = [
     id: "reel-deep",
     title: "reel deep",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/reel deep.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/reel deep/index.html",
   },
 
@@ -2303,7 +2305,7 @@ export const games: Game[] = [
     id: "planet-d4rk",
     title: "planet d4rk",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/planet d4rk.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/planet d4rk/index.html",
   },
 
@@ -2311,7 +2313,7 @@ export const games: Game[] = [
     id: "moosha",
     title: "moosha",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/moosha.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/moosha/index.html",
   },
 
@@ -2319,7 +2321,7 @@ export const games: Game[] = [
     id: "may-i-have-your-attention-please",
     title: "may i have your attention, please",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/may i have your attention, please.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/may i have your attention, please/index.html",
   },
 
@@ -2327,7 +2329,7 @@ export const games: Game[] = [
     id: "laqueus-escape-chapter-6",
     title: "laqueus escape chapter 6",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/laqueus escape chapter 6.avif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/laqueus escape chapter 6/index.html",
   },
 
@@ -2335,7 +2337,7 @@ export const games: Game[] = [
     id: "house-pusher",
     title: "house pusher",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/house pusher.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/house pusher/index.html",
   },
 
@@ -2343,7 +2345,7 @@ export const games: Game[] = [
     id: "gobo-desert-of-cubes",
     title: "gobo desert of cubes",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gobo desert of cubes.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gobo desert of cubes/index.html",
   },
 
@@ -2351,7 +2353,7 @@ export const games: Game[] = [
     id: "forward-winds",
     title: "forward winds",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/forward winds.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/forward winds/index.html",
   },
 
@@ -2359,7 +2361,7 @@ export const games: Game[] = [
     id: "fluctuoid",
     title: "fluctuoid",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/fluctuoid.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/fluctuoid/index.html",
   },
 
@@ -2367,7 +2369,7 @@ export const games: Game[] = [
     id: "cursed-travels-a-forgotten-seal",
     title: "cursed travels a forgotten seal",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cursed travels a forgotten seal.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cursed travels a forgotten seal/index.html",
   },
 
@@ -2375,7 +2377,7 @@ export const games: Game[] = [
     id: "blacken-slash-demo",
     title: "blacken slash demo",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/blacken slash.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/blacken slash demo/index.html",
   },
 
@@ -2383,7 +2385,7 @@ export const games: Game[] = [
     id: "magirune",
     title: "magirune",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/magirune.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/magirune/index.html",
   },
 
@@ -2391,7 +2393,7 @@ export const games: Game[] = [
     id: "logica-emotica",
     title: "logica emotica",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/logica emotica.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/logica emotica/index.html",
   },
 
@@ -2399,7 +2401,7 @@ export const games: Game[] = [
     id: "hall-of-palettes",
     title: "hall of palettes",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/hall of palettes.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/hall of palettes/index.html",
   },
 
@@ -2415,7 +2417,7 @@ export const games: Game[] = [
     id: "notebook-jam",
     title: "notebook jam",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/notebook jam.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/notebook jam/index.html",
   },
 
@@ -2423,7 +2425,7 @@ export const games: Game[] = [
     id: "gods-of-defense",
     title: "gods of defense",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gods of defense.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gods of defense/index.html",
   },
 
@@ -2431,7 +2433,7 @@ export const games: Game[] = [
     id: "slide-box",
     title: "slide box",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/slide box.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/slide box/index.html",
   },
 
@@ -2439,7 +2441,7 @@ export const games: Game[] = [
     id: "sector-01",
     title: "sector 01",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sector 01.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sector 01/index.html",
   },
 
@@ -2455,7 +2457,7 @@ export const games: Game[] = [
     id: "sum-lines",
     title: "sum lines",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sum lines.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sum lines/index.html",
   },
 
@@ -2463,7 +2465,7 @@ export const games: Game[] = [
     id: "strg-snek",
     title: "strg snek",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/strg snek.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/strg snek/index.html",
   },
 
@@ -2479,7 +2481,7 @@ export const games: Game[] = [
     id: "red-scarf-platformer",
     title: "red scarf platformer",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/red scarf platformer.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/red scarf platformer/index.html",
   },
 
@@ -2487,7 +2489,7 @@ export const games: Game[] = [
     id: "peeper-reaper",
     title: "peeper reaper",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/peeper reaper.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/peeper reaper/index.html",
   },
 
@@ -2495,7 +2497,7 @@ export const games: Game[] = [
     id: "ninja-auto-run",
     title: "ninja auto run",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ninja auto run.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ninja auto run/index.html",
   },
 
@@ -2503,7 +2505,7 @@ export const games: Game[] = [
     id: "murder-is-game-over",
     title: "murder is game over",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/murder is game over.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/murder is game over/index.html",
   },
 
@@ -2519,7 +2521,7 @@ export const games: Game[] = [
     id: "mini-swim",
     title: "mini swim",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mini swim.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mini swim/index.html",
   },
 
@@ -2527,7 +2529,7 @@ export const games: Game[] = [
     id: "mini-flips",
     title: "mini flips",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mini flips.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mini flips/index.html",
   },
 
@@ -2535,7 +2537,7 @@ export const games: Game[] = [
     id: "marcus-osnail",
     title: "marcus osnail",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/marcus osnail.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/marcus osnail/index.html",
   },
 
@@ -2543,7 +2545,7 @@ export const games: Game[] = [
     id: "knights-blade",
     title: "knights blade",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/knights blade.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/knights blade/index.html",
   },
 
@@ -2551,7 +2553,7 @@ export const games: Game[] = [
     id: "infinite-night-the-cunning-princess",
     title: "infinite night the cunning princess",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/infinite night the cunning princess.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/infinite night the cunning princess/index.html",
   },
 
@@ -2559,7 +2561,7 @@ export const games: Game[] = [
     id: "in-space",
     title: "in space",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/in space.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/in space/index.html",
   },
 
@@ -2567,7 +2569,7 @@ export const games: Game[] = [
     id: "hummin-out",
     title: "hummin out",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/hummin out.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/hummin out/index.html",
   },
 
@@ -2575,7 +2577,7 @@ export const games: Game[] = [
     id: "haunted-rooms",
     title: "haunted rooms",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/haunted rooms.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/haunted rooms/index.html",
   },
 
@@ -2583,7 +2585,7 @@ export const games: Game[] = [
     id: "darkraid-delilah",
     title: "darkraid delilah",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/darkraid delilah.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/darkraid delilah/index.html",
   },
 
@@ -2591,7 +2593,7 @@ export const games: Game[] = [
     id: "cordovan",
     title: "cordovan",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cordovan.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cordovan/index.html",
   },
 
@@ -2599,7 +2601,7 @@ export const games: Game[] = [
     id: "contractomaton",
     title: "contractomaton",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/contractomaton.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/contractomaton/index.html",
   },
 
@@ -2607,7 +2609,7 @@ export const games: Game[] = [
     id: "arrow-box",
     title: "arrow box",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/arrow box.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/arrow box/index.html",
   },
 
@@ -2615,7 +2617,7 @@ export const games: Game[] = [
     id: "viscous-ventures",
     title: "viscous ventures",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/viscous ventures.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/viscous ventures/index.html",
   },
 
@@ -2623,7 +2625,7 @@ export const games: Game[] = [
     id: "steel-and-claw",
     title: "steel and claw",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/steel and claw.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/steel and claw/index.html",
   },
 
@@ -2639,7 +2641,7 @@ export const games: Game[] = [
     id: "platformation",
     title: "platformation",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/platformation.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/platformation/index.html",
   },
 
@@ -2647,7 +2649,7 @@ export const games: Game[] = [
     id: "path-of-arrows",
     title: "path of arrows",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/path of arrows.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/path of arrows/index.html",
   },
 
@@ -2655,7 +2657,7 @@ export const games: Game[] = [
     id: "ninja-kite",
     title: "ninja kite",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/ninja kite.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/ninja kite/index.html",
   },
 
@@ -2663,7 +2665,7 @@ export const games: Game[] = [
     id: "mutato-potato",
     title: "mutato potato",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mutato potato.avif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mutato potato/index.html",
   },
 
@@ -2671,7 +2673,7 @@ export const games: Game[] = [
     id: "mini-rocket",
     title: "mini rocket",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mini rocket.avif",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mini rocket/index.html",
   },
 
@@ -2679,7 +2681,7 @@ export const games: Game[] = [
     id: "magnet-master-redux",
     title: "magnet master redux",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/magnet master redux.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/magnet master redux/index.html",
   },
 
@@ -2687,7 +2689,7 @@ export const games: Game[] = [
     id: "inversion",
     title: "inversion",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/inversion.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/inversion/index.html",
   },
 
@@ -2695,7 +2697,7 @@ export const games: Game[] = [
     id: "handle",
     title: "handle",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/handle.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/handle/index.html",
   },
 
@@ -2703,7 +2705,7 @@ export const games: Game[] = [
     id: "dispersal-vectors",
     title: "dispersal vectors",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/dispersal vectors.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/dispersal vectors/index.html",
   },
 
@@ -2711,7 +2713,7 @@ export const games: Game[] = [
     id: "cata-catapult",
     title: "cata catapult",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/cata catapult.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/cata catapult/index.html",
   },
 
@@ -2719,7 +2721,7 @@ export const games: Game[] = [
     id: "astro-steve-adventure",
     title: "astro steve adventure",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/astro steve adventure.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/astro steve adventure/index.html",
   },
 
@@ -2727,7 +2729,7 @@ export const games: Game[] = [
     id: "elephant-rave-2",
     title: "elephant rave 2",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/elephant rave 2.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/elephant rave 2/index.html",
   },
 
@@ -2735,7 +2737,7 @@ export const games: Game[] = [
     id: "the-designer",
     title: "the designer",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/the designer.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/the designer/index.html",
   },
 
@@ -2743,7 +2745,7 @@ export const games: Game[] = [
     id: "stress-chess",
     title: "stress chess",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/stress chess.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/stress chess/index.html",
   },
 
@@ -2751,7 +2753,7 @@ export const games: Game[] = [
     id: "specters-of-the-sun",
     title: "specters of the sun",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/specters of the sun.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/specters of the sun/index.html",
   },
 
@@ -2759,7 +2761,7 @@ export const games: Game[] = [
     id: "space-order-mine",
     title: "space order mine",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/space order mine.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/space order mine/index.html",
   },
 
@@ -2767,7 +2769,7 @@ export const games: Game[] = [
     id: "scraplegs",
     title: "scraplegs",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/scraplegs.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/scraplegs/index.html",
   },
 
@@ -2775,7 +2777,7 @@ export const games: Game[] = [
     id: "last-plant-on-earth",
     title: "last plant on earth",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/last plant on earth.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/last plant on earth/index.html",
   },
 
@@ -2783,7 +2785,7 @@ export const games: Game[] = [
     id: "gloop",
     title: "gloop",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/gloop.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/gloop/index.html",
   },
 
@@ -2791,7 +2793,7 @@ export const games: Game[] = [
     id: "doubleup",
     title: "doubleup",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/doubleup.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/doubleup/index.html",
   },
 
@@ -2799,7 +2801,7 @@ export const games: Game[] = [
     id: "toms-trial",
     title: "toms trial",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/toms trial.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/toms trial/index.html",
   },
 
@@ -2807,7 +2809,7 @@ export const games: Game[] = [
     id: "jetpack-kiwi",
     title: "jetpack kiwi",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/jetpack kiwi.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/jetpack kiwi/index.html",
   },
 
@@ -2815,7 +2817,7 @@ export const games: Game[] = [
     id: "dungeon-scroller",
     title: "dungeon scroller",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/dongeon scroller.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/dungeon scroller/index.html",
   },
 
@@ -2823,7 +2825,7 @@ export const games: Game[] = [
     id: "a-maniac",
     title: "a maniac",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/a maniac.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/a maniac/index.html",
   },
 
@@ -2831,7 +2833,7 @@ export const games: Game[] = [
     id: "pixel-shooter",
     title: "Pixel shooter",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/pixelshooter.jpeg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/pixelshooter/index.html",
   },
 
@@ -2839,7 +2841,7 @@ export const games: Game[] = [
     id: "retro-bowl-college",
     title: "retro bowl college",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/retro bowl college.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/retro bowl college/game/index.html",
   },
 
@@ -2847,7 +2849,7 @@ export const games: Game[] = [
     id: "agar-io",
     title: "agar.io",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/agar.jpeg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/jptragar/web/index.html",
   },
 
@@ -2855,7 +2857,7 @@ export const games: Game[] = [
     id: "giraffes-volleyball",
     title: "giraffes volleyball",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/giraffe.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/giraffe/index.html",
   },
 
@@ -2863,7 +2865,7 @@ export const games: Game[] = [
     id: "duck-life-tresure-hunt",
     title: "duck life tresure hunt",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/duck life tresure hunt.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/swf/duck life tresure hunt/index.html",
   },
 
@@ -2871,7 +2873,7 @@ export const games: Game[] = [
     id: "un-evergreen",
     title: "un evergreen",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/un evergreen.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/un evergreen/index.html",
   },
 
@@ -2879,7 +2881,7 @@ export const games: Game[] = [
     id: "super-gauntlent",
     title: "super gauntlent",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/super gauntlent.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/super gauntlent/index.html",
   },
 
@@ -2887,7 +2889,7 @@ export const games: Game[] = [
     id: "slis",
     title: "slis",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/slis.webp",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/slis/index.html",
   },
 
@@ -2895,7 +2897,7 @@ export const games: Game[] = [
     id: "mini-magbot",
     title: "mini magbot",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/mini magbot.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/mini magbot/index.html",
   },
 
@@ -2903,7 +2905,7 @@ export const games: Game[] = [
     id: "driftmania",
     title: "driftmania",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/driftmania.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/driftmania/index.html",
   },
 
@@ -2911,7 +2913,7 @@ export const games: Game[] = [
     id: "club-tycoon",
     title: "club tycoon",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/club tycoon.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/club tycoon/index.html",
   },
 
@@ -2919,7 +2921,7 @@ export const games: Game[] = [
     id: "blasting-marbles",
     title: "blasting marbles",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/blasting marbles.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/blasting marbles/index.html",
   },
 
@@ -2927,7 +2929,7 @@ export const games: Game[] = [
     id: "deepest-sword",
     title: "deepest sword",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/deepest sword.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/deepest sword/index.html",
   },
 
@@ -2935,7 +2937,7 @@ export const games: Game[] = [
     id: "sort-the-court",
     title: "sort the court",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/sort the court.jpg",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/sort the court/index.html",
   },
 
@@ -2943,7 +2945,7 @@ export const games: Game[] = [
     id: "resent-client-mc-",
     title: "Resent client (mc)",
     tags: ["imported", "strongdog"],
-    thumbnail: "/strongdog/img/resent.png",
+    thumbnail: "/fallback.png",
     url: "/strongdog/html/resent/Resent-4.0-Patch-2-English.html",
   },
 
@@ -2992,7 +2994,7 @@ export const games: Game[] = [
     title: "Age of war",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/age of war.jpg",
-    url: "/strongdog/swf/age of war/base.html",
+    url: "/strongdog/swf/age of war/game/clean_base.html",
   },
 
   {
@@ -4672,7 +4674,7 @@ export const games: Game[] = [
     title: "$100 Unicorn",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/100uc.png",
-    url: "/strongdog/html/100uc.html",
+    url: "https://games.construct.net/27/latest",
   },
 
   {
@@ -4688,7 +4690,7 @@ export const games: Game[] = [
     title: "1v1 Space",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/1v1space.webp",
-    url: "/strongdog/html/1v1space/index.html",
+    url: "https://flowlab.io/game/embed/1225623",
   },
 
   {
@@ -4704,7 +4706,7 @@ export const games: Game[] = [
     title: "100 Pong",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/100pong.webp",
-    url: "/strongdog/html/100-player-pong/index.html",
+    url: "/strongdog/html/100-player-pong/game/index.html",
   },
 
   {
@@ -4976,7 +4978,7 @@ export const games: Game[] = [
     title: "Eatio",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/eatio.webp",
-    url: "/strongdog/html/eatio/index.html",
+    url: "/strongdog/html/eatio/game/index.html",
   },
 
   {
@@ -5496,7 +5498,7 @@ export const games: Game[] = [
     title: "Ledegnd of Zelda Maker",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/lozmaker.png",
-    url: "/strongdog/html/lozmaker/game/lozmaker.html",
+    url: "https://games.construct.net/21903/latest",
   },
 
   {
@@ -5504,7 +5506,7 @@ export const games: Game[] = [
     title: "Tower Defence",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/towerdef.png",
-    url: "/strongdog/html/towerdef.html",
+    url: "https://games.construct.net/215/latest",
   },
 
   {
@@ -5512,7 +5514,7 @@ export const games: Game[] = [
     title: "Yet Another World",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/yetanotherworld.png",
-    url: "/strongdog/html/yetanotherworld.html",
+    url: "https://games.construct.net/633/latest",
   },
 
   {
@@ -5520,7 +5522,7 @@ export const games: Game[] = [
     title: "Afterlife",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/afterlife.png",
-    url: "/strongdog/html/afterlife/game/afterlife.html",
+    url: "https://games.construct.net/2715/latest",
   },
 
   {
@@ -5536,7 +5538,7 @@ export const games: Game[] = [
     title: "Flat Guys",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/flatguys.png",
-    url: "/strongdog/html/flatguys/game/flatguys.html",
+    url: "https://games.construct.net/18659/latest",
   },
 
   {
@@ -5544,7 +5546,7 @@ export const games: Game[] = [
     title: "Monke",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/monke.png",
-    url: "/strongdog/html/monke/game/monke.html",
+    url: "https://games.construct.net/21705/latest",
   },
 
   {
@@ -5552,7 +5554,7 @@ export const games: Game[] = [
     title: "Pixel Bear Adventure",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/pixelbearadventure.png",
-    url: "/strongdog/html/pixelbearadventure/game/pixelbearadventure.html",
+    url: "https://games.construct.net/904/latest",
   },
 
   {
@@ -5560,7 +5562,7 @@ export const games: Game[] = [
     title: "Pixel Speedrun",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/pixelspeedrun.png",
-    url: "/strongdog/html/pixelspeedrun/game/pixelspeedrun.html",
+    url: "https://games.construct.net/2363/latest",
   },
 
   {
@@ -5568,7 +5570,7 @@ export const games: Game[] = [
     title: "Pizza Challange",
     tags: ["imported", "strongdog"],
     thumbnail: "/strongdog/img/pizzachallenge.png",
-    url: "/strongdog/html/pizzachallenge/game/pizzachallenge.html",
+    url: "https://games.construct.net/2989/latest",
   },
 
   {
