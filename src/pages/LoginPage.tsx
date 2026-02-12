@@ -14,7 +14,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login, loginAnonymously, isAuthenticated } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,20 +34,6 @@ const LoginPage = () => {
       navigate("/");
     } else {
       setError(result.error || "Login failed");
-      setLoading(false);
-    }
-  };
-
-  const handleGuestLogin = async () => {
-    setError("");
-    setLoading(true);
-
-    const result = await loginAnonymously();
-
-    if (result.success) {
-      navigate("/");
-    } else {
-      setError(result.error || "Guest login failed");
       setLoading(false);
     }
   };
@@ -100,18 +86,22 @@ const LoginPage = () => {
                   <BookOpen className="h-4 w-4 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900">Personalized Learning</h3>
-                  <p className="text-sm text-slate-600 mt-1">Access your study materials, progress tracking, and customized resources.</p>
+                  <h4 className="font-semibold text-slate-900">Unified Learning</h4>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    All your educational resources, tools, and progress tracking in one secure location.
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Shield className="h-4 w-4 text-emerald-600" />
+                <div className="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Shield className="h-4 w-4 text-teal-700" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900">Secure Environment</h3>
-                  <p className="text-sm text-slate-600 mt-1">Protected access with advanced security features and data encryption.</p>
+                  <h4 className="font-semibold text-slate-900">Secure Access</h4>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    Protecting your data with industry-standard encryption and secure authentication protocols.
+                  </p>
                 </div>
               </div>
             </div>
@@ -133,55 +123,49 @@ const LoginPage = () => {
 
           {/* Right Side - Login Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
           >
-            <Card className="bg-white border-slate-200 shadow-xl">
-              <CardHeader className="text-center pb-6">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center mx-auto mb-4">
-                  <GraduationCap className="h-8 w-8 text-white" />
+            <Card className="border-slate-200 shadow-xl overflow-hidden">
+              <CardHeader className="bg-slate-50/50 border-b border-slate-100 pb-8">
+                <div className="flex justify-center mb-4">
+                  <GraduationCap className="h-10 w-10 text-teal-700" />
                 </div>
-                <CardTitle className="text-2xl font-bold text-slate-900">Welcome Back</CardTitle>
-                <CardDescription className="text-slate-600">
-                  Enter your credentials to access your academic dashboard
-                </CardDescription>
+                <CardTitle className="text-2xl text-center font-bold text-slate-900">Welcome Back</CardTitle>
+                <CardDescription className="text-center">Please enter your student credentials to continue</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <form onSubmit={handleSubmit} className="space-y-5" autoComplete="off">
-                  <div className="space-y-3">
-                    <Label htmlFor="email" className="text-sm font-semibold text-slate-700">Email Address</Label>
+              <CardContent className="pt-8 space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-slate-700 font-medium">Student Email</Label>
                     <Input
                       id="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      disabled={loading}
-                      className="h-12 bg-white text-slate-900 border-slate-300 focus:border-teal-500 focus:ring-teal-500"
-                      placeholder="student@school.edu"
-                      autoComplete="off"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellCheck="false"
+                      className="h-12 border-slate-300 focus:ring-teal-500"
+                      placeholder="e.g. j.doe@institution.edu"
+                      autoComplete="email"
                     />
                   </div>
-
-                  <div className="space-y-3">
-                    <Label htmlFor="password" className="text-sm font-semibold text-slate-700">Password</Label>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
+                      <button type="button" className="text-sm text-teal-600 hover:text-teal-700 font-medium hover:underline">
+                        Forgot Password?
+                      </button>
+                    </div>
                     <Input
                       id="password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      disabled={loading}
-                      className="h-12 bg-white text-slate-900 border-slate-300 focus:border-teal-500 focus:ring-teal-500"
+                      className="h-12 border-slate-300 focus:ring-teal-500"
                       placeholder="Enter your password"
-                      autoComplete="new-password"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellCheck="false"
+                      autoComplete="current-password"
                     />
                   </div>
 
@@ -235,34 +219,14 @@ const LoginPage = () => {
                   Demo Student Account →
                 </Button>
 
-                <div className="relative my-4">
-                  <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t border-slate-200" />
-                  </div>
-                  <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-slate-400">
-                      OR
-                    </span>
-                  </div>
-                </div>
-
-                <Button
-                  type="button"
-                  onClick={handleGuestLogin}
-                  className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white font-semibold transition-all"
-                  disabled={loading}
-                >
-                  Continue as Guest (No Account)
-                </Button>
-
-                <div className="text-center">
-                  <p className="text-xs text-slate-500">
+                <div className="text-center pt-4 border-t border-slate-100">
+                  <p className="text-xs text-slate-500 leading-relaxed">
                     By signing in, you agree to our{" "}
-                    <Link to="/terms" className="text-teal-600 hover:text-teal-700 underline">
+                    <Link to="/terms" className="text-teal-600 hover:text-teal-700 underline font-medium">
                       Terms of Service
                     </Link>{" "}
                     and{" "}
-                    <Link to="/privacy" className="text-teal-600 hover:text-teal-700 underline">
+                    <Link to="/privacy" className="text-teal-600 hover:text-teal-700 underline font-medium">
                       Privacy Policy
                     </Link>
                   </p>

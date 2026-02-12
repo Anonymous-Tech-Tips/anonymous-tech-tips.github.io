@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { games } from "@/data/games";
 import fallback from "@/assets/thumbnails/_fallback.png";
 
-const GAMES_PER_PAGE = 36;
+const GAMES_PER_PAGE = 60;
 
 const GamesPage = () => {
   const [searchParams] = useSearchParams();

@@ -82,7 +82,7 @@ export const GamerHome = () => {
             className="space-y-2"
           >
             <h1 className="text-5xl md:text-7xl font-serif italic text-white/90">
-              {getGreeting()}, <span className="text-primary">Gamer</span>.
+              {getGreeting()}, <span className="text-primary">Guest</span>.
             </h1>
             <p className="text-xl text-white/60 font-light max-w-2xl flex items-center gap-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-xs font-mono uppercase tracking-widest text-white/40">

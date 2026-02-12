@@ -105,7 +105,7 @@ export const EntertainmentPage = () => {
             className="space-y-2"
           >
             <h1 className="text-5xl md:text-6xl font-serif italic text-white/90">
-              {getGreeting()}, <span className="text-rose-400">Movie Buff</span>.
+              {getGreeting()}, <span className="text-rose-400">Guest</span>.
             </h1>
             <p className="text-xl text-white/60 font-light max-w-2xl">
               Popcorn is ready. Here's what's trending in your theater.
