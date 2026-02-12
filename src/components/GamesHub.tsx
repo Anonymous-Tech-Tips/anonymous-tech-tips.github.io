@@ -56,13 +56,13 @@ export const GamesHub: React.FC = () => {
       `${index + 1}. ${game.title}\n   🎮 Tags: ${game.tags.join(", ")}\n   🔗 ${window.location.origin}/#/games/${game.id}\n`
     ).join("\n");
 
-    const fullExport = `🎮 ARMAAN'S TECH TIPS GAMES LIST (${filteredGames.length} Games)
+    const fullExport = `🎮 ANONYMOUS TECH TIPS GAMES LIST (${filteredGames.length} Games)
 Generated: ${new Date().toLocaleDateString()}
 
 ${gamesList}
 
 ---
-Visit Armaan's Tech Tips: ${window.location.origin}/
+Visit Anonymous Tech Tips: ${window.location.origin}/
 145+ Unblocked Games | Daily Rewards | Zero Downloads`;
 
     navigator.clipboard.writeText(fullExport).then(() => {
