@@ -47,7 +47,7 @@ export const HeroBanner: React.FC = () => {
           subtitle: "Happy Holidays!",
           showImage: true,
           imageSrc: christmasBanner,
-          imageAlt: "Armaan's Tech Tips banner",
+          imageAlt: "Anonymous Tech Tips banner",
         };
     }
   };
@@ -64,10 +64,10 @@ export const HeroBanner: React.FC = () => {
         />
       ) : (
         <div className={`absolute inset-0 w-full h-full bg-gradient-to-br ${season === 'halloween'
-            ? 'from-orange-800 via-purple-900 to-black'
-            : season === 'valentines'
-              ? 'from-pink-700 via-red-800 to-pink-900'
-              : 'from-gamer-bg via-gamer-card to-gamer-bg'
+          ? 'from-orange-800 via-purple-900 to-black'
+          : season === 'valentines'
+            ? 'from-pink-700 via-red-800 to-pink-900'
+            : 'from-gamer-bg via-gamer-card to-gamer-bg'
           }`} />
       )}
 
