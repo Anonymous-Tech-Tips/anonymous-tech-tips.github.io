@@ -9,7 +9,7 @@ import utilities from '../src/data/utilities.json' assert { type: 'json' };
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const baseUrl = 'https://armaans-tech-tips.github.io';
+const baseUrl = 'https://anonymous-tech-tips.github.io';
 const distDir = join(__dirname, '../dist');
 
 interface PrerenderedPage {
@@ -24,7 +24,7 @@ interface PrerenderedPage {
 
 // Generate HTML for a prerendered page
 function generateHTML(page: PrerenderedPage): string {
-  const structuredDataScript = page.structuredData 
+  const structuredDataScript = page.structuredData
     ? `<script type="application/ld+json">${JSON.stringify(page.structuredData, null, 2)}</script>`
     : '';
 
@@ -38,7 +38,7 @@ function generateHTML(page: PrerenderedPage): string {
     <meta name="title" content="${page.title}" />
     <meta name="description" content="${page.description}" />
     <meta name="keywords" content="${page.keywords}" />
-    <meta name="author" content="Tech Tips" />
+    <meta name="author" content="Anonymous Tech Tips" />
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
     <meta name="google-site-verification" content="aKDAYtznOmmv7PU-UdPLEc9Bfa5bBP9FCLs4NeiYbik" />
@@ -52,7 +52,7 @@ function generateHTML(page: PrerenderedPage): string {
     <meta property="og:image" content="${page.ogImage || baseUrl + '/placeholder.svg'}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Tech Tips" />
+    <meta property="og:site_name" content="Anonymous Tech Tips" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -103,49 +103,49 @@ function ensureDir(path: string) {
 const mainPages: PrerenderedPage[] = [
   {
     path: '/games',
-    title: 'Unblocked Games - Play 145+ Free Games Online | Tech Tips',
+    title: 'Unblocked Games - Play 145+ Free Games Online | Anonymous Tech Tips',
     description: 'Play 145+ unblocked games online for free! Including Slope, Retro Bowl, 2048, Drive Mad, Basketball, and more. No downloads, instant play.',
     keywords: 'unblocked games, free games, online games, slope unblocked, retro bowl, basketball games, action games',
     canonical: baseUrl + '/games',
   },
   {
     path: '/utilities',
-    title: 'Free Online Utilities - Password Generator, QR Codes & More | Tech Tips',
+    title: 'Free Online Utilities - Password Generator, QR Codes & More | Anonymous Tech Tips',
     description: 'Free online utilities including password generator, QR code generator, color picker, text converter, JSON formatter, and more developer tools.',
     keywords: 'password generator, qr code generator, color picker, text converter, free utilities, online tools',
     canonical: baseUrl + '/utilities',
   },
   {
     path: '/optimizations',
-    title: 'PC Optimization Guides - Speed Up Your Computer | Tech Tips',
+    title: 'PC Optimization Guides - Speed Up Your Computer | Anonymous Tech Tips',
     description: 'Complete PC optimization guides for Windows. Learn how to speed up your computer, improve gaming performance, and maintain your system.',
     keywords: 'pc optimization, windows optimization, speed up computer, gaming performance, system maintenance',
     canonical: baseUrl + '/optimizations',
   },
   {
     path: '/education',
-    title: 'Educational Resources & Study Tools | Tech Tips',
+    title: 'Educational Resources & Study Tools | Anonymous Tech Tips',
     description: 'Free educational resources, study guides, and learning tools for students. Improve your grades with our comprehensive educational content.',
     keywords: 'education, study tools, learning resources, student guides, educational content',
     canonical: baseUrl + '/education',
   },
   {
     path: '/entertainment',
-    title: 'Entertainment Hub - Movies, Shows & More | Tech Tips',
+    title: 'Entertainment Hub - Movies, Shows & More | Anonymous Tech Tips',
     description: 'Access streaming platform alternatives and entertainment resources. Watch movies, shows, anime, and more.',
     keywords: 'entertainment, streaming, movies, tv shows, anime, watch online',
     canonical: baseUrl + '/entertainment',
   },
   {
     path: '/share',
-    title: 'Share Tech Tips - QR Codes, Links & Messages | Tech Tips',
+    title: 'Share Tech Tips - QR Codes, Links & Messages | Anonymous Tech Tips',
     description: 'Share Tech Tips with friends! Generate QR codes, copy shareable links, and use pre-made messages for Discord, Google Docs, and more.',
     keywords: 'share, qr code, shareable links, discord, google docs, bookmarklets',
     canonical: baseUrl + '/share',
   },
   {
     path: '/safe',
-    title: 'Safe Mode - Disguise Screen | Tech Tips',
+    title: 'Safe Mode - Disguise Screen | Anonymous Tech Tips',
     description: 'Safe Mode feature - quickly disguise your screen with a fake Notes, Calculator, or Docs interface.',
     keywords: 'safe mode, privacy, disguise screen, stealth mode',
     canonical: baseUrl + '/safe',
@@ -157,7 +157,7 @@ const gamePages: PrerenderedPage[] = games.map((game: any) => {
   const genres = game.tags?.slice(0, 3) || ['Action'];
   return {
     path: `/games/${game.id}`,
-    title: `${game.title} - Play Unblocked Online Free | Tech Tips`,
+    title: `${game.title} - Play Unblocked Online Free | Anonymous Tech Tips`,
     description: `Play ${game.title} unblocked for free! ${game.description || 'Enjoy this exciting game instantly with no downloads required.'}`,
     keywords: `${game.title} unblocked, ${game.title} game, play ${game.title}, ${game.tags?.join(', ') || 'online game'}`,
     canonical: `${baseUrl}/games/${game.id}`,
@@ -171,7 +171,7 @@ const gamePages: PrerenderedPage[] = games.map((game: any) => {
       "genre": genres,
       "author": {
         "@type": "Organization",
-        "name": "Tech Tips"
+        "name": "Anonymous Tech Tips"
       },
       "applicationCategory": "Game",
       "operatingSystem": "Web Browser",
@@ -209,13 +209,13 @@ for (const page of allPages) {
     const pagePath = page.path === '/' ? '/index.html' : `${page.path}/index.html`;
     const fullPath = join(distDir, pagePath);
     const dirPath = dirname(fullPath);
-    
+
     ensureDir(dirPath);
-    
+
     const html = generateHTML(page);
     writeFileSync(fullPath, html);
     generated++;
-    
+
     if (generated % 20 === 0) {
       console.log(`  Generated ${generated}/${allPages.length} pages...`);
     }
