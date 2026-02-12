@@ -45,11 +45,21 @@ jobs:
           echo "Verifying index.html has script tag..."
           grep -q '<script' dist/index.html && echo "✓ script tag exists" || echo "✗ script tag missing"
 
+      - name: Copy massive assets to dist
+        run: |
+          echo "Copying games to dist folder..."
+          cp -r topvaz66 dist/
+          cp -r strongdog dist/
+          echo "Done."
+
+      - name: Verify dist size
+        run: du -sh dist/
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: dist
-          clean: false # This is CRITICAL to keep the games on the branch
+          clean: true # We can now clean because we copy them every time
           single-commit: false
