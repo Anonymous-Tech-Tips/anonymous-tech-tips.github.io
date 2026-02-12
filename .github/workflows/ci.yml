@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          repository: armaans-tech-tips/armaans-tech-tips.github.io
+          repository: Anonymous-Tech-Tips/anonymous-tech-tips.github.io
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
@@ -45,7 +45,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          repository: armaans-tech-tips/armaans-tech-tips.github.io
+          repository: Anonymous-Tech-Tips/anonymous-tech-tips.github.io
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
@@ -64,9 +64,9 @@ jobs:
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
-            https://armaans-tech-tips.github.io/
-            https://armaans-tech-tips.github.io/#/games
-            https://armaans-tech-tips.github.io/#/utilities
+            https://anonymous-tech-tips.github.io/
+            https://anonymous-tech-tips.github.io/#/games
+            https://anonymous-tech-tips.github.io/#/utilities
           configPath: .lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
@@ -79,7 +79,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          repository: armaans-tech-tips/armaans-tech-tips.github.io
+          repository: Anonymous-Tech-Tips/anonymous-tech-tips.github.io
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js

@@ -25,8 +25,8 @@ export default defineConfig(({ mode }) => ({
         navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/]
       },
       manifest: {
-        name: "Tech Tips",
-        short_name: "Tech Tips",
+        name: "Anonymous Tech Tips",
+        short_name: "Anonymous Tech Tips",
         start_url: "./#/",
         display: "standalone",
         background_color: "#0b0b0b",
