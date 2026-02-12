@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1609993827735056"
+     crossorigin="anonymous"></script>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico"> 
+    <title>StrongDog XP Favorites</title>
+    <style> 
+        body {
+        font-family: Arial, sans-serif; 
+        margin: 0;
+        padding: 0;
+        background-color: #2e2e2e; /* Dark grey background */
+    }
+    .navbar {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+	.categories {
+    display: flex;
+    gap: 20px; /* Spacing between categories */
+}
+
+.categories a:hover {
+    background-color: #565656; /* Light grey background on hover */
+    transform: scale(1.05); /* Slight increase in size */
+}
+
+.categories a {
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    padding: 5px 10px; /* Padding for touch area */
+    border-radius: 5px; /* Rounded corners */
+}
+
+    .navbar .logo {
+        color: white;
+        font-weight: bold;
+    }
+    .navbar .logo .xp {
+        color: orange;
+    }
+    .navbar a, .navbar a:visited, .navbar .logo span {
+        text-decoration: none;
+        margin-right: 20px;
+    }
+    .search-bar {
+        padding: 5px;
+        font-size: 1em;
+        border-radius: 5px;
+        border: none;
+		width: 100%;
+    }
+    .games-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 10px;
+		justify-content: center;
+    }
+    .card {
+        background-color: #fff;
+    border-radius: 10px;
+    margin: 5px; /* Reduced margin */
+    width: 120px;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+		overflow: hidden;
+        position: relative;
+    }
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.29);
+    }
+    .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .card:hover img {
+        transform: scale(1.02); /* subtle zoom on the image */
+    }
+    .card figcaption {
+        position: absolute;
+        bottom: -30px; /* start hidden */
+        left: 0;
+        width: 100%;
+        background-color: rgb(74, 74, 74);
+        color: white;
+        text-align: center;
+        padding: 5px;
+        transition: bottom 0.5s ease; /* smoother and slower */
+        overflow: hidden;
+    }
+    .card:hover figcaption {
+        bottom: 0; /* slide up on hover */
+    }
+	.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(30deg) translate(-50%, -50%);
+    transition: transform 0.5s, opacity 0.5s;
+    opacity: 0;
+    pointer-events: none; /* This ensures the shine doesn't interfere with clicking the card */
+}
+
+.card:hover::before {
+    transform: rotate(30deg) translate(100%, -50%);
+    opacity: 1;
+}
+
+.search-results {
+	position: absolute;
+        right: 20px;
+        top: 60px;
+        background-color: white;
+        color: black;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 250px; /* Adjusted for image display */
+        display: none;
+        z-index: 1000;
+        transform-origin: left; /* Anchor the transformation to the left */
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        border-radius: 5px; /* Rounded corners for the search results box */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.search-results a {
+	display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        border-bottom: 1px solid #eee;
+        padding: 5px;
+        transition: all 0.3s ease;
+}
+
+.search-results img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.search-results a:last-child {
+    border-bottom: none;
+}
+
+.news {
+    max-width: 800px; /* Set a maximum width */
+    margin: 0 auto; /* Center align */
+    padding: 20px;
+    background-color: #444; /* Slightly darker background */
+    color: white;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Subtle shadow */
+}
+
+.news a {
+    display: block; /* Make each item take its own line */
+    margin: 5px 0; /* Spacing between items */
+    color: #ccc; /* Lighter text color */
+    text-decoration: none; /* Remove underline */
+}
+
+.news-title {
+    color: orange; /* Color to match your theme */
+    font-weight: bold;
+}
+
+.news-content {
+    color: #ddd; /* Slightly lighter color for content */
+}
+
+/* Styling for the All Games label */
+h2 {
+    text-align: center;
+    color: white;
+    margin: 20px 0; /* Spacing above and below */
+    font-size: 1.5em; /* Larger font size */
+}
+
+.card figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(95,95,95,0.8); /* Non-transparent background */
+    color: white;
+    text-align: center;
+    padding: 5px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(100%); /* Start off-screen */
+    opacity: 0;
+}
+
+.card:hover figcaption {
+    height: 30px; /* Show text on hover */
+    background-color: rgb(95, 95, 95); /* Non-transparent background on hover */
+	transform: translateY(0); /* Slide up to visible */
+    opacity: 1;
+}
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            display: inline-block;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            text-decoration: none;
+            width: 120px;
+            height: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="logo">StrongDog<span class="xp">XP</span></a>
+        <div class="categories">
+            <a href="new.html">New</a>
+            <a href="favs.html">Favs</a>
+            <a href="all.html">All</a>
+            <a href="#" id="randomGame">Random Game</a>
+            <a href="#" id="blockLanschool">Block Lanschool</a>
+        </div>
+    
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search games..." id="searchInput">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <div class="cards" id="favoritesCards">
+        <!-- Dynamically populated favorite games will go here -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Handle Search Functionality
+    const searchInput = document.querySelector('.search-bar');
+    const searchResults = document.getElementById('searchResults');
+    const cards = Array.from(document.querySelectorAll('.card'));
+
+    searchInput.addEventListener('input', function() {
+        const searchText = searchInput.value.toLowerCase();
+        const filteredCards = cards.filter(card => 
+            !card.classList.contains('ad-card') &&  
+            card.textContent.toLowerCase().includes(searchText)
+        ).slice(0, 7);
+
+        searchResults.innerHTML = '';
+        if (searchText) {
+            searchResults.style.display = 'block';
+            filteredCards.forEach(card => {
+                const gameTitle = card.querySelector('figcaption').textContent;
+                const gameImage = card.querySelector('img').src;
+
+                const resultLink = document.createElement('a');
+                resultLink.href = card.getAttribute('href');
+                resultLink.innerHTML = `<img src="${gameImage}" alt="${gameTitle}"><span>${gameTitle}</span>`;
+                searchResults.appendChild(resultLink);
+            });
+        } else {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    // Handle Click outside the search results
+    document.addEventListener('click', function(event) {
+        if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    // Random Game Functionality
+    var randomGameButton = document.getElementById('randomGame');
+    randomGameButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        var nonAdCards = cards.filter(card => !card.classList.contains('ad-card'));
+        if (nonAdCards.length > 0) {
+            var randomIndex = Math.floor(Math.random() * nonAdCards.length);
+            var randomCardHref = nonAdCards[randomIndex].getAttribute('href');
+            window.location.href = randomCardHref;
+        }
+    });
+
+    // Block Lanschool Button
+    var blockLanschoolButton = document.getElementById('blockLanschool');
+    var url = "https://jman1593.github.io";
+    var win;
+
+    blockLanschoolButton.addEventListener('click', function() {
+        if (win) {
+            win.focus();
+        } else {
+            win = window.open('', '', 'width=600,height=400');
+            win.document.body.style.margin = '0';
+            win.document.body.style.height = '100vh';
+            var iframe = win.document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.src = url;
+            win.document.body.appendChild(iframe);
+        }
+    });
+
+    // Image Detection for Favorites
+    function findImageForGame(gameFolderName, callback) {
+        const extensions = ['.jpg', '.jpeg', '.png', '.gif'];
+        const basePath = './img/';
+
+        extensions.forEach(ext => {
+            const imagePath = basePath + gameFolderName + ext;
+            const img = new Image();
+            img.onload = function() {
+                callback(imagePath);
+            };
+            img.onerror = function() {};
+            img.src = imagePath;
+        });
+    }
+});
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchInput = document.querySelector('.search-bar');
+            const searchResults = document.getElementById('searchResults');
+            let favorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+            let cards = Object.keys(favorites).map(title => {
+                return {
+                    title: title,
+                    path: favorites[title].path,
+                    image: favorites[title].image
+                };
+            });
+        
+            searchInput.addEventListener('input', function() {
+                const searchText = searchInput.value.toLowerCase();
+                const filteredCards = cards.filter(card =>
+                    card.title.toLowerCase().includes(searchText)
+                );
+        
+                searchResults.innerHTML = '';
+                if (searchText) {
+                    searchResults.style.display = 'block';
+                    filteredCards.forEach(card => {
+                        const resultLink = document.createElement('a');
+                        resultLink.href = card.path;
+                        resultLink.innerHTML = `<img src="${card.image}" alt="${card.title}"><span>${card.title}</span>`;
+                        searchResults.appendChild(resultLink);
+                    });
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            });
+        
+            // Click outside the search results hides them
+            document.addEventListener('click', function(event) {
+                if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        
+            // Random game functionality
+            const randomGameButton = document.getElementById('randomGame');
+            randomGameButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (cards.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * cards.length);
+                    const randomCard = cards[randomIndex];
+                    window.location.href = randomCard.path;
+                }
+            });
+        });     
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '{}');
+    let cardsContainer = document.querySelector('.cards'); // Ensure you have a container with class 'cards'
+
+    for (let gameTitle in favorites) {
+        let game = favorites[gameTitle];
+        checkImageAndCreateCard(gameTitle, game.path, cardsContainer);
+    }
+});
+
+function checkImageAndCreateCard(gameTitle, gamePath, container) {
+    const extensions = ['.jpg', '.png', '.gif', '.jpeg', '.tiff', '.webp']; // List of possible image extensions
+    const basePath = './img/' + gameTitle.toLowerCase().replace(/\s+/g, '-'); // Assuming image name is derived from game title
+    let found = false;
+
+    extensions.forEach(ext => {
+        let img = new Image();
+        img.src = basePath + ext;
+        img.onload = function() {
+            if (!found) {
+                // If the image loads successfully, create the card
+                createCard(gameTitle, gamePath, img.src, container);
+                found = true;
+            }
+        };
+    });
+
+    // Fallback for no image found
+    setTimeout(() => {
+        if (!found) {
+            createCard(gameTitle, gamePath, './img/favicon.png', container); // Replace with your default image path
+        }
+    }, 1000); // Delay for checking the images
+}
+
+function createCard(gameTitle, gamePath, imagePath, container) {
+    let card = document.createElement('a');
+    card.href = gamePath;
+    card.className = 'card';
+    card.innerHTML = `
+        <img src="${imagePath}" alt="${gameTitle}">
+        <figcaption>${gameTitle}</figcaption>
+    `;
+    container.appendChild(card);
+}
+    </script>
+
+    <script>
+        const clickableTitles = document.querySelectorAll('.clickable-title');
+    clickableTitles.forEach(title => {
+        title.addEventListener('click', function() {
+            window.location.href = 'index.html'; // Redirect to the homepage
+        });
+    });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var randomGameButton = document.getElementById('randomGame');
+        var cards = document.querySelectorAll('.cards .card');
+
+        randomGameButton.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default anchor behavior
+            if (cards.length > 0) {
+                var randomIndex = Math.floor(Math.random() * cards.length);
+                var randomCardHref = cards[randomIndex].getAttribute('href');
+                window.location.href = randomCardHref; // Redirect to the random game's URL
+            }
+        });
+	document.addEventListener('DOMContentLoaded', function() {
+		const searchInput = document.querySelector('.search-bar');
+		const searchResults = document.getElementById('searchResults');
+		const cards = Array.from(document.querySelectorAll('.card'));
+
+		searchInput.addEventListener('input', function() {
+			const searchText = searchInput.value.toLowerCase();
+			const filteredCards = cards.filter(card =>
+				card.textContent.toLowerCase().includes(searchText)
+			).slice(0, 7); // Top 5 results
+
+			searchResults.innerHTML = '';
+			if (searchText) {
+				searchResults.style.display = 'block';
+				filteredCards.forEach(card => {
+					const gameTitle = card.querySelector('figcaption').textContent;
+					const gameImage = card.querySelector('img').src;
+
+					const resultLink = document.createElement('a');
+					resultLink.href = card.getAttribute('href');
+					resultLink.innerHTML = `<img src="${gameImage}" alt="${gameTitle}"><span>${gameTitle}</span>`;
+					searchResults.appendChild(resultLink);
+				});
+			} else {
+				searchResults.style.display = 'none';
+			}
+		});
+
+		document.addEventListener('click', function(event) {
+			if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+				searchResults.style.display = 'none';
+			}
+		});
+	});
+});
+    </script>
+</body>
+</html>

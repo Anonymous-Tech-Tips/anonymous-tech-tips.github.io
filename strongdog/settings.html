@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Profile | Strongdog</title>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+		<style>
+			/* Body styling */
+			body {
+			  font-family: "Roboto", sans-serif;
+			  background: #444;
+			  margin: 0;
+			  padding: 0;
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  height: 100vh;
+			  position: relative;
+			  overflow: hidden;
+			}
+
+			/* Sidebar styling */
+			.sidebar {
+			  position: fixed;
+			  left: 0;
+			  top: 0;
+			  width: 200px;
+			  height: 100%;
+			  background-color: #333;
+			  padding: 20px;
+			  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+			  display: flex;
+			  flex-direction: column;
+			  gap: 15px;
+			}
+
+			.sidebar a {
+			  color: #fff;
+			  text-decoration: none;
+			  font-size: 18px;
+			  padding: 10px;
+			  border-radius: 5px;
+			  transition: background-color 0.3s;
+			}
+
+			.sidebar a:hover {
+			  background-color: #444;
+			}
+
+			.sidebar a.active {
+			  background-color: #555;
+			}
+
+			/* Form container */
+			.form-container {
+			  background-color: #3c3c3c;
+			  padding: 30px;
+			  border-radius: 15px;
+			  width: 100%;
+			  max-width: 500px;
+			  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+			  text-align: center;
+			  margin-left: 220px;
+			  display: none;
+			}
+
+			/* StrongdogXP Header */
+			.strongdog-header {
+			  display: flex;
+			  justify-content: space-between;
+			  align-items: center;
+			  margin-bottom: 30px;
+			}
+
+			.strongdog-header a {
+			  text-decoration: none;
+			  color: #ffffff;
+			  font-size: 24px;
+			  font-weight: bold;
+			}
+
+			.strongdog-header a span {
+			  color: orange;
+			}
+
+			/* Profile section */
+			.profile-section {
+			  text-align: center;
+			  margin-bottom: 20px;
+			}
+
+			.profile-picture {
+			  width: 100px;
+			  height: 100px;
+			  border-radius: 50%;
+			  cursor: pointer;
+			  margin: 0 auto 10px auto;
+			  overflow: hidden;
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			}
+
+			.profile-picture img {
+			  width: 100%;
+			  height: 100%;
+			}
+
+			.username-container {
+			  margin-top: 15px;
+			  display: inline-block;
+			  background-color: #525252;
+			  padding: 10px;
+			  border-radius: 8px;
+			  color: #fff;
+			  font-size: 18px;
+			}
+
+			.edit-buttons {
+			  margin-top: 10px;
+			}
+
+			.edit-buttons button {
+			  margin: 5px;
+			  padding: 8px;
+			  background-color: #28a745;
+			  color: white;
+			  border: none;
+			  border-radius: 5px;
+			  cursor: pointer;
+			}
+
+			.edit-buttons button:hover {
+			  background-color: #218838;
+			}
+
+			/* Profile popup for avatar selection */
+			.popup {
+			  position: fixed;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			  background-color: rgba(0, 0, 0, 0.6);
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  visibility: hidden;
+			}
+
+			.popup.active {
+			  visibility: visible;
+			}
+
+			.popup-content {
+			  background: #444;
+			  padding: 20px;
+			  border-radius: 10px;
+			  display: flex;
+			  flex-wrap: wrap;
+			  justify-content: center;
+			  max-width: 600px;
+			}
+
+			.popup-content img {
+			  width: 60px;
+			  height: 60px;
+			  margin: 10px;
+			  border-radius: 50%;
+			  cursor: pointer;
+			  transition: transform 0.3s;
+			}
+
+			.popup-content img:hover {
+			  transform: scale(1.2);
+			}
+
+			/* Button styling */
+			button {
+			  width: 100%;
+			  padding: 12px;
+			  background-color: #28a745;
+			  color: white;
+			  border: none;
+			  border-radius: 8px;
+			  cursor: pointer;
+			  font-size: 16px;
+			  margin-top: 20px;
+			}
+
+			button:hover {
+			  background-color: #218838;
+			}
+
+			.delete-account {
+			  background-color: #d9534f;
+			  margin-top: 30px;
+			}
+
+			.delete-account:hover {
+			  background-color: #c9302c;
+			}
+
+			/* Error message */
+			.error {
+			  color: #ff4d4d;
+			  font-size: 14px;
+			}
+			.discord-prompt {
+			  margin-top: 20px;
+			  color: #fff;
+			}
+
+			.discord-prompt p {
+			  margin-bottom: 10px;
+			  font-size: 16px;
+			}
+
+			.discord-prompt input {
+			  padding: 10px;
+			  border-radius: 5px;
+			  border: none;
+			  margin-right: 10px;
+			  font-size: 16px;
+			}
+
+			.discord-prompt button {
+			  padding: 10px 15px;
+			  background-color: #28a745;
+			  color: white;
+			  border: none;
+			  border-radius: 5px;
+			  cursor: pointer;
+			}
+
+			.discord-prompt button:hover {
+			  background-color: #218838;
+			}
+		</style>
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+			import {
+				getAuth,
+				onAuthStateChanged,
+				updateProfile,
+				deleteUser,
+				reauthenticateWithCredential,
+				reauthenticateWithPopup,
+				EmailAuthProvider,
+				GoogleAuthProvider,
+			} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+			import {
+				getFirestore,
+				doc,
+				setDoc,
+				getDoc,
+				collection,
+				query,
+				where,
+				getDocs,
+				deleteDoc,
+				updateDoc,
+				deleteField,
+			} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+			import {
+				getDatabase,
+				ref as dbRef,
+				update,
+				remove,
+				get,
+			} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+			import {
+				getStorage,
+				ref,
+				uploadBytes,
+				getDownloadURL,
+				deleteObject,
+			} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+
+			// Firebase configuration for strongdog-auth project
+			const firebaseConfig = {
+				apiKey: "AIzaSyBh-VnGiP4qZD0r14gfn9dr77GwtslpTqU",
+				authDomain: "strongdog-auth.firebaseapp.com",
+				databaseURL: "https://strongdog-auth-default-rtdb.firebaseio.com",
+				projectId: "strongdog-auth",
+				storageBucket: "strongdog-auth.appspot.com",
+				messagingSenderId: "936276282572",
+				appId: "1:936276282572:web:a802b7f609381ff9428669",
+				measurementId: "G-0YLTCV2MMS",
+			};
+
+			// Initialize Firebase
+			const app = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db = getFirestore(app);
+			const rtdb = getDatabase(app);
+			const storage = getStorage(app);
+
+			document.addEventListener("DOMContentLoaded", function () {
+				const profilePicture = document.querySelector(".profile-picture");
+				const popup = document.querySelector(".popup");
+				const usernameContainer = document.querySelector(".username-container");
+				const editButtons = document.querySelector(".edit-buttons");
+				const sidebarLinks = document.querySelectorAll(".sidebar a");
+				const formContainer = document.querySelector(".form-container");
+				const errorMessage = document.getElementById("error-message");
+				let originalUsername = "";
+				let isEditingUsername = false;
+
+				// Check authentication state
+				onAuthStateChanged(auth, async user => {
+					if (user) {
+						// User is signed in, populate profile info
+						if (user.photoURL) {
+							profilePicture.querySelector("img").src = user.photoURL;
+						} else {
+							profilePicture.querySelector("img").src = "img/avatar1.png";
+						}
+						usernameContainer.textContent = user.displayName || "Username";
+						originalUsername = user.displayName || "Username";
+
+						// Ensure the username is saved in Firestore
+						if (user.displayName) {
+							await saveUsernameToFirestore(user.displayName);
+						}
+
+						// Get user's data from Firestore
+						const userDocRef = doc(db, "usernames", user.uid);
+						const userDoc = await getDoc(userDocRef);
+
+						let connectedDiscord = false;
+
+						if (userDoc.exists()) {
+							const userData = userDoc.data();
+							connectedDiscord = userData.connectedDiscord || false;
+						}
+
+						// If user has not connected Discord, show the text and input box
+						if (!connectedDiscord) {
+							showDiscordConnectionPrompt();
+						} else {
+							// If connectedDiscord is true, add the custom profile image option
+							addCustomProfileImageOption();
+						}
+					} else {
+						// User is not signed in, redirect to login page
+						window.location.href = "login.html";
+					}
+				});
+
+				// Handle profile picture click to open the avatar selection popup
+				profilePicture.addEventListener("click", () => {
+					popup.classList.add("active");
+				});
+
+				// Handle avatar selection
+				document.querySelectorAll(".popup-content img").forEach(img => {
+					img.addEventListener("click", async () => {
+						const user = auth.currentUser;
+						const userId = user.uid;
+						profilePicture.querySelector("img").src = img.src;
+						popup.classList.remove("active");
+
+						// Delete previous custom profile image if exists
+						const userDocRef = doc(db, "usernames", userId);
+						const userDoc = await getDoc(userDocRef);
+
+						let previousImagePath = null;
+
+						if (userDoc.exists()) {
+							const userData = userDoc.data();
+							previousImagePath = userData.customProfileImagePath || null;
+						}
+
+						if (previousImagePath) {
+							// Delete the previous image
+							const previousImageRef = ref(storage, previousImagePath);
+							deleteObject(previousImageRef).catch(error => {
+								console.error("Error deleting previous profile image:", error);
+							});
+							// Remove customProfileImagePath from Firestore
+							await updateDoc(userDocRef, {
+								customProfileImagePath: deleteField(),
+							});
+						}
+
+						// Save selected avatar URL to user's profile in Firebase
+						updateProfile(auth.currentUser, {
+							photoURL: img.src,
+						}).catch(error => {
+							console.error("Error updating profile picture: ", error);
+						});
+					});
+				});
+
+				// Close popup if clicking outside of it
+				popup.addEventListener("click", e => {
+					if (e.target === popup) {
+						popup.classList.remove("active");
+					}
+				});
+
+				editButtons.addEventListener("click", e => {
+					if (e.target.id === "change-username" && !isEditingUsername) {
+						originalUsername = usernameContainer.textContent.trim();
+						usernameContainer.contentEditable = "true";
+						usernameContainer.focus();
+						editButtons.innerHTML =
+							'<button id="submit-username">Submit</button><button id="back-username">Back</button>';
+						isEditingUsername = true;
+					} else if (e.target.id === "submit-username" && isEditingUsername) {
+						const newUsername = usernameContainer.textContent.trim();
+
+						// Check if the username length exceeds 16 characters
+						if (newUsername.length > 16) {
+							errorMessage.textContent = "Username cannot be longer than 16 characters.";
+							usernameContainer.textContent = originalUsername;
+							resetUsernameEdit();
+							return;
+						}
+
+						if (newUsername !== originalUsername) {
+							// Check for disallowed words
+							if (containsDisallowedWords(newUsername)) {
+								errorMessage.textContent =
+									"Username contains inappropriate language. Please choose another.";
+								usernameContainer.textContent = originalUsername;
+								resetUsernameEdit();
+								return;
+							}
+							checkUsernameAvailability(newUsername)
+								.then(isAvailable => {
+									if (isAvailable) {
+										updateProfile(auth.currentUser, {
+											displayName: newUsername,
+										})
+											.then(() => {
+												resetUsernameEdit();
+												saveUsernameToFirestore(newUsername, originalUsername);
+												errorMessage.textContent = "Username updated successfully.";
+												// Update messages with the new username
+												updateUsernameInMessages(newUsername, auth.currentUser.uid);
+											})
+											.catch(error => {
+												errorMessage.textContent = `Error: ${error.message}`;
+											});
+									} else {
+										errorMessage.textContent = "Username is already taken. Please try another.";
+										usernameContainer.textContent = originalUsername;
+										resetUsernameEdit();
+									}
+								})
+								.catch(error => {
+									errorMessage.textContent = `Error checking username availability: ${error.message}`;
+								});
+						} else {
+							resetUsernameEdit();
+						}
+					} else if (e.target.id === "back-username" && isEditingUsername) {
+						usernameContainer.textContent = originalUsername;
+						resetUsernameEdit();
+					}
+				});
+
+				function resetUsernameEdit() {
+					usernameContainer.contentEditable = "false";
+					editButtons.innerHTML = '<button id="change-username">Change Username</button>';
+					isEditingUsername = false;
+				}
+
+				async function saveUsernameToFirestore(newUsername, oldUsername = null) {
+					const userId = auth.currentUser.uid;
+
+					try {
+						// Save the new username with the user ID as the document ID
+						await setDoc(
+							doc(db, "usernames", userId),
+							{
+								username: newUsername,
+							},
+							{ merge: true }
+						);
+					} catch (error) {
+						console.error("Error saving username to Firestore: ", error);
+					}
+				}
+
+				async function checkUsernameAvailability(username) {
+					const usernamesRef = collection(db, "usernames");
+					const q = query(usernamesRef, where("username", "==", username));
+					const querySnapshot = await getDocs(q);
+					// If the username exists and it's not owned by the current user
+					if (!querySnapshot.empty) {
+						const docs = querySnapshot.docs;
+						for (let doc of docs) {
+							if (doc.id !== auth.currentUser.uid) {
+								return false;
+							}
+						}
+					}
+					return true;
+				}
+
+				// Function to update messages in Realtime Database
+				function updateUsernameInMessages(newUsername, userUID) {
+					const messagesRef = dbRef(rtdb, "messages");
+
+					get(messagesRef)
+						.then(snapshot => {
+							if (snapshot.exists()) {
+								const updates = {};
+								const messagesData = snapshot.val();
+								for (let chatId in messagesData) {
+									const chatMessages = messagesData[chatId];
+									for (let messageId in chatMessages) {
+										const message = chatMessages[messageId];
+										if (message.senderUID === userUID) {
+											updates[`messages/${chatId}/${messageId}/sender`] = newUsername;
+										}
+									}
+								}
+								// Apply all updates at once
+								update(dbRef(rtdb), updates)
+									.then(() => {
+										console.log("Username updated in all messages.");
+									})
+									.catch(error => {
+										console.error("Error updating messages: ", error);
+									});
+							}
+						})
+						.catch(error => {
+							console.error("Error fetching messages: ", error);
+						});
+				}
+
+				// Handle sidebar navigation
+				sidebarLinks.forEach(link => {
+					link.addEventListener("click", () => {
+						sidebarLinks.forEach(l => l.classList.remove("active"));
+						link.classList.add("active");
+						const section = link.getAttribute("href").substring(1);
+						if (section === "account") {
+							formContainer.style.display = "none";
+						} else if (section === "general") {
+							formContainer.style.display = "block";
+						}
+					});
+				});
+
+				// Handle account deletion
+				document.querySelector(".delete-account").addEventListener("click", () => {
+					const user = auth.currentUser;
+					const userId = user.uid;
+
+					// Function to actually delete the account
+					function performAccountDeletion() {
+						// Delete the user's messages
+						deleteUserMessages(userId)
+							.then(async () => {
+								// Delete custom profile image if exists
+								const userDocRef = doc(db, "usernames", userId);
+								const userDoc = await getDoc(userDocRef);
+
+								let previousImagePath = null;
+
+								if (userDoc.exists()) {
+									const userData = userDoc.data();
+									previousImagePath = userData.customProfileImagePath || null;
+								}
+
+								if (previousImagePath) {
+									// Delete the previous image
+									const previousImageRef = ref(storage, previousImagePath);
+									await deleteObject(previousImageRef).catch(error => {
+										console.error("Error deleting custom profile image:", error);
+									});
+								}
+
+								// Delete the user's document from Firestore
+								deleteDoc(doc(db, "usernames", userId))
+									.then(() => {
+										user.delete()
+											.then(() => {
+												alert("Your account has been deleted.");
+												window.location.href = "index.html";
+											})
+											.catch(error => {
+												if (error.code === "auth/requires-recent-login") {
+													// Need to reauthenticate
+													reauthenticateUserAndDelete();
+												} else {
+													alert("Error deleting account: " + error.message);
+												}
+											});
+									})
+									.catch(error => {
+										alert("Error deleting username from Firestore: " + error.message);
+									});
+							})
+							.catch(error => {
+								alert("Error deleting messages: " + error.message);
+							});
+					}
+
+					// Function to delete user messages from Realtime Database
+					function deleteUserMessages(userUID) {
+						return new Promise((resolve, reject) => {
+							const messagesRef = dbRef(rtdb, "messages");
+
+							get(messagesRef)
+								.then(snapshot => {
+									if (snapshot.exists()) {
+										const updates = {};
+										const messagesData = snapshot.val();
+										for (let chatId in messagesData) {
+											const chatMessages = messagesData[chatId];
+											for (let messageId in chatMessages) {
+												const message = chatMessages[messageId];
+												if (message.senderUID === userUID) {
+													updates[`messages/${chatId}/${messageId}`] = null;
+												}
+											}
+										}
+										// Apply all deletions at once
+										update(dbRef(rtdb), updates)
+											.then(() => {
+												console.log("User messages deleted.");
+												resolve();
+											})
+											.catch(error => {
+												console.error("Error deleting messages: ", error);
+												reject(error);
+											});
+									} else {
+										resolve();
+									}
+								})
+								.catch(error => {
+									console.error("Error fetching messages: ", error);
+									reject(error);
+								});
+						});
+					}
+
+					// Function to reauthenticate the user and then delete account
+					function reauthenticateUserAndDelete() {
+						// Get the provider ID of the user
+						const providerId = user.providerData[0].providerId;
+
+						if (providerId === "password") {
+							// User signed in with email/password
+							const email = user.email;
+							const password = prompt("Please enter your password to confirm account deletion:");
+
+							if (password) {
+								const credential = EmailAuthProvider.credential(email, password);
+								reauthenticateWithCredential(user, credential)
+									.then(() => {
+										// Reauthentication successful, try deleting again
+										performAccountDeletion();
+									})
+									.catch(error => {
+										alert("Reauthentication failed: " + error.message);
+									});
+							} else {
+								alert("Password is required to delete the account.");
+							}
+						} else if (providerId === "google.com") {
+							// User signed in with Google
+							const provider = new GoogleAuthProvider();
+							reauthenticateWithPopup(auth, provider)
+								.then(() => {
+									// Reauthentication successful, try deleting again
+									performAccountDeletion();
+								})
+								.catch(error => {
+									alert("Reauthentication failed: " + error.message);
+								});
+						} else {
+							alert("Reauthentication needed but provider not supported.");
+						}
+					}
+
+					// Start the account deletion process
+					performAccountDeletion();
+				});
+
+				// Function to show the Discord connection prompt
+				function showDiscordConnectionPrompt() {
+					const discordConnectionDiv = document.getElementById("discord-connection");
+					discordConnectionDiv.innerHTML = `
+          <div class="discord-prompt">
+            <p>Want to upload custom images as your profile? Join the discord!</p>
+            <input type="text" id="discord-key-input" placeholder="Enter discord key" />
+            <button id="submit-discord-key">Submit</button>
+          </div>
+        `;
+
+					// Add event listener for the submit button
+					const submitDiscordKeyButton = document.getElementById("submit-discord-key");
+					submitDiscordKeyButton.addEventListener("click", async () => {
+						const discordKeyInput = document.getElementById("discord-key-input");
+						const enteredKey = discordKeyInput.value.trim();
+						const correctKey = "3E6uWXNA5P9BBITZ247Q";
+
+						if (enteredKey === correctKey) {
+							// Remove the text box forever
+							discordConnectionDiv.innerHTML = "";
+							// Update connectedDiscord to true in Firestore
+							const userId = auth.currentUser.uid;
+							const userDocRef = doc(db, "usernames", userId);
+							await updateDoc(userDocRef, { connectedDiscord: true });
+							// Add the custom profile image option
+							addCustomProfileImageOption();
+						} else {
+							alert("Incorrect Discord key. Please try again.");
+						}
+					});
+				}
+
+				// Function to add custom profile image option
+				function addCustomProfileImageOption() {
+					const popupContent = document.querySelector(".popup-content");
+
+					// Create a new img element for the custom image option
+					const customImageSelector = document.createElement("img");
+					customImageSelector.src = "img/custom.png"; // Make sure this image exists
+					customImageSelector.alt = "Custom Image";
+					customImageSelector.id = "custom-image-selector";
+					customImageSelector.style.width = "60px";
+					customImageSelector.style.height = "60px";
+					customImageSelector.style.margin = "10px";
+					customImageSelector.style.borderRadius = "50%";
+					customImageSelector.style.cursor = "pointer";
+					customImageSelector.style.transition = "transform 0.3s";
+
+					// Create the hidden file input
+					const customImageInput = document.createElement("input");
+					customImageInput.type = "file";
+					customImageInput.id = "custom-image-input";
+					customImageInput.accept = "image/*";
+					customImageInput.style.display = "none";
+
+					// Append the elements
+					popupContent.appendChild(customImageSelector);
+					popupContent.appendChild(customImageInput);
+
+					// Add event listener to the custom image selector
+					customImageSelector.addEventListener("click", () => {
+						customImageInput.click();
+					});
+
+					customImageInput.addEventListener("change", async event => {
+						const file = event.target.files[0];
+						if (file) {
+							// Upload the image to Firebase Storage and update the profile picture
+							await uploadCustomProfileImage(file);
+						}
+					});
+				}
+
+				// Function to upload custom profile image
+				async function uploadCustomProfileImage(file) {
+					const user = auth.currentUser;
+					const userId = user.uid;
+
+					// Generate a unique file name
+					const uniqueFileName = `${Date.now()}_${file.name}`;
+					const storageReference = ref(storage, `profileImages/${userId}/${uniqueFileName}`);
+
+					// Delete previous custom profile image if exists
+					const userDocRef = doc(db, "usernames", userId);
+					const userDoc = await getDoc(userDocRef);
+
+					let previousImagePath = null;
+
+					if (userDoc.exists()) {
+						const userData = userDoc.data();
+						previousImagePath = userData.customProfileImagePath || null;
+					}
+
+					if (previousImagePath) {
+						// Delete the previous image
+						const previousImageRef = ref(storage, previousImagePath);
+						deleteObject(previousImageRef).catch(error => {
+							console.error("Error deleting previous profile image:", error);
+						});
+					}
+
+					// Upload the new image
+					uploadBytes(storageReference, file)
+						.then(async snapshot => {
+							// Get the download URL
+							const downloadURL = await getDownloadURL(storageReference);
+
+							// Update user's photoURL
+							await updateProfile(user, {
+								photoURL: downloadURL,
+							});
+
+							// Update profile picture on the page
+							profilePicture.querySelector("img").src = downloadURL;
+
+							// Save the custom image path to Firestore
+							await updateDoc(userDocRef, {
+								customProfileImagePath: `profileImages/${userId}/${uniqueFileName}`,
+							});
+						})
+						.catch(error => {
+							console.error("Error uploading custom profile image:", error);
+						});
+				}
+			});
+
+			// List of disallowed words
+			const disallowedWords = [
+				"nigger",
+				"nigga",
+				"fuck",
+				"shit",
+				"ass",
+				"bitch",
+				"fucker",
+				"beiner",
+				"cunt",
+				"kkk",
+				"nigg@",
+				"n1gger",
+			];
+
+			function containsDisallowedWords(username) {
+				const lowerUsername = username.toLowerCase();
+				return disallowedWords.some(word => lowerUsername.includes(word));
+			}
+		</script>
+	</head>
+	<body>
+		<div class="sidebar">
+			<a href="#general">General</a>
+		</div>
+		<div class="form-container">
+			<div class="strongdog-header">
+				<a href="index.html">Strongdog<span>XP</span></a>
+			</div>
+			<div class="profile-section">
+				<div class="profile-picture">
+					<img src="img/avatar1.png" alt="Profile Picture" />
+				</div>
+				<div class="username-container" id="username-container">Username</div>
+				<div class="edit-buttons">
+					<button id="change-username">Change Username</button>
+				</div>
+				<div id="discord-connection"></div>
+			</div>
+			<div class="error" id="error-message"></div>
+			<button class="delete-account">Delete Account</button>
+		</div>
+		<div class="popup">
+			<div class="popup-content">
+				<img src="img/avatar1.png" alt="Avatar 1" />
+				<img src="img/avatar2.png" alt="Avatar 2" />
+				<img src="img/avatar3.png" alt="Avatar 3" />
+				<img src="img/avatar4.png" alt="Avatar 4" />
+				<img src="img/avatar5.png" alt="Avatar 5" />
+				<img src="img/avatar6.png" alt="Avatar 6" />
+				<img src="img/avatar7.png" alt="Avatar 7" />
+				<img src="img/avatar8.png" alt="Avatar 8" />
+				<img src="img/avatar9.png" alt="Avatar 9" />
+				<img src="img/avatar10.png" alt="Avatar 10" />
+				<img src="img/avatar11.png" alt="Avatar 11" />
+				<img src="img/avatar12.png" alt="Avatar 12" />
+				<img src="img/avatar13.png" alt="Avatar 13" />
+				<img src="img/avatar14.png" alt="Avatar 14" />
+				<img src="img/avatar15.png" alt="Avatar 15" />
+				<img src="img/avatar16.png" alt="Avatar 16" />
+				<img src="img/avatar17.png" alt="Avatar 17" />
+				<img src="img/avatar18.png" alt="Avatar 18" />
+				<img src="img/avatar19.png" alt="Avatar 19" />
+				<img src="img/avatar20.png" alt="Avatar 20" />
+				<img src="img/avatar21.png" alt="Avatar 21" />
+				<img src="img/avatar22.png" alt="Avatar 22" />
+				<img src="img/avatar23.png" alt="Avatar 23" />
+				<img src="img/avatar24.png" alt="Avatar 24" />
+				<img src="img/avatar25.png" alt="Avatar 25" />
+				<img src="img/avatar26.png" alt="Avatar 26" />
+				<img src="img/avatar27.png" alt="Avatar 27" />
+				<img src="img/avatar28.png" alt="Avatar 28" />
+				<img src="img/avatar29.png" alt="Avatar 29" />
+				<img src="img/avatar30.png" alt="Avatar 30" />
+				<img src="img/avatar31.png" alt="Avatar 31" />
+				<img src="img/avatar32.png" alt="Avatar 32" />
+				<img src="img/avatar33.png" alt="Avatar 33" />
+				<img src="img/avatar34.png" alt="Avatar 34" />
+				<img src="img/avatar35.png" alt="Avatar 35" />
+				<img src="img/avatar36.png" alt="Avatar 36" />
+				<img src="img/avatar37.png" alt="Avatar 37" />
+				<img src="img/avatar38.png" alt="Avatar 38" />
+				<img src="img/avatar39.png" alt="Avatar 39" />
+				<img src="img/avatar40.png" alt="Avatar 40" />
+				<img src="img/avatar41.png" alt="Avatar 41" />
+				<img src="img/avatar42.png" alt="Avatar 42" />
+			</div>
+		</div>
+	</body>
+</html>

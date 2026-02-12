@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<script
+  async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1609993827735056"
+  crossorigin="anonymous"
+></script>
+<html lang="en">
+  <head>
+    <!-- Include Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBh-VnGiP4qZD0r14gfn9dr77GwtslpTqU",
+        authDomain: "strongdog-auth.firebaseapp.com",
+        databaseURL: "https://strongdog-auth-default-rtdb.firebaseio.com",
+        projectId: "strongdog-auth",
+        storageBucket: "strongdog-auth.appspot.com",
+        messagingSenderId: "936276282572",
+        appId: "1:936276282572:web:a802b7f609381ff9428669",
+        measurementId: "G-0YLTCV2MMS",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Initialize Firebase Authentication and Firestore
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+    <script>
+      // Self-executing function to load external cards automatically
+      (function () {
+        // The path to your external file containing the cards
+        const cardsFilePath = "./cards_data.html";
+
+        // Wait until the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+          // Find the element with the ID 'allGameList'
+          const cardContainer = document.getElementById("allGameList");
+
+          // Fetch the external HTML file containing the cards
+          fetch(cardsFilePath)
+            .then((response) => response.text())
+            .then((data) => {
+              // Insert the loaded HTML into the 'allGameList' element
+              cardContainer.innerHTML = data;
+            })
+            .catch((error) => console.error("Error loading the cards:", error));
+        });
+      })();
+    </script>
+
+    <script src="appscript.js"></script>
+    <!-- Include your appscript.js here -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const topGameList = document.getElementById("topGameList");
+        const loadingContainerEl = document.createElement("div");
+        loadingContainerEl.className = "loading-container";
+        loadingContainerEl.innerHTML = `
+                    <div class="bars">
+                        <div class="bar bar-1"></div>
+                        <div class="bar bar-2"></div>
+                        <div class="bar bar-3"></div>
+                        <div class="bar bar-4"></div>
+                        <div class="bar bar-5"></div>
+                    </div>
+                `;
+
+        // Append loadingContainerEl to topGameList
+        topGameList.appendChild(loadingContainerEl);
+
+        function fetchTopGames() {
+          fetch(targetUrl, {
+            // Use the targetUrl from appscript.js
+            method: "GET",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(
+                  "Network response was not ok " + response.statusText
+                );
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (data && data.content) {
+                const parsedData = JSON.parse(data.content);
+                console.log("Parsed data:", parsedData);
+                displayTopGames(parsedData);
+              } else {
+                console.error("Invalid data format", data);
+              }
+            })
+            .catch((error) => console.error("Error:", error))
+            .finally(() => {
+              loadingContainerEl.style.display = "none";
+            });
+        }
+
+        function displayTopGames(games) {
+          if (!topGameList) {
+            console.error("Required element not found.");
+            return;
+          }
+          topGameList.innerHTML = "";
+
+          games.slice(1).forEach((game) => {
+            // Skip the first entry as it is the header
+            const gameName = game[0].toLowerCase();
+            const matchingCard = findMatchingCard(gameName);
+            if (matchingCard) {
+              topGameList.appendChild(matchingCard.cloneNode(true));
+            }
+          });
+        }
+
+        function findMatchingCard(gameName) {
+          const cards = document.querySelectorAll("#allGameList .card");
+          for (let card of cards) {
+            const href = card.getAttribute("href");
+            const extractedGameName =
+              extractGameNameFromHref(href).toLowerCase();
+            if (extractedGameName === gameName) {
+              return card;
+            }
+          }
+          return null;
+        }
+
+        function extractGameNameFromHref(href) {
+          const parts = href.split("/");
+          return parts.length > 2 ? parts[2].toLowerCase() : "";
+        }
+
+        // Immediately invoked function to run fetchTopGames as soon as possible
+        (function () {
+          loadingContainerEl.style.display = "flex"; // Show spinner
+          fetchTopGames();
+        })();
+      });
+    </script>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StrongDog XP</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #2e2e2e;
+        /* Dark grey background */
+      }
+
+      .navbar {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        justify-content: space-between;
+        /* Keep items spread out */
+      }
+
+      .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Center the logo horizontally */
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Style for the menu icon */
+      .menu-icon {
+        font-size: 2rem;
+        cursor: pointer;
+        margin-left: 20px;
+        /* Position the icon to the left */
+        color: white;
+        position: relative;
+        z-index: 1001;
+        /* Ensure it stays on top when clicking */
+      }
+
+      .slide-menu {
+        position: fixed;
+        top: 0;
+        height: 100%;
+        width: 350px;
+        background-color: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        /* You can adjust to preferred blurring */
+        color: white;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        z-index: 1003;
+        /* Ensure it covers the menu icon when it slides in */
+        transition: transform 0.4s ease;
+        /* Smooth slide-in animation */
+        overflow-y: auto;
+        transform: translateX(-100%);
+        /* Start off-screen completely */
+      }
+
+      .profile-picture {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Keeps the aspect-ratio of image normal - no distortions */
+      }
+
+      .profile-picture-container {
+        border-radius: 50%;
+        width: 100px;
+        aspect-ratio: 1;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .user-details-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+        padding-block: 40px;
+      }
+
+      .username-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .username-text {
+        font-size: 1.5rem;
+      }
+
+      .categories {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      /* Styling for links in the slide menu */
+      .categories > a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s ease;
+        margin-left: 20px;
+        margin-right: 20px;
+        text-align: center;
+        font-size: 1.1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .categories > a::after {
+        content: "";
+        background: rgba(255, 255, 255, 0.1);
+        /* You can change the color to your liking */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        width: 0;
+        height: 0;
+        transition: 0.4s ease-out;
+        /* z-index: -1; */
+      }
+
+      .categories > a:hover::after {
+        width: 400px;
+        height: 400px;
+      }
+
+      .categories > a:hover {
+        transform: scale(0.95);
+      }
+
+      /* Styling for the "new" tags */
+      span.new-feature-tag {
+        background: orange;
+        border-radius: 100vw;
+        /* Completely rounded edges */
+        padding: 0.2rem 0.4rem;
+        margin-left: 1rem;
+        /* Separate the tag from the left text */
+        font-size: 0.6rem;
+        color: black;
+        text-transform: uppercase;
+      }
+
+      .navbar .logo {
+        color: white;
+        font-weight: bold;
+      }
+
+      .navbar .logo .xp {
+        color: orange;
+      }
+
+      .navbar a,
+      .navbar a:visited,
+      .navbar .logo span {
+        text-decoration: none;
+        margin-right: 20px;
+      }
+
+      .search-bar {
+        padding: 7px;
+        padding-top: 10px;
+        font-size: 1em;
+        border-radius: 20%;
+        width: 100%;
+        border: none;
+        border-bottom: 5px solid gray;
+        background-color: transparent;
+        color: white;
+      }
+
+      .search-bar:focus {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .games-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 10px;
+        justify-content: center;
+      }
+
+      .card {
+        background-color: #fff;
+        border-radius: 10px;
+        margin: 5px;
+        /* Reduced margin */
+        width: 120px;
+        height: 120px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.29);
+      }
+
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover img {
+        transform: scale(1.02);
+        /* subtle zoom on the image */
+      }
+
+      .card figcaption {
+        position: absolute;
+        bottom: -30px;
+        /* start hidden */
+        left: 0;
+        width: 100%;
+        background-color: rgb(74, 74, 74);
+        color: white;
+        text-align: center;
+        padding: 5px;
+        transition: bottom 0.5s ease;
+        /* smoother and slower */
+        overflow: hidden;
+      }
+
+      .card:hover figcaption {
+        bottom: 0;
+        /* slide up on hover */
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg) translate(-50%, -50%);
+        transition: transform 0.5s, opacity 0.5s;
+        opacity: 0;
+        pointer-events: none;
+        /* This ensures the shine doesn't interfere with clicking the card */
+      }
+
+      .card:hover::before {
+        transform: rotate(30deg) translate(100%, -50%);
+        opacity: 1;
+      }
+
+      .search-results {
+        position: absolute;
+        right: 20px;
+        top: 60px;
+        background-color: white;
+        color: black;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 250px;
+        /* Adjusted for image display */
+        display: none;
+        z-index: 1000;
+        transform-origin: left;
+        /* Anchor the transformation to the left */
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        border-radius: 5px;
+        /* Rounded corners for the search results box */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .search-results a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        border-bottom: 1px solid #eee;
+        padding: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .search-results img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 5px;
+      }
+
+      .search-results a:last-child {
+        border-bottom: none;
+      }
+
+      .news-container {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #444444;
+        /* Light grey background */
+        border-radius: 8px;
+        max-width: 800px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow for depth */
+      }
+
+      .news {
+        color: #ffffff;
+        /* Dark text for readability */
+      }
+
+      .credits-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+        color: #ffffff;
+        /* Darker title color */
+        border-bottom: 2px solid #ddd;
+        /* Subtle bottom border */
+        padding-bottom: 5px;
+      }
+
+      .credits-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .credits-role {
+        font-weight: bold;
+        color: #ffffff;
+        /* Slightly lighter for role text */
+      }
+
+      .credits-names {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        /* Center-aligns items vertically */
+      }
+
+      .credits-link {
+        color: #0073e6;
+        /* Blue link color */
+        text-decoration: none;
+        font-weight: bold;
+        /* Bold links for emphasis */
+      }
+
+      .credits-link:hover {
+        text-decoration: underline;
+      }
+
+      .credits-names span {
+        color: #c4c4c4;
+        /* Slightly lighter for plain text */
+      }
+
+      /* Additional CSS for better spacing and style */
+      .credits-item:last-child .credits-names {
+        gap: 16px;
+      }
+
+      .credits-item:last-child .credits-link {
+        color: #00b3b3;
+        /* Different link color for Other Links */
+      }
+
+      .credits-item:last-child .credits-link:hover {
+        text-decoration: underline;
+        color: #00cccc;
+        /* Hover color for Other Links */
+      }
+
+      /* Styling for the All  label */
+      h2 {
+        text-align: center;
+        color: white;
+        margin: 20px 0;
+        /* Spacing above and below */
+        font-size: 1.5em;
+        /* Larger font size */
+      }
+
+      .card figcaption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(95, 95, 95, 0.8);
+        color: black;
+        padding: 5px 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform: translateY(100%);
+        /* Start off-screen */
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-shadow: 0 0 2px white;
+        font-weight: 550;
+        border-radius: 10px;
+      }
+
+      .card:hover figcaption {
+        height: 30px;
+        /* Show text on hover */
+        background-color: rgba(95, 95, 95, 0.8);
+        /* Non-transparent background on hover */
+        transform: translateY(0);
+        /* Slide up to visible */
+        opacity: 1;
+      }
+
+      .pagination {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .pagination a {
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        border: 1px solid #444;
+        margin: 0 4px;
+        border-radius: 4px;
+        background-color: #333;
+      }
+
+      .pagination a.active {
+        background-color: #555;
+        border-color: #777;
+      }
+
+      .pagination a:hover:not(.active) {
+        background-color: #444;
+      }
+
+      .updates-paragraph-text {
+        color: white;
+        background-color: #a83632;
+        padding: 15px 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.05);
+        margin-bottom: 30px;
+      }
+
+      .updates-text-container {
+        margin-left: 30%;
+        margin-right: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loading-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .bars {
+        display: flex;
+        align-items: center;
+      }
+
+      .bar {
+        background-color: rgba(255, 255, 255, 0.3);
+        width: 20px;
+        height: 40px;
+        margin-right: 5px;
+        border-radius: 10px;
+        animation: load ease infinite 5s;
+      }
+
+      .bar-2,
+      .bar-4 {
+        height: 50px;
+      }
+
+      .bar-2 {
+        animation-delay: 0.1s;
+      }
+
+      .bar-3 {
+        height: 60px;
+        animation-delay: 0.2s;
+      }
+
+      .bar-4 {
+        animation-delay: 0.3s;
+      }
+
+      .bar-5 {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes load {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+
+        50% {
+          transform: rotate(720deg) rotateX(180deg);
+        }
+      }
+
+      #topGameList {
+        position: relative;
+        /* Make sure topGameList is relatively positioned */
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: #757575;
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .modal-close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .modal-close:hover,
+      .modal-close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .modal-link {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="secretLink"
+      style="
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      "
+    ></div>
+    <div class="navbar">
+      <div class="menu-icon" id="menuIcon">&#9776;</div>
+      <a href="index.html" class="logo">StrongDog<span class="xp">XP</span></a>
+
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="Search for games..."
+          id="searchInput"
+          autocomplete="off"
+        />
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+    <div class="updates-text-container">
+      <p class="updates-paragraph-text">
+        Strongdog now has a Discord! Join
+        <span class="modal-link" id="discordLink">here</span>.
+      </p>
+    </div>
+    <div class="modal" id="popupModal">
+      <div class="modal-content">
+        <span class="modal-close" id="closeModal">&times;</span>
+        <p>
+          The strongdog discord server is a place for strongdog users to chill,
+          play games together, request ideas, and have fun!
+        </p>
+        <p>
+          If you want to help on strongdog, there is a chat where you can get
+          help downloading games, and you can upload games YOU download to add
+          to strongdog! (and yes, you will get credit for downloading games)
+        </p>
+        <p>
+          Ready to join? Click
+          <a href="https://discord.gg/pWjfQ4Sz5c" target="_blank">here</a> to
+          join the Discord server!
+        </p>
+      </div>
+    </div>
+    <div class="pagination">
+      <a href="/#" id="page1-link">1</a>
+      <a href="/strongdog2/index.html" id="page2-link">2</a>
+    </div>
+    <h2 style="text-align: center"><strong>Top 10</strong></h2>
+    <div class="games-grid" id="topGameList"></div>
+
+    <h2 style="text-align: center"><strong>All</strong></h2>
+    <div class="games-grid" id="allGameList"></div>
+
+    <h2 style="text-align: center"><strong>StrongDogXP LLC</strong></h2>
+
+    <div class="news-container">
+      <div class="news">
+        <div class="credits-item">
+          <div class="credits-role">CEO</div>
+          <div class="credits-names">
+            <a
+              href="https://github.com/jman1593"
+              target="_blank"
+              class="credits-link"
+              >Joshua Pettit</a
+            >
+          </div>
+        </div>
+        <div class="credits-item">
+          <div class="credits-role">Developers</div>
+          <div class="credits-names">
+            <a
+              href="https://github.com/jman1593"
+              target="_blank"
+              class="credits-link"
+              >Joshua Pettit</a
+            >
+            <span>|</span>
+            <a
+              href="https://github.com/JamesMeadows4"
+              target="_blank"
+              class="credits-link"
+              >James Meadows</a
+            >
+          </div>
+        </div>
+        <div class="credits-item">
+          <div class="credits-role">Game Downloaders</div>
+          <div class="credits-names">
+            <a
+              href="https://github.com/jman1593"
+              target="_blank"
+              class="credits-link"
+              >Joshua Pettit</a
+            >
+          </div>
+        </div>
+        <div class="credits-item">
+          <div class="credits-role">Other Links</div>
+          <div class="credits-names">
+            <a
+              href="https://mathcord.netlify.app"
+              target="_blank"
+              class="credits-link"
+              >mathcord.netlify.app</a
+            >
+            <span>|</span>
+            <a
+              href="https://strongdog.onrender.com"
+              target="_blank"
+              class="credits-link"
+              >strongdog.onrender.com</a
+            >
+            <span>|</span>
+            <a
+              href="https://jman1593.github.io"
+              target="_blank"
+              class="credits-link"
+              >jman1593.github.io</a
+            >
+            <span>|</span>
+            <a
+              href="https://strongdog.netlify.app"
+              target="_blank"
+              class="credits-link"
+              >strongdog.netlify.app</a
+            >
+            <span>|</span>
+            <a
+              href="https://strongdog-1.vercel.app"
+              target="_blank"
+              class="credits-link"
+              >strongdog-1.vercel.app</a
+            >
+            <span>|</span>
+            <a href="https://mathcord.com" target="_blank" class="credits-link"
+              >mathcord.com</a
+            >
+            <span>|</span>
+            <a href="https://strongdog.com" target="_blank" class="credits-link"
+              >strongdog.com</a
+            >
+          </div>
+        </div>
+        <div class="credits-item">
+          <div class="credits-role">MORE UNBLOCKED LINKS ON THE DISCORD</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-menu" id="slideMenu">
+      <div class="user-details-container">
+        <div class="profile-picture-container">
+          <a href="settings.html">
+            <img class="profile-picture" src="img/default-avatar.png" />
+          </a>
+        </div>
+        <div class="username-container">
+          <p class="username-text">Your Username</p>
+        </div>
+      </div>
+      <!-- Categories / options -->
+      <div class="categories">
+        <a href="favs.html" class="option-link">Favorites</a>
+        <a href="#" id="randomGame" class="option-link">Random Game</a>
+        <a href="#" id="blockLanschool" class="option-link">Block Lanschool</a>
+        <a href="about.html" class="option-link"
+          >About / Report Bugs / Request Games</a
+        >
+        <a href="https://discord.gg/pWjfQ4Sz5c" class="option-link"
+          >Discord Server<span class="new-feature-tag">new</span></a
+        >
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuIcon = document.getElementById("menuIcon");
+        const slideMenu = document.createElement("div");
+        slideMenu.className = "slide-menu";
+
+        // Clone the categories
+        const originalCategories = document.querySelector(".categories");
+        const categories = originalCategories.cloneNode(true);
+
+        // Append the categories to the slideMenu
+        slideMenu.appendChild(categories);
+        document.body.appendChild(slideMenu);
+
+        // Add click event to toggle the sliding menu
+        menuIcon.addEventListener("click", function (event) {
+          event.stopPropagation(); // Prevent click event from bubbling up
+          if (slideMenu.style.transform === "translateX(0%)") {
+            slideMenu.style.transform = "translateX(-100%)"; // Hide menu by sliding out
+          } else {
+            slideMenu.style.transform = "translateX(0%)"; // Show menu by sliding in
+          }
+        });
+
+        // Close the menu when clicking outside of it
+        window.addEventListener("click", function (event) {
+          if (event.target !== menuIcon && !slideMenu.contains(event.target)) {
+            slideMenu.style.transform = "translateX(-100%)"; // Hide menu
+          }
+        });
+
+        // Check authentication state
+        auth.onAuthStateChanged(async (user) => {
+          let userDetailsContainer;
+
+          if (user) {
+            // User is signed in, fetch their profile picture and username
+
+            // Clone the user-details-container
+            const originalUserDetailsContainer = document.querySelector(
+              ".user-details-container"
+            );
+            userDetailsContainer = originalUserDetailsContainer.cloneNode(true);
+
+            // Get elements inside userDetailsContainer
+            const profilePictureElement =
+              userDetailsContainer.querySelector(".profile-picture");
+            const usernameElement =
+              userDetailsContainer.querySelector(".username-text");
+
+            // Set profile picture
+            if (user.photoURL) {
+              profilePictureElement.src = user.photoURL;
+            } else {
+              profilePictureElement.src = "img/default-avatar.png"; // Fallback to default image
+            }
+
+            // Set username
+            const userId = user.uid;
+            const userDocRef = db.collection("usernames").doc(userId);
+            const userDoc = await userDocRef.get();
+
+            if (userDoc.exists) {
+              const userData = userDoc.data();
+              usernameElement.textContent = userData.username || "Username";
+            } else {
+              usernameElement.textContent = user.displayName || "Username";
+            }
+
+            // Make profile picture clickable and direct to settings page
+            profilePictureElement.parentElement.addEventListener(
+              "click",
+              () => {
+                window.location.href = "settings.html";
+              }
+            );
+
+            // Insert the userDetailsContainer at the top of the slideMenu
+            slideMenu.insertBefore(userDetailsContainer, categories);
+
+            // Create the "Log Out" button as a menu item
+            const logoutLink = document.createElement("a");
+            logoutLink.href = "#";
+            logoutLink.className = "option-link";
+            logoutLink.textContent = "Log Out";
+            logoutLink.style.backgroundColor = "#dc3545"; // Red color for the button
+            logoutLink.style.color = "white";
+
+            // Add click event to the "Log Out" link
+            logoutLink.addEventListener("click", function (e) {
+              e.preventDefault();
+              auth
+                .signOut()
+                .then(() => {
+                  // Sign-out successful.
+                  window.location.reload();
+                })
+                .catch((error) => {
+                  // An error happened.
+                  console.error("Error signing out:", error);
+                });
+            });
+
+            // Insert the "Log Out" link above the "Favorites" link
+            const favoritesLink = categories.querySelector(
+              'a[href="favs.html"]'
+            );
+            categories.insertBefore(logoutLink, favoritesLink);
+          } else {
+            // User is not signed in, display "Not logged in" and a "Log In" button
+
+            // Create a new userDetailsContainer
+            userDetailsContainer = document.createElement("div");
+            userDetailsContainer.className = "user-details-container";
+
+            // Create a container for the text
+            const notLoggedInContainer = document.createElement("div");
+            notLoggedInContainer.className = "username-container";
+
+            // Create the "Not logged in" text
+            const notLoggedInText = document.createElement("p");
+            notLoggedInText.className = "username-text";
+            notLoggedInText.textContent = "Not logged in";
+
+            // Append the text to the container
+            notLoggedInContainer.appendChild(notLoggedInText);
+
+            // Create the "Log In" button
+            const loginButton = document.createElement("button");
+            loginButton.textContent = "Log In";
+            loginButton.style.backgroundColor = "#007bff"; // Blue color
+            loginButton.style.color = "white";
+            loginButton.style.border = "none";
+            loginButton.style.padding = "10px 20px";
+            loginButton.style.fontSize = "16px";
+            loginButton.style.borderRadius = "5px";
+            loginButton.style.cursor = "pointer";
+            loginButton.style.marginTop = "5px";
+
+            // Add click event to the "Log In" button
+            loginButton.addEventListener("click", function () {
+              window.location.href = "login.html";
+            });
+
+            // Center the content
+            userDetailsContainer.style.display = "flex";
+            userDetailsContainer.style.flexDirection = "column";
+            userDetailsContainer.style.alignItems = "center";
+            userDetailsContainer.style.paddingBlock = "40px"; // Ensure consistent padding
+
+            // Append the text and button to the userDetailsContainer
+            userDetailsContainer.appendChild(notLoggedInContainer);
+            userDetailsContainer.appendChild(loginButton);
+
+            // Insert the userDetailsContainer at the top of the slideMenu
+            slideMenu.insertBefore(userDetailsContainer, categories);
+          }
+
+          // Add event listeners to the relevant buttons in the sliding menu
+          categories
+            .querySelector("#randomGame")
+            .addEventListener("click", function (e) {
+              e.preventDefault();
+              handleRandomGameClick();
+            });
+
+          categories
+            .querySelector("#blockLanschool")
+            .addEventListener("click", function (e) {
+              e.preventDefault();
+              handleBlockLanschoolClick();
+            });
+
+          // Define functions to handle button clicks
+          function handleRandomGameClick() {
+            // Implement your random game functionality here
+            console.log("Random Game button clicked");
+          }
+
+          function handleBlockLanschoolClick() {
+            // Implement your block Lanschool functionality here
+            console.log("Block Lanschool button clicked");
+          }
+
+          // Load card data and store gameCards for Random Game functionality
+          let gameCards = [];
+          async function loadCardData() {
+            try {
+              const response = await fetch("cards_data.html");
+              const text = await response.text();
+
+              // Create a temporary DOM element to parse the fetched HTML
+              const tempDiv = document.createElement("div");
+              tempDiv.innerHTML = text;
+
+              // Assuming each card has a class of 'card' in cards_data.html
+              const cards = tempDiv.querySelectorAll(".card");
+              cards.forEach((card) => {
+                gameCards.push(card);
+              });
+
+              // Enable random game functionality after cards are loaded
+              const randomGameButton = categories.querySelector("#randomGame");
+              randomGameButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                handleRandomGameClick();
+              });
+            } catch (error) {
+              console.error("Error loading card data:", error);
+            }
+          }
+
+          // Call the loadCardData function to populate gameCards
+          loadCardData();
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const discordLink = document.getElementById("discordLink");
+        const modal = document.getElementById("popupModal");
+        const closeModal = document.getElementById("closeModal");
+
+        discordLink.addEventListener("click", function () {
+          modal.style.display = "flex";
+        });
+
+        closeModal.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+
+        window.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector(".search-bar");
+        const searchResults = document.getElementById("searchResults");
+        let gameCards = []; // Array to hold game data
+
+        // Load card data from cards_data.html
+        async function loadCardData() {
+          try {
+            const response = await fetch("cards_data.html");
+            const text = await response.text();
+
+            // Create a temporary DOM element to parse the fetched HTML
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = text;
+
+            // Assuming each card has a class of 'card' in cards_data.html
+            const cards = tempDiv.querySelectorAll(".card");
+            cards.forEach((card) => {
+              const gameTitle = card.querySelector("figcaption").textContent;
+              const gameImage = card.querySelector("img").src;
+              const gameHref = card.getAttribute("href");
+
+              // Store the game info in the gameCards array
+              gameCards.push({
+                title: gameTitle,
+                image: gameImage,
+                href: gameHref,
+              });
+            });
+          } catch (error) {
+            console.error("Error loading card data:", error);
+          }
+        }
+
+        // Show results when the search bar is focused
+        searchInput.addEventListener("focus", function () {
+          searchResults.style.display = "block";
+          updateSearchResults(); // Call to display initial results (if any)
+        });
+
+        // Update the search results based on the input
+        searchInput.addEventListener("input", updateSearchResults);
+
+        // Hide results when clicking outside the search bar and results
+        document.addEventListener("click", function (event) {
+          if (
+            !searchInput.contains(event.target) &&
+            !searchResults.contains(event.target)
+          ) {
+            searchResults.style.display = "none";
+          }
+        });
+
+        // Function to update the search results
+        function updateSearchResults() {
+          const searchText = searchInput.value.toLowerCase();
+          const filteredCards = gameCards
+            .filter((card) => card.title.toLowerCase().includes(searchText)) // Filter based on title
+            .slice(0, 7); // Top 7 results
+
+          searchResults.innerHTML = ""; // Clear previous results
+          filteredCards.forEach((card) => {
+            const resultLink = document.createElement("a");
+            resultLink.href = card.href;
+            resultLink.innerHTML = `<img src="${card.image}" alt="${card.title}"><span>${card.title}</span>`;
+            searchResults.appendChild(resultLink);
+          });
+
+          // Show or hide the results container based on whether there are results
+          searchResults.style.display = filteredCards.length ? "block" : "none";
+        }
+
+        // Load card data when the page loads
+        loadCardData();
+      });
+    </script>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const randomGameButton = document.getElementById("randomGame");
+      const blockLanschoolButton = document.getElementById("blockLanschool");
+
+      let gameCards = []; // Array to hold all loaded game cards
+
+      // Load card data from cards_data.html
+      async function loadCardData() {
+        try {
+          const response = await fetch("cards_data.html");
+          const text = await response.text();
+
+          // Create a temporary DOM element to parse the fetched HTML
+          const tempDiv = document.createElement("div");
+          tempDiv.innerHTML = text;
+
+          // Assuming each card has a class of 'card' in cards_data.html
+          const cards = tempDiv.querySelectorAll(".card");
+          cards.forEach((card) => {
+            const gameTitle = card.querySelector("figcaption").textContent;
+            const gameImage = card.querySelector("img").src;
+            const gameHref = card.getAttribute("href");
+
+            // Store the game info in the gameCards array
+            gameCards.push(card);
+          });
+
+          // Add cards to the DOM (if needed)
+          const allGameList = document.getElementById("allGameList");
+          allGameList.append(...gameCards);
+
+          // Enable random game functionality after cards are loaded
+          enableRandomGameFeature();
+        } catch (error) {
+          console.error("Error loading card data:", error);
+        }
+      }
+
+      // Function to enable the Random Game button after cards are loaded
+      function enableRandomGameFeature() {
+        if (gameCards.length > 0) {
+          randomGameButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            const randomIndex = Math.floor(Math.random() * gameCards.length);
+            const randomCardHref = gameCards[randomIndex].getAttribute("href");
+            window.location.href = randomCardHref;
+          });
+        } else {
+          console.error("No game cards found to select a random game.");
+        }
+      }
+
+      // Load the card data after DOM is ready
+      loadCardData();
+
+      // Block Lanschool button event listener
+      blockLanschoolButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        var url = "https://strongdog.netlify.app";
+        var newTab = window.open();
+        newTab.document.write(`
+				<html>
+					<body style="margin: 0; height: 100vh;">
+						<iframe src="${url}" style="border: none; width: 100%; height: 100%;"></iframe>
+					</body>
+				</html>
+			`);
+        newTab.document.close();
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const page1Link = document.getElementById("page1-link");
+      const page2Link = document.getElementById("page2-link");
+
+      const hostname = window.location.hostname;
+
+      if (hostname.includes("github.io")) {
+        page1Link.href = "/#";
+        page2Link.href = "/strongdog2/index.html";
+      } else if (hostname.includes("vercel.app")) {
+        page1Link.href = "https://strongdog-1.vercel.app";
+        page2Link.href = "https://strongdog2.vercel.app";
+      } else if (hostname.includes("strongdog.netlify.app")) {
+        page1Link.href = "https://strongdog.netlify.app";
+        page2Link.href = "https://strongdog2.netlify.app";
+      } else if (hostname.includes("strongdog2.netlify.app")) {
+        page1Link.href = "https://strongdog.netlify.app";
+        page2Link.href = "https://strongdog2.netlify.app";
+      } else if (hostname.includes("mathcord.netlify.app")) {
+        page1Link.href = "https://mathcord.netlify.app";
+        page2Link.href = "https://mathcord2.netlify.app";
+      } else if (hostname.includes("mathcord2.netlify.app")) {
+        page1Link.href = "https://mathcord.netlify.app";
+        page2Link.href = "https://mathcord2.netlify.app";
+      } else if (hostname.includes("onrender.com")) {
+        page1Link.href = "https://strongdog.onrender.com";
+        page2Link.href = "https://strongdog2.onrender.com";
+      } else if (hostname.includes("stroongdog.netlify.app")) {
+        page1Link.href = "https://stroongdog.netlify.app";
+        page2Link.href = "https://stroongdog2.netlify.app";
+      } else if (hostname.includes("stroongdog2.netlify.app")) {
+        page1Link.href = "https://stroongdog.netlify.app";
+        page2Link.href = "https://stroongdog2.netlify.app";
+      }
+    });
+  </script>
+  <script>
+    document
+      .getElementById("secretLink")
+      .addEventListener("click", function () {
+        window.location.href = "secret-menu.html";
+      });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const discordLink = document.getElementById("discordLink");
+      const modal = document.getElementById("popupModal");
+      const closeModal = document.getElementById("closeModal");
+
+      discordLink.addEventListener("click", function () {
+        modal.style.display = "flex";
+      });
+
+      closeModal.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+
+      window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+  </script>
+</html>

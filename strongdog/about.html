@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <link href="index.css" rel="stylesheet"> Only for Scrimba Dev - James Meadows -->
+		<title>About - StrongDogXP</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" />
+		<style>
+			:root {
+			    --body-background-gradient: linear-gradient(30deg, #010101, #000000);
+			    --blob-1-gradient: linear-gradient(72deg, #ff2079, #0400eb);
+			    --blob-2-gradient: linear-gradient(0deg, #440bd4, #e92efb);
+			    --blob-3-gradient: linear-gradient(220deg, #ff2079, #0400eb);
+			    --frosted-glass-color: rgba(255, 255, 255, 0.05);
+			    --frosted-glass-border-color: rgba(255, 255, 255, 0.2);
+			    --text-color: rgba(255, 255, 255, 0.9);
+			    --link-color: #9178ff;
+			    --user-select-bg: ;
+			    --user-select-text-color: ;
+			}
+
+			body {
+			    margin: 0;
+			    padding: 0;
+			    font-family: 'Outfit', Tahoma, Geneva, Verdana, sans-serif;
+			    background: var(--body-background-gradient);
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			    background-attachment: fixed;
+			    color: var(--text-color);
+			    transition: 0.5s background;
+			}
+
+			a {
+			    color: var(--link-color);
+			}
+
+			.background-blobs {
+			    width: 100%;
+			    height: 100%;
+			    position: absolute;
+			    z-index: -1;
+			    overflow: hidden;
+			}
+
+			.blob-1 {
+			    filter: blur(140px);
+			    width: 44%;
+			    height: 57%;
+			    border-radius: 60% 20% 43% 46%;
+			    background-image: var(--blob-1-gradient);
+			    position: absolute;
+			    top: -5%;
+			    left: 0;
+			    animation: move linear 15s infinite;
+			}
+
+			.blob-2 {
+			    filter: blur(140px);
+			    width: 62%;
+			    height: 55%;
+			    border-radius: 70% 30% 53% 23%;
+			    background-image: var(--blob-2-gradient);
+			    position: absolute;
+			    right: 20%;
+			    bottom: -5%;
+			    animation: move linear 15s infinite;
+			}
+
+			.blob-3 {
+			    filter: blur(140px);
+			    width: 50%;
+			    height: 70%;
+			    border-radius: 60% 30% 50% 70% / 70% 40% 60% 50%;
+			    background-image: var(--blob-3-gradient);
+			    transform: rotate(180deg);
+			    position: absolute;
+			    right: 2%;
+			    top: 10%;
+			    animation: move-2 linear 15s infinite;
+			}
+			.logo {
+			    color: var(--text-color);
+			    font-weight: bold;
+			    font-size: 1.8rem;
+			    cursor: pointer;
+			}
+			.logo > .xp {
+			    margin-left: -3px;
+			    color: #ff8c00; /* Orange color for XP */
+			}
+			nav {
+			    display: flex;
+			    padding: 20px 40px;
+			    justify-content: space-between;
+			    align-items: center;
+			    background-color: var(--frosted-glass-color);
+			    border-bottom: 2px solid var(--frosted-glass-border-color);
+			    margin-bottom: 20px;
+			}
+			nav a {
+			    font-size: 1.2rem;
+			    text-decoration: none;
+			    padding: 15px;
+			    background-color: var(--frosted-glass-color);
+			    color: var(--text-color);
+			    border-radius: 10px;
+			    border: 2px solid var(--frosted-glass-border-color);
+			    transition: background-color 0.3s ease;
+			}
+			nav a:hover {
+			    background-color: rgba(255, 255, 255, 0.2);
+			}
+
+			#checkbox {
+			    display: none;
+			}
+
+			.dark-mode-toggle {
+			    padding: 0 4px;
+			    width: 80px;
+			    background-color: var(--frosted-glass-border-color);
+			    border-radius: 20px;
+			    height: 40px;
+			    display: flex;
+			    align-items: center;
+			    cursor: pointer;
+			}
+			.slider {
+			    cursor: pointer;
+			    width: 90px;
+			    height: 45px;
+			    border-radius: 23px;
+			    background-color: var(--frosted-glass-border-color);
+			    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+			    position: relative;
+			}
+			.slider::after {
+			    content: "";
+			    width: 37px;
+			    height: 37px;
+			    border-radius: 50%;
+			    background-image: var(--blob-3-gradient);
+			    position: absolute;
+			    left: 4px;
+			    top: 50%;
+			    transform: translateY(-50%);
+			    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+			    transition: 0.5s left ease-out;
+			}
+			#checkbox:checked ~ .slider::after {
+			    left: calc(100% - 41px);
+			}
+			.links {
+			    display: flex;
+			    gap: 0.6rem;
+			    align-items: center;
+			}
+			.links > a {
+			    text-align: center;
+			}
+			.content {
+			    max-width: 80%;
+				max-height: calc(100vh - 200px); /* - 200px because the height of the nav bar is around 200px */
+			    padding: 20px;
+			    background-color: var(--frosted-glass-color);
+			    border: 2px solid var(--frosted-glass-border-color);
+			    border-radius: 10px;
+			    margin-left: auto;
+			    margin-right: auto;
+			    overflow: auto; /* Enables scrolling */
+			    -ms-overflow-style: none;  /* Hide scrollbars in Internet Explorer and Edge */
+			    scrollbar-width: none;
+			}
+			.content::-webkit-scrollbar {
+			    display: none;
+			}
+			p {
+			    font-size: 20px;
+			    line-height: 1.4;
+			}
+			form {
+			    margin-top: 20px;
+			    padding: 20px;
+			    border-radius: 10px;
+			    background-color: var(--frosted-glass-color);
+			    border: 2px solid var(--frosted-glass-border-color);
+			}
+
+			.loading-container {
+			    position: absolute;
+			    top: 0;
+			    display: flex;
+			    flex-direction: column;
+			    width: 100%;
+			    height: 100%;
+			    justify-content: center;
+			    align-items: center;
+			}
+			.bars {
+			    display: flex;
+			    align-items: center;
+			}
+
+			h3 {
+			    color: var(--text-color);
+			}
+
+			h3::after {
+			    content: "";
+			    animation: animate-periods 4s infinite;
+			}
+
+			.bar {
+			    background-color: rgba(255, 255, 255, 0.3);
+			    width: 20px;
+			    height: 40px;
+			    margin-right: 5px;
+			    border-radius: 10px;
+			    animation: load ease infinite 5s;
+			}
+
+			.bar-2, .bar-4 {
+			    height: 50px;
+			}
+
+			.bar-2 {
+			    animation-delay: 0.1s;
+			}
+
+			.bar-3 {
+			    height: 60px;
+			    animation-delay: 0.2s;
+			}
+
+			.bar-4 {
+			    animation-delay: 0.3s;
+			}
+
+			.bar-5 {
+			    animation-delay: 0.4s;
+			}
+
+			@keyframes load {
+			    0%, 100% {
+			        transform: rotate(0deg);
+			    }
+			    50% {
+			        transform: rotate(720deg) rotateX(180deg);
+			    }
+			}
+
+			@keyframes animate-periods {
+			    0% {
+			        content: "";
+			        color: white;
+			    }
+			    25% {
+			        content: ".";
+			    }
+			    50% {
+			        content: "..";
+			    }
+			    75% {
+			        content: "...";
+			    }
+			}
+
+			#report-bug > p {
+			    margin-top: 0;
+			    margin-bottom: 30px;
+			}
+
+			#report-bug > h1 {
+			    margin-bottom: 10px;
+			}
+
+			input[type="text"], input[type="email"], textarea {
+			    font-family: inherit;
+			    width: 100%;
+			    padding: 13px 13px;
+			    margin: 10px 0;
+			    box-sizing: border-box;
+			    border: none;
+			    background-color: rgba(0, 0, 0, 0.3);
+			    color: inherit;
+			    transition: background-color 0.3s ease;
+			    border-radius: 10px;
+			}
+
+			input:hover, textarea:hover {
+			    background-color: rgba(0, 0, 0, 0.4);
+			}
+
+			input:focus, textarea:focus {
+			    outline: 3px solid rgba(0, 0, 0, 0.1);
+			}
+
+			textarea {
+			    overflow: auto;
+			    resize: none;
+			    line-height: 1.2;
+			}
+
+			::selection {
+			    color: rgba(0, 0, 0, 0.6);
+			    background-color: var(--frosted-glass-color);
+			}
+
+			button {
+			    background-color: rgba(0, 0, 0, 0.6);
+			    display: flex;
+			    justify-content: center;
+			    align-items: center;
+			    font-family: inherit;
+			    border: none;
+			    padding: 13px 20px;
+			    color: white;
+			    border-radius: 10px;
+			    cursor: pointer;
+			    transition: background-color 0.3s ease;
+			}
+
+			button:hover {
+			    background-color: rgba(0, 0, 0, 0.7);
+			}
+
+			@keyframes move {
+			    0%, 100% {
+			        transform: rotate(0deg) translate(0px, 0);
+			    }
+			    25% {
+			        transform: rotate(20deg) translate(140px, 0);
+			    }
+			    50% {
+			        transform: rotate(50deg) translate(130px, 45px);
+			    }
+			    75% {
+			        transform: rotate(35deg) translate(-60px, 145px);
+			    }
+			}
+
+			@keyframes move-2 {
+			    0%, 100% {
+			        transform: rotate(180deg) translate(0, 0);
+			    }
+			    25% {
+			        transform: translate(-60px, 0) rotate(200deg);
+			    }
+			    50% {
+			        transform: translate(-40px, -80px) rotate(190deg)
+			    }
+			    75% {
+			        transform: translate(-10px, -30px) rotate(170deg);
+			    }
+			}
+		</style>
+	</head>
+	<body>
+		<div class="background-blobs">
+			<div class="blob-1"></div>
+			<div class="blob-2"></div>
+			<div class="blob-3"></div>
+		</div>
+
+		<nav>
+			<div class="logo" onclick="window.location = 'index.html'">
+				StrongDog
+				<span class="xp">XP</span>
+			</div>
+			<div class="links">
+				<label for="checkbox">
+					<input type="checkbox" id="checkbox" />
+					<div class="slider"></div>
+				</label>
+				<a href="#" onclick="showSection('about')">About</a>
+				<a href="#" onclick="showSection('patches')">Updates</a>
+				<a href="#" onclick="showSection('report-bug')">Report a Bug</a>
+				<a href="#" onclick="showSection('request-game')">Request a Game</a>
+			</div>
+		</nav>
+
+		<div class="content" id="about">
+			<h1>Who Created StrongDogXP?</h1>
+			<p>
+				The current version of Strongdog was developed by Joshua Pettit (lead page developer and manager) and
+				James Meadows (Developer for mostly user interface and other random tasks). An earlier version was
+				created by Joshua Pettit and Maximus Weichers, who originally had the idea. We collaborated extensively,
+				but eventually, Max wanted to have more ownership over the domain (strongdog.com) and began removing
+				shared code. Trust issues arose, leading to Max's removal from the team. I retained his credit for his
+				contributions while I (Josh) revamped the site, overhauling all code, CSS, HTML, and JavaScript. The
+				only element I preserved was the game card format, as recreating it would be time-consuming.
+			</p>
+			<p>
+				Bus Games (designed by me, games added by Max and I):
+				<a href="https://jman1593.github.io/strongdog.github.io/" target="_blank">jman1593.github.io</a>
+			</p>
+			<p>
+				StrongdogXP V1 (designed by Max, games added by Max and I):
+				<a href="https://strongdog.vercel.app/" target="_blank">strongdog.vercel.app</a>
+			</p>
+			<p>
+				StrongdogXP V2 (designed by James Meadows and I, games added by me):
+				<a href="https://strongdog.netlify.app" target="_blank">strongdog.netlify.app</a>
+			</p>
+		</div>
+
+		<div class="content" id="patches" style="display:none;"></div>
+
+		<div class="content" id="report-bug" style="display:none;">
+			<h1>Report a Bug</h1>
+			<p>
+				If you've encountered a problem while using our site, please let us know! Fill out the form below to
+				report an issue.
+			</p>
+			<form id="bugReportForm">
+				<label for="name">Your Name:</label><br />
+				<input type="text" id="name" name="name" required /><br />
+				<label for="email">Your Email:</label><br />
+				<input type="email" id="email" name="email" required /><br />
+				<label for="description">Bug Description:</label><br />
+				<textarea id="description" name="description" rows="4" required></textarea><br />
+				<button type="submit">Submit Bug Report</button>
+			</form>
+		</div>
+
+		<div class="content" id="request-game" style="display:none;">
+			<h1>Request a Game</h1>
+			<p>
+				If you'd like to see a particular game added to our site, please let us know! Fill out the form below to
+				request a game.
+			</p>
+			<form id="gameRequestForm">
+				<label for="game-name">Your Name:</label><br />
+				<input type="text" id="game-name" name="name" required /><br />
+				<label for="game-email">Your Email:</label><br />
+				<input type="email" id="game-email" name="email" required /><br />
+				<label for="game-description">Game Link And Description:</label><br />
+				<textarea id="game-description" name="description" rows="4" required></textarea><br />
+				<button type="submit">Submit Game Request</button>
+			</form>
+		</div>
+
+		<div class="loading-container" style="display: none;">
+			<div class="bars">
+				<div class="bar bar-1"></div>
+				<div class="bar bar-2"></div>
+				<div class="bar bar-3"></div>
+				<div class="bar bar-4"></div>
+				<div class="bar bar-5"></div>
+			</div>
+			<h3>Submitting form</h3>
+		</div>
+		<script type="module">
+			import { updates } from "./about-page-data.js";
+			// The "reduce()" method is very concise and clean, but it isn't as efficient when dealing with a
+			// large array.
+			// Because of this, we'll be using the fastest method, just a classic C-style loop and
+			// pushing to an array, then using .join() (faster than += with a string)
+			// const updatesHTML = updates.reduce((acc, update) => acc += `<p>${update.date}: ${update.content}</p>`, "");
+			let updatesHTMLArray = ["<h1>Updates / Changelog</h1>"];
+			for (let i = 0; i < updates.length; ++i) {
+				updatesHTMLArray.push(`<p>${updates[i].date}: ${updates[i].content}</p>`);
+			}
+			const updatesHTMLStr = updatesHTMLArray.join("");
+			document.querySelector("#patches").innerHTML = updatesHTMLStr;
+		</script>
+		<script type="module">
+			import { modes } from "./about-page-data.js";
+			const sliderCheckbox = document.getElementById("checkbox");
+			const userPreference = localStorage.getItem("isDarkMode");
+
+			// Default to dark mode if no preference is set
+			if (userPreference === null || JSON.parse(userPreference) === true) {
+				enableDarkMode();
+				sliderCheckbox.checked = false;
+			} else {
+				enableLightMode();
+				sliderCheckbox.checked = true;
+			}
+
+			function setMultipleCSSProperties(element, properties) {
+				for (const [property, value] of Object.entries(properties)) {
+					element.style.setProperty(property, value);
+				}
+			}
+
+			sliderCheckbox.addEventListener("change", () => {
+				sliderCheckbox.checked ? enableLightMode() : enableDarkMode();
+			});
+
+			function enableDarkMode() {
+				setMultipleCSSProperties(document.documentElement, modes[1].properties);
+				localStorage.setItem("isDarkMode", JSON.stringify(true));
+			}
+
+			function enableLightMode() {
+				setMultipleCSSProperties(document.documentElement, modes[0].properties);
+				localStorage.setItem("isDarkMode", JSON.stringify(false));
+			}
+		</script>
+		<script>
+			function showSection(sectionId) {
+				let sections = document.querySelectorAll(".content");
+				sections.forEach(section => {
+					section.id === sectionId
+						? (document.getElementById(sectionId).style.display = "block")
+						: (section.style.display = "none");
+				});
+			}
+		</script>
+		<script>
+			const loadingAnimationEl = document.querySelector(".loading-container");
+			const formEl = document.querySelector("#report-bug");
+			document.getElementById("bugReportForm").addEventListener("submit", function (event) {
+				event.preventDefault(); // Prevent the default form submission
+
+				loadingAnimationEl.style.display = "flex";
+				formEl.style.display = "none";
+
+				var name = document.getElementById("name").value.trim();
+				var email = document.getElementById("email").value.trim();
+				var description = document.getElementById("description").value.trim();
+
+				if (!name || !email || !description) {
+					alert("Please fill in all fields.");
+					loadingAnimationEl.style.display = "none";
+					formEl.style.display = "block";
+					return;
+				}
+
+				fetch(
+					"https://script.google.com/macros/s/AKfycbw-x5nWKZtTRl2BprexAgs7hhbsNIWgT5cMwfwHpoZPwx0j_vTBn-8ONPuLyUJSGYf5gg/exec",
+					{
+						method: "POST",
+						contentType: "application/json",
+						body: JSON.stringify({
+							name: name,
+							email: email,
+							description: description,
+						}),
+					}
+				)
+					.then(response => response.json())
+					.then(data => {
+						loadingAnimationEl.style.display = "none";
+						formEl.style.display = "block";
+						alert("Bug report submitted. Thank you!");
+						document.getElementById("bugReportForm").reset(); // Reset the form after submission
+					})
+					.catch(error => console.error("Error:", error));
+			});
+
+			const gameFormEl = document.querySelector("#request-game");
+			document.getElementById("gameRequestForm").addEventListener("submit", function (event) {
+				event.preventDefault(); // Prevent the default form submission
+
+				loadingAnimationEl.style.display = "flex";
+				gameFormEl.style.display = "none";
+
+				var name = document.getElementById("game-name").value.trim();
+				var email = document.getElementById("game-email").value.trim();
+				var description = document.getElementById("game-description").value.trim();
+
+				if (!name || !email || !description) {
+					alert("Please fill in all fields.");
+					loadingAnimationEl.style.display = "none";
+					gameFormEl.style.display = "block";
+					return;
+				}
+
+				fetch(
+					"https://script.google.com/macros/s/AKfycbw-x5nWKZtTRl2BprexAgs7hhbsNIWgT5cMwfwHpoZPwx0j_vTBn-8ONPuLyUJSGYf5gg/exec",
+					{
+						method: "POST",
+						contentType: "application/json",
+						body: JSON.stringify({
+							name: name,
+							email: email,
+							description: description,
+						}),
+					}
+				)
+					.then(response => response.json())
+					.then(data => {
+						loadingAnimationEl.style.display = "none";
+						gameFormEl.style.display = "block";
+						alert("Game request submitted. Thank you!");
+						document.getElementById("gameRequestForm").reset(); // Reset the form after submission
+					})
+					.catch(error => console.error("Error:", error));
+			});
+		</script>
+	</body>
+</html>
