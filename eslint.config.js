@@ -5,7 +5,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist", "public/**", "strongdogxp/**", "src/data/games.ts"] },
+  { ignores: ["dist", "public/**", "strongdog/**", "topvaz66/**", "src/data/games.ts"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
