@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => ({
       filename: 'sw.ts',
       injectManifest: {
         // Exclude the massive game files from precaching
-        globIgnores: ['strongdog/**/*', 'topvaz66/**/*', '**/*.map', 'sitemap.xml', '**/node_modules/**/*', 'sw.js'],
+        globIgnores: ['**/*.map', 'sitemap.xml', '**/node_modules/**/*', 'sw.js'],
         maximumFileSizeToCacheInBytes: 5000000,
       },
       workbox: {
