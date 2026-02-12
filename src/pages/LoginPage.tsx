@@ -42,7 +42,6 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
 
-    // @ts-ignore - loginAnonymously is added to context but typescript might not see it yet if types aren't fully reloaded
     const result = await loginAnonymously();
 
     if (result.success) {
