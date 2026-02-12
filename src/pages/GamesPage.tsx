@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Flame, Sparkles, SortAsc, SortDesc, Ban } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Flame, Sparkles, SortAsc, SortDesc, Ban, ChevronDown } from "lucide-react";
 
 import { useProgression } from "@/contexts/ProgressionContext";
 import { Footer } from "@/components/Footer";
@@ -8,6 +8,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { games } from "@/data/games";
 import fallback from "@/assets/thumbnails/_fallback.png";
+
+const GAMES_PER_PAGE = 36;
 
 const GamesPage = () => {
   const [searchParams] = useSearchParams();
@@ -21,40 +23,50 @@ const GamesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState<'az' | 'za'>('az');
+  const [visibleCount, setVisibleCount] = useState(GAMES_PER_PAGE);
 
   // Filter Logic - map categories to tags
-  const filteredGames = games.filter((game) => {
-    const isBlocked = game.tags.includes("blocked");
+  const filteredGames = useMemo(() => {
+    return games.filter((game) => {
+      const isBlocked = game.tags.includes("blocked");
 
-    // CRITICAL: Hide blocked games UNLESS specific blocked category is active
-    if (activeCategory !== "blocked" && isBlocked) return false;
+      // CRITICAL: Hide blocked games UNLESS specific blocked category is active
+      if (activeCategory !== "blocked" && isBlocked) return false;
 
-    // If category is blocked, ONLY show blocked games
-    if (activeCategory === "blocked" && !isBlocked) return false;
+      // If category is blocked, ONLY show blocked games
+      if (activeCategory === "blocked" && !isBlocked) return false;
 
-    const matchesSearch = game.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = game.title.toLowerCase().includes(searchQuery.toLowerCase());
 
-    if (!matchesSearch) return false;
+      if (!matchesSearch) return false;
 
-    // Category matching (already handled blocked vs non-blocked above)
-    if (activeCategory === "blocked") return true; // We know it's blocked from above check
-    if (activeCategory === "all") return true;
+      // Category matching (already handled blocked vs non-blocked above)
+      if (activeCategory === "blocked") return true;
+      if (activeCategory === "all") return true;
 
-    return (
-      (activeCategory === "action" && game.tags.includes("action")) ||
-      (activeCategory === "racing" && game.tags.includes("racing")) ||
-      (activeCategory === "sports" && game.tags.includes("sports")) ||
-      (activeCategory === "strategy" && (game.tags.includes("puzzle") || game.tags.includes("strategy"))) ||
-      (activeCategory === "multiplayer" && game.tags.includes("multiplayer"))
-    );
-  }).sort((a, b) => {
-    if (sortBy === 'az') return a.title.localeCompare(b.title);
-    if (sortBy === 'za') return b.title.localeCompare(a.title);
-    return 0;
-  });
+      return (
+        (activeCategory === "action" && game.tags.includes("action")) ||
+        (activeCategory === "racing" && game.tags.includes("racing")) ||
+        (activeCategory === "sports" && game.tags.includes("sports")) ||
+        (activeCategory === "strategy" && (game.tags.includes("puzzle") || game.tags.includes("strategy"))) ||
+        (activeCategory === "multiplayer" && game.tags.includes("multiplayer"))
+      );
+    }).sort((a, b) => {
+      if (sortBy === 'az') return a.title.localeCompare(b.title);
+      if (sortBy === 'za') return b.title.localeCompare(a.title);
+      return 0;
+    });
+  }, [searchQuery, activeCategory, sortBy]);
+
+  // Reset visible count when filters change
+  React.useEffect(() => {
+    setVisibleCount(GAMES_PER_PAGE);
+  }, [searchQuery, activeCategory, sortBy]);
+
+  const visibleGames = filteredGames.slice(0, visibleCount);
 
   // Mock Data for Features
-  const validGames = games.filter(g => !g.tags.includes("blocked"));
+  const validGames = useMemo(() => games.filter(g => !g.tags.includes("blocked")), []);
   const trendingGames = validGames.slice(0, 5);
   const recommendedGames = validGames.slice(5, 10);
 
@@ -166,45 +178,62 @@ const GamesPage = () => {
         </div>
 
         {/* GAMES GRID */}
-        {filteredGames.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
-            {filteredGames.map((game, idx) => (
-              <motion.div
-                key={game.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: idx * 0.05 }}
-              >
-                <Link
-                  to={`/games/${game.id}`}
-                  className="group block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-orange-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.35),0_10px_40px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]"
+        {visibleGames.length > 0 ? (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+              {visibleGames.map((game, idx) => (
+                <motion.div
+                  key={game.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.05 }}
                 >
-                  <div className="aspect-square relative overflow-hidden">
-                    <img
-                      src={game.thumbnail || fallback}
-                      alt={`${game.title} - ${game.tags.join(', ')} game`}
-                      loading="lazy"
-                      decoding="async"
-                      width="300"
-                      height="300"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <Zap className="text-white fill-white" size={32} />
+                  <Link
+                    to={`/games/${game.id}`}
+                    className="group block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-orange-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.35),0_10px_40px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]"
+                  >
+                    <div className="aspect-square relative overflow-hidden">
+                      <img
+                        src={game.thumbnail || fallback}
+                        alt={`${game.title} - ${game.tags.join(', ')} game`}
+                        loading="lazy"
+                        decoding="async"
+                        width="300"
+                        height="300"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <Zap className="text-white fill-white" size={32} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-white truncate group-hover:text-orange-400 transition-colors">
-                      {game.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 capitalize mt-1">
-                      {game.tags[0]}
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                    <div className="p-4">
+                      <h3 className="font-bold text-white truncate group-hover:text-orange-400 transition-colors">
+                        {game.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 capitalize mt-1">
+                        {game.tags[0]}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {visibleGames.length < filteredGames.length && (
+              <div className="mt-12 text-center">
+                <button
+                  onClick={() => setVisibleCount(prev => prev + GAMES_PER_PAGE)}
+                  className="px-8 py-3 bg-[#1E1E24] hover:bg-[#2a2a35] text-white rounded-full font-bold border border-slate-700 transition-all hover:border-orange-500 flex items-center gap-2 mx-auto"
+                >
+                  Load More <ChevronDown size={18} />
+                </button>
+              </div>
+            )}
+
+            <p className="text-center text-slate-500 mt-6 text-sm">
+              Showing {visibleGames.length} of {filteredGames.length} games
+            </p>
+          </>
         ) : (
           <div className="text-center py-20">
             <Ghost className="mx-auto h-16 w-16 text-slate-600 mb-4" />

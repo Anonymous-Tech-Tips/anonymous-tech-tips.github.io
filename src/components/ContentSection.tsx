@@ -9,6 +9,7 @@ interface ContentItem {
   url?: string;
   utility?: "password" | "color" | "text" | "qr";
   guide?: string; // Internal guide identifier
+  cloakedUrl?: string; // URL to open in about:blank iframe
 }
 
 interface ContentSectionProps {
@@ -40,6 +41,21 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
     setSelectedGuide(guide);
   };
 
+  const handleCloakedClick = (url: string) => {
+    const win = window.open('about:blank', '_blank');
+    if (win) {
+      win.document.write(`
+        <!DOCTYPE html>
+        <html style="margin:0; height:100%; overflow:hidden;">
+          <body style="margin:0; height:100%; overflow:hidden;">
+            <iframe src="${url}" style="width:100%; height:100%; border:none;"></iframe>
+          </body>
+        </html>
+      `);
+      win.document.close();
+    }
+  };
+
   return (
     <>
       <section
@@ -53,18 +69,16 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
               size={32}
             />
             <h2
-              className={`text-3xl md:text-4xl font-rowdies font-bold ${
-                isAuthenticated ? "text-gamer-text" : "text-foreground"
-              }`}
+              className={`text-3xl md:text-4xl font-rowdies font-bold ${isAuthenticated ? "text-gamer-text" : "text-foreground"
+                }`}
             >
               {title}
             </h2>
           </div>
 
           <p
-            className={`text-lg mb-8 ${
-              isAuthenticated ? "text-gamer-muted" : "text-muted-foreground"
-            }`}
+            className={`text-lg mb-8 ${isAuthenticated ? "text-gamer-muted" : "text-muted-foreground"
+              }`}
           >
             {description}
           </p>
@@ -75,50 +89,54 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
               const itemUrl = typeof item === 'string' ? undefined : item.url;
               const itemUtility = typeof item === 'string' ? undefined : item.utility;
               const itemGuide = typeof item === 'string' ? undefined : item.guide;
+              const itemCloakedUrl = typeof item === 'string' ? undefined : item.cloakedUrl;
 
               return (
                 <div
                   key={index}
-                  className={`p-6 rounded-lg border transition-all duration-normal hover:scale-105 ${
-                    isAuthenticated
+                  className={`p-6 rounded-lg border transition-all duration-normal hover:scale-105 ${isAuthenticated
                       ? "bg-gamer-card border-gamer-border hover:border-gamer-accent hover:shadow-lg hover:shadow-gamer-accent/10"
                       : "bg-card border-border hover:border-primary hover:shadow-lg"
-                  }`}
+                    }`}
                 >
                   {itemUrl ? (
                     <a
                       href={itemUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`font-medium block ${
-                        isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
-                      }`}
+                      className={`font-medium block ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
+                        }`}
                     >
                       {itemText}
                     </a>
+                  ) : itemCloakedUrl ? (
+                    <button
+                      onClick={() => handleCloakedClick(itemCloakedUrl)}
+                      className={`font-medium text-left w-full ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
+                        }`}
+                    >
+                      {itemText}
+                    </button>
                   ) : itemUtility ? (
                     <button
                       onClick={() => handleUtilityClick(itemUtility)}
-                      className={`font-medium text-left w-full ${
-                        isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
-                      }`}
+                      className={`font-medium text-left w-full ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
+                        }`}
                     >
                       {itemText}
                     </button>
                   ) : itemGuide ? (
                     <button
                       onClick={() => handleGuideClick(itemGuide)}
-                      className={`font-medium text-left w-full ${
-                        isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
-                      }`}
+                      className={`font-medium text-left w-full ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
+                        }`}
                     >
                       {itemText}
                     </button>
                   ) : (
                     <p
-                      className={`font-medium ${
-                        isAuthenticated ? "text-gamer-text" : "text-foreground"
-                      }`}
+                      className={`font-medium ${isAuthenticated ? "text-gamer-text" : "text-foreground"
+                        }`}
                     >
                       {itemText}
                     </p>
