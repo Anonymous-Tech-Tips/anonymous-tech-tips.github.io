@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Flame, Sparkles, SortAsc, SortDesc, Ban, ChevronDown } from "lucide-react";
+import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Flame, Sparkles, SortAsc, SortDesc, Ban, ChevronDown, Coffee } from "lucide-react";
 
 import { useProgression } from "@/contexts/ProgressionContext";
 import { Footer } from "@/components/Footer";
@@ -45,11 +45,12 @@ const GamesPage = () => {
       if (activeCategory === "all") return true;
 
       return (
-        (activeCategory === "action" && game.tags.includes("action")) ||
-        (activeCategory === "racing" && game.tags.includes("racing")) ||
+        (activeCategory === "action" && (game.tags.includes("Action") || game.tags.includes("Shooting"))) ||
+        (activeCategory === "racing" && (game.tags.includes("racing") || game.tags.includes("Driving"))) ||
         (activeCategory === "sports" && game.tags.includes("sports")) ||
-        (activeCategory === "strategy" && (game.tags.includes("puzzle") || game.tags.includes("strategy"))) ||
-        (activeCategory === "multiplayer" && game.tags.includes("multiplayer"))
+        (activeCategory === "strategy" && (game.tags.includes("Puzzle") || game.tags.includes("Strategy"))) ||
+        (activeCategory === "casual" && (game.tags.includes("Casual") || game.tags.includes("Arcade"))) ||
+        (activeCategory === "multiplayer" && game.tags.includes("Multiplayer"))
       );
     }).sort((a, b) => {
       if (sortBy === 'az') return a.title.localeCompare(b.title);
@@ -76,6 +77,7 @@ const GamesPage = () => {
     { id: "racing", label: "Racing", icon: Car },
     { id: "sports", label: "Sports", icon: Trophy },
     { id: "strategy", label: "Strategy & Puzzle", icon: Brain },
+    { id: "casual", label: "Casual", icon: Coffee },
     { id: "multiplayer", label: "Multiplayer", icon: Ghost },
     { id: "blocked", label: "Blocked", icon: Ban },
   ];
