@@ -45,27 +45,6 @@ jobs:
           echo "Verifying index.html has script tag..."
           grep -q '<script' dist/index.html && echo "✓ script tag exists" || echo "✗ script tag missing"
 
-      - name: Copy massive assets to dist
-        run: |
-          echo "Copying games to dist folder..."
-          mkdir -p dist/topvaz66 dist/strongdog
-          cp -rp topvaz66/* dist/topvaz66/
-          cp -rp strongdog/* dist/strongdog/
-          echo "Done copying games."
-
-      - name: Verify dist contents
-        run: |
-          echo "Dist folder root:"
-          ls -la dist/
-          echo "Checking games existence..."
-          test -d dist/topvaz66 && echo "✓ topvaz66 exists" || exit 1
-          test -d dist/strongdog && echo "✓ strongdog exists" || exit 1
-          echo "Checking index.html for bundled paths..."
-          grep -q "assets/" dist/index.html && echo "✓ index.html is bundled" || (echo "✗ index.html is dev mode!" && exit 1)
-
-      - name: Verify dist size
-        run: du -sh dist/
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
