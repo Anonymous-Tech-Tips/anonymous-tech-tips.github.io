@@ -46,7 +46,7 @@ export default defineConfig(({ mode }) => ({
       }
     })
   ].filter(Boolean),
-  publicDir: false,  // Don't copy public/ to dist - games stay in gh-pages
+  // publicDir: false,  // TEMP: Enable to deploy recovered SWF files
   build: {
     outDir: "dist",
     assetsDir: "assets",
