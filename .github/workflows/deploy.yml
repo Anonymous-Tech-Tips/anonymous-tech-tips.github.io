@@ -45,11 +45,24 @@ jobs:
           echo "Verifying index.html has script tag..."
           grep -q '<script' dist/index.html && echo "✓ script tag exists" || echo "✗ script tag missing"
 
+      - name: Copy essential public assets (exclude games)
+        run: |
+          echo "Copying non-game public assets to dist..."
+          # Copy thumbnails, icons, and other essential assets
+          mkdir -p dist/img
+          cp -r public/img/* dist/img/ 2>/dev/null || true
+          cp public/sitemap.xml dist/ 2>/dev/null || true
+          cp public/*.png dist/ 2>/dev/null || true
+          cp public/*.ico dist/ 2>/dev/null || true
+          echo "✓ Essential assets copied"
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: dist
-          clean: true
+          clean: false  # Don't delete existing files (preserves games)
+          clean-exclude: |
+            games/**
           single-commit: false
