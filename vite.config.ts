@@ -1,6 +1,8 @@
-import { defineConfig } from "vite";
+import { defineConfig, ViteDevServer, Connect } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "node:path";
+import fs from "node:fs";
+import http from "node:http";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -17,7 +19,13 @@ export default defineConfig(({ mode }) => ({
       filename: 'sw.ts',
       injectManifest: {
         // Exclude the massive game files from precaching
-        globIgnores: ['**/*.map', 'sitemap.xml', '**/node_modules/**/*', 'sw.js'],
+        globIgnores: [
+          '**/*.map',
+          'sitemap.xml',
+          '**/node_modules/**/*',
+          'sw.js',
+          'games/**/*'  // Exclude all game files from precaching
+        ],
         maximumFileSizeToCacheInBytes: 5000000,
       },
       workbox: {
@@ -60,6 +68,46 @@ export default defineConfig(({ mode }) => ({
       }
     }
   },
-  server: { host: "::", port: 8080 },
+  server: {
+    host: "::",
+    port: 8080,
+    fs: {
+      allow: [
+        '.',
+        path.resolve(__dirname, 'strongdog'),
+        path.resolve(__dirname, 'topvaz66')
+      ]
+    },
+    configureServer(server: ViteDevServer) {
+      server.middlewares.use((req: Connect.IncomingMessage, res: http.ServerResponse, next: Connect.NextFunction) => {
+        if (req.url && (req.url.startsWith('/strongdog/') || req.url.startsWith('/topvaz66/'))) {
+          const filePath = path.join(__dirname, req.url.split('?')[0]);
+          if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+            res.setHeader('Content-Type', getMimeType(filePath));
+            res.end(fs.readFileSync(filePath));
+            return;
+          }
+        }
+        next();
+      });
+    }
+  },
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
 }));
+
+function getMimeType(filePath: string): string {
+  const ext = path.extname(filePath).toLowerCase();
+  const types: Record<string, string> = {
+    '.html': 'text/html',
+    '.js': 'application/javascript',
+    '.css': 'text/css',
+    '.json': 'application/json',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.gif': 'image/gif',
+    '.svg': 'image/svg+xml',
+    '.wasm': 'application/wasm',
+  };
+  return types[ext] || 'application/octet-stream';
+}
