@@ -36,42 +36,13 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
   // STRATEGY B: THE "BLACK BOX" CLOAK (For Slides, Games, Proxies)
   // This hides the URL in the address bar (stays as about:blank)
   // AND prevents rivals from right-clicking to inspect the iframe source.
+  // STRATEGY B: THE "BLACK BOX" CLOAK (For Slides, Games, Proxies)
+  // We use a dedicated sandbox file to ensure the origin is correct (localhost/domain)
+  // This fixes issues with TurboWarp/Cloud Data blocking 'about:blank' (null origin).
   else {
-    win.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Classroom Activity</title>
-          <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
-            iframe { width: 100vw; height: 100vh; border: none; display: block; position: absolute; top: 0; left: 0; }
-          </style>
-          <script>
-            // 🛡️ ANTI-THEFT PROTECTION 🛡️
-            
-            // 1. Disable Right Click
-            document.addEventListener('contextmenu', event => event.preventDefault());
-            
-            // 2. Disable F12, Ctrl+Shift+I, Ctrl+U (View Source)
-            document.onkeydown = function(e) {
-              if(event.keyCode == 123) { return false; }
-              if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
-              if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
-              if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { false; }
-              if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
-            }
-
-            // 3. Console Warning (Psychological Warfare)
-            console.log("%c STOP!", "color: red; font-size: 50px; font-weight: bold;");
-            console.log("%c This source code is protected. Access attempts are logged.", "color: white; font-size: 20px;");
-          </script>
-        </head>
-        <body>
-          <iframe src="${url}" allowfullscreen></iframe>
-        </body>
-      </html>
-    `);
+    // We can't write to the document if we want to keep the origin.
+    // So we open the sandbox.html file which contains the iframe logic.
+    win.location.href = `/sandbox.html?url=${encodeURIComponent(url)}`;
   }
   win.document.close();
 }
