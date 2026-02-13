@@ -45,16 +45,6 @@ jobs:
           echo "Verifying index.html has script tag..."
           grep -q '<script' dist/index.html && echo "✓ script tag exists" || echo "✗ script tag missing"
 
-      - name: Copy public assets (excluding games)
-        run: |
-          echo "Copying public assets to dist..."
-          # Copy everything from public except games directory
-          rsync -av --exclude='games' public/ dist/
-          echo "Copying games separately..."
-          # Copy games to dist
-          cp -r public/games dist/
-          echo "Done copying assets."
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:

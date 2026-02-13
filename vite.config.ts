@@ -66,9 +66,7 @@ export default defineConfig(({ mode }) => ({
           'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage']
         }
       }
-    },
-    // Exclude games from being copied to dist - they'll be added by deploy workflow
-    copyPublicDir: false
+    }
   },
   server: {
     host: "::",
