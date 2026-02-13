@@ -62,11 +62,13 @@ export default defineConfig(({ mode }) => ({
         // Manual chunks for better code splitting
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['framer-motion', 'lucide-react'],
-          'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
+          'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage']
         }
       }
-    }
+    },
+    // Exclude games from being copied to dist - they'll be added by deploy workflow
+    copyPublicDir: false
   },
   server: {
     host: "::",
