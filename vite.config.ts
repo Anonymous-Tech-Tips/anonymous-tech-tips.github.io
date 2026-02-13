@@ -46,7 +46,7 @@ export default defineConfig(({ mode }) => ({
       }
     })
   ].filter(Boolean),
-  // publicDir: false,  // TEMP: Enable to deploy recovered SWF files
+  publicDir: false,  // Optimized: Disable default public copying to avoid 1GB bloat. Essential assets are copied via workflow.
   build: {
     outDir: "dist",
     assetsDir: "assets",
