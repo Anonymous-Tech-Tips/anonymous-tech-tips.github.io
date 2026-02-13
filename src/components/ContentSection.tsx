@@ -10,6 +10,7 @@ interface ContentItem {
   utility?: "password" | "color" | "text" | "qr";
   guide?: string; // Internal guide identifier
   cloakedUrl?: string; // URL to open in about:blank iframe
+  highlight?: boolean; // Special emphasis for premium items
 }
 
 interface ContentSectionProps {
@@ -90,13 +91,16 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
               const itemUtility = typeof item === 'string' ? undefined : item.utility;
               const itemGuide = typeof item === 'string' ? undefined : item.guide;
               const itemCloakedUrl = typeof item === 'string' ? undefined : item.cloakedUrl;
+              const itemHighlight = typeof item === 'string' ? undefined : item.highlight;
 
               return (
                 <div
                   key={index}
                   className={`p-6 rounded-lg border transition-all duration-normal hover:scale-105 ${isAuthenticated
-                      ? "bg-gamer-card border-gamer-border hover:border-gamer-accent hover:shadow-lg hover:shadow-gamer-accent/10"
-                      : "bg-card border-border hover:border-primary hover:shadow-lg"
+                    ? itemHighlight
+                      ? "bg-gamer-card border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:border-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.4)]"
+                      : "bg-gamer-card border-gamer-border hover:border-gamer-accent hover:shadow-lg hover:shadow-gamer-accent/10"
+                    : "bg-card border-border hover:border-primary hover:shadow-lg"
                     }`}
                 >
                   {itemUrl ? (
@@ -104,7 +108,7 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
                       href={itemUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`font-medium block ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
+                      className={`font-medium block ${isAuthenticated ? (itemHighlight ? "text-amber-400 font-bold tracking-wide" : "text-gamer-text hover:text-gamer-accent") : "text-foreground hover:text-primary"
                         }`}
                     >
                       {itemText}
@@ -112,9 +116,10 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
                   ) : itemCloakedUrl ? (
                     <button
                       onClick={() => handleCloakedClick(itemCloakedUrl)}
-                      className={`font-medium text-left w-full ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
+                      className={`font-medium text-left w-full ${isAuthenticated ? (itemHighlight ? "text-amber-400 font-bold tracking-wide flex items-center gap-2" : "text-gamer-text hover:text-gamer-accent") : "text-foreground hover:text-primary"
                         }`}
                     >
+                      {itemHighlight && <span className="animate-pulse">🔥</span>}
                       {itemText}
                     </button>
                   ) : itemUtility ? (
