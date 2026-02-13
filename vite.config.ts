@@ -46,7 +46,8 @@ export default defineConfig(({ mode }) => ({
       }
     })
   ].filter(Boolean),
-  publicDir: false,  // Don't copy public/ to dist - games stay in gh-pages
+  // TEMP: Comment out to deploy games once, then re-enable
+  // publicDir: false,  // Don't copy public/ to dist - games stay in gh-pages
   build: {
     outDir: "dist",
     assetsDir: "assets",
