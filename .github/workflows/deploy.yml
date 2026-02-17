@@ -50,7 +50,9 @@ jobs:
           echo "Copying non-game public assets to dist..."
           # Copy thumbnails, icons, and other essential assets
           mkdir -p dist/img
+          mkdir -p dist/games/img
           cp -r public/img/* dist/img/ 2>/dev/null || true
+          cp -r public/games/img/* dist/games/img/ 2>/dev/null || true
           cp public/sitemap.xml dist/ 2>/dev/null || true
           cp public/*.png dist/ 2>/dev/null || true
           cp public/*.ico dist/ 2>/dev/null || true
