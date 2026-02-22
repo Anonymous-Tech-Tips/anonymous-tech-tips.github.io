@@ -139,6 +139,8 @@ const NerdStats = ({ result }: { result: EngineOutput }) => {
         { label: "Morning Snow %", value: metrics.morning_fraction },
         { label: "Min Temp", value: `${metrics.min_temp_f}°F` },
         { label: "Max Gust", value: `${metrics.max_gust_mph} mph` },
+        { label: "Snow Budget Used", value: metrics.budget_ratio, warn: parseFloat(metrics.budget_ratio) >= 100 },
+        { label: "Delay Budget Used", value: metrics.delay_ratio, warn: parseFloat(metrics.delay_ratio) >= 100 },
         { label: "NWS Hazard Level", value: metrics.nws_hazard_level, warn: ["Warning", "Emergency"].includes(metrics.nws_hazard_level) },
         { label: "NWS Official PoP", value: metrics.nws_pop },
         { label: "Tree 1 (Snow/Temp)", value: metrics.tree1_snow },
@@ -330,11 +332,10 @@ export const SnowDayPredictor = () => {
                             <Select value={factors.roadStatus} onValueChange={(v) => setFactors({ ...factors, roadStatus: v })}>
                                 <SelectTrigger className="bg-white/5 border-white/10 h-8 text-xs font-bold"><SelectValue /></SelectTrigger>
                                 <SelectContent className="bg-slate-900 text-white border-white/10">
-                                    <SelectItem value="clear">Clear</SelectItem>
+                                    <SelectItem value="clear">Treated / Plowed</SelectItem>
                                     <SelectItem value="normal">Normal</SelectItem>
-                                    <SelectItem value="spotty">Spotty Ice</SelectItem>
                                     <SelectItem value="unplowed">Unplowed</SelectItem>
-                                    <SelectItem value="icy">Severe Icing</SelectItem>
+                                    <SelectItem value="icy">Icy</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
