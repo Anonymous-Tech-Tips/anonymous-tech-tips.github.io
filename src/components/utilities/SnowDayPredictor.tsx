@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { WeatherService, NWSGridpointData } from "@/services/WeatherService";
 import { runSnowDayEngine, runWeekOutlook, DISTRICTS, EngineOutput, PredictionVerdict } from "@/services/snowDayEngine";
+import { HistoryService } from "@/services/HistoryService";
 import { motion, AnimatePresence } from "framer-motion";
 import { FallingSnow } from "@/components/FallingSnow";
 
@@ -218,8 +219,14 @@ export const SnowDayPredictor = () => {
     const [selectedDistrict, setSelectedDistrict] = useState(DISTRICTS[0]);
     const [rawWeather, setRawWeather] = useState<any>(null);
     const [gridpointData, setGridpointData] = useState<NWSGridpointData | null>(null);
+    const [officialStatus, setOfficialStatus] = useState<string | null>(null);
 
-
+    const checkOfficialStatus = async (districtId: string, dayOffset: number) => {
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + dayOffset);
+        const status = await HistoryService.getOfficialStatus(districtId, targetDate);
+        setOfficialStatus(status);
+    };
 
     const handlePredict = async () => {
         setLoading(true);
@@ -251,6 +258,8 @@ export const SnowDayPredictor = () => {
 
             setResult(prediction);
             setWeekOutlook(outlook);
+
+            await checkOfficialStatus(selectedDistrict.id, dayIndex);
         } catch (err: any) {
             setError(err.message || "Something went wrong. Try again!");
         } finally {
@@ -267,15 +276,35 @@ export const SnowDayPredictor = () => {
         const outlook = runWeekOutlook(rawWeather, alerts, selectedDistrict, hl, pop);
         setResult(prediction);
         setWeekOutlook(outlook);
+        checkOfficialStatus(selectedDistrict.id, dayIndex);
     }, [dayIndex, selectedDistrict]);
 
     const verdictCfg = result ? VERDICT_CONFIG[result.verdict] : null;
+    const isStatusActive = officialStatus && officialStatus !== "On time" && officialStatus !== "Unknown";
 
     return (
         <div className="w-full bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 font-sans shadow-indigo-900/20">
             <FallingSnow count={40} />
 
             <div className="relative z-10 p-6 md:p-10 min-h-[600px] flex flex-col">
+
+                {/* OFFICIAL STATUS BANNER */}
+                <AnimatePresence>
+                    {isStatusActive && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="bg-red-600/90 text-white p-4 rounded-xl mb-6 border border-red-400 shadow-[0_0_30px_rgba(220,38,38,0.4)] flex items-center justify-center gap-3 backdrop-blur-sm"
+                        >
+                            <AlertTriangle className="w-5 h-5 animate-pulse" />
+                            <div className="font-bold text-sm md:text-base">
+                                <span className="uppercase tracking-widest opacity-80 mr-2 text-xs">OFFICIAL UPDATE:</span>
+                                {selectedDistrict.id} is {officialStatus}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* HEADER */}
                 <div className="flex justify-between items-start mb-8 border-b border-white/10 pb-6">
