@@ -237,11 +237,11 @@ export const SnowDayPredictor = () => {
         setGridpointData(null);
 
         try {
-            const { lat, lon } = selectedDistrict;
+            const zones = selectedDistrict.zones;
             const [weather, fetchedAlerts, gridpoint] = await Promise.all([
-                WeatherService.getWinterWeather(lat, lon),
-                WeatherService.getActiveAlerts(lat, lon),
-                WeatherService.getNWSGridpointData(lat, lon),
+                WeatherService.getZonalWeather(zones),
+                WeatherService.getZonalAlerts(zones),
+                WeatherService.getZonalGridpointData(zones),
             ]);
 
             if (!weather) throw new Error("Weather data returned empty.");

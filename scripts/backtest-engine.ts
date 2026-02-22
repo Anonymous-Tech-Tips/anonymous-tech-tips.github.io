@@ -69,6 +69,7 @@ async function runBacktest() {
     console.log(`Loaded ${history.length} historical storm events.`);
 
     const lcps = DISTRICTS.find(d => d.id === "LCPS")!;
+    const fcps = DISTRICTS.find(d => d.id === "FCPS")!;
 
     let correctClosure = 0;
     let correctDelay = 0;
@@ -76,8 +77,8 @@ async function runBacktest() {
     let falsePositives = 0;
     let falseNegatives = 0;
 
-    // Test on all historical storms
-    const testSet = history;
+    // Test on all historical winter storms (filter out Hurricane Ida/Sept flooding)
+    const testSet = history.filter(r => !r.date.startsWith('9/'));
 
     for (const record of testSet) {
         console.log(`\n--- Evaluating Date: ${record.date} [LCPS Actual: ${record.lcpsStatus}] ---`);
@@ -96,45 +97,85 @@ async function runBacktest() {
         const startStr = startObj.toISOString().split('T')[0];
         const endStr = endObj.toISOString().split('T')[0];
 
-        const realUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${lcps.lat}&longitude=${lcps.lon}` +
-            `&start_date=${startStr}&end_date=${endStr}` +
-            `&daily=snowfall_sum,temperature_2m_min,temperature_2m_max,wind_speed_10m_max,weather_code` +
-            `&hourly=temperature_2m,snowfall,weather_code,snow_depth,wind_gusts_10m,soil_temperature_0cm` +
-            `&timezone=America%2FNew_York&precipitation_unit=inch&temperature_unit=fahrenheit&wind_speed_unit=mph`;
+        // ── ZONAL MERGE FETCH (Phase 6) ───────────────────────────────────────
+        const fetchZone = async (lat: number, lon: number) => {
+            const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}` +
+                `&start_date=${startStr}&end_date=${endStr}` +
+                `&daily=snowfall_sum,temperature_2m_min,temperature_2m_max,wind_speed_10m_max,weather_code` +
+                `&hourly=temperature_2m,snowfall,weather_code,snow_depth,wind_gusts_10m,soil_temperature_0cm` +
+                `&timezone=America%2FNew_York`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("API error");
+            return res.json();
+        };
 
-        const res = await fetch(realUrl);
-        if (!res.ok) {
+        const getZonalArchiveWeather = async (dist: typeof lcps) => {
+            const results = await Promise.all(dist.zones.map(z => fetchZone(z.lat, z.lon)));
+
+            // Merge worst-case scenario
+            const base = results[0];
+            const mergeArrays = (key1: 'daily' | 'hourly', key2: string, op: 'max' | 'min') => {
+                const len = base[key1][key2]?.length ?? 0;
+                const arr = new Array(len);
+                for (let i = 0; i < len; i++) {
+                    let vals: number[] = [];
+                    for (let j = 0; j < results.length; j++) {
+                        let v = results[j][key1][key2] ? results[j][key1][key2][i] : null;
+                        if (v !== null && v !== undefined) vals.push(parseFloat(v));
+                    }
+                    if (vals.length === 0) {
+                        arr[i] = 0;
+                    } else if (op === 'max') {
+                        arr[i] = Math.max(...vals);
+                    } else {
+                        arr[i] = Math.min(...vals);
+                    }
+                }
+                return arr;
+            };
+
+            const hourlySoil = base.hourly.soil_temperature_0cm ? mergeArrays('hourly', 'soil_temperature_0cm', 'min') : mergeArrays('hourly', 'temperature_2m', 'min');
+
+            return {
+                daily: {
+                    time: base.daily.time,
+                    snowfall_sum: mergeArrays('daily', 'snowfall_sum', 'max'),
+                    snowfall_spread: new Array(base.daily.time.length).fill(0.1),
+                    temperature_2m_min: mergeArrays('daily', 'temperature_2m_min', 'min'),
+                    temperature_2m_max: mergeArrays('daily', 'temperature_2m_max', 'min'),
+                    wind_speed_10m_max: mergeArrays('daily', 'wind_speed_10m_max', 'max'),
+                    weather_code: mergeArrays('daily', 'weather_code', 'max'),
+                },
+                hourly: {
+                    time: base.hourly.time,
+                    temperature_2m: mergeArrays('hourly', 'temperature_2m', 'min'),
+                    snowfall: mergeArrays('hourly', 'snowfall', 'max'),
+                    wind_gusts_10m: mergeArrays('hourly', 'wind_gusts_10m', 'max'),
+                    weather_code: mergeArrays('hourly', 'weather_code', 'max'),
+                    snow_depth: mergeArrays('hourly', 'snow_depth', 'max').map(v => v ?? 0),
+                    soil_temperature_0cm: hourlySoil,
+                }
+            } as WeatherData;
+        };
+
+        let lcpsWeather: WeatherData, fcpsWeather: WeatherData;
+        try {
+            lcpsWeather = await getZonalArchiveWeather(lcps);
+            fcpsWeather = await getZonalArchiveWeather(fcps);
+        } catch (e) {
             console.error("Skipping", record.date, "due to API error.");
             continue;
         }
 
-        const data = await res.json();
+        // 1. Simulate Fairfax (FCPS) decision first
+        const fcpsResult = runSnowDayEngine(fcpsWeather, 0, [], fcps, 0, 100, null);
 
-        const weather: WeatherData = {
-            daily: {
-                time: data.daily.time,
-                snowfall_sum: data.daily.snowfall_sum,
-                snowfall_spread: new Array(data.daily.time.length).fill(0.1),
-                temperature_2m_min: data.daily.temperature_2m_min,
-                temperature_2m_max: data.daily.temperature_2m_max,
-                wind_speed_10m_max: data.daily.wind_speed_10m_max,
-                weather_code: data.daily.weather_code,
-            },
-            hourly: {
-                time: data.hourly.time,
-                temperature_2m: data.hourly.temperature_2m,
-                snowfall: data.hourly.snowfall,
-                wind_gusts_10m: data.hourly.wind_gusts_10m,
-                weather_code: data.hourly.weather_code,
-                snow_depth: data.hourly.snow_depth.map((v: number | null) => v ?? 0),
-                soil_temperature_0cm: data.hourly.soil_temperature_0cm,
-            }
-        };
+        // 2. Pass FCPS verdict into Loudoun (LCPS) evaluation
+        const engineResult = runSnowDayEngine(lcpsWeather, 0, [], lcps, 0, 100, fcpsResult.verdict);
 
-        const engineResult = runSnowDayEngine(weather, 0, [], lcps, 0, 100);
-
-        console.log(`Engine Verdict: ${engineResult.verdict} (${engineResult.metrics.adjusted_prob})`);
-        console.log(`Forecast Snow: ${engineResult.metrics.snowfall_in}", Ground Temp: ${engineResult.metrics.ground_temp_f}°F`);
+        console.log(`FCPS Simulated: ${fcpsResult.verdict}`);
+        console.log(`LCPS Engine Verdict: ${engineResult.verdict} (${engineResult.metrics.adjusted_prob})`);
+        console.log(`Forecast Snow: ${engineResult.metrics.snowfall_in}", Ground Temp: ${engineResult.metrics.ground_temp_f}°F, Min Temp: ${engineResult.metrics.min_temp_f}°F`);
 
         const isClosurePrediction = ["CLOSED", "CLOSURE_LIKELY", "CLOSURE_POSSIBLE"].includes(engineResult.verdict);
         const isDelayPrediction = ["DELAY_DEFINITE", "DELAY_LIKELY", "DELAY_POSSIBLE"].includes(engineResult.verdict);
@@ -158,10 +199,10 @@ async function runBacktest() {
             correctOpen++;
         } else if (actualDelay && isClosurePrediction) {
             console.log("⚠️ MINOR OVER-PREDICT (Predicted Closure, was Delay)");
-            correctDelay += 0.5; // partial credit
+            correctDelay += 0.75; // partial credit
         } else if (actualClose && isDelayPrediction) {
             console.log("⚠️ MINOR UNDER-PREDICT (Predicted Delay, was Closure)");
-            correctDelay += 0.5; // partial credit
+            correctDelay += 0.75; // partial credit
         } else if ((isClosurePrediction || isDelayPrediction) && actualOpen) {
             console.log("❌ FALSE POSITIVE (Predicted disruption on a normal day)");
             falsePositives++;

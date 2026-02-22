@@ -27,8 +27,7 @@ import { WeatherData } from "./WeatherService";
 export interface DistrictProfile {
     id: string;
     name: string;
-    lat: number;
-    lon: number;
+    zones: { name: string; lat: number; lon: number }[];
     // Walk-forward derived closure thresholds (inches)
     closureThreshIn: number;   // mean + 1*std (P(close|snow) > 50%)
     closureCertain: number;    // mean + 2*std (P(close|snow) > 90%)
@@ -54,7 +53,10 @@ export const DISTRICTS: DistrictProfile[] = [
     {
         id: "LCPS",
         name: "Loudoun County (LCPS)",
-        lat: 39.0438, lon: -77.4874,
+        zones: [
+            { name: "Ashburn (East)", lat: 39.0438, lon: -77.4874 },
+            { name: "Purcellville (West)", lat: 39.1345, lon: -77.7144 }
+        ],
         closureThreshIn: 2.8,
         closureCertain: 5.6,
         delayThreshIn: 1.4,
@@ -66,7 +68,10 @@ export const DISTRICTS: DistrictProfile[] = [
     {
         id: "FCPS",
         name: "Fairfax County (FCPS)",
-        lat: 38.8462, lon: -77.3064,
+        zones: [
+            { name: "Fairfax (East)", lat: 38.8462, lon: -77.3064 },
+            { name: "Centreville (West)", lat: 38.8404, lon: -77.4291 }
+        ],
         closureThreshIn: 3.2,
         closureCertain: 6.0,
         delayThreshIn: 1.6,
@@ -78,7 +83,10 @@ export const DISTRICTS: DistrictProfile[] = [
     {
         id: "PWCS",
         name: "Prince William (PWCS)",
-        lat: 38.7428, lon: -77.3298,
+        zones: [
+            { name: "Woodbridge (East)", lat: 38.6582, lon: -77.2497 },
+            { name: "Haymarket (West)", lat: 38.8118, lon: -77.6368 }
+        ],
         closureThreshIn: 2.6,
         closureCertain: 5.0,
         delayThreshIn: 1.2,
@@ -94,6 +102,7 @@ export const DISTRICTS: DistrictProfile[] = [
 // ─────────────────────────────────────────────────────────────────────────────
 export interface SnowFeatures {
     snowfall_in: number;           // Ensemble-avg forecast snowfall
+    yesterday_snow_in: number; // Used for the 48-Hour clear roads rule
     model_spread_in: number;       // GFS/GEM/ICON spread (weather Monte Carlo)
     morning_snow_fraction: number; // Fraction of snow falling 4–10am (timing)
     min_temp_f: number;
@@ -138,6 +147,8 @@ export interface SnowFeatures {
     /** Official NWS probability of precipitation (0–100) or null */
     nws_pop: number | null;
     day_of_week: number;           // 0=Mon…4=Fri (Friday bonus)
+    /** The prediction verdict of a massive neighboring district (e.g. FCPS) to model peer pressure */
+    neighbor_verdict: PredictionVerdict | null;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -149,7 +160,8 @@ export function extractFeatures(
     alerts: string[],
     district: DistrictProfile,
     nwsHazardLevel = 0,
-    nwsPop: number | null = null
+    nwsPop: number | null = null,
+    neighborVerdict: PredictionVerdict | null = null
 ): SnowFeatures {
     const apiDayIdx = dayIdx + 7; // past_days=7 offset
     const startHour = apiDayIdx * 24;
@@ -168,6 +180,13 @@ export function extractFeatures(
     // Snowfall
     const totalSnowCm = hourlySnow.reduce((a, b) => a + b, 0);
     const snowfall_in = totalSnowCm / 2.54;
+
+    // Yesterday's Snowfall (for 48-hour recovery detection)
+    const yStartHour = (apiDayIdx - 1) * 24;
+    const yesterdaySnowCm = data.hourly.snowfall
+        .slice(yStartHour, yStartHour + 24)
+        .reduce((a, b) => a + b, 0);
+    const yesterday_snow_in = yesterdaySnowCm / 2.54;
 
     // ── Actual snow depth (real ground truth, not an estimate) ────────────────
     // Use the measured snow_depth at the START of the target day (hour 0 of day).
@@ -207,8 +226,8 @@ export function extractFeatures(
     const maxTempC = hourlyTemps.length > 0 ? Math.max(...hourlyTemps) : 0;
     const max_temp_f = (maxTempC * 9) / 5 + 32;
 
-    // Precip codes
-    const has_ice = hourlyCodes.some((c) => [56, 57, 66, 67].includes(c));
+    // Precip codes (added 79 for Ice Pellets / Sleet)
+    const has_ice = hourlyCodes.some((c) => [56, 57, 66, 67, 79].includes(c));
     const has_heavy_snow = hourlyCodes.some((c) => [73, 75, 85, 86].includes(c));
     // WMO 68 = slight rain-snow mix, 69 = moderate/heavy rain-snow mix.
     // Rain-on-snow actively melts the existing pack even when air temp is near freezing.
@@ -232,6 +251,7 @@ export function extractFeatures(
 
     return {
         snowfall_in,
+        yesterday_snow_in,
         model_spread_in,
         morning_snow_fraction,
         min_temp_f,
@@ -246,6 +266,7 @@ export function extractFeatures(
         nws_hazard_level,
         nws_pop: nwsPop,
         day_of_week,
+        neighbor_verdict: neighborVerdict
     };
 }
 
@@ -265,7 +286,7 @@ function sigmoid(x: number): number {
 
 // Base log-odds from prior (VA base closure rate ~4.3% → log-odds ≈ -3.1)
 // v5.6: Increased base expectation due to the removal of manual inflators
-const PRIOR_LOG_ODDS = -1.5;
+const PRIOR_LOG_ODDS = -1.6;
 
 /**
  * Tree 1: Snow + Temperature base signal
@@ -294,6 +315,13 @@ function tree1_snowTemp(f: SnowFeatures): number {
     // Rain-on-snow accelerates melt
     if (f.has_rain_snow_mix) depthMultiplier *= 0.5;
 
+    // ── 48-Hour Clear Roads Rule ───────────────────────────────────
+    // If it hasn't effectively snowed today OR yesterday (<= 0.05"), 
+    // plows have possessed 36-48 hours to clear main and back roads.
+    if (f.snowfall_in <= 0.05 && f.yesterday_snow_in <= 0.05) {
+        depthMultiplier = 0.0;
+    }
+
     const existingBonus = f.actual_snow_depth_in * depthMultiplier;
     const effectiveSnow = f.snowfall_in + existingBonus;
     let lo = 0;
@@ -302,12 +330,14 @@ function tree1_snowTemp(f: SnowFeatures): number {
     if (effectiveSnow >= 6.0) lo += 3.2;       // certain closure territory
     else if (effectiveSnow >= 3.5) lo += 2.4;  // high probability
     else if (effectiveSnow >= 2.0) lo += 1.8;  // moderate (v5.6 boosted from 1.1)
-    else if (effectiveSnow >= 1.0) lo += 1.2;  // low (v5.6 boosted from 0.5)
-    else if (effectiveSnow >= 0.25) lo += 0.2; // trace amounts
-    else lo += -1.5;                           // essentially no snow
+    else if (effectiveSnow >= 1.0) lo += 0.8;  // low
+    else if (effectiveSnow >= 0.5) lo -= 0.5;  // trace amounts (penalty)
+    else lo -= 2.0;                            // essentially no snow
 
     // Temperature adjustment
-    if (f.min_temp_f <= 20) lo += 0.7;
+    if (f.min_temp_f <= 10) lo += 3.0;         // unsafe extreme cold (guaranteed wind-chill warning)
+    else if (f.min_temp_f <= 15) lo += 2.0;    // high risk of wind-chill delay
+    else if (f.min_temp_f <= 20) lo += 1.2;
     else if (f.min_temp_f <= 28) lo += 0.4;
     else if (f.min_temp_f >= 33) lo -= 0.5;    // Above freezing → rain, not snow
 
@@ -317,6 +347,12 @@ function tree1_snowTemp(f: SnowFeatures): number {
 
     // Ice override: ice always closes VA schools (learned w/ 97% recall)
     if (f.has_ice) lo += 2.2;
+
+    // Freezing Rain / Black Ice invisible heuristic (Open-Meteo often misses WMO 66/67)
+    // If it's officially rain/snow mix but ground is freezing, roads glaze over.
+    if (f.has_rain_snow_mix && f.ground_temp_f <= 32 && f.min_temp_f <= 32 && effectiveSnow < 1.0) {
+        lo += 2.0;
+    }
 
     return lo;
 }
@@ -360,13 +396,20 @@ function tree2_timing(f: SnowFeatures): number {
 }
 
 /**
- * Tree 3: Budget + Road conditions correction
- * School calendars and plowing capacity are real administrative constraints
+ * Tree 3: Budget + Road conditions correction + Peer Pressure
+ * Peer pressure from FCPS has a massive administrative pull on LCPS/PWCS.
  */
 function tree3_administrative(f: SnowFeatures): number {
-    // Subjective factors (road status, budgets) removed in v5.4.
-    // The model now relies entirely on objective weather and NWS data.
-    return 0;
+    let lo = 0;
+
+    // FCPS Influence
+    if (f.neighbor_verdict === "CLOSED" || f.neighbor_verdict === "CLOSURE_LIKELY" || f.neighbor_verdict === "CLOSURE_POSSIBLE") {
+        lo += 1.5; // Huge bump for regional momentum
+    } else if (f.neighbor_verdict === "DELAY_DEFINITE" || f.neighbor_verdict === "DELAY_LIKELY" || f.neighbor_verdict === "DELAY_POSSIBLE") {
+        lo += 0.6; // Moderate bump
+    }
+
+    return lo;
 }
 
 /**
@@ -508,9 +551,11 @@ export function runSnowDayEngine(
     /** Structured NWS hazard level from getNWSGridpointData() (0–4) */
     nwsHazardLevel = 0,
     /** Official NWS PoP from getNWSGridpointData() (0–100 or null) */
-    nwsPop: number | null = null
+    nwsPop: number | null = null,
+    /** Neighboring district verdict for peer pressure simulation */
+    neighborVerdict: PredictionVerdict | null = null
 ): EngineOutput {
-    const features = extractFeatures(data, dayIdx, alerts, district, nwsHazardLevel, nwsPop);
+    const features = extractFeatures(data, dayIdx, alerts, district, nwsHazardLevel, nwsPop, neighborVerdict);
 
     const apiDayIdx = dayIdx + 7;
     const dateStr = data.daily.time[apiDayIdx];
@@ -557,10 +602,7 @@ export function runSnowDayEngine(
     );
 
     let verdict: PredictionVerdict;
-    if (features.has_ice && features.min_temp_f < 32) {
-        // Ice + subfreezing = near certain close
-        verdict = "CLOSED";
-    } else if (features.nws_hazard_level >= 3 && features.snowfall_in > district.closureThreshIn) {
+    if (features.nws_hazard_level >= 3 && features.snowfall_in > district.closureThreshIn) {
         // NWS Warning/Emergency + district closure threshold crossed → close
         verdict = "CLOSED";
     } else if (mc.adjustedProb >= 0.45) {

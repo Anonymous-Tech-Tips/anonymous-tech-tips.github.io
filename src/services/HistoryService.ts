@@ -8,8 +8,7 @@ export interface HistoryRecord {
     lcpsStatus: string;
     stormNotes: string;
 }
-
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/export?format=csv&gid=702572873";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/export?format=csv&gid=0";
 
 export class HistoryService {
     private static cache: HistoryRecord[] | null = null;
@@ -50,25 +49,26 @@ export class HistoryService {
 
                 // Detect the start of a year block or data row
                 const colA = cols[0]; // e.g. "2019-2020" or empty
-                const colB = cols[1]; // e.g. "12/11/19"
+                const colB = cols[1]; // e.g. "12/11/19" (now index 2)
+                const colDate = cols[2];
 
-                // If colB looks like a date M/D/YY, it's a data row
-                if (/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(colB)) {
+                // If colDate looks like a date M/D/YY, it's a data row
+                if (colDate && /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(colDate)) {
                     dataStarted = true;
 
-                    const [m, d, y] = colB.split('/').map(Number);
+                    const [m, d, y] = colDate.split('/').map(Number);
                     // Handle 2-digit years natively
                     const fullYear = y < 100 ? 2000 + y : y;
 
                     records.push({
-                        date: colB,
+                        date: colDate,
                         year: fullYear,
                         month: m,
                         day: d,
-                        pwcsStatus: cols[2] || "Unknown",
-                        fcpsStatus: cols[3] || "Unknown",
-                        lcpsStatus: cols[4] || "Unknown",
-                        stormNotes: cols[5] || ""
+                        pwcsStatus: cols[3] || "Unknown",
+                        fcpsStatus: cols[4] || "Unknown",
+                        lcpsStatus: cols[5] || "Unknown",
+                        stormNotes: cols[6] || ""
                     });
                 }
             }

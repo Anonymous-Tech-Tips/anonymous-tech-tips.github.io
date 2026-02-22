@@ -82,6 +82,90 @@ export const WeatherService = {
         return this.getEnsembleWeather(lat, lon);
     },
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // ZONAL WEATHER MERGING (Phase 6)
+    // ─────────────────────────────────────────────────────────────────────────
+    async getZonalWeather(zones: { lat: number, lon: number }[]): Promise<WeatherData | null> {
+        try {
+            const results = await Promise.all(zones.map(z => this.getEnsembleWeather(z.lat, z.lon)));
+            const valid = results.filter((r): r is WeatherData => r !== null);
+            if (valid.length === 0) return null;
+            if (valid.length === 1) return valid[0];
+
+            // Merge worst-case scenario
+            const base = valid[0];
+            const mergeArrays = (key1: 'daily' | 'hourly', key2: keyof WeatherData['daily'] | keyof WeatherData['hourly'], op: 'max' | 'min') => {
+                const len = (base[key1] as any)[key2].length;
+                const arr = new Array(len);
+                for (let i = 0; i < len; i++) {
+                    let val = (valid[0][key1] as any)[key2][i];
+                    for (let j = 1; j < valid.length; j++) {
+                        const otherVal = (valid[j][key1] as any)[key2][i];
+                        if (op === 'max') val = Math.max(val, otherVal);
+                        else val = Math.min(val, otherVal);
+                    }
+                    arr[i] = val;
+                }
+                return arr;
+            };
+
+            return {
+                daily: {
+                    time: base.daily.time,
+                    snowfall_sum: mergeArrays('daily', 'snowfall_sum', 'max'),
+                    snowfall_spread: mergeArrays('daily', 'snowfall_spread', 'max'),
+                    temperature_2m_min: mergeArrays('daily', 'temperature_2m_min', 'min'),
+                    temperature_2m_max: mergeArrays('daily', 'temperature_2m_max', 'min'),
+                    wind_speed_10m_max: mergeArrays('daily', 'wind_speed_10m_max', 'max'),
+                    weather_code: mergeArrays('daily', 'weather_code', 'max'),
+                },
+                hourly: {
+                    time: base.hourly.time,
+                    temperature_2m: mergeArrays('hourly', 'temperature_2m', 'min'),
+                    snowfall: mergeArrays('hourly', 'snowfall', 'max'),
+                    wind_gusts_10m: mergeArrays('hourly', 'wind_gusts_10m', 'max'),
+                    weather_code: mergeArrays('hourly', 'weather_code', 'max'),
+                    snow_depth: mergeArrays('hourly', 'snow_depth', 'max'),
+                    soil_temperature_0cm: mergeArrays('hourly', 'soil_temperature_0cm', 'min'),
+                }
+            };
+        } catch (e) {
+            console.error("Zonal merge failed:", e);
+            return null;
+        }
+    },
+
+    async getZonalAlerts(zones: { lat: number, lon: number }[]): Promise<string[]> {
+        const results = await Promise.all(zones.map(z => this.getActiveAlerts(z.lat, z.lon)));
+        const set = new Set<string>();
+        results.forEach(arr => arr.forEach(a => set.add(a)));
+        return Array.from(set);
+    },
+
+    async getZonalGridpointData(zones: { lat: number, lon: number }[]): Promise<NWSGridpointData> {
+        const results = await Promise.all(zones.map(z => this.getNWSGridpointData(z.lat, z.lon)));
+        let maxLvl = 0;
+        let codes = new Set<string>();
+        let pop = 0;
+        let short: string | null = null;
+        let office: string | null = null;
+
+        for (const r of results) {
+            if (r.hazard_level > maxLvl) maxLvl = r.hazard_level;
+            r.hazard_codes.forEach(c => codes.add(c));
+            if (r.nws_pop && r.nws_pop > pop) pop = r.nws_pop;
+            if (r.short_forecast && !short) short = r.short_forecast;
+            if (r.forecast_office && !office) office = r.forecast_office;
+        }
+        return {
+            hazard_level: maxLvl,
+            hazard_codes: Array.from(codes),
+            nws_pop: pop > 0 ? pop : null,
+            short_forecast: short,
+            forecast_office: office
+        };
+    },
+
     async getEnsembleWeather(lat: number, lon: number): Promise<WeatherData | null> {
         try {
             const response = await fetch(
