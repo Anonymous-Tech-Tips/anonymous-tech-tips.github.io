@@ -264,50 +264,47 @@ function sigmoid(x: number): number {
 }
 
 // Base log-odds from prior (VA base closure rate ~4.3% → log-odds ≈ -3.1)
-const PRIOR_LOG_ODDS = -3.1;
+// v5.6: Increased base expectation due to the removal of manual inflators
+const PRIOR_LOG_ODDS = -1.5;
 
 /**
  * Tree 1: Snow + Temperature base signal
  * Trained on: snowfall, temperature, precip type
  */
 function tree1_snowTemp(f: SnowFeatures): number {
-    // ── Depth persistence multiplier (temperature-tiered) ──────────────────────
+    // ── Depth persistence multiplier (v5.6 tuned) ──────────────────────────────
     // How much of the existing snowpack is still a hazard depends critically on
-    // how warm it gets during the day. A warm max temp melts the pack by evening;
-    // roads are treated and clear before the next school morning.
-    //
-    // Rain-on-snow (has_rain_snow_mix) is doubly bad for pack persistence:
-    // rain penetrates the snow and carries heat even when air = 32°F.
-    //
-    // Tiers derived from empirical melt rates (average ~1"/hr per 10°F above 32°F):
+    // whether it melts overnight. Previously we used the afternoon max temp, but
+    // school delay/close decisions are made at 6:00 AM!
+    // We now use morning temperatures to judge ice retention.
+
     let depthMultiplier: number;
-    if (!f.snow_will_stick) {
-        depthMultiplier = 0.0;       // ground warm: new snow can't stick at all
-    } else if (f.max_temp_f >= 40) {
-        depthMultiplier = 0.05;      // significant daytime melt, roads mostly clear
-    } else if (f.max_temp_f >= 36) {
-        depthMultiplier = 0.12;      // moderate melt, especially salted surfaces
-    } else if (f.max_temp_f >= 33) {
-        depthMultiplier = 0.20;      // marginal — some melt at margins and pavement
-    } else if (f.max_temp_f >= 30) {
-        depthMultiplier = 0.28;      // mostly preserves but surface compacts
+    if (f.ground_temp_f > 40 && f.min_temp_f >= 35) {
+        depthMultiplier = 0.0;       // extremely fast overnight melt, roads clear
+    } else if (f.min_temp_f >= 35) {
+        depthMultiplier = 0.3;       // rapid melt, slushy but mostly passable
+    } else if (f.min_temp_f >= 32) {
+        depthMultiplier = 0.6;       // marginal melt, high risk of slush/ice
+    } else if (f.min_temp_f >= 25) {
+        depthMultiplier = 0.9;       // freezing, highly persistent
     } else {
-        depthMultiplier = 0.35;      // very cold, pack fully persists
+        depthMultiplier = 1.0;       // extreme cold, zero melt overnight
     }
-    // Rain-on-snow accelerates melt: reduce further (cap at current tier × 0.5)
+
+    // Rain-on-snow accelerates melt
     if (f.has_rain_snow_mix) depthMultiplier *= 0.5;
 
     const existingBonus = f.actual_snow_depth_in * depthMultiplier;
     const effectiveSnow = f.snowfall_in + existingBonus;
     let lo = 0;
 
-    // Snow depth splits (walk-forward learned)
-    if (effectiveSnow >= 6.0) lo += 2.8;      // certain closure territory
-    else if (effectiveSnow >= 3.5) lo += 1.9;  // high probability
-    else if (effectiveSnow >= 2.0) lo += 1.1;  // moderate
-    else if (effectiveSnow >= 1.0) lo += 0.5;  // low
-    else if (effectiveSnow >= 0.25) lo += -0.2;
-    else lo += -1.5;                            // essentially no snow
+    // Snow depth splits (walk-forward learned, v5.6 tuned)
+    if (effectiveSnow >= 6.0) lo += 3.2;       // certain closure territory
+    else if (effectiveSnow >= 3.5) lo += 2.4;  // high probability
+    else if (effectiveSnow >= 2.0) lo += 1.8;  // moderate (v5.6 boosted from 1.1)
+    else if (effectiveSnow >= 1.0) lo += 1.2;  // low (v5.6 boosted from 0.5)
+    else if (effectiveSnow >= 0.25) lo += 0.2; // trace amounts
+    else lo += -1.5;                           // essentially no snow
 
     // Temperature adjustment
     if (f.min_temp_f <= 20) lo += 0.7;
@@ -332,8 +329,8 @@ function tree2_timing(f: SnowFeatures): number {
     let lo = 0;
 
     // Morning fraction (busses run 5:30–9am)
-    if (f.morning_snow_fraction >= 0.5) lo += 0.9;
-    else if (f.morning_snow_fraction >= 0.25) lo += 0.4;
+    if (f.morning_snow_fraction >= 0.5) lo += 1.6; // v5.6 boosted from 0.9 (timing is critical)
+    else if (f.morning_snow_fraction >= 0.25) lo += 0.6;
     else if (f.morning_snow_fraction < 0.1 && f.snowfall_in > 1) lo -= 0.4;
 
     // Blizzard conditions
