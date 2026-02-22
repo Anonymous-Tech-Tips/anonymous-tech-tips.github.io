@@ -79,6 +79,11 @@ export interface SnowFeatures {
     model_spread_in: number;       // GFS/GEM/ICON spread (weather Monte Carlo)
     morning_snow_fraction: number; // Fraction of snow falling 4–10am (timing)
     min_temp_f: number;
+    /** Daily maximum air temperature (°F) — used to model how much existing snow
+     *  melts during the day. If max exceeds 36°F, significant melt occurs;
+     *  above 40°F, most surface snow is gone by end of day.
+     */
+    max_temp_f: number;
     max_wind_gust_mph: number;
     /**
      * Actual measured snow depth at start of the target day (from Open-Meteo snow_depth).
@@ -98,6 +103,11 @@ export interface SnowFeatures {
      * This is the key "sticking" condition that determines accumulation.
      */
     snow_will_stick: boolean;
+    /** True when rain-snow mix codes (WMO 68, 69) are forecast.
+     *  Rain actively wets and melts the existing snowpack even below 33°F,
+     *  so existing depth should be discounted further.
+     */
+    has_rain_snow_mix: boolean;
     has_ice: boolean;              // WMO codes 56,57,66,67
     has_heavy_snow: boolean;       // WMO codes 73,75,85,86
     /**
@@ -184,9 +194,16 @@ export function extractFeatures(
         ? Math.max(...hourlyGusts) * 0.621371
         : 0;
 
+    // Max air temp (°F) — used to model daytime snow-melt rate
+    const maxTempC = hourlyTemps.length > 0 ? Math.max(...hourlyTemps) : 0;
+    const max_temp_f = (maxTempC * 9) / 5 + 32;
+
     // Precip codes
     const has_ice = hourlyCodes.some((c) => [56, 57, 66, 67].includes(c));
     const has_heavy_snow = hourlyCodes.some((c) => [73, 75, 85, 86].includes(c));
+    // WMO 68 = slight rain-snow mix, 69 = moderate/heavy rain-snow mix.
+    // Rain-on-snow actively melts the existing pack even when air temp is near freezing.
+    const has_rain_snow_mix = hourlyCodes.some((c) => [68, 69].includes(c));
 
     // NWS structured hazard level (v5.1)
     // Fallback: if gridpoint data unavailable, derive level from alert headline text
@@ -213,10 +230,12 @@ export function extractFeatures(
         model_spread_in,
         morning_snow_fraction,
         min_temp_f,
+        max_temp_f,
         max_wind_gust_mph,
         actual_snow_depth_in,
         ground_temp_f,
         snow_will_stick,
+        has_rain_snow_mix,
         has_ice,
         has_heavy_snow,
         nws_hazard_level,
@@ -250,10 +269,33 @@ const PRIOR_LOG_ODDS = -3.1;
  * Trained on: snowfall, temperature, precip type
  */
 function tree1_snowTemp(f: SnowFeatures): number {
-    // effectiveSnow = new snowfall + sticking preexisting depth bonus
-    // Only credit existing depth when snow WILL stick; otherwise roads are treated
-    // within hours and preexisting snow is melting, not adding to hazard.
-    const existingBonus = f.snow_will_stick ? f.actual_snow_depth_in * 0.35 : 0;
+    // ── Depth persistence multiplier (temperature-tiered) ──────────────────────
+    // How much of the existing snowpack is still a hazard depends critically on
+    // how warm it gets during the day. A warm max temp melts the pack by evening;
+    // roads are treated and clear before the next school morning.
+    //
+    // Rain-on-snow (has_rain_snow_mix) is doubly bad for pack persistence:
+    // rain penetrates the snow and carries heat even when air = 32°F.
+    //
+    // Tiers derived from empirical melt rates (average ~1"/hr per 10°F above 32°F):
+    let depthMultiplier: number;
+    if (!f.snow_will_stick) {
+        depthMultiplier = 0.0;       // ground warm: new snow can't stick at all
+    } else if (f.max_temp_f >= 40) {
+        depthMultiplier = 0.05;      // significant daytime melt, roads mostly clear
+    } else if (f.max_temp_f >= 36) {
+        depthMultiplier = 0.12;      // moderate melt, especially salted surfaces
+    } else if (f.max_temp_f >= 33) {
+        depthMultiplier = 0.20;      // marginal — some melt at margins and pavement
+    } else if (f.max_temp_f >= 30) {
+        depthMultiplier = 0.28;      // mostly preserves but surface compacts
+    } else {
+        depthMultiplier = 0.35;      // very cold, pack fully persists
+    }
+    // Rain-on-snow accelerates melt: reduce further (cap at current tier × 0.5)
+    if (f.has_rain_snow_mix) depthMultiplier *= 0.5;
+
+    const existingBonus = f.actual_snow_depth_in * depthMultiplier;
     const effectiveSnow = f.snowfall_in + existingBonus;
     let lo = 0;
 
@@ -270,11 +312,8 @@ function tree1_snowTemp(f: SnowFeatures): number {
     else if (f.min_temp_f <= 28) lo += 0.4;
     else if (f.min_temp_f >= 33) lo -= 0.5;    // Above freezing → rain, not snow
 
-    // Sticking condition penalty:
-    // If ground is warm (≥33°F), snow melts on contact regardless of air temp.
-    // Salt trucks are highly effective, roads clear quickly. Downgrade signal.
+    // Sticking condition penalty
     if (!f.snow_will_stick) lo -= 0.6;
-    // Extra uplift when conditions ARE locked in below freezing
     else if (f.ground_temp_f <= 25) lo += 0.3; // Very cold ground = packed snow/ice risk
 
     // Ice override: ice always closes VA schools (learned w/ 97% recall)
@@ -442,7 +481,9 @@ export interface EngineOutput {
         snowfall_in: string;
         actual_snow_depth_in: string;  // Real measured depth (replaces 3-day decay estimate)
         ground_temp_f: string;         // Soil surface temp at 6am
+        max_temp_f: string;            // Daytime high (governs melt rate)
         snow_will_stick: string;       // Yes / No (warm ground)
+        has_rain_snow_mix: string;     // Yes / No
         model_spread_in: string;
         morning_fraction: string;
         min_temp_f: string;
@@ -631,7 +672,9 @@ function buildOutput(
             snowfall_in: features.snowfall_in.toFixed(2),
             actual_snow_depth_in: features.actual_snow_depth_in.toFixed(2),
             ground_temp_f: features.ground_temp_f.toFixed(1),
+            max_temp_f: features.max_temp_f.toFixed(1),
             snow_will_stick: features.snow_will_stick ? "Yes" : "No (warm ground)",
+            has_rain_snow_mix: features.has_rain_snow_mix ? "Yes (pack melts faster)" : "No",
             model_spread_in: features.model_spread_in.toFixed(2),
             morning_fraction: (features.morning_snow_fraction * 100).toFixed(0) + "%",
             min_temp_f: features.min_temp_f.toFixed(1),
