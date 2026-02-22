@@ -25,6 +25,11 @@ export interface WeatherData {
         wind_gusts_10m: number[]; // Added for Blizzard Logic
         weather_code: number[];
         snow_depth: number[];
+        /** Ground surface temperature (°C) — from Open-Meteo soil_temperature_0cm.
+         *  Used to determine if snow will bond to the ground (stick) vs immediately melt.
+         *  Key threshold: values ≥ 0°C mean the ground is warm enough to melt snow on contact.
+         */
+        soil_temperature_0cm: number[];
     };
 }
 
@@ -82,7 +87,7 @@ export const WeatherService = {
             const response = await fetch(
                 `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
                 `&daily=snowfall_sum,temperature_2m_min,temperature_2m_max,wind_speed_10m_max,weather_code` +
-                `&hourly=temperature_2m,snowfall,weather_code,snow_depth,wind_gusts_10m,precipitation_probability` +
+                `&hourly=temperature_2m,snowfall,weather_code,snow_depth,wind_gusts_10m,precipitation_probability,soil_temperature_0cm` +
                 `&timezone=auto&forecast_days=3&past_days=7&models=gfs_seamless,gem_global,icon_seamless`
             );
             const raw = await response.json();
@@ -143,6 +148,11 @@ export const WeatherService = {
             const hourlyDepth = avgArrays(models.map(m => raw.hourly[`snow_depth_${m}`]));
             const hourlyGusts = avgArrays(models.map(m => raw.hourly[`wind_gusts_10m_${m}`]));
             const hourlyCode = voteWeatherCode(models.map(m => raw.hourly[`weather_code_${m}`]));
+            // soil_temperature_0cm — single model only (GFS provides best coverage)
+            // Fall back to temp_2m if unavailable (rare)
+            const hourlySoilTemp: number[] = raw.hourly[`soil_temperature_0cm_gfs_seamless`]
+                ?? raw.hourly[`temperature_2m_gfs_seamless`]
+                ?? hourlyTemp;
 
             const dailySnowSum = avgArrays(models.map(m => raw.daily[`snowfall_sum_${m}`]));
             const dailySnowSpread = getSpread(models.map(m => raw.daily[`snowfall_sum_${m}`]));
@@ -168,6 +178,7 @@ export const WeatherService = {
                     wind_gusts_10m: hourlyGusts,
                     weather_code: hourlyCode,
                     snow_depth: hourlyDepth,
+                    soil_temperature_0cm: hourlySoilTemp,
                 },
             };
         } catch (error) {

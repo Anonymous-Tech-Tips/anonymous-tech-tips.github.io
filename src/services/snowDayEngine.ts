@@ -80,7 +80,24 @@ export interface SnowFeatures {
     morning_snow_fraction: number; // Fraction of snow falling 4–10am (timing)
     min_temp_f: number;
     max_wind_gust_mph: number;
-    existing_depth_in: number;     // 3-day decay weighted accumulation
+    /**
+     * Actual measured snow depth at start of the target day (from Open-Meteo snow_depth).
+     * This replaces the old 3-day decay estimate — the API already accounts for melt,
+     * compaction, and sublimation, so it is the ground truth.
+     */
+    actual_snow_depth_in: number;
+    /**
+     * Ground surface temperature (°F) at 6am on target day, from soil_temperature_0cm.
+     * Used with min_temp_f to determine whether snow will stick.
+     * If ground is ≥33°F, new snow melts on contact regardless of air temp.
+     */
+    ground_temp_f: number;
+    /**
+     * True when BOTH ground (soil) temp AND min air temp are below 33°F.
+     * When false, new snowfall evaporates/drains quickly and roads are salted easily.
+     * This is the key "sticking" condition that determines accumulation.
+     */
+    snow_will_stick: boolean;
     has_ice: boolean;              // WMO codes 56,57,66,67
     has_heavy_snow: boolean;       // WMO codes 73,75,85,86
     /**
@@ -96,7 +113,6 @@ export interface SnowFeatures {
     days_used: number;             // User input: snow days already used
     delays_used: number;
     road_status: number;           // 0=clear,1=spotty,2=unplowed,3=icy
-    sentiment_bonus: number;       // 0, 5, or 10 (social media panic)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -109,7 +125,6 @@ export function extractFeatures(
     userFactors: {
         daysUsed: number;
         delaysUsed: number;
-        sentiment: string;
         roadStatus: string;
     },
     /** From WeatherService.getNWSGridpointData() — structured hazard level 0-4 */
@@ -127,19 +142,35 @@ export function extractFeatures(
     const hourlyGusts = data.hourly.wind_gusts_10m
         ? data.hourly.wind_gusts_10m.slice(startHour, endHour)
         : new Array(24).fill(0);
+    const hourlySoilTemps = data.hourly.soil_temperature_0cm
+        ? data.hourly.soil_temperature_0cm.slice(startHour, endHour)
+        : new Array(24).fill(0);
 
     // Snowfall
     const totalSnowCm = hourlySnow.reduce((a, b) => a + b, 0);
     const snowfall_in = totalSnowCm / 2.54;
 
-    // Existing depth (3-day exponential decay)
-    let existing_depth_in = 0;
-    for (let i = 1; i <= 3; i++) {
-        const pastIdx = apiDayIdx - i;
-        if (pastIdx >= 0) {
-            existing_depth_in += ((data.daily.snowfall_sum[pastIdx] || 0) / 2.54) * (0.8 / i);
-        }
-    }
+    // ── Actual snow depth (real ground truth, not an estimate) ────────────────
+    // Use the measured snow_depth at the START of the target day (hour 0 of day).
+    // Open-Meteo already accounts for compaction, melt, and sublimation.
+    // Convert from meters to inches (Open-Meteo snow_depth is in meters).
+    const rawDepthM = data.hourly.snow_depth?.[startHour] ?? 0;
+    const actual_snow_depth_in = (rawDepthM * 100) / 2.54; // m → cm → in
+
+    // ── Ground temperature at 6am (peak importance for bus route decision) ────
+    // soil_temperature_0cm is in °C. Convert to °F.
+    // Index 6 within the 24-hour slice = 6am of target day.
+    const soilTempC = hourlySoilTemps[6] ?? hourlySoilTemps[0] ?? 0;
+    const ground_temp_f = (soilTempC * 9) / 5 + 32;
+
+    // ── Sticking condition ────────────────────────────────────────────────────
+    // Snow only accumulates meaningfully when BOTH conditions are met:
+    //   1. Air temperature stays below freezing (min_temp_f < 33)
+    //   2. Ground surface is below freezing (ground_temp_f < 33)
+    // If ground is warm, even 3" of snowfall drains on contact.
+    const minTempC = hourlyTemps.length > 0 ? Math.min(...hourlyTemps) : 0;
+    const min_temp_f = (minTempC * 9) / 5 + 32;
+    const snow_will_stick = ground_temp_f < 33 && min_temp_f < 33;
 
     // Model spread (weather uncertainty)
     const model_spread_in = (data.daily.snowfall_spread?.[apiDayIdx] || 0) / 2.54;
@@ -147,10 +178,6 @@ export function extractFeatures(
     // Morning timing (4am–10am = hours 4..9)
     const morningSnow = hourlySnow.slice(4, 10).reduce((a, b) => a + b, 0);
     const morning_snow_fraction = totalSnowCm > 0.01 ? morningSnow / totalSnowCm : 0;
-
-    // Temperature
-    const minTempC = hourlyTemps.length > 0 ? Math.min(...hourlyTemps) : 0;
-    const min_temp_f = (minTempC * 9) / 5 + 32;
 
     // Wind
     const max_wind_gust_mph = hourlyGusts.length > 0
@@ -181,17 +208,15 @@ export function extractFeatures(
     const roadMap: Record<string, number> = { clear: 0, spotty: 1, normal: 1, unplowed: 2, icy: 3 };
     const road_status = roadMap[userFactors.roadStatus] ?? 1;
 
-    // Sentiment
-    const sentMap: Record<string, number> = { neutral: 0, angry: 5, viral: 10 };
-    const sentiment_bonus = sentMap[userFactors.sentiment] ?? 0;
-
     return {
         snowfall_in,
         model_spread_in,
         morning_snow_fraction,
         min_temp_f,
         max_wind_gust_mph,
-        existing_depth_in,
+        actual_snow_depth_in,
+        ground_temp_f,
+        snow_will_stick,
         has_ice,
         has_heavy_snow,
         nws_hazard_level,
@@ -200,7 +225,6 @@ export function extractFeatures(
         days_used: userFactors.daysUsed,
         delays_used: userFactors.delaysUsed,
         road_status,
-        sentiment_bonus,
     };
 }
 
@@ -226,7 +250,11 @@ const PRIOR_LOG_ODDS = -3.1;
  * Trained on: snowfall, temperature, precip type
  */
 function tree1_snowTemp(f: SnowFeatures): number {
-    const effectiveSnow = f.snowfall_in + f.existing_depth_in * 0.4;
+    // effectiveSnow = new snowfall + sticking preexisting depth bonus
+    // Only credit existing depth when snow WILL stick; otherwise roads are treated
+    // within hours and preexisting snow is melting, not adding to hazard.
+    const existingBonus = f.snow_will_stick ? f.actual_snow_depth_in * 0.35 : 0;
+    const effectiveSnow = f.snowfall_in + existingBonus;
     let lo = 0;
 
     // Snow depth splits (walk-forward learned)
@@ -241,6 +269,13 @@ function tree1_snowTemp(f: SnowFeatures): number {
     if (f.min_temp_f <= 20) lo += 0.7;
     else if (f.min_temp_f <= 28) lo += 0.4;
     else if (f.min_temp_f >= 33) lo -= 0.5;    // Above freezing → rain, not snow
+
+    // Sticking condition penalty:
+    // If ground is warm (≥33°F), snow melts on contact regardless of air temp.
+    // Salt trucks are highly effective, roads clear quickly. Downgrade signal.
+    if (!f.snow_will_stick) lo -= 0.6;
+    // Extra uplift when conditions ARE locked in below freezing
+    else if (f.ground_temp_f <= 25) lo += 0.3; // Very cold ground = packed snow/ice risk
 
     // Ice override: ice always closes VA schools (learned w/ 97% recall)
     if (f.has_ice) lo += 2.2;
@@ -304,8 +339,8 @@ function tree3_administrative(f: SnowFeatures): number {
     else if (f.road_status === 1) lo += 0.4;  // spotty
     else if (f.road_status === 0) lo -= 0.5;  // clear → downgrade
 
-    // Social sentiment (weak signal, real effect)
-    lo += f.sentiment_bonus * 0.04; // small log-odds contribution
+    // Social sentiment removed in v5.2 — impact was too small (≤+0.4 log-odds)
+    // and purely gameable. Road/budget factors handle administrative signals.
 
     return lo;
 }
@@ -405,7 +440,9 @@ export interface EngineOutput {
     // Technical metrics for nerd stats
     metrics: {
         snowfall_in: string;
-        existing_depth_in: string;
+        actual_snow_depth_in: string;  // Real measured depth (replaces 3-day decay estimate)
+        ground_temp_f: string;         // Soil surface temp at 6am
+        snow_will_stick: string;       // Yes / No (warm ground)
         model_spread_in: string;
         morning_fraction: string;
         min_temp_f: string;
@@ -440,7 +477,6 @@ export function runSnowDayEngine(
     userFactors: {
         daysUsed: number;
         delaysUsed: number;
-        sentiment: string;
         roadStatus: string;
     },
     district: DistrictProfile,
@@ -473,10 +509,10 @@ export function runSnowDayEngine(
     }
 
     // ── Permutation baseline gate ────────────────────────────────────────────
-    // If there's essentially nothing: zero snow, no ice, no depth, clear roads → return early
+    // If there's essentially nothing: zero snow, no ice, no real depth, clear roads → return early
     const basicallyClear =
         features.snowfall_in < 0.1 &&
-        features.existing_depth_in < 0.5 &&
+        features.actual_snow_depth_in < 0.5 &&
         !features.has_ice &&
         features.road_status === 0 &&
         features.nws_hazard_level === 0;
@@ -593,7 +629,9 @@ function buildOutput(
         features,
         metrics: {
             snowfall_in: features.snowfall_in.toFixed(2),
-            existing_depth_in: features.existing_depth_in.toFixed(2),
+            actual_snow_depth_in: features.actual_snow_depth_in.toFixed(2),
+            ground_temp_f: features.ground_temp_f.toFixed(1),
+            snow_will_stick: features.snow_will_stick ? "Yes" : "No (warm ground)",
             model_spread_in: features.model_spread_in.toFixed(2),
             morning_fraction: (features.morning_snow_fraction * 100).toFixed(0) + "%",
             min_temp_f: features.min_temp_f.toFixed(1),
@@ -622,7 +660,7 @@ function buildOutput(
 export function runWeekOutlook(
     data: WeatherData,
     alerts: string[],
-    userFactors: { daysUsed: number; delaysUsed: number; sentiment: string; roadStatus: string },
+    userFactors: { daysUsed: number; delaysUsed: number; roadStatus: string },
     district: DistrictProfile,
     nwsHazardLevel = 0,
     nwsPop: number | null = null

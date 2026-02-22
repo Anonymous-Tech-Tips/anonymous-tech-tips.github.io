@@ -130,7 +130,9 @@ const NerdStats = ({ result }: { result: EngineOutput }) => {
     const { metrics } = result;
     const rows = [
         { label: "Snowfall Forecast", value: `${metrics.snowfall_in}"` },
-        { label: "Existing Depth", value: `${metrics.existing_depth_in}"` },
+        { label: "Snow Depth (Actual)", value: `${metrics.actual_snow_depth_in}"` },
+        { label: "Ground Temp @ 6am", value: `${metrics.ground_temp_f}°F`, warn: parseFloat(metrics.ground_temp_f) >= 33 },
+        { label: "Snow Will Stick", value: metrics.snow_will_stick, warn: metrics.snow_will_stick === "No (warm ground)" },
         { label: "Model Spread (σ)", value: `${metrics.model_spread_in}"`, warn: parseFloat(metrics.model_spread_in) > 3 },
         { label: "Morning Snow %", value: metrics.morning_fraction },
         { label: "Min Temp", value: `${metrics.min_temp_f}°F` },
@@ -199,7 +201,6 @@ export const SnowDayPredictor = () => {
     const [factors, setFactors] = useState({
         daysUsed: 2,
         delaysUsed: 0,
-        sentiment: "neutral",
         roadStatus: "normal",
     });
 
@@ -321,7 +322,7 @@ export const SnowDayPredictor = () => {
                     </div>
 
                     {/* Advanced Factors */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 p-4 bg-black/20 rounded-xl border border-white/5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 bg-black/20 rounded-xl border border-white/5">
                         <div className="space-y-2">
                             <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest">Road Conditions</label>
                             <Select value={factors.roadStatus} onValueChange={(v) => setFactors({ ...factors, roadStatus: v })}>
@@ -332,17 +333,6 @@ export const SnowDayPredictor = () => {
                                     <SelectItem value="spotty">Spotty Ice</SelectItem>
                                     <SelectItem value="unplowed">Unplowed</SelectItem>
                                     <SelectItem value="icy">Severe Icing</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest">Social Media</label>
-                            <Select value={factors.sentiment} onValueChange={(v) => setFactors({ ...factors, sentiment: v })}>
-                                <SelectTrigger className="bg-white/5 border-white/10 h-8 text-xs font-bold"><SelectValue /></SelectTrigger>
-                                <SelectContent className="bg-slate-900 text-white border-white/10">
-                                    <SelectItem value="neutral">Neutral</SelectItem>
-                                    <SelectItem value="angry">Angry Parents</SelectItem>
-                                    <SelectItem value="viral">Viral Panic</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
