@@ -277,7 +277,7 @@ export const SnowDayPredictor = () => {
         setResult(prediction);
         setWeekOutlook(outlook);
         checkOfficialStatus(selectedDistrict.id, dayIndex);
-    }, [dayIndex, selectedDistrict]);
+    }, [dayIndex, selectedDistrict, alerts, gridpointData?.hazard_level, gridpointData?.nws_pop, rawWeather]);
 
     const verdictCfg = result ? VERDICT_CONFIG[result.verdict] : null;
     const isStatusActive = officialStatus && officialStatus !== "On time" && officialStatus !== "Unknown";

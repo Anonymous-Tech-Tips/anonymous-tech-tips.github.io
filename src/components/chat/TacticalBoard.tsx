@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp } from 'firebase/firestore';
@@ -39,47 +39,8 @@ export const TacticalBoard: React.FC<TacticalBoardProps> = ({ roomId, isOpen, on
     // Board ID matches Room ID, or specialized sub-collection
     // Using a 'boards' collection at root might be cleaner: /boards/{roomId}/strokes
 
-    // 1. Resize Canvas on Mount/Window Resize
-    useEffect(() => {
-        if (!isOpen) return;
-        const resizeCanvas = () => {
-            const canvas = canvasRef.current;
-            if (canvas) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                redrawCanvas();
-            }
-        };
-        window.addEventListener('resize', resizeCanvas);
-        // Delay slighty to allow animation to finish
-        setTimeout(resizeCanvas, 100);
-        return () => window.removeEventListener('resize', resizeCanvas);
-    }, [isOpen, strokes]);
-
-    // 2. Subscribe to Strokes
-    useEffect(() => {
-        if (!isOpen || !roomId) return;
-
-        // Limit to last 500 strokes to prevent overload
-        const q = query(collection(db, 'boards', roomId, 'strokes'), orderBy('createdAt', 'asc'), limit(500));
-
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const newStrokes: Stroke[] = [];
-            snapshot.forEach(doc => {
-                newStrokes.push({ id: doc.id, ...doc.data() } as Stroke);
-            });
-            setStrokes(newStrokes);
-        });
-
-        return () => unsubscribe();
-    }, [roomId, isOpen]);
-
-    // 3. Redraw Canvas when strokes change
-    useEffect(() => {
-        if (isOpen) redrawCanvas();
-    }, [strokes, isOpen]);
-
-    const redrawCanvas = () => {
+    // 1. Redraw Canvas logic
+    const redrawCanvas = useCallback(() => {
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
         if (!canvas || !ctx) return;
@@ -101,7 +62,51 @@ export const TacticalBoard: React.FC<TacticalBoardProps> = ({ roomId, isOpen, on
                 uid: 'me'
             });
         }
-    };
+    }, [strokes, currentStroke, activeTool, activeColor]);
+
+    // 2. Resize Canvas on Mount/Window Resize
+    useEffect(() => {
+        if (!isOpen) return;
+        const resizeCanvas = () => {
+            const canvas = canvasRef.current;
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                redrawCanvas();
+            }
+        };
+        window.addEventListener('resize', resizeCanvas);
+        // Delay slighty to allow animation to finish
+        setTimeout(resizeCanvas, 100);
+        return () => window.removeEventListener('resize', resizeCanvas);
+    }, [isOpen, strokes, redrawCanvas]);
+
+    // 3. Subscription logic separated for clarity below
+
+    // 2. Subscribe to Strokes
+    useEffect(() => {
+        if (!isOpen || !roomId) return;
+
+        // Limit to last 500 strokes to prevent overload
+        const q = query(collection(db, 'boards', roomId, 'strokes'), orderBy('createdAt', 'asc'), limit(500));
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const newStrokes: Stroke[] = [];
+            snapshot.forEach(doc => {
+                newStrokes.push({ id: doc.id, ...doc.data() } as Stroke);
+            });
+            setStrokes(newStrokes);
+        });
+
+        return () => unsubscribe();
+    }, [roomId, isOpen]);
+
+    // 4. Redraw Canvas when strokes change
+    useEffect(() => {
+        if (isOpen) redrawCanvas();
+    }, [strokes, isOpen, redrawCanvas]);
+
+
 
     const drawGrid = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';

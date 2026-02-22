@@ -118,9 +118,9 @@ async function runBacktest() {
                 const len = base[key1][key2]?.length ?? 0;
                 const arr = new Array(len);
                 for (let i = 0; i < len; i++) {
-                    let vals: number[] = [];
+                    const vals: number[] = [];
                     for (let j = 0; j < results.length; j++) {
-                        let v = results[j][key1][key2] ? results[j][key1][key2][i] : null;
+                        const v = results[j][key1][key2] ? results[j][key1][key2][i] : null;
                         if (v !== null && v !== undefined) vals.push(parseFloat(v));
                     }
                     if (vals.length === 0) {

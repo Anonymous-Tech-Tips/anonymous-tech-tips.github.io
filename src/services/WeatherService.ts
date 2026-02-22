@@ -145,7 +145,7 @@ export const WeatherService = {
     async getZonalGridpointData(zones: { lat: number, lon: number }[]): Promise<NWSGridpointData> {
         const results = await Promise.all(zones.map(z => this.getNWSGridpointData(z.lat, z.lon)));
         let maxLvl = 0;
-        let codes = new Set<string>();
+        const codes = new Set<string>();
         let pop = 0;
         let short: string | null = null;
         let office: string | null = null;

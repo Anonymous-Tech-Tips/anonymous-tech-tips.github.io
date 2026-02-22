@@ -103,7 +103,7 @@ export const GlobalChat: React.FC = () => {
             setActiveRoom(roomParam);
             setIsOpen(true); // Auto-open chat if room is specified
         }
-    }, []);
+    }, [privateRooms]);
 
     // Update URL when Room Changes
     useEffect(() => {
