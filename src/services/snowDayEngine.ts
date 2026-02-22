@@ -449,11 +449,14 @@ function runMonteCarlo(f: SnowFeatures, n = 50): MonteCarloResult {
 // OUTPUT TYPES
 // ─────────────────────────────────────────────────────────────────────────────
 export type PredictionVerdict =
-    | "SNOW_DAY"          // adjusted_prob > 0.35
-    | "DELAY_LIKELY"      // adjusted_prob > 0.20
-    | "UNCERTAIN"         // model spread too high AND near boundary
-    | "MODEL_DISAGREE"    // storm regime filter triggered
-    | "SCHOOL";           // adjusted_prob <= 0.20
+    | "CLOSED"
+    | "CLOSURE_LIKELY"
+    | "CLOSURE_POSSIBLE"
+    | "DELAY_DEFINITE"
+    | "DELAY_LIKELY"
+    | "DELAY_POSSIBLE"
+    | "OPEN"
+    | "MODEL_DISAGREE";
 
 export interface EngineOutput {
     verdict: PredictionVerdict;
@@ -463,6 +466,7 @@ export interface EngineOutput {
     chanceLabel: string;       // Human-readable, e.g. "High Confidence"
     headline: string;          // Student-facing main message
     subtext: string;
+    stormStrength: string;     // e.g. "Minimal (<1)", "Strong (6-12)"
     bgGradient: string;
     // Technical metrics for nerd stats
     metrics: {
@@ -541,7 +545,7 @@ export function runSnowDayEngine(
         features.nws_hazard_level === 0;
 
     if (basicallyClear) {
-        return buildOutput("SCHOOL", 0.01, 0.01, 0.0, features, district, dateLabel, stormRegimeFlag);
+        return buildOutput("OPEN", 0.01, 0.01, 0.0, features, district, dateLabel, stormRegimeFlag);
     }
 
     // ── Run Monte Carlo ──────────────────────────────────────────────────────
@@ -556,24 +560,31 @@ export function runSnowDayEngine(
     );
 
     let verdict: PredictionVerdict;
-
     if (features.has_ice && features.min_temp_f < 32) {
         // Ice + subfreezing = near certain close
-        verdict = "SNOW_DAY";
+        verdict = "CLOSED";
     } else if (features.nws_hazard_level >= 3 && features.snowfall_in > district.closureThreshIn) {
         // NWS Warning/Emergency + district closure threshold crossed → close
-        verdict = "SNOW_DAY";
+        verdict = "CLOSED";
+    } else if (mc.adjustedProb >= 0.45) {
+        verdict = "CLOSED";
     } else if (mc.adjustedProb >= 0.35) {
-        verdict = "SNOW_DAY";
-    } else if (mc.adjustedProb >= 0.20 && stormRegimeFlag) {
-        // Near boundary + high model spread = uncertain
-        verdict = "UNCERTAIN";
-    } else if (mc.adjustedProb >= 0.25) {
-        verdict = "DELAY_LIKELY";
+        verdict = "CLOSURE_LIKELY";
+    } else if (mc.adjustedProb >= 0.28) {
+        verdict = "CLOSURE_POSSIBLE";
+    } else if (mc.adjustedProb >= 0.24) {
+        verdict = "DELAY_DEFINITE";
     } else if (mc.adjustedProb >= 0.20) {
-        verdict = "UNCERTAIN";
+        verdict = "DELAY_LIKELY";
+    } else if (mc.adjustedProb >= 0.15) {
+        verdict = "DELAY_POSSIBLE";
     } else {
-        verdict = "SCHOOL";
+        verdict = "OPEN";
+    }
+
+    // Overrides for model disagreement
+    if (stormRegimeFlag && (verdict === "DELAY_LIKELY" || verdict === "DELAY_DEFINITE" || verdict === "CLOSURE_POSSIBLE")) {
+        verdict = "CLOSURE_POSSIBLE"; // uncertainty bounds
     }
 
     return buildOutput(verdict, mc.meanProb, mc.stdDev, mc.adjustedProb, features, district, dateLabel, stormRegimeFlag);
@@ -604,23 +615,47 @@ function buildOutput(
     const configs: Record<PredictionVerdict, {
         headline: string; subtext: string; bgGradient: string; chanceLabel: string;
     }> = {
-        SNOW_DAY: {
-            headline: "SNOW DAY!",
-            subtext: "High confidence closure. The model and models agree.",
+        CLOSED: {
+            headline: "Closed",
+            subtext: "Conditions strongly indicate a full closure.",
             bgGradient: "from-indigo-600/50 to-purple-700/40",
             chanceLabel: "High Confidence",
         },
-        DELAY_LIKELY: {
-            headline: "Delay Expected",
-            subtext: "School likely opens late. Watch for official announcements.",
-            bgGradient: "from-blue-600/40 to-blue-500/20",
-            chanceLabel: "Moderate Confidence",
+        CLOSURE_LIKELY: {
+            headline: "Closure Likely",
+            subtext: "High probability of a full closure. Wait for official word.",
+            bgGradient: "from-purple-600/50 to-pink-700/40",
+            chanceLabel: "Likely",
         },
-        UNCERTAIN: {
-            headline: "Could Go Either Way",
-            subtext: "Weather models disagree too much to call. Check back tomorrow morning.",
+        CLOSURE_POSSIBLE: {
+            headline: "Closure Possible",
+            subtext: "A closure is possible, but a delay is more certain.",
+            bgGradient: "from-fuchsia-600/40 to-purple-600/20",
+            chanceLabel: "Moderate Chance",
+        },
+        DELAY_DEFINITE: {
+            headline: "2 hour Dly/Rls",
+            subtext: "Strong indicators point to a 2-hour delay or early release.",
+            bgGradient: "from-blue-600/50 to-indigo-600/30",
+            chanceLabel: "High Confidence",
+        },
+        DELAY_LIKELY: {
+            headline: "Dly/Rls Likely",
+            subtext: "A delay is the most likely outcome. Watch for updates.",
+            bgGradient: "from-sky-600/40 to-blue-500/20",
+            chanceLabel: "Likely",
+        },
+        DELAY_POSSIBLE: {
+            headline: "Dly/Rls Possible",
+            subtext: "Model sees some risk, but it might not be enough for a delay.",
             bgGradient: "from-amber-600/40 to-orange-500/20",
-            chanceLabel: "Uncertain",
+            chanceLabel: "Possible",
+        },
+        OPEN: {
+            headline: "Open on Time",
+            subtext: "Conditions do not support any schedule changes.",
+            bgGradient: "from-emerald-700/40 to-teal-600/20",
+            chanceLabel: "High Confidence",
         },
         MODEL_DISAGREE: {
             headline: "Models Wildly Disagree",
@@ -628,13 +663,13 @@ function buildOutput(
             bgGradient: "from-red-800/40 to-orange-700/20",
             chanceLabel: "No Prediction",
         },
-        SCHOOL: {
-            headline: "School is Open",
-            subtext: "Conditions don't support a closure. Set your alarm.",
-            bgGradient: "from-emerald-700/40 to-teal-600/20",
-            chanceLabel: "High Confidence",
-        },
     };
+
+    let stormStrength = "Minimal (<1)";
+    if (features.snowfall_in >= 12) stormStrength = "Extreme (12+)";
+    else if (features.snowfall_in >= 6) stormStrength = "Strong (6-12)";
+    else if (features.snowfall_in >= 3) stormStrength = "Moderate (3-6)";
+    else if (features.snowfall_in >= 1) stormStrength = "Weak (1-3)";
 
     const cfg = configs[verdict];
 
@@ -647,6 +682,7 @@ function buildOutput(
         subtext: cfg.subtext,
         bgGradient: cfg.bgGradient,
         chanceLabel: cfg.chanceLabel,
+        stormStrength,
         stormRegimeFlag,
         dateLabel,
         features,

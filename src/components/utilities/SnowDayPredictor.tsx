@@ -16,35 +16,53 @@ import { FallingSnow } from "@/components/FallingSnow";
 const VERDICT_CONFIG: Record<PredictionVerdict, {
     icon: string; color: string; bgGradient: string; badgeColor: string;
 }> = {
-    SNOW_DAY: {
+    CLOSED: {
         icon: "❄️",
         color: "text-indigo-100",
         bgGradient: "from-indigo-600/60 to-purple-700/50",
         badgeColor: "bg-indigo-500/30 text-indigo-200 border-indigo-400/30",
     },
-    DELAY_LIKELY: {
+    CLOSURE_LIKELY: {
         icon: "🌨️",
+        color: "text-purple-100",
+        bgGradient: "from-purple-600/50 to-pink-700/40",
+        badgeColor: "bg-purple-500/30 text-purple-200 border-purple-400/30",
+    },
+    CLOSURE_POSSIBLE: {
+        icon: "🧊",
+        color: "text-fuchsia-100",
+        bgGradient: "from-fuchsia-600/40 to-purple-600/20",
+        badgeColor: "bg-fuchsia-500/30 text-fuchsia-200 border-fuchsia-400/30",
+    },
+    DELAY_DEFINITE: {
+        icon: "⏱️",
         color: "text-blue-100",
-        bgGradient: "from-blue-600/50 to-blue-500/30",
+        bgGradient: "from-blue-600/50 to-indigo-600/30",
         badgeColor: "bg-blue-500/30 text-blue-200 border-blue-400/30",
     },
-    UNCERTAIN: {
-        icon: "🌫️",
+    DELAY_LIKELY: {
+        icon: "🕒",
+        color: "text-sky-100",
+        bgGradient: "from-sky-600/40 to-blue-500/20",
+        badgeColor: "bg-sky-500/30 text-sky-200 border-sky-400/30",
+    },
+    DELAY_POSSIBLE: {
+        icon: "🤔",
         color: "text-amber-100",
         bgGradient: "from-amber-600/40 to-orange-500/20",
         badgeColor: "bg-amber-500/30 text-amber-200 border-amber-400/30",
+    },
+    OPEN: {
+        icon: "🏫",
+        color: "text-emerald-100",
+        bgGradient: "from-emerald-700/40 to-teal-600/20",
+        badgeColor: "bg-emerald-500/30 text-emerald-200 border-emerald-400/30",
     },
     MODEL_DISAGREE: {
         icon: "⚠️",
         color: "text-red-200",
         bgGradient: "from-red-800/40 to-orange-700/20",
         badgeColor: "bg-red-500/30 text-red-200 border-red-400/30",
-    },
-    SCHOOL: {
-        icon: "🏫",
-        color: "text-emerald-100",
-        bgGradient: "from-emerald-700/40 to-teal-600/20",
-        badgeColor: "bg-emerald-500/30 text-emerald-200 border-emerald-400/30",
     },
 };
 
@@ -376,8 +394,16 @@ export const SnowDayPredictor = () => {
                                         </div>
                                     )}
 
-                                    <div className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border ${verdictCfg.badgeColor}`}>
-                                        {result.chanceLabel}
+                                    <div className="flex justify-center flex-wrap gap-2">
+                                        <div className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border ${verdictCfg.badgeColor}`}>
+                                            {result.chanceLabel}
+                                        </div>
+                                        {result.stormStrength !== "Minimal (<1)" && (
+                                            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border bg-white/10 text-white border-white/20 backdrop-blur-sm">
+                                                <Snowflake className="w-3 h-3 text-blue-300" />
+                                                Storm: {result.stormStrength}
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="text-7xl md:text-8xl">{verdictCfg.icon}</div>
