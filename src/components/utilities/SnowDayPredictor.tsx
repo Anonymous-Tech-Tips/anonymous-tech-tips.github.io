@@ -139,8 +139,7 @@ const NerdStats = ({ result }: { result: EngineOutput }) => {
         { label: "Morning Snow %", value: metrics.morning_fraction },
         { label: "Min Temp", value: `${metrics.min_temp_f}°F` },
         { label: "Max Gust", value: `${metrics.max_gust_mph} mph` },
-        { label: "Snow Budget Used", value: metrics.budget_ratio, warn: parseFloat(metrics.budget_ratio) >= 100 },
-        { label: "Delay Budget Used", value: metrics.delay_ratio, warn: parseFloat(metrics.delay_ratio) >= 100 },
+        { label: "Max Gust", value: `${metrics.max_gust_mph} mph` },
         { label: "NWS Hazard Level", value: metrics.nws_hazard_level, warn: ["Warning", "Emergency"].includes(metrics.nws_hazard_level) },
         { label: "NWS Official PoP", value: metrics.nws_pop },
         { label: "Tree 1 (Snow/Temp)", value: metrics.tree1_snow },
@@ -202,11 +201,7 @@ export const SnowDayPredictor = () => {
     const [rawWeather, setRawWeather] = useState<any>(null);
     const [gridpointData, setGridpointData] = useState<NWSGridpointData | null>(null);
 
-    const [factors, setFactors] = useState({
-        daysUsed: 2,
-        delaysUsed: 0,
-        roadStatus: "normal",
-    });
+
 
     const handlePredict = async () => {
         setLoading(true);
@@ -233,8 +228,8 @@ export const SnowDayPredictor = () => {
             const hl = gridpoint.hazard_level;
             const pop = gridpoint.nws_pop;
 
-            const prediction = runSnowDayEngine(weather, dayIndex, fetchedAlerts, factors, selectedDistrict, hl, pop);
-            const outlook = runWeekOutlook(weather, fetchedAlerts, factors, selectedDistrict, hl, pop);
+            const prediction = runSnowDayEngine(weather, dayIndex, fetchedAlerts, selectedDistrict, hl, pop);
+            const outlook = runWeekOutlook(weather, fetchedAlerts, selectedDistrict, hl, pop);
 
             setResult(prediction);
             setWeekOutlook(outlook);
@@ -250,11 +245,11 @@ export const SnowDayPredictor = () => {
         if (!rawWeather) return;
         const hl = gridpointData?.hazard_level ?? 0;
         const pop = gridpointData?.nws_pop ?? null;
-        const prediction = runSnowDayEngine(rawWeather, dayIndex, alerts, factors, selectedDistrict, hl, pop);
-        const outlook = runWeekOutlook(rawWeather, alerts, factors, selectedDistrict, hl, pop);
+        const prediction = runSnowDayEngine(rawWeather, dayIndex, alerts, selectedDistrict, hl, pop);
+        const outlook = runWeekOutlook(rawWeather, alerts, selectedDistrict, hl, pop);
         setResult(prediction);
         setWeekOutlook(outlook);
-    }, [dayIndex, factors, selectedDistrict]);
+    }, [dayIndex, selectedDistrict]);
 
     const verdictCfg = result ? VERDICT_CONFIG[result.verdict] : null;
 
@@ -325,41 +320,7 @@ export const SnowDayPredictor = () => {
                         </Button>
                     </div>
 
-                    {/* Advanced Factors */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 bg-black/20 rounded-xl border border-white/5">
-                        <div className="space-y-2">
-                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest">Road Conditions</label>
-                            <Select value={factors.roadStatus} onValueChange={(v) => setFactors({ ...factors, roadStatus: v })}>
-                                <SelectTrigger className="bg-white/5 border-white/10 h-8 text-xs font-bold"><SelectValue /></SelectTrigger>
-                                <SelectContent className="bg-slate-900 text-white border-white/10">
-                                    <SelectItem value="clear">Treated / Plowed</SelectItem>
-                                    <SelectItem value="normal">Normal</SelectItem>
-                                    <SelectItem value="unplowed">Unplowed</SelectItem>
-                                    <SelectItem value="icy">Icy</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest flex justify-between">
-                                Snow Days Used <span className="text-white">{factors.daysUsed}</span>
-                            </label>
-                            <input
-                                type="range" min="0" max="10" value={factors.daysUsed}
-                                onChange={(e) => setFactors({ ...factors, daysUsed: parseInt(e.target.value) })}
-                                className="w-full accent-indigo-400 h-1 rounded-full appearance-none"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] uppercase font-bold text-white/40 tracking-widest flex justify-between">
-                                Delays Used <span className="text-white">{factors.delaysUsed}</span>
-                            </label>
-                            <input
-                                type="range" min="0" max="10" value={factors.delaysUsed}
-                                onChange={(e) => setFactors({ ...factors, delaysUsed: parseInt(e.target.value) })}
-                                className="w-full accent-indigo-400 h-1 rounded-full appearance-none"
-                            />
-                        </div>
-                    </div>
+
                 </div>
 
                 {/* ERROR */}
@@ -493,7 +454,7 @@ export const SnowDayPredictor = () => {
                                     <Sparkles className="w-8 h-8 opacity-50" />
                                 </div>
                                 <p className="text-base font-medium max-w-xs mx-auto">
-                                    Configure district and factors, then run the model.
+                                    Configure district, then run the model.
                                 </p>
                                 <p className="text-xs max-w-xs text-white/20">
                                     XGBoost-analog · 50-pass Monte Carlo · Dynamic regional thresholds

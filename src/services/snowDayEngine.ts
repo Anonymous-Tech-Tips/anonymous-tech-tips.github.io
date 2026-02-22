@@ -138,19 +138,6 @@ export interface SnowFeatures {
     /** Official NWS probability of precipitation (0–100) or null */
     nws_pop: number | null;
     day_of_week: number;           // 0=Mon…4=Fri (Friday bonus)
-    days_used: number;             // User input: snow days already used
-    delays_used: number;
-    road_status: number;           // 0=clear,1=normal,2=unplowed,3=icy
-    /**
-     * Snow day budget ratio = days_used / district.builtInSnowDays (0.0 – 1.0+)
-     * 0.0 = no days used yet (very generous).
-     * 1.0 = budget exactly exhausted (next closure extends the school year).
-     * >1.0 = already past make-up territory (superintendent is very reluctant).
-     * Using a ratio makes the signal district-agnostic — 5/5 FCPS ≫ 5/10 PWCS.
-     */
-    budget_ratio: number;
-    /** Delay budget ratio = delays_used / district.builtInDelays */
-    delay_ratio: number;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -158,17 +145,10 @@ export interface SnowFeatures {
 // ─────────────────────────────────────────────────────────────────────────────
 export function extractFeatures(
     data: WeatherData,
-    dayIdx: number, // 0-based offset from today (0=today, 1=tomorrow, 2=day after)
+    dayIdx: number,
     alerts: string[],
-    userFactors: {
-        daysUsed: number;
-        delaysUsed: number;
-        roadStatus: string;
-    },
     district: DistrictProfile,
-    /** From WeatherService.getNWSGridpointData() — structured hazard level 0-4 */
     nwsHazardLevel = 0,
-    /** Official NWS probability of precipitation (0–100) or null */
     nwsPop: number | null = null
 ): SnowFeatures {
     const apiDayIdx = dayIdx + 7; // past_days=7 offset
@@ -250,19 +230,6 @@ export function extractFeatures(
     const dateStr = data.daily.time[apiDayIdx];
     const day_of_week = dateStr ? new Date(dateStr + "T12:00:00").getDay() : 2; // default Wed
 
-    // Road encoding (consolidated to 4 options)
-    const roadMap: Record<string, number> = { clear: 0, normal: 1, unplowed: 2, icy: 3 };
-    const road_status = roadMap[userFactors.roadStatus] ?? 1;
-
-    // Budget ratios — how much of the district's built-in buffer is depleted
-    // Values > 1.0 mean the district is already past their make-up day count
-    const budget_ratio = district.builtInSnowDays > 0
-        ? userFactors.daysUsed / district.builtInSnowDays
-        : 0;
-    const delay_ratio = district.builtInDelays > 0
-        ? userFactors.delaysUsed / district.builtInDelays
-        : 0;
-
     return {
         snowfall_in,
         model_spread_in,
@@ -279,11 +246,6 @@ export function extractFeatures(
         nws_hazard_level,
         nws_pop: nwsPop,
         day_of_week,
-        days_used: userFactors.daysUsed,
-        delays_used: userFactors.delaysUsed,
-        road_status,
-        budget_ratio,
-        delay_ratio,
     };
 }
 
@@ -405,32 +367,9 @@ function tree2_timing(f: SnowFeatures): number {
  * School calendars and plowing capacity are real administrative constraints
  */
 function tree3_administrative(f: SnowFeatures): number {
-    let lo = 0;
-
-    // Snow day budget (district-relative ratio, not raw count)
-    // budget_ratio = days_used / district.builtInSnowDays
-    //   < 0.33  → early in budget, district is generous (+0.40)
-    //   0.33–0.66 → mid-budget, neutral (no adjustment)
-    //   0.66–0.99 → near limit, hesitant (−0.35)
-    //   ≥ 1.0  → OVER budget; next closure extends school year (−0.65)
-    if (f.budget_ratio < 0.33) lo += 0.40;
-    else if (f.budget_ratio >= 1.0) lo -= 0.65;
-    else if (f.budget_ratio >= 0.66) lo -= 0.35;
-
-    // Delay budget ratio — same logic
-    if (f.delay_ratio >= 1.0) lo -= 0.25;  // out of delay buffer too
-    else if (f.delay_ratio >= 0.75) lo -= 0.15;
-
-    // Road conditions (most important non-weather factor)
-    if (f.road_status === 3) lo += 1.8;       // icy → near-certain close
-    else if (f.road_status === 2) lo += 1.1;  // unplowed
-    else if (f.road_status === 1) lo += 0.4;  // normal
-    else if (f.road_status === 0) lo -= 0.5;  // treated/plowed → downgrade
-
-    // Social sentiment removed in v5.2 — impact was too small (≤+0.4 log-odds)
-    // and purely gameable. Road/budget factors handle administrative signals.
-
-    return lo;
+    // Subjective factors (road status, budgets) removed in v5.4.
+    // The model now relies entirely on objective weather and NWS data.
+    return 0;
 }
 
 /**
@@ -537,8 +476,6 @@ export interface EngineOutput {
         morning_fraction: string;
         min_temp_f: string;
         max_gust_mph: string;
-        budget_ratio: string;         // days_used / builtInSnowDays
-        delay_ratio: string;          // delays_used / builtInDelays
         tree1_snow: string;
         tree2_timing: string;
         tree3_admin: string;
@@ -566,18 +503,13 @@ export function runSnowDayEngine(
     data: WeatherData,
     dayIdx: number,
     alerts: string[],
-    userFactors: {
-        daysUsed: number;
-        delaysUsed: number;
-        roadStatus: string;
-    },
     district: DistrictProfile,
     /** Structured NWS hazard level from getNWSGridpointData() (0–4) */
     nwsHazardLevel = 0,
     /** Official NWS PoP from getNWSGridpointData() (0–100 or null) */
     nwsPop: number | null = null
 ): EngineOutput {
-    const features = extractFeatures(data, dayIdx, alerts, userFactors, district, nwsHazardLevel, nwsPop);
+    const features = extractFeatures(data, dayIdx, alerts, district, nwsHazardLevel, nwsPop);
 
     const apiDayIdx = dayIdx + 7;
     const dateStr = data.daily.time[apiDayIdx];
@@ -601,12 +533,11 @@ export function runSnowDayEngine(
     }
 
     // ── Permutation baseline gate ────────────────────────────────────────────
-    // If there's essentially nothing: zero snow, no ice, no real depth, clear roads → return early
+    // If there's essentially nothing: zero snow, no ice, no real depth → return early
     const basicallyClear =
         features.snowfall_in < 0.1 &&
         features.actual_snow_depth_in < 0.5 &&
         !features.has_ice &&
-        features.road_status === 0 &&
         features.nws_hazard_level === 0;
 
     if (basicallyClear) {
@@ -626,8 +557,8 @@ export function runSnowDayEngine(
 
     let verdict: PredictionVerdict;
 
-    if (features.has_ice && features.road_status === 3) {
-        // Ice + icy roads = certain close regardless
+    if (features.has_ice && features.min_temp_f < 32) {
+        // Ice + subfreezing = near certain close
         verdict = "SNOW_DAY";
     } else if (features.nws_hazard_level >= 3 && features.snowfall_in > district.closureThreshIn) {
         // NWS Warning/Emergency + district closure threshold crossed → close
@@ -730,8 +661,6 @@ function buildOutput(
             morning_fraction: (features.morning_snow_fraction * 100).toFixed(0) + "%",
             min_temp_f: features.min_temp_f.toFixed(1),
             max_gust_mph: features.max_wind_gust_mph.toFixed(1),
-            budget_ratio: (features.budget_ratio * 100).toFixed(0) + "% of budget used",
-            delay_ratio: (features.delay_ratio * 100).toFixed(0) + "% of delay budget used",
             tree1_snow: t1.toFixed(3),
             tree2_timing: t2.toFixed(3),
             tree3_admin: t3.toFixed(3),
@@ -756,10 +685,9 @@ function buildOutput(
 export function runWeekOutlook(
     data: WeatherData,
     alerts: string[],
-    userFactors: { daysUsed: number; delaysUsed: number; roadStatus: string },
     district: DistrictProfile,
     nwsHazardLevel = 0,
     nwsPop: number | null = null
 ): EngineOutput[] {
-    return [0, 1, 2].map((i) => runSnowDayEngine(data, i, alerts, userFactors, district, nwsHazardLevel, nwsPop));
+    return [0, 1, 2].map((i) => runSnowDayEngine(data, i, alerts, district, nwsHazardLevel, nwsPop));
 }
