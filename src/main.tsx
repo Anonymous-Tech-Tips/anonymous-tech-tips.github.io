@@ -28,7 +28,7 @@ if ('serviceWorker' in navigator) {
                   // New service worker available, force immediate takeover
                   newWorker.postMessage({ type: 'SKIP_WAITING' });
                   newWorker.postMessage({ type: 'CLIENTS_CLAIM' });
-                  
+
                   // Force reload after brief delay to ensure SW is ready
                   setTimeout(() => {
                     window.location.reload();
@@ -57,11 +57,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ErrorBoundary>
       <HashRouter>
-        <AuthProvider>
-          <UserPrefsProvider>
-            <App />
-          </UserPrefsProvider>
-        </AuthProvider>
+        <App />
       </HashRouter>
     </ErrorBoundary>
   </React.StrictMode>
