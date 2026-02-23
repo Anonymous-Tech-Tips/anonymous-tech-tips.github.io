@@ -149,6 +149,8 @@ export interface SnowFeatures {
     day_of_week: number;           // 0=Mon…4=Fri (Friday bonus)
     /** The prediction verdict of a massive neighboring district (e.g. FCPS) to model peer pressure */
     neighbor_verdict: PredictionVerdict | null;
+    /** The true hazard amount: today's forecast snow PLUS the existing snowpack that survived overnight */
+    effective_snow_in: number;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -249,9 +251,37 @@ export function extractFeatures(
     const dateStr = data.daily.time[apiDayIdx];
     const day_of_week = dateStr ? new Date(dateStr + "T12:00:00").getDay() : 2; // default Wed
 
+    // ── Depth persistence multiplier (v5.6 tuned) ──────────────────────────────
+    // How much of the existing snowpack is still a hazard depends critically on
+    // whether it melts overnight. Decision time is 6:00 AM.
+    let depthMultiplier: number;
+    if (ground_temp_f > 40 && min_temp_f >= 35) {
+        depthMultiplier = 0.0;       // extremely fast overnight melt, roads clear
+    } else if (min_temp_f >= 35) {
+        depthMultiplier = 0.3;       // rapid melt, slushy but mostly passable
+    } else if (min_temp_f >= 32) {
+        depthMultiplier = 0.6;       // marginal melt, high risk of slush/ice
+    } else if (min_temp_f >= 25) {
+        depthMultiplier = 0.9;       // freezing, highly persistent
+    } else {
+        depthMultiplier = 1.0;       // extreme cold, zero melt overnight
+    }
+
+    // Rain-on-snow accelerates melt
+    if (has_rain_snow_mix) depthMultiplier *= 0.5;
+
+    // ── 48-Hour Clear Roads Rule ───────────────────────────────────
+    if (snowfall_in <= 0.05 && yesterday_snow_in <= 0.05) {
+        depthMultiplier = 0.0;
+    }
+
+    const existingBonus = actual_snow_depth_in * depthMultiplier;
+    const effective_snow_in = snowfall_in + existingBonus;
+
     return {
         snowfall_in,
         yesterday_snow_in,
+        effective_snow_in,
         model_spread_in,
         morning_snow_fraction,
         min_temp_f,
@@ -293,46 +323,15 @@ const PRIOR_LOG_ODDS = -1.6;
  * Trained on: snowfall, temperature, precip type
  */
 function tree1_snowTemp(f: SnowFeatures): number {
-    // ── Depth persistence multiplier (v5.6 tuned) ──────────────────────────────
-    // How much of the existing snowpack is still a hazard depends critically on
-    // whether it melts overnight. Previously we used the afternoon max temp, but
-    // school delay/close decisions are made at 6:00 AM!
-    // We now use morning temperatures to judge ice retention.
-
-    let depthMultiplier: number;
-    if (f.ground_temp_f > 40 && f.min_temp_f >= 35) {
-        depthMultiplier = 0.0;       // extremely fast overnight melt, roads clear
-    } else if (f.min_temp_f >= 35) {
-        depthMultiplier = 0.3;       // rapid melt, slushy but mostly passable
-    } else if (f.min_temp_f >= 32) {
-        depthMultiplier = 0.6;       // marginal melt, high risk of slush/ice
-    } else if (f.min_temp_f >= 25) {
-        depthMultiplier = 0.9;       // freezing, highly persistent
-    } else {
-        depthMultiplier = 1.0;       // extreme cold, zero melt overnight
-    }
-
-    // Rain-on-snow accelerates melt
-    if (f.has_rain_snow_mix) depthMultiplier *= 0.5;
-
-    // ── 48-Hour Clear Roads Rule ───────────────────────────────────
-    // If it hasn't effectively snowed today OR yesterday (<= 0.05"), 
-    // plows have possessed 36-48 hours to clear main and back roads.
-    if (f.snowfall_in <= 0.05 && f.yesterday_snow_in <= 0.05) {
-        depthMultiplier = 0.0;
-    }
-
-    const existingBonus = f.actual_snow_depth_in * depthMultiplier;
-    const effectiveSnow = f.snowfall_in + existingBonus;
     let lo = 0;
 
     // Snow depth splits (walk-forward learned, v5.6 tuned)
-    if (effectiveSnow >= 6.0) lo += 3.2;       // certain closure territory
-    else if (effectiveSnow >= 3.5) lo += 2.4;  // high probability
-    else if (effectiveSnow >= 2.0) lo += 1.8;  // moderate (v5.6 boosted from 1.1)
-    else if (effectiveSnow >= 1.0) lo += 0.8;  // low
-    else if (effectiveSnow >= 0.5) lo -= 0.5;  // trace amounts (penalty)
-    else lo -= 2.0;                            // essentially no snow
+    if (f.effective_snow_in >= 6.0) lo += 3.2;       // certain closure territory
+    else if (f.effective_snow_in >= 3.5) lo += 2.4;  // high probability
+    else if (f.effective_snow_in >= 2.0) lo += 1.8;  // moderate (v5.6 boosted from 1.1)
+    else if (f.effective_snow_in >= 1.0) lo += 0.8;  // low
+    else if (f.effective_snow_in >= 0.5) lo -= 0.5;  // trace amounts (penalty)
+    else lo -= 2.0;                                  // essentially no snow
 
     // Temperature adjustment
     if (f.min_temp_f <= 10) lo += 3.0;         // unsafe extreme cold (guaranteed wind-chill warning)
@@ -350,7 +349,7 @@ function tree1_snowTemp(f: SnowFeatures): number {
 
     // Freezing Rain / Black Ice invisible heuristic (Open-Meteo often misses WMO 66/67)
     // If it's officially rain/snow mix but ground is freezing, roads glaze over.
-    if (f.has_rain_snow_mix && f.ground_temp_f <= 32 && f.min_temp_f <= 32 && effectiveSnow < 1.0) {
+    if (f.has_rain_snow_mix && f.ground_temp_f <= 32 && f.min_temp_f <= 32 && f.effective_snow_in < 1.0) {
         lo += 2.0;
     }
 
@@ -570,7 +569,7 @@ export function runSnowDayEngine(
     const stormRegimeFlag = features.model_spread_in >= 3.5;
     const modelDisagree =
         features.model_spread_in >= 5.0 &&
-        features.snowfall_in < 4.0 &&
+        features.effective_snow_in < 4.0 &&
         !features.has_ice &&
         features.nws_hazard_level < 3; // Don't suppress if NWS has issued a Warning
 
@@ -581,7 +580,7 @@ export function runSnowDayEngine(
     // ── Permutation baseline gate ────────────────────────────────────────────
     // If there's essentially nothing: zero snow, no ice, no real depth → return early
     const basicallyClear =
-        features.snowfall_in < 0.1 &&
+        features.effective_snow_in < 0.1 &&
         features.actual_snow_depth_in < 0.5 &&
         !features.has_ice &&
         features.nws_hazard_level === 0;
@@ -602,7 +601,7 @@ export function runSnowDayEngine(
     );
 
     let verdict: PredictionVerdict;
-    if (features.nws_hazard_level >= 3 && features.snowfall_in > district.closureThreshIn) {
+    if (features.nws_hazard_level >= 3 && features.effective_snow_in > district.closureThreshIn) {
         // NWS Warning/Emergency + district closure threshold crossed → close
         verdict = "CLOSED";
     } else if (mc.adjustedProb >= 0.45) {
@@ -705,10 +704,10 @@ function buildOutput(
     };
 
     let stormStrength = "Minimal (<1)";
-    if (features.snowfall_in >= 12) stormStrength = "Extreme (12+)";
-    else if (features.snowfall_in >= 6) stormStrength = "Strong (6-12)";
-    else if (features.snowfall_in >= 3) stormStrength = "Moderate (3-6)";
-    else if (features.snowfall_in >= 1) stormStrength = "Weak (1-3)";
+    if (features.effective_snow_in >= 12) stormStrength = "Extreme (12+)";
+    else if (features.effective_snow_in >= 6) stormStrength = "Strong (6-12)";
+    else if (features.effective_snow_in >= 3) stormStrength = "Moderate (3-6)";
+    else if (features.effective_snow_in >= 1) stormStrength = "Weak (1-3)";
 
     const cfg = configs[verdict];
 
@@ -726,7 +725,7 @@ function buildOutput(
         dateLabel,
         features,
         metrics: {
-            snowfall_in: features.snowfall_in.toFixed(2),
+            snowfall_in: features.effective_snow_in.toFixed(2),
             actual_snow_depth_in: features.actual_snow_depth_in.toFixed(2),
             ground_temp_f: features.ground_temp_f.toFixed(1),
             max_temp_f: features.max_temp_f.toFixed(1),
