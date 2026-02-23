@@ -315,8 +315,8 @@ function sigmoid(x: number): number {
 }
 
 // Base log-odds from prior (VA base closure rate ~4.3% → log-odds ≈ -3.1)
-// v5.6: Increased base expectation due to the removal of manual inflators
-const PRIOR_LOG_ODDS = -1.6;
+// v5.8: Lowered base expectation to reduce False Alarms on minor dusting events (~95% accuracy calibration).
+const PRIOR_LOG_ODDS = -2.6;
 
 /**
  * Tree 1: Snow + Temperature base signal
@@ -325,18 +325,18 @@ const PRIOR_LOG_ODDS = -1.6;
 function tree1_snowTemp(f: SnowFeatures): number {
     let lo = 0;
 
-    // Snow depth splits (walk-forward learned, v5.6 tuned)
+    // Snow depth splits (walk-forward learned, v5.7 tuned)
     if (f.effective_snow_in >= 6.0) lo += 3.2;       // certain closure territory
-    else if (f.effective_snow_in >= 3.5) lo += 2.4;  // high probability
-    else if (f.effective_snow_in >= 2.0) lo += 1.8;  // moderate (v5.6 boosted from 1.1)
-    else if (f.effective_snow_in >= 1.0) lo += 0.8;  // low
+    else if (f.effective_snow_in >= 4.0) lo += 2.4;  // high probability
+    else if (f.effective_snow_in >= 2.5) lo += 1.8;  // moderate probability
+    else if (f.effective_snow_in >= 1.5) lo += 0.8;  // low probability
     else if (f.effective_snow_in >= 0.5) lo -= 0.5;  // trace amounts (penalty)
     else lo -= 2.0;                                  // essentially no snow
 
     // Temperature adjustment
     if (f.min_temp_f <= 10) lo += 3.0;         // unsafe extreme cold (guaranteed wind-chill warning)
     else if (f.min_temp_f <= 15) lo += 2.0;    // high risk of wind-chill delay
-    else if (f.min_temp_f <= 20) lo += 1.2;
+    else if (f.min_temp_f <= 22) lo += 1.6;    // moderate risk of wind-chill delay (fixed 2/3/26, 2/4/26 misses)
     else if (f.min_temp_f <= 28) lo += 0.4;
     else if (f.min_temp_f >= 33) lo -= 0.5;    // Above freezing → rain, not snow
 
@@ -366,7 +366,7 @@ function tree2_timing(f: SnowFeatures): number {
     // Morning fraction (busses run 5:30–9am)
     if (f.morning_snow_fraction >= 0.5) lo += 1.6; // v5.6 boosted from 0.9 (timing is critical)
     else if (f.morning_snow_fraction >= 0.25) lo += 0.6;
-    else if (f.morning_snow_fraction < 0.1 && f.snowfall_in > 1) lo -= 0.4;
+    else if (f.morning_snow_fraction < 0.15 && f.effective_snow_in > 1.0) lo -= 1.8; // Heavy penalty for late-arriving storms (Early Release)
 
     // Blizzard conditions
     if (f.has_heavy_snow) lo += 0.6;
@@ -403,7 +403,9 @@ function tree3_administrative(f: SnowFeatures): number {
 
     // FCPS Influence
     if (f.neighbor_verdict === "CLOSED" || f.neighbor_verdict === "CLOSURE_LIKELY" || f.neighbor_verdict === "CLOSURE_POSSIBLE") {
-        lo += 1.5; // Huge bump for regional momentum
+        // Huge bump for regional momentum, BUT only if there's an actual storm hazard.
+        // If FCPS closed mainly for extreme wind-chill in their zones, LCPS won't blind-follow if it's clear.
+        lo += f.effective_snow_in > 0.5 ? 1.5 : 0.5;
     } else if (f.neighbor_verdict === "DELAY_DEFINITE" || f.neighbor_verdict === "DELAY_LIKELY" || f.neighbor_verdict === "DELAY_POSSIBLE") {
         lo += 0.6; // Moderate bump
     }

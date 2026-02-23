@@ -8,7 +8,10 @@ export interface HistoryRecord {
     lcpsStatus: string;
     stormNotes: string;
 }
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/export?format=csv&gid=0";
+const SHEET_URLS = [
+    "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/export?format=csv&gid=702572873", // Historic
+    "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/export?format=csv&gid=0"         // Current Year
+];
 
 export class HistoryService {
     private static cache: HistoryRecord[] | null = null;
@@ -28,48 +31,46 @@ export class HistoryService {
 
     private static async _fetchAndParse(): Promise<HistoryRecord[]> {
         try {
-            const response = await fetch(SHEET_CSV_URL);
-            if (!response.ok) throw new Error("Failed to fetch history CSV");
-
-            const rawText = await response.text();
-            const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-
             const records: HistoryRecord[] = [];
 
-            // Skip the first few header rows. The real data starts below the columns:
-            // "2019-2020", "", "PWCS", "FCPS", "Loudoun"
-            let dataStarted = false;
+            for (const url of SHEET_URLS) {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    console.warn(`Failed to fetch history CSV from ${url}`);
+                    continue;
+                }
 
-            for (const line of lines) {
-                // Basic CSV split that respects quotes (though this sheet is mostly simple strings)
-                // A true CSV parser is better, but this regex handles simple quoted strings
-                const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+                const rawText = await response.text();
+                const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
 
-                if (cols.length < 5) continue;
+                let dataStarted = false;
 
-                // Detect the start of a year block or data row
-                const colA = cols[0]; // e.g. "2019-2020" or empty
-                const colB = cols[1]; // e.g. "12/11/19" (now index 2)
-                const colDate = cols[2];
+                for (const line of lines) {
+                    const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+                    if (cols.length < 5) continue;
 
-                // If colDate looks like a date M/D/YY, it's a data row
-                if (colDate && /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(colDate)) {
-                    dataStarted = true;
+                    const colDate = cols[2];
 
-                    const [m, d, y] = colDate.split('/').map(Number);
-                    // Handle 2-digit years natively
-                    const fullYear = y < 100 ? 2000 + y : y;
+                    if (colDate && /^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(colDate)) {
+                        dataStarted = true;
 
-                    records.push({
-                        date: colDate,
-                        year: fullYear,
-                        month: m,
-                        day: d,
-                        pwcsStatus: cols[3] || "Unknown",
-                        fcpsStatus: cols[4] || "Unknown",
-                        lcpsStatus: cols[5] || "Unknown",
-                        stormNotes: cols[6] || ""
-                    });
+                        const [m, d, y] = colDate.split('/').map(Number);
+                        const fullYear = y < 100 ? 2000 + y : y;
+
+                        // Prevent exact duplicates if overlapping
+                        if (!records.some(r => r.year === fullYear && r.month === m && r.day === d)) {
+                            records.push({
+                                date: colDate,
+                                year: fullYear,
+                                month: m,
+                                day: d,
+                                pwcsStatus: cols[3] || "Unknown",
+                                fcpsStatus: cols[4] || "Unknown",
+                                lcpsStatus: cols[5] || "Unknown",
+                                stormNotes: cols[6] || ""
+                            });
+                        }
+                    }
                 }
             }
 

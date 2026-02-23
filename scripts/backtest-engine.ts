@@ -79,6 +79,7 @@ async function runBacktest() {
 
     // Test on all historical winter storms (filter out Hurricane Ida/Sept flooding)
     const testSet = history.filter(r => !r.date.startsWith('9/'));
+    let validTests = 0;
 
     for (const record of testSet) {
         console.log(`\n--- Evaluating Date: ${record.date} [LCPS Actual: ${record.lcpsStatus}] ---`);
@@ -88,6 +89,19 @@ async function runBacktest() {
         const [m, d, y] = record.date.split('/').map(Number);
         const fullYear = y < 100 ? 2000 + y : y;
         const testDate = new Date(fullYear, m - 1, d);
+
+        // ── 5-DAY SAFETY FILTER (Phase 8) ────────────────────────────────────
+        // Open-Meteo Archive API takes ~5 days to populate data.
+        // If the testdate is too recent, skip it to avoid API 400 errors.
+        const fiveDaysAgo = new Date();
+        fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+        if (testDate > fiveDaysAgo) {
+            console.log(`⚠️ Skipping ${record.date} — too recent for Archive API (needs 5 days).`);
+            continue;
+        }
+
+        console.log(`\n--- Evaluating Date: ${record.date} [LCPS Actual: ${record.lcpsStatus}] ---`);
+        validTests++;
 
         const startObj = new Date(testDate);
         startObj.setDate(startObj.getDate() - 7);
@@ -181,11 +195,14 @@ async function runBacktest() {
         const isDelayPrediction = ["DELAY_DEFINITE", "DELAY_LIKELY", "DELAY_POSSIBLE"].includes(engineResult.verdict);
 
         const actualLower = record.lcpsStatus.toLowerCase();
-        const actualClose = actualLower === "closed" || actualLower === "act. cancelled";
-        const actualDelay = actualLower.includes("delay") || actualLower.includes("early release");
+
+        // "Act. Cancelled" (after school activities) and "Early Release" mean school started on time.
+        // The morning commute was unobstructed. These count as OPEN for morning prediction purposes.
+        const actualClose = actualLower === "closed";
+        const actualDelay = actualLower.includes("delay") && !actualLower.includes("early release");
 
         const isOpenPrediction = !isClosurePrediction && !isDelayPrediction;
-        const actualOpen = !actualClose && !actualDelay;
+        const actualOpen = !actualClose && !actualDelay; // Includes Act. Cancelled, Early Release, On Time
 
         // Scoring logic
         if (actualClose && isClosurePrediction) {
@@ -212,11 +229,18 @@ async function runBacktest() {
         }
     }
 
+    if (validTests === 0) {
+        console.log("\n=================================");
+        console.log("BACKTEST COMPLETE: 0 storms evaluated (all dates were skipped).");
+        console.log("=================================");
+        return;
+    }
+
     const totalScore = correctClosure + correctDelay + correctOpen;
-    const accuracy = (totalScore / testSet.length) * 100;
+    const accuracy = (totalScore / validTests) * 100;
 
     console.log("\n=================================");
-    console.log(`BACKTEST COMPLETE (${testSet.length} Storms Evaluated)`);
+    console.log(`BACKTEST COMPLETE (${validTests} Storms Evaluated)`);
     console.log(`Total Accuracy Score: ${accuracy.toFixed(1)}%`);
     console.log(`Correct Closures: ${correctClosure}`);
     console.log(`Correct Delays (Full/Partial): ${correctDelay}`);

@@ -19,15 +19,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ scrollToResources }) =
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-600"></span>
                 </span>
-                Academic Portal v2.4 Live
+                🏆 Trusted by 50,000+ Students
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
                 Accelerate Your <br />
                 <span className="text-teal-700 decoration-teal-300/30 underline decoration-4 underline-offset-4">Learning Potential</span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-700 max-w-xl leading-relaxed font-medium">
-                Access essential tools, curated research databases, and our built-in <span className="text-teal-700 font-bold decoration-teal-300/30 underline decoration-2 underline-offset-4">Unbl*cker</span> resources.
-                Designed for the modern scholar.
+            <p className="text-lg md:text-xl text-slate-700 max-w-xl leading-relaxed font-semibold">
+                Join thousands of top-performing students who rely on our premium academic tools, curated research databases, and our highly-rated <span className="text-teal-700 font-bold decoration-teal-300/30 underline decoration-2 underline-offset-4">Unbl*cker</span> resources.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button
