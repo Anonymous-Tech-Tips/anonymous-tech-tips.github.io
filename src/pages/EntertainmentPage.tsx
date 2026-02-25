@@ -17,59 +17,59 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // 🎬 DATA SOURCES
 
 const streamingList = [
-  { title: "Cineby", url: "https://www.cineby.gd/", desc: "Movies / TV", thumb: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Popular"] },
-  { title: "XPrime", url: "https://xprime.today/", desc: "Premium Streaming", thumb: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["HD"] },
-  { title: "Rive", url: "https://rivestream.org/", desc: "Fast & Clean", thumb: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Fast"] },
-  { title: "P-Stream", url: "https://pstream.mov/", desc: "Movie Database", thumb: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Movies"] },
-  { title: "FlickyStream", url: "https://flickystream.ru/", desc: "Reliable Player", thumb: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["New"] },
-  { title: "VeloraTV", url: "https://veloratv.ru/", desc: "TV Series Focus", thumb: "https://images.unsplash.com/photo-1593784697956-14185ac9489f?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["TV"] },
-  { title: "SpenFlix", url: "https://watch.spencerdevs.xyz/", desc: "Developer's Choice", thumb: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Dev"] },
-  { title: "Cinegram", url: "https://cinegram.net/", desc: "Modern UI", thumb: "https://images.unsplash.com/photo-1586899028174-e7098604235b?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["UI"] },
+  { title: "Cineby", url: "https://www.cineby.gd/", desc: "Movies / TV", thumb: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Popular"] },
+  { title: "XPrime", url: "https://xprime.today/", desc: "Premium Streaming", thumb: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["HD"] },
+  { title: "Rive", url: "https://rivestream.org/", desc: "Fast & Clean", thumb: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Fast"] },
+  { title: "P-Stream", url: "https://pstream.mov/", desc: "Movie Database", thumb: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Movies"] },
+  { title: "FlickyStream", url: "https://flickystream.ru/", desc: "Reliable Player", thumb: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["New"] },
+  { title: "VeloraTV", url: "https://veloratv.ru/", desc: "TV Series Focus", thumb: "https://images.unsplash.com/photo-1593784697956-14185ac9489f?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["TV"] },
+  { title: "SpenFlix", url: "https://watch.spencerdevs.xyz/", desc: "Developer's Choice", thumb: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Dev"] },
+  { title: "Cinegram", url: "https://cinegram.net/", desc: "Modern UI", thumb: "https://images.unsplash.com/photo-1586899028174-e7098604235b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["UI"] },
 ];
 
 const singleServerList = [
-  { title: "Nepu", url: "https://nepu.to/", desc: "High Reliability", thumb: "https://images.unsplash.com/photo-1517604931442-710c8ed05254?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Stable"] },
-  { title: "EE3", url: "https://ee3.me/", desc: "Fast Loads", thumb: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Speed"] },
-  { title: "yFlix", url: "https://yflix.to/", desc: "Less Mislabeled", thumb: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Quality"] },
+  { title: "Nepu", url: "https://nepu.to/", desc: "High Reliability", thumb: "https://images.unsplash.com/photo-1517604931442-710c8ed05254?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Stable"] },
+  { title: "EE3", url: "https://ee3.me/", desc: "Fast Loads", thumb: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Speed"] },
+  { title: "yFlix", url: "https://yflix.to/", desc: "Less Mislabeled", thumb: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Quality"] },
 ];
 
 const aggregatorsList = [
-  { title: "Flixer", url: "https://flixer.sh/", desc: "Multi-Source", thumb: "https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Search"] },
-  { title: "Cinezo", url: "https://www.cinezo.net/", desc: "Aggregator", thumb: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["All"] },
-  { title: "bCine", url: "https://bcine.app/", desc: "App-like Experience", thumb: "https://images.unsplash.com/photo-1586899028174-e7098604235b?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Clean"] },
-  { title: "Filmex", url: "https://filmex.to/", desc: "Large Database", thumb: "https://images.unsplash.com/photo-1535016120720-40c6874c3b1c?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Huge"] },
+  { title: "Flixer", url: "https://flixer.sh/", desc: "Multi-Source", thumb: "https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Search"] },
+  { title: "Cinezo", url: "https://www.cinezo.net/", desc: "Aggregator", thumb: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["All"] },
+  { title: "bCine", url: "https://bcine.app/", desc: "App-like Experience", thumb: "https://images.unsplash.com/photo-1586899028174-e7098604235b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Clean"] },
+  { title: "Filmex", url: "https://filmex.to/", desc: "Large Database", thumb: "https://images.unsplash.com/photo-1535016120720-40c6874c3b1c?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Huge"] },
 ];
 
 const animeList = [
-  { title: "AnimeKai", url: "https://animekai.to/home", desc: "Top Tier Anime", thumb: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Anime"] },
-  { title: "Miruro", url: "https://www.miruro.com/", desc: "Clean Player", thumb: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Sub"] },
-  { title: "Anime Realms", url: "https://www.animerealms.org/", desc: "Community Fav", thumb: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Dub"] },
-  { title: "All Manga", url: "https://allmanga.to/", desc: "Manga & Anime", thumb: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Reader"] },
+  { title: "AnimeKai", url: "https://animekai.to/home", desc: "Top Tier Anime", thumb: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Anime"] },
+  { title: "Miruro", url: "https://www.miruro.com/", desc: "Clean Player", thumb: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Sub"] },
+  { title: "Anime Realms", url: "https://www.animerealms.org/", desc: "Community Fav", thumb: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Dub"] },
+  { title: "All Manga", url: "https://allmanga.to/", desc: "Manga & Anime", thumb: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Reader"] },
 ];
 
 const liveTvList = [
-  { title: "PlayTorrio", url: "https://iptv.playtorrio.xyz/", desc: "IPTV Channels", thumb: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["IPTV"] },
-  { title: "Famelack", url: "https://famelack.com/", desc: "Live Networks", thumb: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Live"] },
-  { title: "NTV", url: "https://ntvstream.cx/", desc: "Global Streams", thumb: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["World"] },
-  { title: "EasyWebTV", url: "https://zhangboheng.github.io/Easy-Web-TV-M3u8/routes/countries.html", desc: "Web TV", thumb: "https://images.unsplash.com/photo-1584905066893-7d5c142abc4e?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Web"] },
-  { title: "RgShows", url: "https://www.rgshows.ru/livetv/", desc: "Russian/Global", thumb: "https://images.unsplash.com/photo-1505673542670-a5e3ff5b14a3?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["RU"] },
+  { title: "PlayTorrio", url: "https://iptv.playtorrio.xyz/", desc: "IPTV Channels", thumb: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["IPTV"] },
+  { title: "Famelack", url: "https://famelack.com/", desc: "Live Networks", thumb: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Live"] },
+  { title: "NTV", url: "https://ntvstream.cx/", desc: "Global Streams", thumb: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["World"] },
+  { title: "EasyWebTV", url: "https://zhangboheng.github.io/Easy-Web-TV-M3u8/routes/countries.html", desc: "Web TV", thumb: "https://images.unsplash.com/photo-1584905066893-7d5c142abc4e?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Web"] },
+  { title: "RgShows", url: "https://www.rgshows.ru/livetv/", desc: "Russian/Global", thumb: "https://images.unsplash.com/photo-1505673542670-a5e3ff5b14a3?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["RU"] },
 ];
 
 const liveSportsList = [
-  { title: "Streamed", url: "https://streamed.pk/", desc: "Sports Events", thumb: "https://images.unsplash.com/photo-1522770179533-24471fcdba45?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Events"] },
-  { title: "SportyHunter", url: "https://sportyhunter.com/", desc: "Match Schedule", thumb: "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Sched"] },
-  { title: "WatchSports", url: "https://watchsports.to/", desc: "Live Action", thumb: "https://images.unsplash.com/photo-1599586120429-48285b6a8a81?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["Live"] },
+  { title: "Streamed", url: "https://streamed.pk/", desc: "Sports Events", thumb: "https://images.unsplash.com/photo-1522770179533-24471fcdba45?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Events"] },
+  { title: "SportyHunter", url: "https://sportyhunter.com/", desc: "Match Schedule", thumb: "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Sched"] },
+  { title: "WatchSports", url: "https://watchsports.to/", desc: "Live Action", thumb: "https://images.unsplash.com/photo-1599586120429-48285b6a8a81?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["Live"] },
 ];
 
 const unblockedSlidesList = [
-  { title: "Netflix Slides", url: "https://docs.google.com/presentation/d/149GpUX0v2xNpwbUTv0Ra1bXSBJ8VImN3yQXMYA9ZhKA/edit?usp=sharing", desc: "Unblocked Netflix", thumb: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
-  { title: "Disney+ Slides", url: "https://docs.google.com/presentation/d/1cqMoS7rNvOX77938GusdWNi6mYVPOfETCVsAVW9I9ps/edit", desc: "Unblocked Disney+", thumb: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
-  { title: "Paramount+", url: "https://docs.google.com/presentation/d/1CiZMdBm677M7EIus7gT89WPxwYPzXJQgwmXGv3sLAaw/edit#slide=id.g1b71f8bdb3c_2_77", desc: "Unblocked Stream", thumb: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
-  { title: "Roku Slides", url: "https://docs.google.com/presentation/d/1OjrWHYHz5xbxhVYfWbDF4J0NdM3AYHC9x2pTchv4GuU/edit#slide=id.g26f6dcac621_1_0", desc: "Roku Channel", thumb: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
-  { title: "Tubi Slides", url: "https://docs.google.com/presentation/d/1MKUZLOhfS1PyOtbz-uhfdNqewzDJIqZxBEfMeWPhJpE/edit#slide=id.g2d03a5085ad_0_68", desc: "Free Movies", thumb: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
-  { title: "Hulu Slides", url: "https://docs.google.com/presentation/d/1YDZCGRJMcIXA6CDnnxEUcNuZuEx-NdUETeeVFulhYDg/edit", desc: "Unblocked Hulu", thumb: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
-  { title: "YouTube TM", url: "https://docs.google.com/presentation/d/1KBqFsMZ10Buf485l-AzkcjIDzFQyyg_O6EfX3vJmYTY/edit?usp=sharing", desc: "Unblocked YT", thumb: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
-  { title: "NLive TV", url: "https://docs.google.com/presentation/u/0/d/1qs4zcgOXev4PIHqncEnXB4t9pTwOdn8bgJY55NBv11w/edit", desc: "Live TV Slides", thumb: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1000&auto=format&fit=crop", redirect: false, tags: ["School"] },
+  { title: "Netflix Slides", url: "https://docs.google.com/presentation/d/149GpUX0v2xNpwbUTv0Ra1bXSBJ8VImN3yQXMYA9ZhKA/edit?usp=sharing", desc: "Unblocked Netflix", thumb: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
+  { title: "Disney+ Slides", url: "https://docs.google.com/presentation/d/1cqMoS7rNvOX77938GusdWNi6mYVPOfETCVsAVW9I9ps/edit", desc: "Unblocked Disney+", thumb: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
+  { title: "Paramount+", url: "https://docs.google.com/presentation/d/1CiZMdBm677M7EIus7gT89WPxwYPzXJQgwmXGv3sLAaw/edit#slide=id.g1b71f8bdb3c_2_77", desc: "Unblocked Stream", thumb: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
+  { title: "Roku Slides", url: "https://docs.google.com/presentation/d/1OjrWHYHz5xbxhVYfWbDF4J0NdM3AYHC9x2pTchv4GuU/edit#slide=id.g26f6dcac621_1_0", desc: "Roku Channel", thumb: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
+  { title: "Tubi Slides", url: "https://docs.google.com/presentation/d/1MKUZLOhfS1PyOtbz-uhfdNqewzDJIqZxBEfMeWPhJpE/edit#slide=id.g2d03a5085ad_0_68", desc: "Free Movies", thumb: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
+  { title: "Hulu Slides", url: "https://docs.google.com/presentation/d/1YDZCGRJMcIXA6CDnnxEUcNuZuEx-NdUETeeVFulhYDg/edit", desc: "Unblocked Hulu", thumb: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
+  { title: "YouTube TM", url: "https://docs.google.com/presentation/d/1KBqFsMZ10Buf485l-AzkcjIDzFQyyg_O6EfX3vJmYTY/edit?usp=sharing", desc: "Unblocked YT", thumb: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
+  { title: "NLive TV", url: "https://docs.google.com/presentation/u/0/d/1qs4zcgOXev4PIHqncEnXB4t9pTwOdn8bgJY55NBv11w/edit", desc: "Live TV Slides", thumb: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1000&auto=format&fit=crop", redirect: true, tags: ["School"] },
 ];
 
 export const EntertainmentPage = () => {
@@ -206,7 +206,7 @@ export const EntertainmentPage = () => {
 
             <TabsContent value="anime" className="space-y-12 animate-in fade-in slide-in-from-left-4">
               <ContentRow title="Anime Universe" items={animeList} />
-              <ContentRow title="Manga Readers" items={[{ title: "Mangadex (Proxy)", url: "https://mangadex.org", desc: "Manga", thumb: "https://images.unsplash.com/photo-1620336655055-088d06e36bf0?q=80", redirect: false, tags: ["Manga"] }]} />
+              <ContentRow title="Manga Readers" items={[{ title: "Mangadex (Proxy)", url: "https://mangadex.org", desc: "Manga", thumb: "https://images.unsplash.com/photo-1620336655055-088d06e36bf0?q=80", redirect: true, tags: ["Manga"] }]} />
             </TabsContent>
 
             <TabsContent value="live" className="space-y-12 animate-in fade-in slide-in-from-left-4">
