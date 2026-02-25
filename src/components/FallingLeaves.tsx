@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useUserPrefs } from '@/contexts/UserPrefsContext';
 
 interface Leaf {
   id: number;
@@ -10,7 +11,10 @@ interface Leaf {
 }
 
 export const FallingLeaves = () => {
+  const { prefs } = useUserPrefs();
   const [leaves, setLeaves] = useState<Leaf[]>([]);
+
+  if (prefs.settings.reducedMotion) return null;
 
   useEffect(() => {
     const leafEmojis = ['🍂', '🍁', '🌰', '🦃'];

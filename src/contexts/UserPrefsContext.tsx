@@ -5,12 +5,23 @@ import { checkAchievements, showAchievement } from '@/components/AchievementToas
 
 const KEY = 'atts:prefs:v1';
 
+// Auto-detect Chromebooks or low-end hardware to default into reduced motion
+const detectLowEndDevice = () => {
+  if (typeof window === 'undefined') return false;
+
+  const isCrOS = /CrOS/.test(navigator.userAgent);
+  const lowCores = (navigator.hardwareConcurrency || 4) <= 4;
+  const lowRAM = ('deviceMemory' in navigator && (navigator as any).deviceMemory <= 4);
+
+  return isCrOS || lowCores || lowRAM;
+};
+
 const defaultPrefs: UserPrefs = {
   favorites: [],
   history: [],
   settings: {
     theme: 'gamer',
-    reducedMotion: false,
+    reducedMotion: detectLowEndDevice(),
     studyMode: false,
     soundEnabled: true,
     onboardingCompleted: false,

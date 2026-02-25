@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useUserPrefs } from '@/contexts/UserPrefsContext';
 
 interface Snowflake {
   id: number;
@@ -11,7 +12,10 @@ interface Snowflake {
 }
 
 export const FallingSnow = ({ count = 20 }: { count?: number }) => {
+  const { prefs } = useUserPrefs();
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
+
+  if (prefs.settings.reducedMotion) return null;
 
   useEffect(() => {
     // Subtle snow - just simple white dots

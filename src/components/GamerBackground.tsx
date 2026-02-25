@@ -1,6 +1,14 @@
 import React from 'react';
+import { useUserPrefs } from '@/contexts/UserPrefsContext';
 
 export const GamerBackground = () => {
+    const { prefs } = useUserPrefs();
+
+    // On slow devices, skip the heavy CSS gradients entirely
+    if (prefs.settings.reducedMotion) {
+        return <div className="fixed inset-0 bg-[#070708] -z-10 pointer-events-none" />;
+    }
+
     return (
         <>
             <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-950/40 via-[#0a0a0b] to-[#0a0a0b] pointer-events-none -z-10" />
