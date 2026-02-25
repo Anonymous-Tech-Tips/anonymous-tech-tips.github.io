@@ -147,6 +147,7 @@ export interface SnowFeatures {
     /** Official NWS probability of precipitation (0–100) or null */
     nws_pop: number | null;
     day_of_week: number;           // 0=Mon…4=Fri (Friday bonus)
+    month: number;                 // Used for seasonality (budget exhaustion)
     /** The prediction verdict of a massive neighboring district (e.g. FCPS) to model peer pressure */
     neighbor_verdict: PredictionVerdict | null;
     /** The true hazard amount: today's forecast snow PLUS the existing snowpack that survived overnight */
@@ -247,9 +248,11 @@ export function extractFeatures(
         else if (hasAdvisory) nws_hazard_level = 1;
     }
 
-    // Day of week (from date string)
+    // Day of week and Month (from date string)
     const dateStr = data.daily.time[apiDayIdx];
-    const day_of_week = dateStr ? new Date(dateStr + "T12:00:00").getDay() : 2; // default Wed
+    const dateObj = dateStr ? new Date(dateStr + "T12:00:00") : new Date();
+    const day_of_week = dateObj.getDay();
+    const month = dateObj.getMonth() + 1; // 1-12
 
     // ── Depth persistence multiplier (v5.6 tuned) ──────────────────────────────
     // How much of the existing snowpack is still a hazard depends critically on
@@ -271,7 +274,8 @@ export function extractFeatures(
     if (has_rain_snow_mix) depthMultiplier *= 0.5;
 
     // ── 48-Hour Clear Roads Rule ───────────────────────────────────
-    if (snowfall_in <= 0.05 && yesterday_snow_in <= 0.05) {
+    // If it hasn't snowed meaningfully today OR yesterday, the plows have had 48 hours to clear the roads.
+    if (snowfall_in <= 0.2 && yesterday_snow_in <= 1.0) {
         depthMultiplier = 0.0;
     }
 
@@ -296,6 +300,7 @@ export function extractFeatures(
         nws_hazard_level,
         nws_pop: nwsPop,
         day_of_week,
+        month,
         neighbor_verdict: neighborVerdict
     };
 }
@@ -330,7 +335,9 @@ function tree1_snowTemp(f: SnowFeatures): number {
     else if (f.effective_snow_in >= 4.0) lo += 2.4;  // high probability
     else if (f.effective_snow_in >= 2.5) lo += 1.8;  // moderate probability
     else if (f.effective_snow_in >= 1.5) lo += 0.8;  // low probability
+    else if (f.effective_snow_in >= 0.8) lo += 0.3;  // Nuisance snow (Low infrastructure vulnerability)
     else if (f.effective_snow_in >= 0.5) lo -= 0.5;  // trace amounts (penalty)
+    else if (f.min_temp_f <= 22) lo -= 0.0;          // No snow penalty if it's bitter cold (wind chill delay risk)
     else lo -= 2.0;                                  // essentially no snow
 
     // Temperature adjustment
@@ -405,9 +412,19 @@ function tree3_administrative(f: SnowFeatures): number {
     if (f.neighbor_verdict === "CLOSED" || f.neighbor_verdict === "CLOSURE_LIKELY" || f.neighbor_verdict === "CLOSURE_POSSIBLE") {
         // Huge bump for regional momentum, BUT only if there's an actual storm hazard.
         // If FCPS closed mainly for extreme wind-chill in their zones, LCPS won't blind-follow if it's clear.
-        lo += f.effective_snow_in > 0.5 ? 1.5 : 0.5;
+        lo += f.snowfall_in > 0.5 ? 1.5 : 0.5;
     } else if (f.neighbor_verdict === "DELAY_DEFINITE" || f.neighbor_verdict === "DELAY_LIKELY" || f.neighbor_verdict === "DELAY_POSSIBLE") {
         lo += 0.6; // Moderate bump
+    }
+
+    // Seasonality / Built-In Snow Day Budget Exhaustion
+    // Early winter (Dec/Jan): Districts have all their snow days. They close easily.
+    if (f.month === 12 || f.month === 1) {
+        lo += 0.2;
+    }
+    // Late winter (March/April): Budgets are blown, SOLs looming. Massive reluctance to close.
+    else if (f.month >= 3 && f.month <= 4) {
+        lo -= 0.4;
     }
 
     return lo;
