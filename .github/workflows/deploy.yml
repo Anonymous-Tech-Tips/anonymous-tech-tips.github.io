@@ -5,11 +5,22 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one concurrent deployment at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,13 +37,13 @@ jobs:
       - name: Build Vite app
         run: npm run build
 
-      - name: Strip game binaries from dist (size limit fix)
+      - name: Strip game binaries from dist (keep under 1 GB Pages limit)
         run: |
-          echo "Removing large game HTML binary files from dist..."
-          rm -rf dist/games/html
+          echo "Removing self-hosted game HTML binaries..."
+          rm -rf dist/games/html dist/games/swf
           echo "Dist size after strip:"
           du -sh dist/
-          echo "✓ Game binaries removed from artifact"
+          echo "✓ Game binaries removed"
 
       - name: Prerender pages
         run: npx tsx scripts/prerender.ts
@@ -42,7 +53,6 @@ jobs:
 
       - name: Copy essential public assets
         run: |
-          echo "Copying non-game public assets to dist..."
           mkdir -p dist/img
           mkdir -p dist/games/img
           mkdir -p dist/data
@@ -56,13 +66,11 @@ jobs:
           du -sh dist/
           echo "✓ Essential assets copied"
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: dist
-          clean: false  # Don't delete existing files (preserves games)
-          clean-exclude: |
-            games/**
-          single-commit: false
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
