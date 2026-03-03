@@ -26,36 +26,34 @@ jobs:
       - name: Build Vite app
         run: npm run build
 
+      - name: Strip game binaries from dist (size limit fix)
+        run: |
+          echo "Removing large game HTML binary files from dist..."
+          rm -rf dist/games/html
+          echo "Dist size after strip:"
+          du -sh dist/
+          echo "✓ Game binaries removed from artifact"
+
       - name: Prerender pages
         run: npx tsx scripts/prerender.ts
 
       - name: Generate sitemap
         run: npx tsx scripts/generate-sitemap.ts
 
-      - name: Verify build output
-        run: |
-          echo "Checking dist folder contents..."
-          ls -la dist/
-          echo "Checking for index.html..."
-          test -f dist/index.html && echo "✓ index.html exists" || echo "✗ index.html missing"
-          echo "Checking for assets..."
-          ls -la dist/assets/ || echo "✗ assets folder missing"
-          echo "Verifying index.html has root div..."
-          grep -q '<div id="root"></div>' dist/index.html && echo "✓ root div exists" || echo "✗ root div missing"
-          echo "Verifying index.html has script tag..."
-          grep -q '<script' dist/index.html && echo "✓ script tag exists" || echo "✗ script tag missing"
-
-      - name: Copy essential public assets (exclude games)
+      - name: Copy essential public assets
         run: |
           echo "Copying non-game public assets to dist..."
-          # Copy thumbnails, icons, and other essential assets
           mkdir -p dist/img
           mkdir -p dist/games/img
+          mkdir -p dist/data
           cp -r public/img/* dist/img/ 2>/dev/null || true
           cp -r public/games/img/* dist/games/img/ 2>/dev/null || true
+          cp -r public/data/* dist/data/ 2>/dev/null || true
           cp public/sitemap.xml dist/ 2>/dev/null || true
           cp public/*.png dist/ 2>/dev/null || true
           cp public/*.ico dist/ 2>/dev/null || true
+          echo "Final dist size:"
+          du -sh dist/
           echo "✓ Essential assets copied"
 
       - name: Deploy to GitHub Pages
