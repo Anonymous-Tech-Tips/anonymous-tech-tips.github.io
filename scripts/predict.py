@@ -1,3 +1,7 @@
+"""
+predict.py — Multi-district Snow Day ML Predictor
+Runs all 3 district models (LCPS, FCPS, PWCS) and saves per-district forecasts to forecast.json
+"""
 import pandas as pd
 import numpy as np
 import requests
@@ -6,124 +10,139 @@ import json
 from datetime import datetime, timedelta
 import os
 
-LAT = 39.1156
-LON = -77.5636
+# Northern VA coordinates (centroid of all 3 districts)
+LAT = 38.9072
+LON = -77.4070
 
-def fetch_forecast(days=3):
-    url = f"https://api.open-meteo.com/v1/forecast?latitude={LAT}&longitude={LON}&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation,snowfall,snow_depth,weather_code,surface_pressure,cloud_cover,wind_speed_10m,wind_gusts_10m,soil_temperature_0cm&timezone=America%2FNew_York&forecast_days={days}"
+LABEL_MAP = {0: "Open", 1: "Delay", 2: "Early Release", 3: "Closure"}
+
+DISTRICTS = ['LCPS', 'FCPS', 'PWCS']
+
+def fetch_forecast(days=4):
+    """Fetch days+1 so we always have a 'prior day' for day 0."""
+    url = (f"https://api.open-meteo.com/v1/forecast"
+           f"?latitude={LAT}&longitude={LON}"
+           f"&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,"
+           f"dew_point_2m,precipitation,snowfall,snow_depth,weather_code,"
+           f"surface_pressure,wind_speed_10m,wind_gusts_10m,soil_temperature_0cm"
+           f"&timezone=America%2FNew_York"
+           f"&forecast_days={days}")
     res = requests.get(url, timeout=10)
     if res.status_code == 200:
         return res.json()
     return None
 
-def engineer_features(hourly_data, start_idx):
-    def safe_sum(arr):
-        return sum([x for x in arr if x is not None])
-    def safe_max(arr):
-        valid = [x for x in arr if x is not None]
-        return max(valid) if valid else 0
-    def safe_min(arr):
-        valid = [x for x in arr if x is not None]
-        return min(valid) if valid else 0
+def engineer_features(hourly, prior_start, current_start):
+    """
+    prior_start: index of 00:00 of the prior day (24 values)
+    current_start: index of 00:00 of the target day (24 values)
+    """
+    def ss(arr): return sum(x for x in arr if x is not None)
+    def smin(arr): v = [x for x in arr if x is not None]; return min(v) if v else 0
+    def smx(arr): v = [x for x in arr if x is not None]; return max(v) if v else 0
 
-    end_idx = start_idx + 24
-    
-    snowfall = hourly_data.get('snowfall', [0]*(start_idx + 24))[start_idx:end_idx]
-    temp = hourly_data.get('temperature_2m', [0]*(start_idx + 24))[start_idx:end_idx]
-    wind_gust = hourly_data.get('wind_gusts_10m', [0]*(start_idx + 24))[start_idx:end_idx]
-    weather_codes = hourly_data.get('weather_code', [0]*(start_idx + 24))[start_idx:end_idx]
-    humidity = hourly_data.get('relative_humidity_2m', [0]*(start_idx + 24))[start_idx:end_idx]
-    dew_point = hourly_data.get('dew_point_2m', [0]*(start_idx + 24))[start_idx:end_idx]
-    pressure = hourly_data.get('surface_pressure', [0]*(start_idx + 24))[start_idx:end_idx]
+    prior_snow = hourly.get('snowfall', [])[prior_start:prior_start+24]
+    prior_temp = hourly.get('temperature_2m', [])[prior_start:prior_start+24]
 
-    overnight_snow = safe_sum(snowfall[0:6])
-    commute_snow = safe_sum(snowfall[6:10])
-    mid_day_snow = safe_sum(snowfall[10:15])
-    total_snow = safe_sum(snowfall)
-    
+    snow = hourly.get('snowfall', [])[current_start:current_start+24]
+    temp = hourly.get('temperature_2m', [])[current_start:current_start+24]
+    apparent = hourly.get('apparent_temperature', [])[current_start:current_start+24]
+    gusts = hourly.get('wind_gusts_10m', [])[current_start:current_start+24]
+    codes = hourly.get('weather_code', [])[current_start:current_start+24]
+    hum = hourly.get('relative_humidity_2m', [])[current_start:current_start+24]
+    dew = hourly.get('dew_point_2m', [])[current_start:current_start+24]
+    pres = hourly.get('surface_pressure', [])[current_start:current_start+24]
+
     ice_codes = {66, 67, 77}
-    has_ice = 1 if any(code in ice_codes for code in weather_codes if code is not None) else 0
-    
-    min_temp = safe_min(temp)
-    max_wind_gust = safe_max(wind_gust)
-    avg_humidity = safe_sum(humidity) / len(humidity) if humidity else 0
-    avg_dew_point = safe_sum(dew_point) / len(dew_point) if dew_point else 0
-    min_pressure = safe_min(pressure)
-    
-    return [
-        overnight_snow, commute_snow, mid_day_snow, total_snow,
-        has_ice, min_temp, max_wind_gust, avg_humidity, 
-        avg_dew_point, min_pressure
-    ]
+    min_apparent = smin(apparent) if apparent else smin(temp)
+    is_extreme_cold = 1 if min_apparent <= -6.0 or any(c in ice_codes for c in codes if c) else 0
 
-def main():
-    print("Fetching 3-day forecast...")
-    data = fetch_forecast(3)
-    if not data:
-        print("Failed to fetch forecast.")
-        return
-        
+    return {
+        'overnight_snow':      ss(snow[0:6]),
+        'commute_snow':        ss(snow[6:10]),
+        'mid_day_snow':        ss(snow[10:15]),
+        'total_snow':          ss(snow),
+        'has_ice':             1 if any(c in ice_codes for c in codes if c) else 0,
+        'min_temp':            smin(temp),
+        'min_apparent_temp':   min_apparent,
+        'is_extreme_cold':     is_extreme_cold,
+        'pre_dawn_wind':       smx(gusts[0:7]),
+        'prior_day_snow':      ss(prior_snow),
+        'prior_day_min_temp':  smin(prior_temp),
+        'max_wind_gust':       smx(gusts),
+        'avg_humidity':        ss(hum) / len(hum) if hum else 0,
+        'avg_dew_point':       ss(dew) / len(dew) if dew else 0,
+        'min_pressure':        smin(pres),
+    }
+
+def predict_district(district, hourly, base_date, days=3):
+    pkl = f'xgboost_{district.lower()}_model.pkl'
     try:
-        pipeline = joblib.load('xgboost_snow_model.pkl')
-    except Exception as e:
-        print("Failed to load ML pipeline. Train the model first.", e)
-        return
-        
+        pipeline = joblib.load(pkl)
+    except FileNotFoundError:
+        print(f"[{district}] Model not found: {pkl}")
+        return []
+
     scaler = pipeline['scaler']
     model = pipeline['model']
     feature_cols = pipeline['features']
-    
-    predictions_out = []
-    
-    base_date = datetime.now()
-    
-    for day_idx in range(3):
+
+    results = []
+    for day_idx in range(days):
         target_date = base_date + timedelta(days=day_idx)
-        start_idx = day_idx * 24
-        
-        feature_vec = engineer_features(data['hourly'], start_idx)
-        
-        # Convert to dataframe
-        X = pd.DataFrame([feature_vec], columns=feature_cols)
-        
-        # Scale
+        # Day 0 in the forecast API = today, but we need index = day_idx * 24
+        # Prior day = (day_idx - 1) * 24, but for day 0 we use the last 24 hours from index 0
+        # We fetched days+1 so index 0 is yesterday's data
+        prior_start = day_idx * 24          # yesterday offset within the extended fetch
+        current_start = (day_idx + 1) * 24  # today's data starts 24h after
+
+        features = engineer_features(hourly, prior_start, current_start)
+        X = pd.DataFrame([features], columns=feature_cols)
         X_scaled = scaler.transform(X)
-        
-        # Predict probs
         probs = model.predict_proba(X_scaled)[0]
-        
-        # Indices: [0: Open, 1: Delay, 2: Early Release, 3: Closure]
-        mapping = {
-            0: "Open",
-            1: "Delay",
-            2: "Early Release",
-            3: "Closure"
-        }
-        
-        pred_label_idx = np.argmax(probs)
-        primary_pred = mapping[pred_label_idx]
-        
-        predictions_out.append({
+        pred = LABEL_MAP[int(np.argmax(probs))]
+
+        results.append({
             "date": target_date.strftime('%Y-%m-%d'),
             "label": target_date.strftime('%A, %b %d'),
-            "primary_prediction": primary_pred,
+            "primary_prediction": pred,
             "probabilities": {
-                "open": round(float(probs[0]) * 100, 1),
-                "delay": round(float(probs[1]) * 100, 1),
+                "open":          round(float(probs[0]) * 100, 1),
+                "delay":         round(float(probs[1]) * 100, 1),
                 "early_release": round(float(probs[2]) * 100, 1),
-                "closure": round(float(probs[3]) * 100, 1)
+                "closure":       round(float(probs[3]) * 100, 1),
             }
         })
-    
-    output = {"forecasts": predictions_out, "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-    
-    # Save to public directory for frontend access
+    return results
+
+def main():
+    print("Fetching 4-day forecast (3 days + 1 prior day)...")
+    data = fetch_forecast(days=4)
+    if not data or 'hourly' not in data:
+        print("Failed to fetch forecast.")
+        return
+
+    hourly = data['hourly']
+    base_date = datetime.now()
+
+    output = {
+        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "districts": {}
+    }
+
+    for district in DISTRICTS:
+        forecasts = predict_district(district, hourly, base_date, days=3)
+        output["districts"][district] = {"forecasts": forecasts}
+        print(f"[{district}] Tomorrow: {forecasts[1]['primary_prediction'] if len(forecasts) > 1 else 'N/A'}")
+
+    # Also keep backward-compatible flat structure (LCPS is the default)
+    output["forecasts"] = output["districts"].get("LCPS", {}).get("forecasts", [])
+
     out_path = os.path.join("public", "data", "forecast.json")
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    
     with open(out_path, 'w') as f:
         json.dump(output, f, indent=4)
-        
+
     print(f"Predictions saved to {out_path}")
 
 if __name__ == "__main__":
