@@ -5,4 +5,5 @@ export interface Game {
     tags: string[];
     thumbnail: string;
     url: string;
+    featured?: boolean;
 }

@@ -167,14 +167,15 @@ interface GameGridProps {
 const GameGrid: React.FC<GameGridProps> = ({ games, gameStats = {} }) => {
   if (games.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gamer-muted">No games found matching your criteria</p>
+      <div className="text-center py-20 bg-gamer-card/30 rounded-2xl border border-gamer-border backdrop-blur-sm">
+        <Gamepad2 className="mx-auto h-12 w-12 text-gamer-muted mb-4 opacity-50" />
+        <p className="text-gamer-muted font-medium">No games found matching your criteria</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5 animate-in fade-in duration-500">
       {games.map((game) => (
         <GameCard
           key={game.id}
@@ -193,39 +194,39 @@ interface GameCardProps {
 
 const GameCard: React.FC<GameCardProps> = ({ game, playCount }) => {
   return (
-    <div className="group bg-gamer-card border border-gamer-border rounded-lg overflow-hidden transition-all duration-normal hover:border-gamer-accent hover:shadow-lg hover:shadow-gamer-accent/20 hover:-translate-y-1 relative">
-      <div className="aspect-video overflow-hidden bg-gamer-bg">
+    <a
+      href={`/#/games/${game.id}`}
+      className="group block bg-[#1E1E24]/60 backdrop-blur-sm border border-slate-800/60 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] transition-all duration-300 hover:-translate-y-1 will-change-transform"
+    >
+      <div className="aspect-[4/3] relative overflow-hidden bg-slate-900">
         <img
           src={game.thumbnail || fallbackThumbnail}
-          alt={`${game.title} game thumbnail`}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          alt={game.title}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+          <span className="text-white font-bold text-sm bg-blue-600/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+            Play Now
+          </span>
+        </div>
       </div>
-      <div className="p-4 space-y-3">
+      <div className="p-3.5 space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-gamer-text group-hover:text-gamer-accent transition-colors duration-fast">
+          <h3 className="font-bold text-slate-100 truncate group-hover:text-blue-400 transition-colors text-sm">
             {game.title}
           </h3>
           {playCount > 0 && (
-            <span className="text-xs text-gamer-muted flex items-center gap-1">
-              <TrendingUp size={12} />
-              {playCount}
+            <span className="text-[10px] text-slate-400 flex items-center gap-1 font-medium bg-slate-800/50 px-1.5 py-0.5 rounded-md">
+              <TrendingUp size={10} className="text-blue-400" />
+              {playCount > 999 ? '999+' : playCount}
             </span>
           )}
         </div>
-        <div className="flex flex-wrap gap-1.5">
-          {game.tags.slice(0, 3).map((tag) => (
-            <Badge
-              key={tag}
-              variant="secondary"
-              className="text-xs bg-gamer-border text-gamer-muted border-none"
-            >
-              {tag}
-            </Badge>
-          ))}
-        </div>
-        <GameButton url={game.url} label="Play" gameId={game.id} />
+        <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider truncate">
+          {game.tags.slice(0, 2).join(' • ')}
+        </p>
       </div>
-    </div>
+    </a>
   );
 };

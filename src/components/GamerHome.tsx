@@ -328,25 +328,28 @@ export const GamerHome = () => {
 
 // MINI CARD COMPONENT
 const MinimalCard = ({ game, index }: { game: any, index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-    className="group cursor-pointer"
+  <div
+    className="group cursor-pointer animate-in fade-in slide-in-from-bottom-4"
+    style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
   >
-    <Link to={`/games/${game.id}`} className="block space-y-4">
-      <div className="aspect-[4/3] overflow-hidden rounded-sm bg-white/5 relative">
+    <Link to={`/games/${game.id}`} className="block space-y-3">
+      <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-[#1E1E24]/60 border border-slate-800/60 relative hover:border-blue-500/50 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] transition-all duration-300 hover:-translate-y-1">
         <img
           src={game.thumbnail || fallbackThumbnail}
           alt={game.title}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 opacity-80 group-hover:opacity-100"
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110 opacity-90 group-hover:opacity-100"
         />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+          <span className="text-white font-bold text-xs bg-blue-600/90 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+            Play
+          </span>
+        </div>
       </div>
       <div>
-        <h3 className="text-lg font-medium leading-none group-hover:text-blue-400 transition-colors">{game.title}</h3>
-        <p className="text-xs text-white/40 mt-2 uppercase tracking-wider">{game.tags[0]}</p>
+        <h3 className="text-sm font-bold text-slate-100 truncate group-hover:text-blue-400 transition-colors">{game.title}</h3>
+        <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider truncate mt-0.5">{game.tags[0]}</p>
       </div>
     </Link>
-  </motion.div>
+  </div>
 );
