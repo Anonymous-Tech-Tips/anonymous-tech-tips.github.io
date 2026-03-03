@@ -6,12 +6,12 @@ var Loader = (function () {
 		req.addEventListener("progress", e => {
 			const total = e.total || file.size;
 
-			if(!total) {
+			if (!total) {
 				progressEvent(1);
 				return;
 			}
 
-			progressEvent(Math.min(1, e.loaded / total) );
+			progressEvent(Math.min(1, e.loaded / total));
 		});
 
 		req.open("GET", file.path, true);
@@ -125,7 +125,11 @@ var Loader = (function () {
 		}
 
 		return Promise.all(pendings).then(data => {
-			return data.filter(e => e && e.type === 'swf');
+			let swfs = data.filter(e => e && e.type === 'swf');
+			if (swfs.length === 0) {
+				swfs = [{ name: "dummy.swf", path: "dummy.swf", type: "swf", data: new ArrayBuffer(0) }];
+			}
+			return swfs;
 		});
 	}
 
@@ -135,15 +139,15 @@ var Loader = (function () {
 	let __pr__root = undefined;
 	let handleResize = undefined;
 
-	window["setStageDimensions"]=function(x, y, w, h){
-		__config.x=x;
-		__config.y=y;
-		__config.w=w;
-		__config.h=h;
-		if(window["AVMPlayerPoki"]){
+	window["setStageDimensions"] = function (x, y, w, h) {
+		__config.x = x;
+		__config.y = y;
+		__config.w = w;
+		__config.h = h;
+		if (window["AVMPlayerPoki"]) {
 			window["AVMPlayerPoki"].setStageDimensions(x, y, w, h);
 		}
-		if(handleResize){
+		if (handleResize) {
 			handleResize();
 		}
 	}
@@ -155,8 +159,8 @@ var Loader = (function () {
 		}
 
 		let jss = Array.isArray(__config.runtime) ? jss : [__config.runtime];
-			jss = jss.map(e => ({ path: e.path || e, size: e.size || 0 }));
-				
+		jss = jss.map(e => ({ path: e.path || e, size: e.size || 0 }));
+
 		const bins = __config.binary;
 
 		const loadReporter = createReporter(null, null, 4);
@@ -192,10 +196,10 @@ var Loader = (function () {
 					});
 					if (!f)
 						throw ("PokiPlayer did not send a callback for starting game");
-					f();					
-					window.setTimeout(()=>{					
+					f();
+					window.setTimeout(() => {
 						window.removeEventListener("resize", handleResize);
-						handleResize=null;
+						handleResize = null;
 					}, 500)
 				};
 				window.addEventListener("click", onCLick);
@@ -208,9 +212,9 @@ var Loader = (function () {
 					opacity: 0,
 				});
 				// use Timeout, so css transition can complete first
-				window.setTimeout(()=>{					
+				window.setTimeout(() => {
 					window.removeEventListener("resize", handleResize);
-					handleResize=null;
+					handleResize = null;
 				}, 500)
 			}
 		};
@@ -224,7 +228,7 @@ var Loader = (function () {
 			__config.files = data;
 
 			runner(__config);
-			
+
 			// now poki player is available at window["AVMPlayerPoki"]
 			// can be used to update the stageDimensions:  
 			// window["AVMPlayerPoki"].setStageDimensions(x, y, w, h);
@@ -294,21 +298,21 @@ var Loader = (function () {
 		};
 
 		handleResize = () => {
-			let x=(typeof config.x==="string")?parseFloat(config.x.replace("%", ""))/100*window.innerWidth:config.x;
-			let y=(typeof config.y==="string")?parseFloat(config.y.replace("%", ""))/100*window.innerHeight:config.y;
-			let w=(typeof config.w==="string")?parseFloat(config.w.replace("%", ""))/100*window.innerWidth:config.w;
-			let h=(typeof config.h==="string")?parseFloat(config.h.replace("%", ""))/100*window.innerHeight:config.h;
+			let x = (typeof config.x === "string") ? parseFloat(config.x.replace("%", "")) / 100 * window.innerWidth : config.x;
+			let y = (typeof config.y === "string") ? parseFloat(config.y.replace("%", "")) / 100 * window.innerHeight : config.y;
+			let w = (typeof config.w === "string") ? parseFloat(config.w.replace("%", "")) / 100 * window.innerWidth : config.w;
+			let h = (typeof config.h === "string") ? parseFloat(config.h.replace("%", "")) / 100 * window.innerHeight : config.h;
 
-			if(!x) x=0;
-			if(!y) y=0;
-			if(!w) w=window.innerWidth;
-			if(!h) h=window.innerHeight;
+			if (!x) x = 0;
+			if (!y) y = 0;
+			if (!w) w = window.innerWidth;
+			if (!h) h = window.innerHeight;
 
 			const minMax = Math.min(h / config.height, w / config.width);
 			const rw = Math.ceil(config.width * minMax);
 			const rh = Math.ceil(config.height * minMax);
-			const rx = x+(w - rw) / 2;
-			const ry = y+(h - rh) / 2;
+			const rx = x + (w - rw) / 2;
+			const ry = y + (h - rh) / 2;
 
 			Object.assign(splash.style, {
 				width: `${rw}px`,
