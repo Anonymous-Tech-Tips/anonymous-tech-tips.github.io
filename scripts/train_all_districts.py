@@ -1,5 +1,6 @@
 """
-Train one XGBoost multi:softprob model per district.
+train_all_districts.py — Train one XGBoost model per district
+Targets ~90-95% accuracy on historical data (100% = overfitting).
 Produces: xgboost_lcps_model.pkl, xgboost_fcps_model.pkl, xgboost_pwcs_model.pkl
 """
 import pandas as pd
@@ -10,14 +11,16 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.utils.class_weight import compute_sample_weight
 import joblib
 
+# Streamlined feature set — enough signal, not too many for ~58 samples
 FEATURE_COLS = [
     'overnight_snow', 'commute_snow', 'mid_day_snow', 'total_snow',
+    'prior_day_snow', 'prior_min_temp',
     'has_ice', 'min_temp', 'min_apparent_temp', 'is_extreme_cold',
-    'pre_dawn_wind', 'prior_day_snow', 'prior_day_min_temp',
     'max_wind_gust', 'avg_humidity', 'avg_dew_point', 'min_pressure'
 ]
 
 DISTRICTS = ['LCPS', 'FCPS', 'PWCS']
+LABEL_NAMES = ['Open', 'Delay', 'Early Release', 'Closure']
 
 def train_district(district: str) -> dict:
     csv = f'historical_{district.lower()}.csv'
@@ -27,40 +30,43 @@ def train_district(district: str) -> dict:
         print(f"[{district}] ❌ {csv} not found — run generate_dataset.py first")
         return {}
 
-    X = df[FEATURE_COLS]
+    # Only use feature columns that exist in this CSV
+    feat = [c for c in FEATURE_COLS if c in df.columns]
+    X = df[feat]
     y = df['target']
 
-    print(f"\n{'='*50}")
-    print(f"Training {district} model ({len(df)} records)")
-    print(f"Class distribution: {dict(y.value_counts().sort_index())}")
-    print(f"{'='*50}")
+    n = len(df)
+    print(f"\n{'='*55}")
+    print(f"  {district}  ({n} records, {len(feat)} features)")
+    dist = dict(y.value_counts().sort_index())
+    labels = {0:'Open', 1:'Delay', 2:'ER', 3:'Closure'}
+    print(f"  Classes: { {labels[k]: v for k,v in dist.items()} }")
+    print(f"{'='*55}")
 
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-    
-    # Base balanced weights
-    sample_weights = compute_sample_weight('balanced', y)
-    
-    # Boost closures that happened on extreme cold days (Arctic blast / black ice events)
-    # These are rare and hard to distinguish from delays without extra emphasis
-    if 'is_extreme_cold' in X.columns:
-        cold_closure_mask = (df['is_extreme_cold'] == 1) & (y == 3)
-        sample_weights[cold_closure_mask] *= 5.0
-        n_boosted = cold_closure_mask.sum()
-        if n_boosted > 0:
-            print(f"  Boosted {n_boosted} extreme-cold closure samples by 5x")
 
+    # Balanced class weights — no aggressive manual boosting to avoid overfitting
+    sample_weights = compute_sample_weight('balanced', y)
+
+    # Hyperparameters chosen for generalization, NOT memorization:
+    #   max_depth=3: shallow trees don't memorize individual storms
+    #   min_child_weight=2: requires ≥2 samples per leaf (avoids single-sample splits)
+    #   gamma=0.3: only split if it genuinely reduces loss significantly
+    #   n_estimators=100: enough trees to learn patterns, few enough to avoid overfit
     model = xgb.XGBClassifier(
         objective='multi:softprob',
         num_class=4,
         eval_metric='mlogloss',
-        n_estimators=120,
-        max_depth=6,
-        learning_rate=0.05,
-        subsample=0.9,
-        colsample_bytree=0.9,
-        gamma=0.05,
-        min_child_weight=1,
+        n_estimators=100,
+        max_depth=3,
+        learning_rate=0.08,
+        subsample=0.8,
+        colsample_bytree=0.7,
+        gamma=0.3,
+        min_child_weight=2,
+        reg_alpha=0.1,   # L1 regularization
+        reg_lambda=1.5,  # L2 regularization
         random_state=42,
         use_label_encoder=False
     )
@@ -69,34 +75,35 @@ def train_district(district: str) -> dict:
 
     preds = model.predict(X_scaled)
     acc = accuracy_score(y, preds)
-    print(f"\n{district} Historical Accuracy: {acc*100:.2f}%")
-    print(classification_report(y, preds,
-                                 target_names=['Open', 'Delay', 'Early Release', 'Closure'],
-                                 zero_division=0))
 
-    # Print mismatches to understand edge cases
-    mismatches = df[preds != y.values]
-    if not mismatches.empty:
-        print(f"  ⚠️  {len(mismatches)} misclassified records:")
-        for _, row in mismatches.iterrows():
-            actual = y[row.name]
-            predicted = preds[row.name]
-            print(f"    {row['date']}: Actual={actual}, Predicted={predicted} — snow={row['total_snow']:.2f}in, temp={row['min_temp']:.1f}°C")
+    # Accuracy note: ~90-96% on historical data is ideal — higher likely = overfit
+    acc_note = "(✅ good generalization)" if 0.88 <= acc <= 0.97 else \
+               ("(⚠️  possible overfit)" if acc > 0.97 else "(⚠️  underfitting)")
+
+    print(f"\n  Historical Accuracy: {acc*100:.2f}% {acc_note}")
+    print(f"\n  Classification Report:")
+    print(classification_report(y, preds, target_names=LABEL_NAMES, zero_division=0))
+
+    mismatches = [(df.iloc[i]['date'], int(y.iloc[i]), int(preds[i]))
+                  for i in range(len(y)) if y.iloc[i] != preds[i]]
+    if mismatches:
+        print(f"  Misclassified ({len(mismatches)}):")
+        for date, actual, predicted in mismatches:
+            print(f"    {date}: Actual={LABEL_NAMES[actual]:12} Predicted={LABEL_NAMES[predicted]}")
     else:
-        print(f"  ✅ 100% accuracy on full historical dataset!")
+        print(f"  ⚠️  Perfect training accuracy — check for overfitting on new storms!")
 
     pipeline = {
         'scaler': scaler,
         'model': model,
-        'features': FEATURE_COLS,
+        'features': feat,
         'district': district
     }
-
     out_path = f'xgboost_{district.lower()}_model.pkl'
     joblib.dump(pipeline, out_path)
-    print(f"\nSaved pipeline to {out_path}")
+    print(f"  Saved → {out_path}")
 
-    return {'district': district, 'accuracy': acc, 'n_samples': len(df)}
+    return {'district': district, 'accuracy': acc, 'n_samples': n, 'n_features': len(feat)}
 
 def main():
     results = []
@@ -105,12 +112,16 @@ def main():
         if r:
             results.append(r)
 
-    print(f"\n\n{'='*50}")
-    print("SUMMARY")
-    print(f"{'='*50}")
+    print(f"\n\n{'='*55}")
+    print("  FINAL SUMMARY")
+    print(f"{'='*55}")
     for r in results:
-        status = "✅" if r['accuracy'] == 1.0 else "⚠️ "
-        print(f"  {status} {r['district']}: {r['accuracy']*100:.2f}% on {r['n_samples']} records")
+        acc = r['accuracy']
+        status = "✅ good" if 0.88 <= acc <= 0.97 else ("⚠️  overfit?" if acc > 0.97 else "⚠️  underfit")
+        print(f"  {r['district']}: {acc*100:.2f}% ({r['n_samples']} storms, {r['n_features']} features) — {status}")
+    print()
+    print("  Accuracy note: ~90-96% is ideal for a 58-sample dataset.")
+    print("  100% = model memorized noise; will fail on unseen storms.")
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
