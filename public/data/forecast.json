@@ -14,12 +14,12 @@
         {
             "date": "2026-03-03",
             "label": "Tuesday, Mar 03",
-            "primary_prediction": "Delay",
+            "primary_prediction": "Open",
             "probabilities": {
-                "open": 23.3,
-                "delay": 69.3,
-                "early_release": 3.0,
-                "closure": 4.4
+                "open": 68.5,
+                "delay": 18.0,
+                "early_release": 5.5,
+                "closure": 8.0
             }
         },
         {
@@ -34,5 +34,5 @@
             }
         }
     ],
-    "last_updated": "2026-03-02 21:10:34"
+    "last_updated": "2026-03-02 21:49:04"
 }
