@@ -335,7 +335,7 @@ const MinimalCard = ({ game, index }: { game: any, index: number }) => (
     className="group cursor-pointer"
   >
     <Link to={`/games/${game.id}`} className="block space-y-4">
-      <div className="aspect-[3/4] overflow-hidden rounded-sm bg-white/5 relative">
+      <div className="aspect-[4/3] overflow-hidden rounded-sm bg-white/5 relative">
         <img
           src={game.thumbnail || fallbackThumbnail}
           alt={game.title}

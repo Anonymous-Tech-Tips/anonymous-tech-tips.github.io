@@ -1214,7 +1214,7 @@
     var i = e(77);
     e(103), e(104), e(105), e(106), t.exports = i
 }, function(t) {
-    t.exports = JSON.parse('{"a":"https://game-cdn.poki.comsa/scripts/prebid/2.44.4-0.js"}')
+    t.exports = JSON.parse('{"a":"https://game-cdn.poki.com/scripts/prebid/2.44.4-0.js"}')
 }, function(t, n, e) {
     e(69);
     var i = e(30);
@@ -3502,7 +3502,7 @@
             "/" !== t[0] && (t = "/" + t);
             var n = encodeURIComponent(window.location.protocol + "//" + window.location.host + t + window.location.search),
                 e = encodeURIComponent(document.referrer);
-            return fetch("https://devs-api.poki.comsa/gameinfo/@sdk?href=" + n + "&referrer=" + e, {
+            return fetch("https://devs-api.poki.com/gameinfo/@sdk?href=" + n + "&referrer=" + e, {
                 method: "GET",
                 headers: {
                     "Content-Type": "text/plain"
@@ -3915,7 +3915,7 @@
                     return Promise.resolve()
                 }), window.addEventListener("resize", this.resize.bind(this), !1), window.addEventListener("message", this.onMessage.bind(this), !1);
                 var N = S("pokiDebug");
-                return N ? (this.setDebug("true" === N), this.debugIsOverwritten = !0) : this.setDebug(this.debug || u), this.debugTouchOverlayController && (v() || b()) && dt(), Promise.all([H(), it(), J("https://imasdk.googleapis.comsa/js/sdkloader/ima3.js"), J("https://securepubads.g.doubleclick.netsa/tag/js/gpt.js"), Z]).catch((function() {
+                return N ? (this.setDebug("true" === N), this.debugIsOverwritten = !0) : this.setDebug(this.debug || u), this.debugTouchOverlayController && (v() || b()) && dt(), Promise.all([H(), it(), J("https://imasdk.googleapis.com/js/sdkloader/ima3.js"), J("https://securepubads.g.doubleclick.netsa/tag/js/gpt.js"), Z]).catch((function() {
                     l.dispatchEvent(c.adblocked)
                 })).then((function(e) {
                     if (void 0 !== e) {

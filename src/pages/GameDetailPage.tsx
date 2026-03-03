@@ -38,8 +38,8 @@ export default function GameDetailPage() {
   const game = games.find(g => g.id === id);
 
   // Access Control Logic
-  const isPremiumLocked = game?.premium && !hasPremium;
-  const isEarlyAccessLocked = game?.earlyAccess && !hasEarlyAccess;
+  const isPremiumLocked = (game as any)?.premium && !hasPremium;
+  const isEarlyAccessLocked = (game as any)?.earlyAccess && !hasEarlyAccess;
   const isExclusiveLocked = (game?.tags.includes('exclusive') && !hasExclusive);
 
   const isLocked = isPremiumLocked || isEarlyAccessLocked || isExclusiveLocked;
@@ -137,7 +137,7 @@ export default function GameDetailPage() {
                 <img
                   src={game.thumbnail}
                   alt={game.title}
-                  className="rounded-lg mb-4 max-h-64 object-cover w-full"
+                  className="rounded-lg mb-4 aspect-[4/3] object-cover w-full max-h-96"
                 />
                 <p className={isDarkTheme ? "text-slate-300 mb-4" : "text-slate-600 mb-4"}>
                   Play {game.title} - A {game.tags.join(", ")} game. Test your skills and have fun!

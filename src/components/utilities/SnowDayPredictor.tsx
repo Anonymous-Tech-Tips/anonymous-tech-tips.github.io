@@ -1,219 +1,100 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-    Snowflake, Wind, Thermometer, Loader2, AlertTriangle, Sparkles,
-    BarChart2, TrendingUp, Shield
-} from "lucide-react";
-import { WeatherService, NWSGridpointData } from "@/services/WeatherService";
-import { runSnowDayEngine, runWeekOutlook, DISTRICTS, EngineOutput, PredictionVerdict } from "@/services/snowDayEngine";
-import { HistoryService } from "@/services/HistoryService";
+import { Loader2, AlertTriangle, Sparkles, Shield, Clock, CalendarDays, Server } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FallingSnow } from "@/components/FallingSnow";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// VERDICT CONFIG
-// ─────────────────────────────────────────────────────────────────────────────
-const VERDICT_CONFIG: Record<PredictionVerdict, {
-    icon: string; color: string; bgGradient: string; badgeColor: string;
-}> = {
-    CLOSED: {
-        icon: "❄️",
-        color: "text-indigo-100",
-        bgGradient: "from-indigo-600/60 to-purple-700/50",
-        badgeColor: "bg-indigo-500/30 text-indigo-200 border-indigo-400/30",
-    },
-    CLOSURE_LIKELY: {
-        icon: "🌨️",
-        color: "text-purple-100",
-        bgGradient: "from-purple-600/50 to-pink-700/40",
-        badgeColor: "bg-purple-500/30 text-purple-200 border-purple-400/30",
-    },
-    CLOSURE_POSSIBLE: {
-        icon: "🧊",
-        color: "text-fuchsia-100",
-        bgGradient: "from-fuchsia-600/40 to-purple-600/20",
-        badgeColor: "bg-fuchsia-500/30 text-fuchsia-200 border-fuchsia-400/30",
-    },
-    DELAY_DEFINITE: {
-        icon: "⏱️",
-        color: "text-blue-100",
-        bgGradient: "from-blue-600/50 to-indigo-600/30",
-        badgeColor: "bg-blue-500/30 text-blue-200 border-blue-400/30",
-    },
-    DELAY_LIKELY: {
-        icon: "🕒",
-        color: "text-sky-100",
-        bgGradient: "from-sky-600/40 to-blue-500/20",
-        badgeColor: "bg-sky-500/30 text-sky-200 border-sky-400/30",
-    },
-    DELAY_POSSIBLE: {
-        icon: "🤔",
-        color: "text-amber-100",
-        bgGradient: "from-amber-600/40 to-orange-500/20",
-        badgeColor: "bg-amber-500/30 text-amber-200 border-amber-400/30",
-    },
-    OPEN: {
+interface ForecastData {
+    forecasts: {
+        date: string;
+        label: string;
+        primary_prediction: string;
+        probabilities: {
+            open: number;
+            delay: number;
+            early_release: number;
+            closure: number;
+        };
+    }[];
+    last_updated: string;
+}
+
+const DISTRICTS = [
+    { id: "LCPS", name: "Loudoun County (LCPS)" },
+    { id: "FCPS", name: "Fairfax County (FCPS)" },
+    { id: "PWCS", name: "Prince William (PWCS)" }
+];
+
+const PREDICTION_CONFIG: Record<string, { icon: string; color: string; bgGradient: string }> = {
+    "Open": {
         icon: "🏫",
         color: "text-emerald-100",
         bgGradient: "from-emerald-700/40 to-teal-600/20",
-        badgeColor: "bg-emerald-500/30 text-emerald-200 border-emerald-400/30",
     },
-    MODEL_DISAGREE: {
-        icon: "⚠️",
-        color: "text-red-200",
-        bgGradient: "from-red-800/40 to-orange-700/20",
-        badgeColor: "bg-red-500/30 text-red-200 border-red-400/30",
+    "Delay": {
+        icon: "⏱️",
+        color: "text-blue-100",
+        bgGradient: "from-blue-600/50 to-indigo-600/30",
     },
+    "Early Release": {
+        icon: "🌅",
+        color: "text-amber-100",
+        bgGradient: "from-amber-600/40 to-orange-500/20",
+    },
+    "Closure": {
+        icon: "❄️",
+        color: "text-indigo-100",
+        bgGradient: "from-indigo-600/60 to-purple-700/50",
+    }
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// UNCERTAINTY METER
-// ─────────────────────────────────────────────────────────────────────────────
-const UncertaintyMeter = ({ mean, adjusted, std }: { mean: number; adjusted: number; std: number }) => (
-    <div className="space-y-2">
-        <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-white/40">
-            <span>Prediction Confidence</span>
-            <span className="text-white/60">{(adjusted * 100).toFixed(1)}%</span>
+const ProgressBar = ({ label, percentage, colorClass }: { label: string, percentage: number, colorClass: string }) => (
+    <div className="space-y-1.5">
+        <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-white/50">
+            <span>{label}</span>
+            <span>{percentage.toFixed(1)}%</span>
         </div>
-        <div className="relative h-3 rounded-full bg-white/10 overflow-hidden">
-            {/* Mean marker */}
-            <div
-                className="absolute h-full bg-white/20 rounded-full"
-                style={{ width: `${Math.min(mean * 100, 100)}%` }}
-            />
-            {/* Adjusted prob (conservative) */}
+        <div className="h-3 bg-white/10 rounded-full overflow-hidden">
             <motion.div
                 initial={{ width: 0 }}
-                animate={{ width: `${Math.min(adjusted * 100, 100)}%` }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute h-full rounded-full"
-                style={{
-                    background: adjusted >= 0.35
-                        ? "linear-gradient(90deg, #6366f1, #818cf8)"
-                        : adjusted >= 0.20
-                            ? "linear-gradient(90deg, #f59e0b, #fbbf24)"
-                            : "linear-gradient(90deg, #10b981, #34d399)",
-                }}
+                animate={{ width: `${percentage}%` }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className={`h-full rounded-full ${colorClass}`}
             />
-            {/* Threshold markers */}
-            <div className="absolute h-full w-px bg-white/30" style={{ left: "35%" }} />
-            <div className="absolute h-full w-px bg-white/20" style={{ left: "20%" }} />
-        </div>
-        <div className="flex justify-between text-[9px] text-white/25 font-bold uppercase tracking-widest">
-            <span>0%</span>
-            <span className="text-white/40" style={{ marginLeft: "20%" }}>UNCERTAIN</span>
-            <span className="text-white/40" style={{ marginLeft: "8%" }}>SNOW DAY</span>
-            <span>100%</span>
-        </div>
-        <div className="text-[10px] text-white/40 font-bold uppercase tracking-widest text-center mt-3">
-            Simulated across 50 weather models
         </div>
     </div>
 );
 
-// ─────────────────────────────────────────────────────────────────────────────
-// WEEK OUTLOOK STRIP
-// ─────────────────────────────────────────────────────────────────────────────
-const WeekOutlookStrip = ({ forecasts }: { forecasts: EngineOutput[] }) => {
-    const labels = ["Today", "Tomorrow", "Day After"];
-    return (
-        <div className="grid grid-cols-3 gap-3">
-            {forecasts.map((f, i) => {
-                const cfg = VERDICT_CONFIG[f.verdict];
-                return (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1, duration: 0.5 }}
-                        className={`p-3 rounded-xl bg-gradient-to-br ${cfg.bgGradient} border border-white/10 text-center space-y-1`}
-                    >
-                        <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">{labels[i]}</div>
-                        <div className="text-2xl">{cfg.icon}</div>
-                        <div className="text-xs font-bold text-white/80 leading-tight">{f.headline}</div>
-                        {f.stormRegimeFlag && (
-                            <div className="text-[9px] font-bold text-amber-300">⚠️ Models Disagree</div>
-                        )}
-                    </motion.div>
-                );
-            })}
-        </div>
-    );
-};
-
 export const SnowDayPredictor = () => {
-    const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState<EngineOutput | null>(null);
-    const [weekOutlook, setWeekOutlook] = useState<EngineOutput[] | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState<ForecastData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dayIndex, setDayIndex] = useState(1);
-    const [alerts, setAlerts] = useState<string[]>([]);
     const [selectedDistrict, setSelectedDistrict] = useState(DISTRICTS[0]);
-    const [rawWeather, setRawWeather] = useState<any>(null);
-    const [gridpointData, setGridpointData] = useState<NWSGridpointData | null>(null);
-    const [officialStatus, setOfficialStatus] = useState<string | null>(null);
 
-    const checkOfficialStatus = async (districtId: string, dayOffset: number) => {
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + dayOffset);
-        const status = await HistoryService.getOfficialStatus(districtId, targetDate);
-        setOfficialStatus(status);
-    };
-
-    const handlePredict = async () => {
-        setLoading(true);
-        setError(null);
-        setResult(null);
-        setWeekOutlook(null);
-        setAlerts([]);
-        setGridpointData(null);
-
-        try {
-            const zones = selectedDistrict.zones;
-            const [weather, fetchedAlerts, gridpoint] = await Promise.all([
-                WeatherService.getZonalWeather(zones),
-                WeatherService.getZonalAlerts(zones),
-                WeatherService.getZonalGridpointData(zones),
-            ]);
-
-            if (!weather) throw new Error("Weather data returned empty.");
-
-            setAlerts(fetchedAlerts);
-            setRawWeather(weather);
-            setGridpointData(gridpoint);
-
-            const hl = gridpoint.hazard_level;
-            const pop = gridpoint.nws_pop;
-
-            const prediction = runSnowDayEngine(weather, dayIndex, fetchedAlerts, selectedDistrict, hl, pop);
-            const outlook = runWeekOutlook(weather, fetchedAlerts, selectedDistrict, hl, pop);
-
-            setResult(prediction);
-            setWeekOutlook(outlook);
-
-            await checkOfficialStatus(selectedDistrict.id, dayIndex);
-        } catch (err: any) {
-            setError(err.message || "Something went wrong. Try again!");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // Recompute when user tweaks sliders / day / district
     useEffect(() => {
-        if (!rawWeather) return;
-        const hl = gridpointData?.hazard_level ?? 0;
-        const pop = gridpointData?.nws_pop ?? null;
-        const prediction = runSnowDayEngine(rawWeather, dayIndex, alerts, selectedDistrict, hl, pop);
-        const outlook = runWeekOutlook(rawWeather, alerts, selectedDistrict, hl, pop);
-        setResult(prediction);
-        setWeekOutlook(outlook);
-        checkOfficialStatus(selectedDistrict.id, dayIndex);
-    }, [dayIndex, selectedDistrict, alerts, gridpointData?.hazard_level, gridpointData?.nws_pop, rawWeather]);
+        const fetchForecast = async () => {
+            try {
+                // Fetch the static JSON generated by GitHub Actions
+                const res = await fetch('/data/forecast.json');
+                if (!res.ok) throw new Error("Failed to load ML forecast");
+                const json = await res.json();
+                setData(json);
+            } catch (err: any) {
+                setError("Unable to load the AI prediction models. Please try again later.");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchForecast();
+    }, []);
 
-    const verdictCfg = result ? VERDICT_CONFIG[result.verdict] : null;
-    const isStatusActive = officialStatus && officialStatus !== "On time" && officialStatus !== "Unknown";
+    const forecast = data?.forecasts[dayIndex];
+    const cfg = forecast ? PREDICTION_CONFIG[forecast.primary_prediction] : null;
+
+    // Get the maximum probability percentage dynamically
+    const maxProb = forecast ? Math.max(...Object.values(forecast.probabilities)) : 0;
 
     return (
         <div className="w-full bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl overflow-hidden shadow-2xl relative border border-white/10 font-sans shadow-indigo-900/20">
@@ -221,46 +102,31 @@ export const SnowDayPredictor = () => {
 
             <div className="relative z-10 p-6 md:p-10 min-h-[600px] flex flex-col">
 
-                {/* OFFICIAL STATUS BANNER */}
-                <AnimatePresence>
-                    {isStatusActive && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="bg-red-600/90 text-white p-4 rounded-xl mb-6 border border-red-400 shadow-[0_0_30px_rgba(220,38,38,0.4)] flex items-center justify-center gap-3 backdrop-blur-sm"
-                        >
-                            <AlertTriangle className="w-5 h-5 animate-pulse" />
-                            <div className="font-bold text-sm md:text-base">
-                                <span className="uppercase tracking-widest opacity-80 mr-2 text-xs">OFFICIAL UPDATE:</span>
-                                {selectedDistrict.id} is {officialStatus}
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
                 {/* HEADER */}
                 <div className="flex justify-between items-start mb-8 border-b border-white/10 pb-6">
                     <div className="space-y-2">
                         <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-xl">
-                            Snow Day Predictor
+                            Snow Day ML Predictor
                         </h2>
                         <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-emerald-300">
                             <Shield className="w-4 h-4 text-emerald-400" />
-                            <span>92% Historical Accuracy</span>
+                            <span>Powered by XGBoost Multi-Class AI</span>
                         </div>
                     </div>
                     <div className="hidden md:flex flex-col items-end gap-1 text-[10px] font-bold uppercase tracking-widest text-white/40">
-                        <span>Powered by AI</span>
-                        <span>10 Years of VA Data</span>
-                        <span>Live Radar Sync</span>
+                        {data?.last_updated && (
+                            <div className="flex items-center gap-1 text-indigo-300">
+                                <Server className="w-3 h-3" />
+                                <span>Updated: {data.last_updated}</span>
+                            </div>
+                        )}
+                        <span>Open-Meteo V1</span>
                     </div>
                 </div>
 
                 {/* CONTROLS */}
                 <div className="space-y-4 mb-8">
                     <div className="flex flex-col md:flex-row gap-3">
-                        {/* District */}
                         <div className="flex-1 bg-white/5 backdrop-blur-md rounded-xl p-1 pl-4 flex items-center border border-white/10">
                             <span className="text-white/50 mr-2 text-[10px] font-bold uppercase tracking-widest">District</span>
                             <Select
@@ -278,29 +144,26 @@ export const SnowDayPredictor = () => {
                             </Select>
                         </div>
 
-                        {/* Day */}
                         <Select value={dayIndex.toString()} onValueChange={(v) => setDayIndex(parseInt(v))}>
-                            <SelectTrigger className="w-full md:w-44 bg-white/5 backdrop-blur-md border-white/10 text-white font-bold rounded-xl h-auto py-3">
-                                <SelectValue />
+                            <SelectTrigger className="w-full md:w-64 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-xl h-auto py-3">
+                                <div className="flex items-center gap-2">
+                                    <CalendarDays className="w-4 h-4 text-indigo-300" />
+                                    <SelectValue />
+                                </div>
                             </SelectTrigger>
                             <SelectContent className="bg-slate-900 border-indigo-500/20 text-white font-bold">
-                                <SelectItem value="0">Today</SelectItem>
-                                <SelectItem value="1">Tomorrow</SelectItem>
-                                <SelectItem value="2">2 Days Out</SelectItem>
+                                {data?.forecasts.map((f, i) => (
+                                    <SelectItem key={i} value={i.toString()}>{f.label} {i === 0 ? '(Today)' : i === 1 ? '(Tomorrow)' : ''}</SelectItem>
+                                )) || (
+                                        <>
+                                            <SelectItem value="0">Today</SelectItem>
+                                            <SelectItem value="1">Tomorrow</SelectItem>
+                                            <SelectItem value="2">2 Days Out</SelectItem>
+                                        </>
+                                    )}
                             </SelectContent>
                         </Select>
-
-                        {/* Predict button */}
-                        <Button
-                            onClick={handlePredict}
-                            disabled={loading}
-                            className="bg-indigo-500 hover:bg-indigo-400 text-white text-lg font-black px-8 py-3 h-auto rounded-xl shadow-lg shadow-indigo-500/20 active:translate-y-1 transition-all flex-none"
-                        >
-                            {loading ? <Loader2 className="animate-spin" /> : "RUN MODEL"}
-                        </Button>
                     </div>
-
-
                 </div>
 
                 {/* ERROR */}
@@ -312,13 +175,17 @@ export const SnowDayPredictor = () => {
                     >
                         <AlertTriangle className="w-8 h-8 mx-auto mb-2 text-red-300" />
                         {error}
-                        <Button variant="link" onClick={handlePredict} className="text-white underline block mx-auto mt-2">Try Again</Button>
                     </motion.div>
                 )}
 
                 {/* RESULTS */}
                 <AnimatePresence mode="wait">
-                    {result && verdictCfg ? (
+                    {loading ? (
+                        <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center py-24 text-indigo-300 space-y-4">
+                            <Loader2 className="w-12 h-12 animate-spin" />
+                            <div className="font-bold uppercase tracking-widest text-sm">Loading ML Inferences...</div>
+                        </motion.div>
+                    ) : forecast && cfg ? (
                         <motion.div
                             key="result"
                             initial={{ opacity: 0, y: 20 }}
@@ -326,109 +193,55 @@ export const SnowDayPredictor = () => {
                             className="space-y-6"
                         >
                             {/* MAIN VERDICT CARD */}
-                            <div className={`p-8 md:p-12 rounded-3xl bg-gradient-to-br ${verdictCfg.bgGradient} border border-white/20 shadow-2xl relative overflow-hidden`}>
+                            <div className={`p-8 md:p-12 rounded-3xl bg-gradient-to-br ${cfg.bgGradient} border border-white/20 shadow-2xl relative overflow-hidden flex flex-col items-center text-center`}>
                                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay" />
-                                <div className="relative z-10 text-center space-y-4">
-                                    {/* Storm regime warning badge */}
-                                    {result.stormRegimeFlag && (
-                                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-500/20 border border-amber-400/30 rounded-full text-amber-300 text-xs font-bold mb-2">
-                                            <AlertTriangle className="w-3 h-3" />
-                                            Weather models disagree significantly
-                                        </div>
-                                    )}
+                                <div className="relative z-10 w-full max-w-2xl">
 
-                                    {/* NWS Hazard badge (v5.1) */}
-                                    {gridpointData && gridpointData.hazard_level > 0 && (() => {
-                                        const HAZARD_LABELS = ["None", "Advisory", "Watch", "Warning", "Emergency"];
-                                        const HAZARD_COLORS = ["", "text-sky-300 bg-sky-500/20 border-sky-400/30", "text-amber-300 bg-amber-500/20 border-amber-400/30", "text-red-300 bg-red-500/20 border-red-400/30", "text-red-100 bg-red-700/40 border-red-400/50"];
-                                        return (
-                                            <div className={`inline-flex flex-col items-center gap-1 px-4 py-2 rounded-xl border font-bold text-xs ${HAZARD_COLORS[gridpointData.hazard_level]}`}>
-                                                <span className="text-[10px] uppercase tracking-widest opacity-70">NWS {HAZARD_LABELS[gridpointData.hazard_level]} · {gridpointData.forecast_office}</span>
-                                                {gridpointData.hazard_codes.join(" · ")}
-                                            </div>
-                                        );
-                                    })()}
-
-                                    {/* NWS official short forecast */}
-                                    {gridpointData?.short_forecast && (
-                                        <div className="text-sm text-white/50 italic">
-                                            "{gridpointData.short_forecast}" — NWS {gridpointData.forecast_office}
-                                        </div>
-                                    )}
-
-                                    <div className="flex justify-center flex-wrap gap-2">
-                                        <div className={`inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border ${verdictCfg.badgeColor}`}>
-                                            {result.chanceLabel}
-                                        </div>
-                                        {result.stormStrength !== "Minimal (<1)" && (
-                                            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border bg-white/10 text-white border-white/20 backdrop-blur-sm">
-                                                <Snowflake className="w-3 h-3 text-blue-300" />
-                                                Storm: {result.stormStrength}
-                                            </div>
-                                        )}
+                                    <div className="inline-block px-4 py-1.5 mb-6 rounded-full text-xs font-bold uppercase tracking-widest border bg-white/10 text-white border-white/20 backdrop-blur-sm shadow-xl">
+                                        Primary Prediction
                                     </div>
 
-                                    <div className="text-7xl md:text-8xl">{verdictCfg.icon}</div>
+                                    <div className="text-7xl md:text-8xl mb-4">{cfg.icon}</div>
 
-                                    <h1 className={`text-4xl md:text-6xl font-black tracking-tight leading-none ${verdictCfg.color}`}>
-                                        {result.headline}
+                                    <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none ${cfg.color} mb-2`}>
+                                        {maxProb.toFixed(1)}% Chance of <br className="hidden md:block" /> {forecast.primary_prediction}
                                     </h1>
-                                    <p className="text-lg text-white/70 max-w-xl mx-auto">{result.subtext}</p>
 
-                                    {/* Uncertainty meter — the killer feature */}
-                                    {result.verdict !== "MODEL_DISAGREE" && (
-                                        <div className="mt-6 max-w-md mx-auto">
-                                            <UncertaintyMeter
-                                                mean={result.meanProb}
-                                                adjusted={result.adjustedProb}
-                                                std={result.stdDev}
-                                            />
+                                    <p className="text-white/60 font-medium uppercase tracking-widest text-sm mt-4">
+                                        For {forecast.label}
+                                    </p>
+
+                                    {/* MULTI_CLASS PROBABILITIES */}
+                                    <div className="mt-12 w-full bg-slate-900/60 p-6 rounded-2xl border border-white/10 backdrop-blur-xl space-y-4">
+                                        <div className="text-[10px] font-black uppercase tracking-widest text-white/50 text-left mb-2">
+                                            Outcome Probabilities
                                         </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* WEEK OUTLOOK */}
-                            {weekOutlook && (
-                                <div className="space-y-3">
-                                    <div className="text-[10px] uppercase font-bold text-white/30 tracking-widest">3-Day Outlook</div>
-                                    <WeekOutlookStrip forecasts={weekOutlook} />
-                                </div>
-                            )}
-
-                            {/* METRICS SUMMARY */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                {[
-                                    { label: "Snow Forecast", value: `${result.metrics.snowfall_in}"`, icon: <Snowflake className="w-4 h-4 text-blue-300" /> },
-                                    { label: "Min Temp", value: `${result.metrics.min_temp_f}°F`, icon: <Thermometer className="w-4 h-4 text-cyan-300" /> },
-                                    { label: "Max Gust", value: `${result.metrics.max_gust_mph} mph`, icon: <Wind className="w-4 h-4 text-purple-300" /> },
-                                    { label: "Ground Temp", value: `${result.metrics.ground_temp_f}°F`, icon: <BarChart2 className="w-4 h-4 text-amber-300" /> },
-                                ].map(({ label, value, icon }) => (
-                                    <div key={label} className="bg-white/5 rounded-2xl p-4 border border-white/10 space-y-2">
-                                        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/40">
-                                            {icon} {label}
-                                        </div>
-                                        <div className="text-2xl font-black">{value}</div>
+                                        <ProgressBar
+                                            label="Closure (Full Snow Day)"
+                                            percentage={forecast.probabilities.closure}
+                                            colorClass="bg-gradient-to-r from-purple-500 to-indigo-400"
+                                        />
+                                        <ProgressBar
+                                            label="Delay (2-Hour)"
+                                            percentage={forecast.probabilities.delay}
+                                            colorClass="bg-gradient-to-r from-blue-500 to-sky-400"
+                                        />
+                                        <ProgressBar
+                                            label="Early Release"
+                                            percentage={forecast.probabilities.early_release}
+                                            colorClass="bg-gradient-to-r from-orange-500 to-amber-400"
+                                        />
+                                        <ProgressBar
+                                            label="Open (Normal Day)"
+                                            percentage={forecast.probabilities.open}
+                                            colorClass="bg-gradient-to-r from-teal-500 to-emerald-400"
+                                        />
                                     </div>
-                                ))}
-                            </div>
 
-                        </motion.div>
-                    ) : (
-                        !loading && (
-                            <div className="flex flex-col items-center justify-center py-24 text-center text-white/30 space-y-4">
-                                <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center">
-                                    <Sparkles className="w-8 h-8 opacity-50" />
                                 </div>
-                                <p className="text-base font-medium max-w-xs mx-auto">
-                                    Configure district, then run the model.
-                                </p>
-                                <p className="text-xs max-w-sm mx-auto text-white/40 font-bold uppercase tracking-widest">
-                                    Proven &gt;90% accurate on past winter storms.
-                                </p>
                             </div>
-                        )
-                    )}
+                        </motion.div>
+                    ) : null}
                 </AnimatePresence>
             </div>
         </div>

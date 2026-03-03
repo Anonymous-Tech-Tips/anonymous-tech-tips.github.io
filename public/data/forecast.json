@@ -1,0 +1,38 @@
+{
+    "forecasts": [
+        {
+            "date": "2026-03-02",
+            "label": "Monday, Mar 02",
+            "primary_prediction": "Closure",
+            "probabilities": {
+                "open": 18.5,
+                "delay": 15.0,
+                "early_release": 18.8,
+                "closure": 47.7
+            }
+        },
+        {
+            "date": "2026-03-03",
+            "label": "Tuesday, Mar 03",
+            "primary_prediction": "Delay",
+            "probabilities": {
+                "open": 23.3,
+                "delay": 69.3,
+                "early_release": 3.0,
+                "closure": 4.4
+            }
+        },
+        {
+            "date": "2026-03-04",
+            "label": "Wednesday, Mar 04",
+            "primary_prediction": "Delay",
+            "probabilities": {
+                "open": 29.8,
+                "delay": 56.9,
+                "early_release": 4.6,
+                "closure": 8.7
+            }
+        }
+    ],
+    "last_updated": "2026-03-02 21:10:34"
+}

@@ -135,7 +135,7 @@ const GamesPage = () => {
                 <div className="grid grid-cols-3 gap-3">
                   {trendingGames.slice(0, 3).map(game => (
                     <Link key={game.id} to={`/games/${game.id}`} className="block group">
-                      <img src={game.thumbnail || fallback} className="rounded-lg aspect-square object-cover mb-2 group-hover:scale-105 transition-transform" />
+                      <img src={game.thumbnail || fallback} className="rounded-lg aspect-[4/3] object-cover mb-2 group-hover:scale-105 transition-transform" />
                       <p className="text-xs text-slate-300 truncate font-medium group-hover:text-orange-400">{game.title}</p>
                     </Link>
                   ))}
@@ -151,7 +151,7 @@ const GamesPage = () => {
                 <div className="grid grid-cols-3 gap-3">
                   {recommendedGames.slice(0, 3).map(game => (
                     <Link key={game.id} to={`/games/${game.id}`} className="block group">
-                      <img src={game.thumbnail || fallback} className="rounded-lg aspect-square object-cover mb-2 group-hover:scale-105 transition-transform" />
+                      <img src={game.thumbnail || fallback} className="rounded-lg aspect-[4/3] object-cover mb-2 group-hover:scale-105 transition-transform" />
                       <p className="text-xs text-slate-300 truncate font-medium group-hover:text-purple-400">{game.title}</p>
                     </Link>
                   ))}
@@ -194,7 +194,7 @@ const GamesPage = () => {
                     to={`/games/${game.id}`}
                     className="group block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-orange-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.35),0_10px_40px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]"
                   >
-                    <div className="aspect-square relative overflow-hidden">
+                    <div className="aspect-[4/3] relative overflow-hidden">
                       <img
                         src={game.thumbnail || fallback}
                         alt={`${game.title} - ${game.tags.join(', ')} game`}
