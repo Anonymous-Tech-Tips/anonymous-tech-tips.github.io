@@ -5,22 +5,16 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Only one concurrent deployment at a time
+# Prevent multiple concurrent deployments from cancelling each other
 concurrency:
-  group: "pages"
+  group: pages-deploy
   cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,13 +31,13 @@ jobs:
       - name: Build Vite app
         run: npm run build
 
-      - name: Strip game binaries from dist (keep under 1 GB Pages limit)
+      - name: Strip self-hosted game files from dist
+        # Games live permanently on gh-pages (deployed via deploy-games.yml once).
+        # We do NOT re-upload them on every push — only app files are deployed here.
         run: |
-          echo "Removing self-hosted game HTML binaries..."
-          rm -rf dist/games/html dist/games/swf
-          echo "Dist size after strip:"
+          rm -rf dist/games dist/strongdog dist/topvaz66
+          echo "Dist size (app only):"
           du -sh dist/
-          echo "✓ Game binaries removed"
 
       - name: Prerender pages
         run: npx tsx scripts/prerender.ts
@@ -51,11 +45,9 @@ jobs:
       - name: Generate sitemap
         run: npx tsx scripts/generate-sitemap.ts
 
-      - name: Copy essential public assets
+      - name: Copy non-game public assets
         run: |
-          mkdir -p dist/img
-          mkdir -p dist/games/img
-          mkdir -p dist/data
+          mkdir -p dist/img dist/games/img dist/data
           cp -r public/img/* dist/img/ 2>/dev/null || true
           cp -r public/games/img/* dist/games/img/ 2>/dev/null || true
           cp -r public/data/* dist/data/ 2>/dev/null || true
@@ -64,13 +56,15 @@ jobs:
           cp public/*.ico dist/ 2>/dev/null || true
           echo "Final dist size:"
           du -sh dist/
-          echo "✓ Essential assets copied"
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy app to gh-pages (preserving existing game files)
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: dist
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: dist
+          clean: true
+          clean-exclude: |
+            games/html/**
+            games/swf/**
+          single-commit: true

@@ -1,0 +1,51 @@
+name: Deploy Games to gh-pages (Run Once Per Game Update)
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Run this workflow MANUALLY from GitHub Actions tab → "Run workflow"
+# This pushes the self-hosted game files to the gh-pages branch.
+# It only needs to run when games are ADDED or UPDATED — not on every push.
+# Regular app deployments (deploy.yml) preserve these files automatically.
+# ──────────────────────────────────────────────────────────────────────────────
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type DEPLOY to confirm (game upload takes ~10-20 minutes)'
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy-games:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm == 'DEPLOY'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Verify game files exist
+        run: |
+          echo "Game directories found:"
+          ls public/games/html/ | head -20
+          echo "..."
+          echo "Total game size:"
+          du -sh public/games/html/
+
+      - name: Deploy game files to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: public/games
+          target-folder: games
+          clean: false
+          single-commit: false
