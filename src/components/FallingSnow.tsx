@@ -15,8 +15,6 @@ export const FallingSnow = ({ count = 20 }: { count?: number }) => {
   const { prefs } = useUserPrefs();
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
 
-  if (prefs.settings.reducedMotion) return null;
-
   useEffect(() => {
     // Subtle snow - just simple white dots
     const newSnowflakes: Snowflake[] = Array.from({ length: count }, (_, i) => ({
@@ -29,6 +27,8 @@ export const FallingSnow = ({ count = 20 }: { count?: number }) => {
     }));
     setSnowflakes(newSnowflakes);
   }, [count]);
+
+  if (prefs.settings.reducedMotion) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-40">

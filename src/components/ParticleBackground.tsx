@@ -5,11 +5,6 @@ export const ParticleBackground = () => {
     const { prefs } = useUserPrefs();
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    // Completely disable this heavy Canvas rendering loop on slow devices
-    if (prefs.settings.reducedMotion) {
-        return null;
-    }
-
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -113,6 +108,9 @@ export const ParticleBackground = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    // Skip canvas rendering entirely on slow devices
+    if (prefs.settings.reducedMotion) return null;
 
     return (
         <canvas

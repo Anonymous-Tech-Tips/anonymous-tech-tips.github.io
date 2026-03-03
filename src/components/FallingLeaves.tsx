@@ -14,8 +14,6 @@ export const FallingLeaves = () => {
   const { prefs } = useUserPrefs();
   const [leaves, setLeaves] = useState<Leaf[]>([]);
 
-  if (prefs.settings.reducedMotion) return null;
-
   useEffect(() => {
     const leafEmojis = ['🍂', '🍁', '🌰', '🦃'];
     const newLeaves: Leaf[] = Array.from({ length: 15 }, (_, i) => ({
@@ -28,6 +26,8 @@ export const FallingLeaves = () => {
     }));
     setLeaves(newLeaves);
   }, []);
+
+  if (prefs.settings.reducedMotion) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-50">
