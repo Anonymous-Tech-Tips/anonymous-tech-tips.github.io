@@ -54,6 +54,7 @@ jobs:
           cp public/sitemap.xml dist/ 2>/dev/null || true
           cp public/*.png dist/ 2>/dev/null || true
           cp public/*.ico dist/ 2>/dev/null || true
+          cp public/*.html dist/ 2>/dev/null || true
           echo "Final dist size:"
           du -sh dist/
 
