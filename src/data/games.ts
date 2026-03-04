@@ -11,7 +11,7 @@ export const games: Game[] = [
       "Strategy"
     ],
     "thumbnail": "/games/img/smash karts.avif",
-    "url": "https://webglmath.github.io/smash-karts/"
+    "url": "/games/html/smash karts/game/index.html"
   },
   {
     "id": "slope",
