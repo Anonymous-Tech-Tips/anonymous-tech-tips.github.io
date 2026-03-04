@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-04 16:32:59",
+    "last_updated": "2026-03-04 18:35:56",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Thursday, Mar 05",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 65.7,
-                        "delay": 25.8,
-                        "early_release": 4.3,
-                        "closure": 4.2
+                        "open": 66.7,
+                        "delay": 24.7,
+                        "early_release": 4.4,
+                        "closure": 4.3
                     }
                 },
                 {
@@ -68,8 +68,8 @@
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 75.9,
-                        "delay": 18.1,
-                        "early_release": 2.2,
+                        "delay": 17.8,
+                        "early_release": 2.5,
                         "closure": 3.8
                     }
                 }
@@ -104,10 +104,10 @@
                     "label": "Friday, Mar 06",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.5,
-                        "delay": 6.6,
-                        "early_release": 1.9,
-                        "closure": 3.1
+                        "open": 88.1,
+                        "delay": 6.5,
+                        "early_release": 2.2,
+                        "closure": 3.2
                     }
                 }
             ]
@@ -130,10 +130,10 @@
             "label": "Thursday, Mar 05",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 65.7,
-                "delay": 25.8,
-                "early_release": 4.3,
-                "closure": 4.2
+                "open": 66.7,
+                "delay": 24.7,
+                "early_release": 4.4,
+                "closure": 4.3
             }
         },
         {
