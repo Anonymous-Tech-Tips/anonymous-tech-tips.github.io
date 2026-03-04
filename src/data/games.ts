@@ -36,10 +36,10 @@ export const games: Game[] = [
     "id": "1v1-lol",
     "title": "1v1.LOL",
     "tags": [
-      "Casual"
+      "Action"
     ],
     "thumbnail": "/games/img/1v1.webp",
-    "url": "/games/html/1v1/game/index.html"
+    "url": "/games/html/1v1space/game/index.html"
   },
   {
     "id": "fnaf",
