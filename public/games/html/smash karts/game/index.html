@@ -1,43 +1,82 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Smash Karts </title>
-	<meta name="robots" content="noindex">
-
-	<!-- will be copied to the resulting head //-->
+    <meta charset="utf-8">
+    <title>Smash Karts proxy</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+        #gameCanvas { width: 100%; height: 100%; display: block; }
+    </style>
 </head>
-
 <body>
+    <canvas id="gameCanvas"></canvas>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-functions-compat.js"></script>
 
-	<script>
-		window.config = {
-			loader: "unity-2020",
-			debug: false,
-			maxRatio: 16 / 9,
-			minRatio: 9 / 16,
-			title: "Smash Karts",
-			thumbnail: "9c9e529b14731be871b07b89660bbc2a.png",
-			numScreenshots: 4,
-			unityVersion: "2020.3", // or 2019.x depending on the actual build
-			metadata: {
-				loader_filename: "SmashKarts_sp6.loader.js",
-				data_filename: "b4c6ea99dc51c73858f47239f387f162.data",
-				framework_filename: "6a793744ad86b15bfe005393e138d5ef.js",
-				code_filename: "f944e4c35e7de77e9a40598d481f8cba.wasm"
-			}
-		};
-	</script>
-	<script src="master-loader.js"></script>
+    <script src="https://smashkarts.io/scripts/main.js"></script>
+    <script src="https://smashkarts.io/scripts/auth.js"></script>
+    <script src="https://smashkarts.io/scripts/shop.js"></script>
+    <script src="https://smashkarts.io/scripts/cc.js"></script>
 
-	<!-- will be copied to the resulting body //-->
-	<!-- removed firebase scripts //-->
-	<script src="scripts/main.js"></script>
-	<script src="scripts/auth.js"></script>
-	<!-- will also be copied to the resulting body //-->
+    <script>
+        // Provide mock global analytics tracking for ads and functions removed
+        window.gtag = function(){}
+        window.updateAdBlockDetected = function(){}
+        window.updateLoadingAdBanner = function(){}
+        window.trySendAdBlockDetectedMessage = function(){}
+        window.setV = function(){}
+        var timerStart = Date.now();
+        var displayAdProvider = "";
+        var videoAdProvider = "";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyAdY2qq9083amKDS0R8tn2tjIKQB8mocco",
+            authDomain: "webgltest-17af1.firebaseapp.com",
+            databaseURL: "https://webgltest-17af1.firebaseio.com",
+            projectId: "webgltest-17af1",
+            messagingSenderId: "480659433590",
+            appId: "1:480659433590:web:a01ad1599e963843a0d757",
+            measurementId: "G-1W23DRFHK9"
+        };
+        firebase.initializeApp(firebaseConfig);
+        try { analytics = firebase.analytics(); } catch(e){}
+
+        var dataFile = "/a1185d60eda0c6e2f498c38465e1ace1.data.br";
+        var addressableCatalogFilename = "catalog_2026.03.03.13.25.38.json";
+
+        const buildUrl = "https://smashkartsgc.b-cdn.net/Build2020New";
+        const loaderUrl = buildUrl + "/c4ce55f6fd990c1236bc84106eb955bf.loader.js";
+        
+        const config = {
+            dataUrl: buildUrl + dataFile,
+            frameworkUrl: buildUrl + "/1d0582e5e4b0dd943c0a1a60684ddc1a.framework.js.br",
+            codeUrl: buildUrl + "/b04c5ad8da0df569436c146193652c92.wasm.br",
+            streamingAssetsUrl: "https://smashkarts.io/StreamingAssets",
+            companyName: "TallTeam",
+            productName: "Smash Karts",
+            productVersion: "2.12.3",
+        };
+
+        function getAddressableCatalogFilename() {
+            return addressableCatalogFilename;
+        }
+
+        var canvas = document.querySelector("#gameCanvas");
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        
+        script.onload = () => {
+            createUnityInstance(canvas, config).then((unityInstance) => {
+                window.unityGame = unityInstance;
+                unityInstance.SendMessage(unityFirebaseGameOjbectName, "SetDisplayAdProvider", "");
+                unityInstance.SendMessage(unityFirebaseGameOjbectName, "SetVideoAdProvider", "");
+            });
+        };
+        document.body.appendChild(script);
+    </script>
 </body>
-
 </html>
