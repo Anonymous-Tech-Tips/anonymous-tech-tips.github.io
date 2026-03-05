@@ -1,0 +1,68 @@
+{
+    "m_LocatorId": "Catalog",
+    "m_InstanceProviderData": {
+        "m_Id": "AssetReference",
+        "m_ObjectType": {
+            "m_AssemblyName": "Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "m_ClassName": "UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider"
+        },
+        "m_Data": ""
+    },
+    "m_SceneProviderData": {
+        "m_Id": "AssetReference",
+        "m_ObjectType": {
+            "m_AssemblyName": "Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "m_ClassName": "UnityEngine.ResourceManagement.ResourceProviders.SceneProvider"
+        },
+        "m_Data": ""
+    },
+    "m_ResourceProviderData": [
+        {
+            "m_Id": "AssetReference",
+            "m_ObjectType": {
+                "m_AssemblyName": "Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "m_ClassName": "UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider"
+            },
+            "m_Data": ""
+        },
+        {
+            "m_Id": "AssetReference",
+            "m_ObjectType": {
+                "m_AssemblyName": "Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "m_ClassName": "UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider"
+            },
+            "m_Data": ""
+        },
+        {
+            "m_Id": "AssetReference",
+            "m_ObjectType": {
+                "m_AssemblyName": "Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "m_ClassName": "UnityEngine.ResourceManagement.ResourceProviders.TextDataProvider"
+            },
+            "m_Data": ""
+        },
+        {
+            "m_Id": "AssetReference",
+            "m_ObjectType": {
+                "m_AssemblyName": "Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "m_ClassName": "UnityEngine.ResourceManagement.ResourceProviders.JsonAssetProvider"
+            },
+            "m_Data": ""
+        }
+    ],
+    "m_ProviderIds": [
+        "UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider",
+        "UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider",
+        "UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider",
+        "UnityEngine.ResourceManagement.ResourceProviders.TextDataProvider",
+        "UnityEngine.ResourceManagement.ResourceProviders.JsonAssetProvider",
+        "UnityEngine.ResourceManagement.ResourceProviders.SceneProvider"
+    ],
+    "m_InternalIds": [],
+    "m_KeyDataString": "",
+    "m_BucketDataString": "",
+    "m_EntryDataString": "",
+    "m_ExtraDataString": "",
+    "m_ResourceTypes": [],
+    "m_InternalIdPrefixes": []
+}

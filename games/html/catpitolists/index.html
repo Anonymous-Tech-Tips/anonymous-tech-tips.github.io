@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>AdVenture Capitalist</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="content" style="margin: 0; height: 100vh; width: 100vw; overflow: hidden;">
+    <div class="game-container" id="gameContainer" style="width: 100%; height: 100%; margin: 0; border-radius: 0;">
+      <!-- Game Embed Will Go Here -->
+    </div>
+  </div>
+
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var gameContainer = document.getElementById("gameContainer");
+
+      function embedGame(gamePath) {
+        var iframe = document.createElement("iframe");
+        iframe.src = gamePath;
+        iframe.sandbox = "allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups";
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        gameContainer.innerHTML = "";
+        gameContainer.appendChild(iframe);
+      }
+
+      embedGame("./game/advcap.html");
+    });
+  </script>
+
+
+
+
+
+</body>
+
+</html>
