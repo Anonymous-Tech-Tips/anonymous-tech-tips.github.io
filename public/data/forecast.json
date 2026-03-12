@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-12 17:13:29",
+    "last_updated": "2026-03-12 18:40:45",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Thursday, Mar 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 53.0,
-                        "delay": 21.8,
+                        "open": 51.8,
+                        "delay": 21.3,
                         "early_release": 2.7,
-                        "closure": 22.5
+                        "closure": 24.2
                     }
                 },
                 {
@@ -19,10 +19,10 @@
                     "label": "Friday, Mar 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.5,
-                        "delay": 5.1,
-                        "early_release": 1.5,
-                        "closure": 4.9
+                        "open": 90.4,
+                        "delay": 4.3,
+                        "early_release": 1.2,
+                        "closure": 4.1
                     }
                 },
                 {
@@ -30,9 +30,9 @@
                     "label": "Saturday, Mar 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 87.3,
-                        "delay": 6.3,
-                        "early_release": 1.3,
+                        "open": 87.6,
+                        "delay": 5.9,
+                        "early_release": 1.4,
                         "closure": 5.1
                     }
                 }
@@ -45,10 +45,10 @@
                     "label": "Thursday, Mar 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 86.9,
-                        "delay": 4.9,
-                        "early_release": 3.2,
-                        "closure": 5.0
+                        "open": 86.2,
+                        "delay": 4.7,
+                        "early_release": 3.3,
+                        "closure": 5.8
                     }
                 },
                 {
@@ -67,8 +67,8 @@
                     "label": "Saturday, Mar 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 83.2,
-                        "delay": 12.2,
+                        "open": 86.5,
+                        "delay": 8.9,
                         "early_release": 1.7,
                         "closure": 2.9
                     }
@@ -82,10 +82,10 @@
                     "label": "Thursday, Mar 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 54.1,
-                        "delay": 39.3,
-                        "early_release": 2.5,
-                        "closure": 4.1
+                        "open": 63.8,
+                        "delay": 28.6,
+                        "early_release": 2.9,
+                        "closure": 4.7
                     }
                 },
                 {
@@ -93,8 +93,8 @@
                     "label": "Friday, Mar 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.6,
-                        "delay": 4.3,
+                        "open": 92.7,
+                        "delay": 4.2,
                         "early_release": 1.1,
                         "closure": 2.1
                     }
@@ -104,10 +104,10 @@
                     "label": "Saturday, Mar 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.5,
-                        "delay": 6.5,
+                        "open": 89.1,
+                        "delay": 6.7,
                         "early_release": 1.5,
-                        "closure": 2.5
+                        "closure": 2.7
                     }
                 }
             ]
@@ -119,10 +119,10 @@
             "label": "Thursday, Mar 12",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 53.0,
-                "delay": 21.8,
+                "open": 51.8,
+                "delay": 21.3,
                 "early_release": 2.7,
-                "closure": 22.5
+                "closure": 24.2
             }
         },
         {
@@ -130,10 +130,10 @@
             "label": "Friday, Mar 13",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 88.5,
-                "delay": 5.1,
-                "early_release": 1.5,
-                "closure": 4.9
+                "open": 90.4,
+                "delay": 4.3,
+                "early_release": 1.2,
+                "closure": 4.1
             }
         },
         {
@@ -141,9 +141,9 @@
             "label": "Saturday, Mar 14",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 87.3,
-                "delay": 6.3,
-                "early_release": 1.3,
+                "open": 87.6,
+                "delay": 5.9,
+                "early_release": 1.4,
                 "closure": 5.1
             }
         }
