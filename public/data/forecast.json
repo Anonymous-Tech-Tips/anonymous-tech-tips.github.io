@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-13 06:40:56",
+    "last_updated": "2026-03-13 08:30:58",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Friday, Mar 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.3,
-                        "delay": 4.4,
-                        "early_release": 1.3,
-                        "closure": 4.0
+                        "open": 91.3,
+                        "delay": 4.0,
+                        "early_release": 1.2,
+                        "closure": 3.6
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Friday, Mar 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.6,
-                        "delay": 3.5,
+                        "open": 89.8,
+                        "delay": 4.2,
                         "early_release": 1.7,
-                        "closure": 4.2
+                        "closure": 4.3
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Friday, Mar 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 93.0,
-                        "delay": 4.1,
+                        "open": 89.6,
+                        "delay": 7.2,
                         "early_release": 1.0,
-                        "closure": 2.0
+                        "closure": 2.1
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Friday, Mar 13",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 90.3,
-                "delay": 4.4,
-                "early_release": 1.3,
-                "closure": 4.0
+                "open": 91.3,
+                "delay": 4.0,
+                "early_release": 1.2,
+                "closure": 3.6
             }
         },
         {
