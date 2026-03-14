@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-14 12:30:26",
+    "last_updated": "2026-03-14 14:21:27",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Saturday, Mar 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.1,
-                        "delay": 3.9,
+                        "open": 92.2,
+                        "delay": 4.0,
                         "early_release": 1.1,
-                        "closure": 2.8
+                        "closure": 2.7
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Saturday, Mar 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.3,
-                        "delay": 2.7,
+                        "open": 86.6,
+                        "delay": 8.7,
                         "early_release": 1.7,
-                        "closure": 3.3
+                        "closure": 3.1
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Saturday, Mar 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 93.7,
-                        "delay": 3.7,
+                        "open": 93.8,
+                        "delay": 3.5,
                         "early_release": 1.0,
-                        "closure": 1.5
+                        "closure": 1.6
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Saturday, Mar 14",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 92.1,
-                "delay": 3.9,
+                "open": 92.2,
+                "delay": 4.0,
                 "early_release": 1.1,
-                "closure": 2.8
+                "closure": 2.7
             }
         },
         {
