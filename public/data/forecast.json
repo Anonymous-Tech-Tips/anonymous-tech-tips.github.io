@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-18 06:52:20",
+    "last_updated": "2026-03-18 08:38:30",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Wednesday, Mar 18",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.3,
-                        "delay": 2.8,
+                        "open": 92.0,
+                        "delay": 3.2,
                         "early_release": 1.6,
-                        "closure": 3.3
+                        "closure": 3.2
                     }
                 },
                 {
@@ -46,9 +46,9 @@
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 93.5,
-                        "delay": 2.0,
-                        "early_release": 2.0,
-                        "closure": 2.5
+                        "delay": 1.7,
+                        "early_release": 1.9,
+                        "closure": 3.0
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Wednesday, Mar 18",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 81.2,
-                        "delay": 14.1,
-                        "early_release": 1.9,
-                        "closure": 2.7
+                        "open": 92.3,
+                        "delay": 4.7,
+                        "early_release": 1.3,
+                        "closure": 1.8
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Wednesday, Mar 18",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 92.3,
-                "delay": 2.8,
+                "open": 92.0,
+                "delay": 3.2,
                 "early_release": 1.6,
-                "closure": 3.3
+                "closure": 3.2
             }
         },
         {
