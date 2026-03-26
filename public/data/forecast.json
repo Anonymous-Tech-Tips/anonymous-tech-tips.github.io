@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-26 14:58:37",
+    "last_updated": "2026-03-26 16:54:31",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Thursday, Mar 26",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 78.1,
-                        "delay": 9.4,
+                        "open": 78.6,
+                        "delay": 8.8,
                         "early_release": 2.0,
-                        "closure": 10.5
+                        "closure": 10.6
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Thursday, Mar 26",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 87.7,
-                        "delay": 8.9,
-                        "early_release": 1.4,
-                        "closure": 2.0
+                        "open": 86.0,
+                        "delay": 10.5,
+                        "early_release": 1.5,
+                        "closure": 1.9
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Thursday, Mar 26",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.0,
-                        "delay": 6.8,
-                        "early_release": 1.6,
-                        "closure": 2.5
+                        "open": 87.8,
+                        "delay": 7.6,
+                        "early_release": 1.8,
+                        "closure": 2.8
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Thursday, Mar 26",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 78.1,
-                "delay": 9.4,
+                "open": 78.6,
+                "delay": 8.8,
                 "early_release": 2.0,
-                "closure": 10.5
+                "closure": 10.6
             }
         },
         {
