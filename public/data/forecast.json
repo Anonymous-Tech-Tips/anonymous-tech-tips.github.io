@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-28 16:23:19",
+    "last_updated": "2026-03-28 18:27:59",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,9 +8,9 @@
                     "label": "Saturday, Mar 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.9,
-                        "delay": 2.6,
-                        "early_release": 1.8,
+                        "open": 91.4,
+                        "delay": 4.0,
+                        "early_release": 1.9,
                         "closure": 2.7
                     }
                 },
@@ -45,8 +45,8 @@
                     "label": "Saturday, Mar 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.7,
-                        "delay": 1.9,
+                        "open": 92.2,
+                        "delay": 2.2,
                         "early_release": 1.8,
                         "closure": 3.7
                     }
@@ -82,10 +82,10 @@
                     "label": "Saturday, Mar 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.1,
+                        "open": 92.0,
                         "delay": 5.0,
                         "early_release": 1.0,
-                        "closure": 1.8
+                        "closure": 1.9
                     }
                 },
                 {
@@ -104,10 +104,10 @@
                     "label": "Monday, Mar 30",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.0,
+                        "open": 90.9,
                         "delay": 5.4,
                         "early_release": 1.4,
-                        "closure": 2.3
+                        "closure": 2.4
                     }
                 }
             ]
@@ -119,9 +119,9 @@
             "label": "Saturday, Mar 28",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 92.9,
-                "delay": 2.6,
-                "early_release": 1.8,
+                "open": 91.4,
+                "delay": 4.0,
+                "early_release": 1.9,
                 "closure": 2.7
             }
         },
