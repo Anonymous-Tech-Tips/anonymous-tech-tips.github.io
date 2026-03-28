@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-03-28 06:47:01",
+    "last_updated": "2026-03-28 08:29:34",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -45,10 +45,10 @@
                     "label": "Saturday, Mar 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.0,
+                        "open": 90.1,
                         "delay": 2.8,
-                        "early_release": 2.6,
-                        "closure": 5.5
+                        "early_release": 2.1,
+                        "closure": 5.0
                     }
                 },
                 {
@@ -56,8 +56,8 @@
                     "label": "Sunday, Mar 29",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 86.5,
-                        "delay": 8.6,
+                        "open": 86.1,
+                        "delay": 9.0,
                         "early_release": 1.7,
                         "closure": 3.2
                     }
@@ -82,8 +82,8 @@
                     "label": "Saturday, Mar 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 93.1,
-                        "delay": 4.0,
+                        "open": 92.1,
+                        "delay": 5.0,
                         "early_release": 1.0,
                         "closure": 1.9
                     }
