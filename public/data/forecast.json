@@ -1,22 +1,22 @@
 {
-    "last_updated": "2026-03-28 22:19:55",
+    "last_updated": "2026-03-29 01:22:58",
     "districts": {
         "LCPS": {
             "forecasts": [
                 {
-                    "date": "2026-03-28",
-                    "label": "Saturday, Mar 28",
+                    "date": "2026-03-29",
+                    "label": "Sunday, Mar 29",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 83.4,
-                        "delay": 11.7,
-                        "early_release": 2.0,
-                        "closure": 2.9
+                        "open": 87.9,
+                        "delay": 7.1,
+                        "early_release": 1.9,
+                        "closure": 3.1
                     }
                 },
                 {
-                    "date": "2026-03-29",
-                    "label": "Sunday, Mar 29",
+                    "date": "2026-03-30",
+                    "label": "Monday, Mar 30",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 91.9,
@@ -26,8 +26,8 @@
                     }
                 },
                 {
-                    "date": "2026-03-30",
-                    "label": "Monday, Mar 30",
+                    "date": "2026-03-31",
+                    "label": "Tuesday, Mar 31",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 88.5,
@@ -41,19 +41,19 @@
         "FCPS": {
             "forecasts": [
                 {
-                    "date": "2026-03-28",
-                    "label": "Saturday, Mar 28",
+                    "date": "2026-03-29",
+                    "label": "Sunday, Mar 29",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.0,
-                        "delay": 3.4,
-                        "early_release": 2.0,
-                        "closure": 3.6
+                        "open": 93.9,
+                        "delay": 1.9,
+                        "early_release": 1.3,
+                        "closure": 2.9
                     }
                 },
                 {
-                    "date": "2026-03-29",
-                    "label": "Sunday, Mar 29",
+                    "date": "2026-03-30",
+                    "label": "Monday, Mar 30",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 86.1,
@@ -63,14 +63,14 @@
                     }
                 },
                 {
-                    "date": "2026-03-30",
-                    "label": "Monday, Mar 30",
+                    "date": "2026-03-31",
+                    "label": "Tuesday, Mar 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 86.4,
+                        "open": 86.5,
                         "delay": 8.9,
                         "early_release": 1.7,
-                        "closure": 3.0
+                        "closure": 2.9
                     }
                 }
             ]
@@ -78,19 +78,19 @@
         "PWCS": {
             "forecasts": [
                 {
-                    "date": "2026-03-28",
-                    "label": "Saturday, Mar 28",
+                    "date": "2026-03-29",
+                    "label": "Sunday, Mar 29",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.9,
-                        "delay": 7.5,
-                        "early_release": 1.3,
-                        "closure": 2.3
+                        "open": 92.0,
+                        "delay": 5.2,
+                        "early_release": 1.0,
+                        "closure": 1.9
                     }
                 },
                 {
-                    "date": "2026-03-29",
-                    "label": "Sunday, Mar 29",
+                    "date": "2026-03-30",
+                    "label": "Monday, Mar 30",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 94.1,
@@ -100,14 +100,14 @@
                     }
                 },
                 {
-                    "date": "2026-03-30",
-                    "label": "Monday, Mar 30",
+                    "date": "2026-03-31",
+                    "label": "Tuesday, Mar 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.9,
-                        "delay": 5.4,
-                        "early_release": 1.4,
-                        "closure": 2.4
+                        "open": 89.4,
+                        "delay": 6.5,
+                        "early_release": 1.5,
+                        "closure": 2.6
                     }
                 }
             ]
@@ -115,19 +115,19 @@
     },
     "forecasts": [
         {
-            "date": "2026-03-28",
-            "label": "Saturday, Mar 28",
+            "date": "2026-03-29",
+            "label": "Sunday, Mar 29",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 83.4,
-                "delay": 11.7,
-                "early_release": 2.0,
-                "closure": 2.9
+                "open": 87.9,
+                "delay": 7.1,
+                "early_release": 1.9,
+                "closure": 3.1
             }
         },
         {
-            "date": "2026-03-29",
-            "label": "Sunday, Mar 29",
+            "date": "2026-03-30",
+            "label": "Monday, Mar 30",
             "primary_prediction": "Open",
             "probabilities": {
                 "open": 91.9,
@@ -137,8 +137,8 @@
             }
         },
         {
-            "date": "2026-03-30",
-            "label": "Monday, Mar 30",
+            "date": "2026-03-31",
+            "label": "Tuesday, Mar 31",
             "primary_prediction": "Open",
             "probabilities": {
                 "open": 88.5,
