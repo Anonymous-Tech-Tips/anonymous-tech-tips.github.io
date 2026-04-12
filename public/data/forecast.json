@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-04-12 04:40:49",
+    "last_updated": "2026-04-12 07:04:48",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Monday, Apr 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.3,
-                        "delay": 4.6,
-                        "early_release": 1.4,
-                        "closure": 3.7
+                        "open": 92.6,
+                        "delay": 3.6,
+                        "early_release": 1.1,
+                        "closure": 2.8
                     }
                 },
                 {
@@ -30,10 +30,10 @@
                     "label": "Tuesday, Apr 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.7,
+                        "open": 92.6,
                         "delay": 3.6,
                         "early_release": 1.1,
-                        "closure": 2.7
+                        "closure": 2.8
                     }
                 }
             ]
@@ -56,10 +56,10 @@
                     "label": "Monday, Apr 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.2,
-                        "delay": 6.1,
-                        "early_release": 1.6,
-                        "closure": 1.1
+                        "open": 91.0,
+                        "delay": 6.6,
+                        "early_release": 1.2,
+                        "closure": 1.2
                     }
                 },
                 {
@@ -67,9 +67,9 @@
                     "label": "Tuesday, Apr 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.7,
-                        "delay": 6.5,
-                        "early_release": 1.6,
+                        "open": 91.0,
+                        "delay": 6.6,
+                        "early_release": 1.2,
                         "closure": 1.2
                     }
                 }
@@ -93,10 +93,10 @@
                     "label": "Monday, Apr 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 79.1,
-                        "delay": 16.0,
-                        "early_release": 2.8,
-                        "closure": 2.2
+                        "open": 87.2,
+                        "delay": 9.4,
+                        "early_release": 1.5,
+                        "closure": 1.8
                     }
                 },
                 {
@@ -104,10 +104,10 @@
                     "label": "Tuesday, Apr 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.4,
-                        "delay": 7.4,
-                        "early_release": 1.9,
-                        "closure": 1.4
+                        "open": 87.5,
+                        "delay": 9.2,
+                        "early_release": 1.5,
+                        "closure": 1.8
                     }
                 }
             ]
@@ -130,10 +130,10 @@
             "label": "Monday, Apr 13",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 90.3,
-                "delay": 4.6,
-                "early_release": 1.4,
-                "closure": 3.7
+                "open": 92.6,
+                "delay": 3.6,
+                "early_release": 1.1,
+                "closure": 2.8
             }
         },
         {
@@ -141,10 +141,10 @@
             "label": "Tuesday, Apr 14",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 92.7,
+                "open": 92.6,
                 "delay": 3.6,
                 "early_release": 1.1,
-                "closure": 2.7
+                "closure": 2.8
             }
         }
     ]
