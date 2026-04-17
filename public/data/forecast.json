@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-04-17 14:50:44",
+    "last_updated": "2026-04-17 16:45:02",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -45,8 +45,8 @@
                     "label": "Friday, Apr 17",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 84.6,
-                        "delay": 10.2,
+                        "open": 84.1,
+                        "delay": 10.7,
                         "early_release": 1.8,
                         "closure": 3.4
                     }
