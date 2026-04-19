@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-04-19 10:32:31",
+    "last_updated": "2026-04-19 12:38:33",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Monday, Apr 20",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 84.7,
-                        "delay": 11.2,
+                        "open": 85.2,
+                        "delay": 10.4,
                         "early_release": 1.4,
-                        "closure": 2.7
+                        "closure": 3.0
                     }
                 },
                 {
@@ -56,9 +56,9 @@
                     "label": "Monday, Apr 20",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.4,
-                        "delay": 3.7,
-                        "early_release": 2.4,
+                        "open": 88.7,
+                        "delay": 3.4,
+                        "early_release": 2.5,
                         "closure": 5.5
                     }
                 },
@@ -67,10 +67,10 @@
                     "label": "Tuesday, Apr 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 78.8,
-                        "delay": 15.8,
-                        "early_release": 2.0,
-                        "closure": 3.4
+                        "open": 81.7,
+                        "delay": 13.2,
+                        "early_release": 1.9,
+                        "closure": 3.3
                     }
                 }
             ]
@@ -93,10 +93,10 @@
                     "label": "Monday, Apr 20",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.6,
-                        "delay": 5.8,
+                        "open": 91.5,
+                        "delay": 5.0,
                         "early_release": 1.2,
-                        "closure": 2.4
+                        "closure": 2.3
                     }
                 },
                 {
@@ -104,8 +104,8 @@
                     "label": "Tuesday, Apr 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.5,
-                        "delay": 5.5,
+                        "open": 89.8,
+                        "delay": 6.2,
                         "early_release": 1.5,
                         "closure": 2.5
                     }
@@ -130,10 +130,10 @@
             "label": "Monday, Apr 20",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 84.7,
-                "delay": 11.2,
+                "open": 85.2,
+                "delay": 10.4,
                 "early_release": 1.4,
-                "closure": 2.7
+                "closure": 3.0
             }
         },
         {
