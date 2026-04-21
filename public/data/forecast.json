@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-04-21 20:42:00",
+    "last_updated": "2026-04-21 22:32:15",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Tuesday, Apr 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.1,
-                        "delay": 4.8,
+                        "open": 91.0,
+                        "delay": 5.0,
                         "early_release": 1.2,
-                        "closure": 2.9
+                        "closure": 2.8
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Tuesday, Apr 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.5,
-                        "delay": 6.2,
+                        "open": 91.0,
+                        "delay": 5.9,
                         "early_release": 1.2,
-                        "closure": 2.1
+                        "closure": 1.9
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Tuesday, Apr 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 94.1,
+                        "open": 94.2,
                         "delay": 3.3,
                         "early_release": 1.0,
-                        "closure": 1.6
+                        "closure": 1.5
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Tuesday, Apr 21",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.1,
-                "delay": 4.8,
+                "open": 91.0,
+                "delay": 5.0,
                 "early_release": 1.2,
-                "closure": 2.9
+                "closure": 2.8
             }
         },
         {
