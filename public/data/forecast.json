@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-04-23 18:57:31",
+    "last_updated": "2026-04-23 20:44:43",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Thursday, Apr 23",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.5,
-                        "delay": 3.7,
+                        "open": 91.8,
+                        "delay": 3.6,
                         "early_release": 1.2,
-                        "closure": 3.6
+                        "closure": 3.5
                     }
                 },
                 {
@@ -19,10 +19,10 @@
                     "label": "Friday, Apr 24",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 74.9,
-                        "delay": 10.4,
-                        "early_release": 2.3,
-                        "closure": 12.4
+                        "open": 61.7,
+                        "delay": 21.0,
+                        "early_release": 2.7,
+                        "closure": 14.6
                     }
                 },
                 {
@@ -45,9 +45,9 @@
                     "label": "Thursday, Apr 23",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.9,
-                        "delay": 8.3,
-                        "early_release": 1.4,
+                        "open": 88.6,
+                        "delay": 8.1,
+                        "early_release": 1.8,
                         "closure": 1.5
                     }
                 },
@@ -56,10 +56,10 @@
                     "label": "Friday, Apr 24",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 80.7,
-                        "delay": 15.4,
-                        "early_release": 2.1,
-                        "closure": 1.8
+                        "open": 78.7,
+                        "delay": 16.4,
+                        "early_release": 3.1,
+                        "closure": 1.9
                     }
                 },
                 {
@@ -83,9 +83,9 @@
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 85.0,
-                        "delay": 11.0,
-                        "early_release": 1.8,
-                        "closure": 2.2
+                        "delay": 10.4,
+                        "early_release": 2.6,
+                        "closure": 2.0
                     }
                 },
                 {
@@ -93,10 +93,10 @@
                     "label": "Friday, Apr 24",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 68.6,
-                        "delay": 21.0,
-                        "early_release": 3.7,
-                        "closure": 6.7
+                        "open": 67.9,
+                        "delay": 20.1,
+                        "early_release": 5.4,
+                        "closure": 6.6
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Thursday, Apr 23",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.5,
-                "delay": 3.7,
+                "open": 91.8,
+                "delay": 3.6,
                 "early_release": 1.2,
-                "closure": 3.6
+                "closure": 3.5
             }
         },
         {
@@ -130,10 +130,10 @@
             "label": "Friday, Apr 24",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 74.9,
-                "delay": 10.4,
-                "early_release": 2.3,
-                "closure": 12.4
+                "open": 61.7,
+                "delay": 21.0,
+                "early_release": 2.7,
+                "closure": 14.6
             }
         },
         {
