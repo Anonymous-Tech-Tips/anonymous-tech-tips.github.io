@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-03 10:46:18",
+    "last_updated": "2026-05-03 12:45:51",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Monday, May 04",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.2,
+                        "open": 91.1,
                         "delay": 4.6,
                         "early_release": 1.1,
-                        "closure": 3.1
+                        "closure": 3.2
                     }
                 },
                 {
@@ -56,10 +56,10 @@
                     "label": "Monday, May 04",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 84.2,
-                        "delay": 10.6,
+                        "open": 83.8,
+                        "delay": 11.1,
                         "early_release": 1.8,
-                        "closure": 3.4
+                        "closure": 3.3
                     }
                 },
                 {
@@ -93,10 +93,10 @@
                     "label": "Monday, May 04",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 93.9,
-                        "delay": 3.5,
-                        "early_release": 1.0,
-                        "closure": 1.6
+                        "open": 93.4,
+                        "delay": 3.8,
+                        "early_release": 1.1,
+                        "closure": 1.7
                     }
                 },
                 {
@@ -130,10 +130,10 @@
             "label": "Monday, May 04",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.2,
+                "open": 91.1,
                 "delay": 4.6,
                 "early_release": 1.1,
-                "closure": 3.1
+                "closure": 3.2
             }
         },
         {
