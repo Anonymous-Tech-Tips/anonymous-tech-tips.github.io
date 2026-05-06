@@ -1,22 +1,22 @@
 {
-    "last_updated": "2026-05-05 22:46:38",
+    "last_updated": "2026-05-06 01:51:29",
     "districts": {
         "LCPS": {
             "forecasts": [
                 {
-                    "date": "2026-05-05",
-                    "label": "Tuesday, May 05",
+                    "date": "2026-05-06",
+                    "label": "Wednesday, May 06",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 87.1,
+                        "open": 86.0,
                         "delay": 6.2,
                         "early_release": 1.4,
-                        "closure": 5.2
+                        "closure": 6.4
                     }
                 },
                 {
-                    "date": "2026-05-06",
-                    "label": "Wednesday, May 06",
+                    "date": "2026-05-07",
+                    "label": "Thursday, May 07",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 84.2,
@@ -26,14 +26,14 @@
                     }
                 },
                 {
-                    "date": "2026-05-07",
-                    "label": "Thursday, May 07",
+                    "date": "2026-05-08",
+                    "label": "Friday, May 08",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.2,
-                        "delay": 4.6,
+                        "open": 92.1,
+                        "delay": 3.9,
                         "early_release": 1.1,
-                        "closure": 3.1
+                        "closure": 2.9
                     }
                 }
             ]
@@ -41,19 +41,19 @@
         "FCPS": {
             "forecasts": [
                 {
-                    "date": "2026-05-05",
-                    "label": "Tuesday, May 05",
+                    "date": "2026-05-06",
+                    "label": "Wednesday, May 06",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 84.2,
-                        "delay": 10.5,
+                        "open": 83.9,
+                        "delay": 10.9,
                         "early_release": 1.9,
                         "closure": 3.4
                     }
                 },
                 {
-                    "date": "2026-05-06",
-                    "label": "Wednesday, May 06",
+                    "date": "2026-05-07",
+                    "label": "Thursday, May 07",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 84.6,
@@ -63,14 +63,14 @@
                     }
                 },
                 {
-                    "date": "2026-05-07",
-                    "label": "Thursday, May 07",
+                    "date": "2026-05-08",
+                    "label": "Friday, May 08",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 84.6,
-                        "delay": 10.2,
-                        "early_release": 1.8,
-                        "closure": 3.4
+                        "open": 90.0,
+                        "delay": 7.2,
+                        "early_release": 1.3,
+                        "closure": 1.5
                     }
                 }
             ]
@@ -78,19 +78,19 @@
         "PWCS": {
             "forecasts": [
                 {
-                    "date": "2026-05-05",
-                    "label": "Tuesday, May 05",
+                    "date": "2026-05-06",
+                    "label": "Wednesday, May 06",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.0,
-                        "delay": 5.9,
-                        "early_release": 1.4,
-                        "closure": 2.6
+                        "open": 88.0,
+                        "delay": 7.6,
+                        "early_release": 1.6,
+                        "closure": 2.8
                     }
                 },
                 {
-                    "date": "2026-05-06",
-                    "label": "Wednesday, May 06",
+                    "date": "2026-05-07",
+                    "label": "Thursday, May 07",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 76.5,
@@ -100,14 +100,14 @@
                     }
                 },
                 {
-                    "date": "2026-05-07",
-                    "label": "Thursday, May 07",
+                    "date": "2026-05-08",
+                    "label": "Friday, May 08",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 93.9,
-                        "delay": 3.5,
-                        "early_release": 1.0,
-                        "closure": 1.6
+                        "open": 87.7,
+                        "delay": 8.9,
+                        "early_release": 1.5,
+                        "closure": 1.9
                     }
                 }
             ]
@@ -115,19 +115,19 @@
     },
     "forecasts": [
         {
-            "date": "2026-05-05",
-            "label": "Tuesday, May 05",
+            "date": "2026-05-06",
+            "label": "Wednesday, May 06",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 87.1,
+                "open": 86.0,
                 "delay": 6.2,
                 "early_release": 1.4,
-                "closure": 5.2
+                "closure": 6.4
             }
         },
         {
-            "date": "2026-05-06",
-            "label": "Wednesday, May 06",
+            "date": "2026-05-07",
+            "label": "Thursday, May 07",
             "primary_prediction": "Open",
             "probabilities": {
                 "open": 84.2,
@@ -137,14 +137,14 @@
             }
         },
         {
-            "date": "2026-05-07",
-            "label": "Thursday, May 07",
+            "date": "2026-05-08",
+            "label": "Friday, May 08",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.2,
-                "delay": 4.6,
+                "open": 92.1,
+                "delay": 3.9,
                 "early_release": 1.1,
-                "closure": 3.1
+                "closure": 2.9
             }
         }
     ]
