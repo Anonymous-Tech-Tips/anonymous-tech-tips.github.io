@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-09 10:48:03",
+    "last_updated": "2026-05-09 12:54:24",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,8 +8,8 @@
                     "label": "Saturday, May 09",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.9,
-                        "delay": 4.9,
+                        "open": 91.0,
+                        "delay": 4.8,
                         "early_release": 1.1,
                         "closure": 3.1
                     }
@@ -19,10 +19,10 @@
                     "label": "Sunday, May 10",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 84.2,
-                        "delay": 6.2,
-                        "early_release": 1.9,
-                        "closure": 7.7
+                        "open": 63.6,
+                        "delay": 21.8,
+                        "early_release": 2.9,
+                        "closure": 11.8
                     }
                 },
                 {
@@ -56,10 +56,10 @@
                     "label": "Sunday, May 10",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 84.1,
-                        "delay": 12.4,
-                        "early_release": 2.0,
-                        "closure": 1.5
+                        "open": 78.8,
+                        "delay": 16.6,
+                        "early_release": 2.5,
+                        "closure": 2.1
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Saturday, May 09",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.6,
-                        "delay": 4.5,
-                        "early_release": 1.1,
-                        "closure": 1.7
+                        "open": 93.9,
+                        "delay": 3.5,
+                        "early_release": 1.0,
+                        "closure": 1.6
                     }
                 },
                 {
@@ -93,10 +93,10 @@
                     "label": "Sunday, May 10",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 74.1,
-                        "delay": 19.0,
-                        "early_release": 3.3,
-                        "closure": 3.6
+                        "open": 71.4,
+                        "delay": 19.1,
+                        "early_release": 3.2,
+                        "closure": 6.3
                     }
                 },
                 {
@@ -104,10 +104,10 @@
                     "label": "Monday, May 11",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 87.3,
-                        "delay": 8.9,
+                        "open": 87.0,
+                        "delay": 9.1,
                         "early_release": 2.2,
-                        "closure": 1.6
+                        "closure": 1.7
                     }
                 }
             ]
@@ -119,8 +119,8 @@
             "label": "Saturday, May 09",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 90.9,
-                "delay": 4.9,
+                "open": 91.0,
+                "delay": 4.8,
                 "early_release": 1.1,
                 "closure": 3.1
             }
@@ -130,10 +130,10 @@
             "label": "Sunday, May 10",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 84.2,
-                "delay": 6.2,
-                "early_release": 1.9,
-                "closure": 7.7
+                "open": 63.6,
+                "delay": 21.8,
+                "early_release": 2.9,
+                "closure": 11.8
             }
         },
         {
