@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-17 16:46:42",
+    "last_updated": "2026-05-17 18:54:22",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,8 +19,8 @@
                     "label": "Monday, May 18",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.8,
-                        "delay": 4.9,
+                        "open": 92.0,
+                        "delay": 4.6,
                         "early_release": 1.1,
                         "closure": 2.3
                     }
@@ -30,10 +30,10 @@
                     "label": "Tuesday, May 19",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 85.3,
+                        "open": 86.4,
                         "delay": 6.7,
                         "early_release": 1.5,
-                        "closure": 6.5
+                        "closure": 5.3
                     }
                 }
             ]
@@ -104,8 +104,8 @@
                     "label": "Tuesday, May 19",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.6,
-                        "delay": 6.3,
+                        "open": 90.1,
+                        "delay": 5.8,
                         "early_release": 1.5,
                         "closure": 2.6
                     }
@@ -130,8 +130,8 @@
             "label": "Monday, May 18",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.8,
-                "delay": 4.9,
+                "open": 92.0,
+                "delay": 4.6,
                 "early_release": 1.1,
                 "closure": 2.3
             }
@@ -141,10 +141,10 @@
             "label": "Tuesday, May 19",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 85.3,
+                "open": 86.4,
                 "delay": 6.7,
                 "early_release": 1.5,
-                "closure": 6.5
+                "closure": 5.3
             }
         }
     ]
