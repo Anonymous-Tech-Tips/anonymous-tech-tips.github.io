@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-19 10:54:52",
+    "last_updated": "2026-05-19 14:35:41",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Tuesday, May 19",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.7,
-                        "delay": 3.4,
+                        "open": 92.0,
+                        "delay": 4.4,
                         "early_release": 1.1,
-                        "closure": 2.8
+                        "closure": 2.6
                     }
                 },
                 {
@@ -19,10 +19,10 @@
                     "label": "Wednesday, May 20",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 61.1,
-                        "delay": 24.8,
-                        "early_release": 2.7,
-                        "closure": 11.3
+                        "open": 62.1,
+                        "delay": 23.7,
+                        "early_release": 2.8,
+                        "closure": 11.5
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Tuesday, May 19",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.3,
-                        "delay": 6.8,
-                        "early_release": 1.6,
-                        "closure": 1.2
+                        "open": 85.6,
+                        "delay": 9.6,
+                        "early_release": 1.7,
+                        "closure": 3.2
                     }
                 },
                 {
@@ -82,9 +82,9 @@
                     "label": "Tuesday, May 19",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 87.5,
-                        "delay": 8.7,
-                        "early_release": 2.2,
+                        "open": 94.0,
+                        "delay": 3.5,
+                        "early_release": 1.0,
                         "closure": 1.6
                     }
                 },
@@ -119,10 +119,10 @@
             "label": "Tuesday, May 19",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 92.7,
-                "delay": 3.4,
+                "open": 92.0,
+                "delay": 4.4,
                 "early_release": 1.1,
-                "closure": 2.8
+                "closure": 2.6
             }
         },
         {
@@ -130,10 +130,10 @@
             "label": "Wednesday, May 20",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 61.1,
-                "delay": 24.8,
-                "early_release": 2.7,
-                "closure": 11.3
+                "open": 62.1,
+                "delay": 23.7,
+                "early_release": 2.8,
+                "closure": 11.5
             }
         },
         {
