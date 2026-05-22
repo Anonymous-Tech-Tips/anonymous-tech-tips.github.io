@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-22 17:50:50",
+    "last_updated": "2026-05-22 19:26:37",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Saturday, May 23",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 62.5,
-                        "delay": 23.9,
+                        "open": 63.1,
+                        "delay": 24.2,
                         "early_release": 2.8,
-                        "closure": 10.8
+                        "closure": 9.9
                     }
                 },
                 {
@@ -30,10 +30,10 @@
                     "label": "Sunday, May 24",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 56.3,
-                        "delay": 35.8,
-                        "early_release": 3.9,
-                        "closure": 4.0
+                        "open": 55.0,
+                        "delay": 37.3,
+                        "early_release": 3.8,
+                        "closure": 3.9
                     }
                 }
             ]
@@ -45,10 +45,10 @@
                     "label": "Friday, May 22",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 58.0,
-                        "delay": 37.2,
-                        "early_release": 2.6,
-                        "closure": 2.1
+                        "open": 74.3,
+                        "delay": 20.7,
+                        "early_release": 2.8,
+                        "closure": 2.2
                     }
                 },
                 {
@@ -130,10 +130,10 @@
             "label": "Saturday, May 23",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 62.5,
-                "delay": 23.9,
+                "open": 63.1,
+                "delay": 24.2,
                 "early_release": 2.8,
-                "closure": 10.8
+                "closure": 9.9
             }
         },
         {
@@ -141,10 +141,10 @@
             "label": "Sunday, May 24",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 56.3,
-                "delay": 35.8,
-                "early_release": 3.9,
-                "closure": 4.0
+                "open": 55.0,
+                "delay": 37.3,
+                "early_release": 3.8,
+                "closure": 3.9
             }
         }
     ]
