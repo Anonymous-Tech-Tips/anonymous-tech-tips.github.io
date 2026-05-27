@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-05-27 18:23:46",
+    "last_updated": "2026-05-27 21:46:43",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Wednesday, May 27",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 85.9,
-                        "delay": 6.3,
+                        "open": 85.0,
+                        "delay": 7.0,
                         "early_release": 1.5,
-                        "closure": 6.3
+                        "closure": 6.5
                     }
                 },
                 {
@@ -19,10 +19,10 @@
                     "label": "Thursday, May 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.9,
-                        "delay": 3.7,
-                        "early_release": 1.2,
-                        "closure": 3.2
+                        "open": 87.2,
+                        "delay": 5.6,
+                        "early_release": 1.4,
+                        "closure": 5.8
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Wednesday, May 27",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.9,
-                        "delay": 5.3,
+                        "open": 89.5,
+                        "delay": 7.3,
                         "early_release": 1.2,
-                        "closure": 1.5
+                        "closure": 1.9
                     }
                 },
                 {
@@ -56,10 +56,10 @@
                     "label": "Thursday, May 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.0,
+                        "open": 90.2,
                         "delay": 7.0,
-                        "early_release": 1.7,
-                        "closure": 1.3
+                        "early_release": 1.4,
+                        "closure": 1.5
                     }
                 },
                 {
@@ -67,10 +67,10 @@
                     "label": "Friday, May 29",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.8,
-                        "delay": 7.3,
-                        "early_release": 1.4,
-                        "closure": 2.5
+                        "open": 90.2,
+                        "delay": 6.4,
+                        "early_release": 1.3,
+                        "closure": 2.2
                     }
                 }
             ]
@@ -82,10 +82,10 @@
                     "label": "Wednesday, May 27",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.8,
-                        "delay": 6.4,
+                        "open": 89.7,
+                        "delay": 6.3,
                         "early_release": 1.5,
-                        "closure": 2.4
+                        "closure": 2.5
                     }
                 },
                 {
@@ -93,10 +93,10 @@
                     "label": "Thursday, May 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.3,
-                        "delay": 8.0,
-                        "early_release": 2.1,
-                        "closure": 1.6
+                        "open": 75.7,
+                        "delay": 18.9,
+                        "early_release": 2.2,
+                        "closure": 3.1
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Wednesday, May 27",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 85.9,
-                "delay": 6.3,
+                "open": 85.0,
+                "delay": 7.0,
                 "early_release": 1.5,
-                "closure": 6.3
+                "closure": 6.5
             }
         },
         {
@@ -130,10 +130,10 @@
             "label": "Thursday, May 28",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.9,
-                "delay": 3.7,
-                "early_release": 1.2,
-                "closure": 3.2
+                "open": 87.2,
+                "delay": 5.6,
+                "early_release": 1.4,
+                "closure": 5.8
             }
         },
         {
