@@ -810,15 +810,6 @@ const rawGames: Game[] = [
     "url": "/games/html/breakout/game/index.html"
   },
   {
-    "id": "browserquest",
-    "title": "Browserquest",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/BrowserQuest.webp",
-    "url": "/games/html/browserquest/game/index.html"
-  },
-  {
     "id": "bubble-scratch",
     "title": "Bubble Scratch",
     "tags": [
@@ -1105,15 +1096,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/disasterwillstrike.jpg",
     "url": "/games/swf/diasterwillstrike/game/base.html"
-  },
-  {
-    "id": "disc-us",
-    "title": "Disc Us",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/discus.jfif",
-    "url": "/games/html/discus/game/index.html"
   },
   {
     "id": "dogeminer",
@@ -3005,15 +2987,6 @@ const rawGames: Game[] = [
     "url": "/games/html/tic-tac-toe/game/index.html"
   },
   {
-    "id": "tic-tac-toe-ai",
-    "title": "Tic-tac-toe Ai",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/toeai.webp",
-    "url": "/games/html/tic-tac-toe-ai/game/index.html"
-  },
-  {
     "id": "time-shooters",
     "title": "Time Shooters",
     "tags": [
@@ -3221,15 +3194,6 @@ const rawGames: Game[] = [
     "url": "/games/html/yetanotherworld.html"
   },
   {
-    "id": "yohoho-io",
-    "title": "Yohoho.io",
-    "tags": [
-      "Multiplayer"
-    ],
-    "thumbnail": "/games/img/yohoho.io.jfif",
-    "url": "/games/html/yohoho.io/game/index.html"
-  },
-  {
     "id": "yoshi-fabricator",
     "title": "Yoshi Fabricator",
     "tags": [
@@ -3237,24 +3201,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/YFS.webp",
     "url": "/games/html/yoshifabrication/game/index.html"
-  },
-  {
-    "id": "zombs-royale",
-    "title": "Zombs Royale",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/zombs-royale.webp",
-    "url": "/games/html/zombs-royale/game/index.html"
-  },
-  {
-    "id": "zoro",
-    "title": "Zoro",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/zoro.webp",
-    "url": "/games/html/zoro/game/index.html"
   }
 ]
 
