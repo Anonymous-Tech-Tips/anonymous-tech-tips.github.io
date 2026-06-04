@@ -1,14 +1,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 
 const PAGE_SIZE = 30;
-import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Ban, Coffee, ArrowUp } from "lucide-react";
+import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Ban, Coffee } from "lucide-react";
 
 import { useProgression } from "@/contexts/ProgressionContext";
 import { useUserPrefs } from "@/contexts/UserPrefsContext";
 import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Link, useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import { games } from "@/data/games";
 import fallback from "@/assets/thumbnails/_fallback.png";
 
@@ -153,34 +152,30 @@ const GamesPage = () => {
         {/* GAMES GRID */}
         {filteredGames.length > 0 ? (
           <>
-            <div
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-5"
-            >
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
               {visibleGames.map((game) => (
                 <Link
                   key={game.id}
                   to={`/games/${game.id}`}
-                  className="group block bg-[#1E1E24]/80 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_4px_20px_rgba(59,130,246,0.12)] transition-colors duration-200"
+                  style={{ contentVisibility: 'auto', containIntrinsicSize: '0 160px' } as React.CSSProperties}
+                  className="block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-blue-500/60 transition-colors duration-150"
                 >
-                  <div className="aspect-[4/3] relative overflow-hidden bg-slate-900">
+                  <div className="aspect-[4/3] bg-slate-900">
                     <img
                       src={game.thumbnail || fallback}
                       alt={game.title}
                       loading="lazy"
                       decoding="async"
+                      width={200}
+                      height={150}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                      <span className="text-white font-bold text-sm bg-blue-600/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
-                        Play <ArrowUp size={14} className="rotate-45" />
-                      </span>
-                    </div>
                   </div>
-                  <div className="p-3.5">
-                    <h3 className="font-bold text-slate-100 truncate group-hover:text-blue-400 transition-colors text-sm">
+                  <div className="p-2.5">
+                    <h3 className="font-semibold text-slate-100 truncate text-xs leading-tight">
                       {game.title}
                     </h3>
-                    <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider mt-1.5 truncate">
+                    <p className="text-[9px] text-slate-500 uppercase tracking-wide mt-1 truncate">
                       {game.tags[0]}
                     </p>
                   </div>
@@ -199,7 +194,7 @@ const GamesPage = () => {
             )}
           </>
         ) : (
-          <div className="text-center py-24 bg-[#1E1E24]/30 rounded-3xl border border-slate-800/50 backdrop-blur-sm">
+          <div className="text-center py-24 bg-[#1E1E24]/30 rounded-3xl border border-slate-800/50">
             <Ghost className="mx-auto h-16 w-16 text-slate-600 mb-4 animate-pulse" />
             <h3 className="text-xl font-bold text-white mb-2">No games found</h3>
             <p className="text-slate-400">Try changing your search or category filter.</p>

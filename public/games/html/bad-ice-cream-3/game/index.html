@@ -12,6 +12,30 @@
   <title>Bad Ice Cream 3 | 3kh0</title>
   <link rel="icon" href="/favicon.ico">
 
+  <script>
+// Stub Poki CDN to prevent game hang when CDN is unavailable
+(function() {
+  var _XHR = window.XMLHttpRequest;
+  window.XMLHttpRequest = function() {
+    var xhr = new _XHR();
+    var _open = xhr.open.bind(xhr);
+    xhr.open = function(method, url) {
+      if (typeof url === 'string' && url.indexOf('poki.com') !== -1) {
+        url = 'data:application/javascript,';
+      }
+      return _open(method, url);
+    };
+    return xhr;
+  };
+  var _fetch = window.fetch;
+  window.fetch = function(url, opts) {
+    if (typeof url === 'string' && url.indexOf('poki.com') !== -1) {
+      return Promise.resolve(new Response('', {status: 200}));
+    }
+    return _fetch(url, opts);
+  };
+})();
+</script>
   <script src="poki.js"></script>
   <script type="text/javascript" src="./js/loader.js"></script>
   <script type="text/javascript" src="./js/virtualJoystickSkinMod.js"></script>
