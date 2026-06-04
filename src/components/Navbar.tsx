@@ -49,17 +49,17 @@ export const Navbar: React.FC = () => {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
+      initial={{ y: -60 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || isMenuOpen
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || isMenuOpen
         ? isAuthenticated
-          ? "bg-background/60 backdrop-blur-xl border-b border-white/5"
+          ? "bg-[#08080f]/80 backdrop-blur-xl border-b border-white/8"
           : "bg-white/80 backdrop-blur-md border-b border-slate-200"
         : "bg-transparent border-b border-transparent"
         }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* LOGO */}
         <Link to="/" className="group relative z-50">
@@ -176,7 +176,7 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0 }}
-            className={`md:hidden absolute top-24 left-0 right-0 ${isAuthenticated ? "bg-black/95 text-white" : "bg-white/95 text-slate-900"
+            className={`md:hidden absolute top-16 left-0 right-0 ${isAuthenticated ? "bg-[#08080f]/95 text-white" : "bg-white/95 text-slate-900"
               } border-t ${isAuthenticated ? "border-white/10" : "border-slate-200"} p-6 flex flex-col gap-6 backdrop-blur-xl`}
           >
             {navLinks.map((link) => {
