@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run validate:data && npm run generate:sitemap && vite build",
+    "build:gcs": "npm run validate:data && npm run generate:sitemap && vite build --mode gcs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",

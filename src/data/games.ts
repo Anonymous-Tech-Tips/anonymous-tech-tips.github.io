@@ -1,7 +1,8 @@
 import { Game } from "./types";
+import { resolveAssetUrl } from "@/utils/assetUrl";
 export type { Game };
 
-export const games: Game[] = [
+const rawGames: Game[] = [
   {
     "id": "smash-karts",
     "title": "Smash Karts",
@@ -3365,3 +3366,9 @@ export const games: Game[] = [
     "url": "/games/html/zoro/game/index.html"
   }
 ];
+
+export const games: Game[] = rawGames.map(g => ({
+  ...g,
+  thumbnail: resolveAssetUrl(g.thumbnail),
+  url: resolveAssetUrl(g.url),
+}));
