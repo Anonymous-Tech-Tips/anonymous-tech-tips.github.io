@@ -188,15 +188,6 @@ const rawGames: Game[] = [
     "url": "/games/html/cookieclicker/game/index.html"
   },
   {
-    "id": "hole-io",
-    "title": "Hole.io",
-    "tags": [
-      "Multiplayer"
-    ],
-    "thumbnail": "/games/img/hole.io.jpg",
-    "url": "/games/html/hole.io/game/index.html"
-  },
-  {
     "id": "super-mario-64",
     "title": "Super Mario 64",
     "tags": [
@@ -684,15 +675,6 @@ const rawGames: Game[] = [
     "url": "/games/html/big-tower-tiny-square/game/index.html"
   },
   {
-    "id": "biters",
-    "title": "Biters",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/biters.webp",
-    "url": "/games/html/biters-io/game/index.html"
-  },
-  {
     "id": "blackholesquare",
     "title": "Blackholesquare",
     "tags": [
@@ -862,16 +844,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/capain.png",
     "url": "/games/html/captaincallisto/game/index.html"
-  },
-  {
-    "id": "cardinal-chains",
-    "title": "Cardinal Chains",
-    "tags": [
-      "Racing",
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/cardinal chains.png",
-    "url": "/games/html/cardinal chains/game/index.html"
   },
   {
     "id": "cat-house",
@@ -1180,15 +1152,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/drakeandthewizards/game/base.html"
   },
   {
-    "id": "drift-city",
-    "title": "Drift City",
-    "tags": [
-      "Racing"
-    ],
-    "thumbnail": "/games/img/driftc.webp",
-    "url": "/games/html/drift-city/game/index.html"
-  },
-  {
     "id": "drift-king",
     "title": "Drift King",
     "tags": [
@@ -1469,15 +1432,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/fleeing the complex/game/base.html"
   },
   {
-    "id": "flip-hero",
-    "title": "Flip Hero",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/fliphero.webp",
-    "url": "/games/html/fliphero/game/index.html"
-  },
-  {
     "id": "fluid-simulation",
     "title": "Fluid Simulation",
     "tags": [
@@ -1630,15 +1584,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/googlesnake.jpg",
     "url": "/games/html/google-snake/game/index.html"
-  },
-  {
-    "id": "gragyriss",
-    "title": "Gragyriss",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/gragyriss.avif",
-    "url": "/games/html/gragyriss/game/index.html"
   },
   {
     "id": "green",
@@ -2461,24 +2406,6 @@ const rawGames: Game[] = [
     "url": "/games/html/progress knight/game/index.html"
   },
   {
-    "id": "push",
-    "title": "Push",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/push.jpg",
-    "url": "/games/html/push/game/index.html"
-  },
-  {
-    "id": "push-back",
-    "title": "Push Back",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/back.png",
-    "url": "/games/html/pushback/game/index.html"
-  },
-  {
     "id": "racer",
     "title": "Racer",
     "tags": [
@@ -2868,42 +2795,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/strikeforcekitty3.jpeg",
     "url": "/games/swf/strikeforcekitty3/game/base.html"
-  },
-  {
-    "id": "subway-surfers-beijing",
-    "title": "Subway Surfers Beijing",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/subwaysurferbeijing.webp",
-    "url": "/games/html/subwaysurfersbeijing/game/index.html"
-  },
-  {
-    "id": "subway-surfers-houston",
-    "title": "Subway Surfers Houston",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/subwaysurfershouston.webp",
-    "url": "/games/html/subwaysurfershouston/game/index.html"
-  },
-  {
-    "id": "subway-surfers-monaco",
-    "title": "Subway Surfers Monaco",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/SubwayMonaco.webp",
-    "url": "/games/html/subwaysurfersmonaco/game/index.html"
-  },
-  {
-    "id": "subway-surfers-san-fran",
-    "title": "Subway Surfers San Fran",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/subsan.webp",
-    "url": "/games/html/subwaysurferssanfrancisco/game/index.html"
   },
   {
     "id": "sugar-sugar",
@@ -3365,7 +3256,7 @@ const rawGames: Game[] = [
     "thumbnail": "/games/img/zoro.webp",
     "url": "/games/html/zoro/game/index.html"
   }
-];
+]
 
 export const games: Game[] = rawGames.map(g => ({
   ...g,
