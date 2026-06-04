@@ -16,7 +16,7 @@ if ('serviceWorker' in navigator) {
         // Check for updates every 30 seconds
         setInterval(() => {
           registration.update();
-        }, 30000);
+        }, 300000);
 
         // Force update on new service worker
         registration.addEventListener('updatefound', () => {

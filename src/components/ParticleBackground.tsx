@@ -6,6 +6,7 @@ export const ParticleBackground = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
+        if (prefs.settings.reducedMotion) return;
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -46,6 +47,7 @@ export const ParticleBackground = () => {
 
         window.addEventListener('mousemove', handleMouseMove);
 
+        let rafId: number;
         const animate = () => {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -91,10 +93,10 @@ export const ParticleBackground = () => {
                 ctx.fill();
             });
 
-            requestAnimationFrame(animate);
+            rafId = requestAnimationFrame(animate);
         };
 
-        animate();
+        rafId = requestAnimationFrame(animate);
 
         const handleResize = () => {
             canvas.width = window.innerWidth;
@@ -104,6 +106,7 @@ export const ParticleBackground = () => {
         window.addEventListener('resize', handleResize);
 
         return () => {
+            cancelAnimationFrame(rafId);
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('resize', handleResize);
         };

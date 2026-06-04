@@ -1,4 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+
+const PAGE_SIZE = 30;
 import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Ban, Coffee, ArrowUp } from "lucide-react";
 
 import { useProgression } from "@/contexts/ProgressionContext";
@@ -23,6 +25,7 @@ const GamesPage = () => {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   // Default to popular sort if they have the perk, otherwise popular anyway for better UX
   const [sortBy, setSortBy] = useState<'popular' | 'az' | 'za'>('popular');
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const filteredGames = useMemo(() => {
     return games.filter((game) => {
@@ -72,6 +75,10 @@ const GamesPage = () => {
     });
   }, [searchQuery, activeCategory, sortBy, gameStats]);
 
+  useEffect(() => { setVisibleCount(PAGE_SIZE); }, [searchQuery, activeCategory, sortBy]);
+
+  const visibleGames = filteredGames.slice(0, visibleCount);
+
   const categories = [
     { id: "all", label: "All Games", icon: Gamepad2 },
     { id: "action", label: "Action", icon: Zap },
@@ -84,10 +91,7 @@ const GamesPage = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+    <div
       className="min-h-screen text-slate-100 font-sans"
     >
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -149,16 +153,14 @@ const GamesPage = () => {
         {/* GAMES GRID */}
         {filteredGames.length > 0 ? (
           <>
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1 }}
+            <div
               className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-5"
             >
-              {filteredGames.map((game) => (
+              {visibleGames.map((game) => (
                 <Link
                   key={game.id}
                   to={`/games/${game.id}`}
-                  className="group block bg-[#1E1E24]/60 backdrop-blur-sm border border-slate-800/60 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] transition-all duration-300 hover:-translate-y-1 lg:hover:scale-[1.03] will-change-transform"
+                  className="group block bg-[#1E1E24]/80 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_4px_20px_rgba(59,130,246,0.12)] transition-colors duration-200"
                 >
                   <div className="aspect-[4/3] relative overflow-hidden bg-slate-900">
                     <img
@@ -166,7 +168,7 @@ const GamesPage = () => {
                       alt={game.title}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                       <span className="text-white font-bold text-sm bg-blue-600/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
@@ -184,10 +186,17 @@ const GamesPage = () => {
                   </div>
                 </Link>
               ))}
-            </motion.div>
-            <p className="text-center text-slate-500 mt-12 mb-8 text-sm font-medium">
-              Showing all {filteredGames.length} games
-            </p>
+            </div>
+            {visibleCount < filteredGames.length && (
+              <div className="text-center mt-8">
+                <button
+                  onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                  className="px-8 py-3 bg-[#1E1E24] border border-slate-700 text-slate-300 rounded-xl hover:border-blue-500 hover:text-blue-400 transition-colors font-medium"
+                >
+                  Load More ({filteredGames.length - visibleCount} remaining)
+                </button>
+              </div>
+            )}
           </>
         ) : (
           <div className="text-center py-24 bg-[#1E1E24]/30 rounded-3xl border border-slate-800/50 backdrop-blur-sm">
@@ -198,7 +207,7 @@ const GamesPage = () => {
         )}
       </main>
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 
