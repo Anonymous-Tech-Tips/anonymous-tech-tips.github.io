@@ -1077,7 +1077,7 @@ const rawGames: Game[] = [
       "Casual"
     ],
     "thumbnail": "/games/img/diggermain.png",
-    "url": "/games/html/digger-main/index.html"
+    "url": "/games/html/digger-main/game/digger-main/index.html"
   },
   {
     "id": "dinosaur",
@@ -1365,7 +1365,7 @@ const rawGames: Game[] = [
       "Strategy"
     ],
     "thumbnail": "/games/img/farm.png",
-    "url": "/games/html/html5-farming-demo-master/index.html"
+    "url": "/games/html/html5-farming-demo-master/game/html5-farming-demo-master/index.html"
   },
   {
     "id": "finding-santa",
@@ -2052,7 +2052,7 @@ const rawGames: Game[] = [
       "Casual"
     ],
     "thumbnail": "/games/img/pcraft.png",
-    "url": "/games/html/pico-8/index.html"
+    "url": "/games/html/pico-8/game/PICO-8 Cartridge.html"
   },
   {
     "id": "packabunchas",
@@ -2412,7 +2412,7 @@ const rawGames: Game[] = [
       "Casual"
     ],
     "thumbnail": "/games/img/radius.png",
-    "url": "/games/html/radius raid/index.html"
+    "url": "/games/html/radius raid/game/radius raid/index.html"
   },
   {
     "id": "raft-wars",
@@ -2430,7 +2430,7 @@ const rawGames: Game[] = [
       "Casual"
     ],
     "thumbnail": "/games/img/retro speed.png",
-    "url": "/games/html/retro speed/index.html"
+    "url": "/games/html/retro speed/game/retro speed.html"
   },
   {
     "id": "retrohaunt",
@@ -2601,7 +2601,7 @@ const rawGames: Game[] = [
       "Casual"
     ],
     "thumbnail": "/games/img/sleeping.png",
-    "url": "/games/html/sleeping beauty/index.html"
+    "url": "/games/html/sleeping beauty/game/sleeping beauty/index.html"
   },
   {
     "id": "slither-io",
