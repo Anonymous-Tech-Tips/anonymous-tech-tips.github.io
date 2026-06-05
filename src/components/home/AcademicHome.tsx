@@ -7,6 +7,7 @@ import { SubjectTips } from "./SubjectTips";
 import { PcOptimization } from "./PcOptimization";
 import { ResourceDirectory } from "./ResourceDirectory";
 import { DailyInsight } from "./DailyInsight";
+import { SnowDayPredictor } from "@/components/utilities/SnowDayPredictor";
 
 export const AcademicHome: React.FC = () => {
     const scrollToResources = () => {
@@ -20,6 +21,24 @@ export const AcademicHome: React.FC = () => {
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <HeroSection scrollToResources={scrollToResources} />
                     <InteractiveTools />
+                </div>
+            </section>
+
+            {/* --- SNOW DAY PREDICTOR --- */}
+            <section className="bg-white border-b border-slate-200 px-6 py-16">
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-10">
+                        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-sm font-bold border border-indigo-200 mb-4">
+                            ❄️ AI-Powered · Updated Every 2 Hours
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+                            Snow Day Predictor
+                        </h2>
+                        <p className="text-slate-500 mt-2 text-lg max-w-xl mx-auto">
+                            Machine learning forecast for LCPS, FCPS, and PWCS. Know before the alarm goes off.
+                        </p>
+                    </div>
+                    <SnowDayPredictor />
                 </div>
             </section>
 

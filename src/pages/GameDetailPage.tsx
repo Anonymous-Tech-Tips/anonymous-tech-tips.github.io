@@ -12,6 +12,7 @@ import { thumb } from '@/lib/thumb';
 import { SEO } from '@/components/SEO';
 import { similarItems } from '@/utils/similarity';
 import { openGameSandbox } from '@/utils/openGameSandbox';
+import { trackGamePlay as gaTrackGamePlay } from '@/utils/analytics';
 import { SidebarAd, BottomAd } from '@/components/GoogleAd';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
@@ -71,10 +72,10 @@ export default function GameDetailPage() {
     }
 
     pushHistory(game.id, 'game');
-    // Track game play for progression system
     if (isAuthenticated) {
       trackGamePlay(game.id, game.title);
     }
+    gaTrackGamePlay(game.id, game.title);
     openGameSandbox(game.url);
   };
   const share = async () => {

@@ -21,7 +21,7 @@ import { Layout } from "@/components/Layout";
 import { GamerBackground } from "@/components/GamerBackground";
 import { GlobalChat } from "@/components/chat/GlobalChat";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { ParticleBackground } from "@/components/ParticleBackground";
+import { trackPageView } from "@/utils/analytics";
 
 // ── Lazy-loaded routes (route-level code splitting) ────────────────────────
 // Each page is a separate chunk fetched only when the user navigates to it.
@@ -70,6 +70,11 @@ const AppContent = () => {
       window.location.reload();
     });
   }, []);
+
+  // Track SPA page views on every route change
+  useEffect(() => {
+    trackPageView(location.pathname + location.search + location.hash);
+  }, [location.pathname, location.hash]);
 
   // Check for pending private room invite (if not logged in)
   useEffect(() => {
@@ -140,11 +145,8 @@ const App = () => {
               <UserPrefsProvider>
                 <Toaster />
                 <Sonner />
-                <CommandPalette />
-                <CoachMarks />
                 <SeasonalTheme />
                 <SeasonalEffects />
-                <ParticleBackground />
                 <AppContent />
               </UserPrefsProvider>
             </ProgressionProvider>
