@@ -4,21 +4,10 @@ export type { Game };
 
 const rawGames: Game[] = [
   {
-    "id": "smash-karts",
-    "title": "Smash Karts",
-    "tags": [
-      "Action",
-      "Racing",
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/smash karts.avif",
-    "url": "/games/html/smash karts/game/index.html"
-  },
-  {
     "id": "slope",
     "title": "Slope",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/slope.webp",
     "url": "/games/html/slope/game/index.html"
@@ -46,7 +35,7 @@ const rawGames: Game[] = [
     "id": "fnaf",
     "title": "FNAF",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/fnaf.webp",
     "url": "/games/html/fnaf/game/index.html"
@@ -55,7 +44,7 @@ const rawGames: Game[] = [
     "id": "fnaf-2",
     "title": "FNAF 2",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/fnaf.webp",
     "url": "/games/html/fnaf2/game/index.html"
@@ -64,7 +53,7 @@ const rawGames: Game[] = [
     "id": "fnaf-3",
     "title": "Fnaf 3",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/fnaf.webp",
     "url": "/games/html/fnaf3/game/index.html"
@@ -73,7 +62,7 @@ const rawGames: Game[] = [
     "id": "fnaf-4",
     "title": "Fnaf 4",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/fnaf.webp",
     "url": "/games/html/fnaf4/game/index.html"
@@ -82,7 +71,7 @@ const rawGames: Game[] = [
     "id": "bitlife",
     "title": "Bitlife",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/bitlife.jpg",
     "url": "/games/html/bitlife/game/index.html"
@@ -91,7 +80,7 @@ const rawGames: Game[] = [
     "id": "geometry-dash",
     "title": "Geometry Dash",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/dash.png",
     "url": "/games/html/Geometry Dash v1/game/Geometry Dash v1.html"
@@ -100,7 +89,7 @@ const rawGames: Game[] = [
     "id": "tunnel-rush",
     "title": "Tunnel Rush",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/tunnelrush.webp",
     "url": "/games/html/tunnelrush/game/index.html"
@@ -127,7 +116,7 @@ const rawGames: Game[] = [
     "id": "temple-run-2",
     "title": "Temple Run 2",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/templerun.webp",
     "url": "/games/html/temple-run-2/game/index.html"
@@ -163,7 +152,7 @@ const rawGames: Game[] = [
     "id": "bloxorz",
     "title": "Bloxorz",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/Bloxorz.png",
     "url": "/games/html/Bloxorz/game/index.html"
@@ -200,7 +189,7 @@ const rawGames: Game[] = [
     "id": "among-us",
     "title": "Among Us",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/amongus.png",
     "url": "/games/html/among-us/game/index.html"
@@ -209,7 +198,7 @@ const rawGames: Game[] = [
     "id": "stickman-hook",
     "title": "Stickman Hook",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/stickmanhook.jpg",
     "url": "/games/html/stickman-hook/game/index.html"
@@ -218,7 +207,7 @@ const rawGames: Game[] = [
     "id": "vex-3",
     "title": "Vex 3",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/vex3.webp",
     "url": "/games/html/vex3/game/index.html"
@@ -227,7 +216,7 @@ const rawGames: Game[] = [
     "id": "vex-4",
     "title": "Vex 4",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/vex4.webp",
     "url": "/games/html/vex4/game/index.html"
@@ -236,7 +225,7 @@ const rawGames: Game[] = [
     "id": "vex-5",
     "title": "Vex 5",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/vex5.webp",
     "url": "/games/html/vex5/game/index.html"
@@ -245,7 +234,7 @@ const rawGames: Game[] = [
     "id": "vex-6",
     "title": "Vex 6",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/vex6.webp",
     "url": "/games/html/vex6/game/index.html"
@@ -254,7 +243,7 @@ const rawGames: Game[] = [
     "id": "vex-7",
     "title": "Vex 7",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/vex7.webp",
     "url": "/games/html/vex7/game/index.html"
@@ -263,7 +252,7 @@ const rawGames: Game[] = [
     "id": "ovo",
     "title": "Ovo",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/ovo.png",
     "url": "/games/html/ovo/game/index.html"
@@ -290,7 +279,7 @@ const rawGames: Game[] = [
     "id": "flappy-bird",
     "title": "Flappy Bird",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/FlappyBird.png",
     "url": "/games/html/flappybird/game/index.html"
@@ -299,7 +288,7 @@ const rawGames: Game[] = [
     "id": "getaway-shootout",
     "title": "Getaway Shootout",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/getaway-shootout.jfif",
     "url": "/games/html/getaway shootout/game/index.html"
@@ -317,7 +306,7 @@ const rawGames: Game[] = [
     "id": "10-minutes-till-dawn",
     "title": "10 Minutes Till Dawn",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/10m.webp",
     "url": "/games/html/10-minutes-till-dawn/game/index.html"
@@ -326,7 +315,7 @@ const rawGames: Game[] = [
     "id": "100-pong",
     "title": "100 Pong",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/100pong.webp",
     "url": "/games/html/100-player-pong/game/index.html"
@@ -335,7 +324,7 @@ const rawGames: Game[] = [
     "id": "1v1-space",
     "title": "1v1 Space",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/1v1space.webp",
     "url": "/games/html/1v1space/game/index.html"
@@ -371,7 +360,7 @@ const rawGames: Game[] = [
     "id": "a-dark-room",
     "title": "A Dark Room",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/adarkroom.png",
     "url": "/games/html/adarkroom/game/index.html"
@@ -380,7 +369,7 @@ const rawGames: Game[] = [
     "id": "a-grim-chase",
     "title": "A Grim Chase",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/a grim chase.jpg",
     "url": "/games/html/a grim chase/game/index.html"
@@ -389,7 +378,7 @@ const rawGames: Game[] = [
     "id": "a-grim-love-tale",
     "title": "A Grim Love Tale",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/a grim love tale.jpg",
     "url": "/games/html/a grim love tale/game/index.html"
@@ -398,7 +387,7 @@ const rawGames: Game[] = [
     "id": "achievementunlocked",
     "title": "Achievementunlocked",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/ache.webp",
     "url": "/games/html/achievementunlocked/game/index.html"
@@ -407,7 +396,7 @@ const rawGames: Game[] = [
     "id": "adventure-capitolists",
     "title": "Adventure Capitolists",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/capitolist.jpeg",
     "url": "/games/html/catpitolists/index.html"
@@ -434,7 +423,7 @@ const rawGames: Game[] = [
     "id": "ages-of-conflict",
     "title": "Ages Of Conflict",
     "tags": [
-      "Casual"
+      "Strategy"
     ],
     "thumbnail": "/games/img/ages-of-conflict.webp",
     "url": "/games/html/ages-of-conflict/game/index.html"
@@ -498,7 +487,7 @@ const rawGames: Game[] = [
     "id": "appel",
     "title": "Appel",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/appel.png",
     "url": "/games/html/Appel/game/Appel.html"
@@ -516,7 +505,7 @@ const rawGames: Game[] = [
     "id": "arcuz",
     "title": "Arcuz",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/arcuz.jpg",
     "url": "/games/swf/arcuz/game/base.html"
@@ -525,7 +514,7 @@ const rawGames: Game[] = [
     "id": "asciispace",
     "title": "Asciispace",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/asciispace.png",
     "url": "/games/html/asciispace/game/index.html"
@@ -543,7 +532,7 @@ const rawGames: Game[] = [
     "id": "asteroids",
     "title": "Asteroids",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/asteroids.png",
     "url": "/games/html/asteroids/game/index.html"
@@ -552,7 +541,7 @@ const rawGames: Game[] = [
     "id": "astray",
     "title": "Astray",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/astray.png",
     "url": "/games/html/astray/game/index.html"
@@ -561,7 +550,7 @@ const rawGames: Game[] = [
     "id": "avalanche",
     "title": "Avalanche",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/avalanche.webp",
     "url": "/games/html/avalanche/game/index.html"
@@ -579,7 +568,7 @@ const rawGames: Game[] = [
     "id": "bad-icecream",
     "title": "Bad Icecream",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/bad-ice-cream.webp",
     "url": "/games/html/bad-ice-cream/game/index.html"
@@ -588,7 +577,7 @@ const rawGames: Game[] = [
     "id": "bad-icecream-2",
     "title": "Bad Icecream 2",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/bad-ice-cream-2.webp",
     "url": "/games/html/bad-ice-cream-2/game/index.html"
@@ -597,7 +586,7 @@ const rawGames: Game[] = [
     "id": "bad-icecream-3",
     "title": "Bad Icecream 3",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/bad-ice-cream-3.webp",
     "url": "/games/html/bad-ice-cream-3/game/index.html"
@@ -606,7 +595,7 @@ const rawGames: Game[] = [
     "id": "baldis-basics",
     "title": "Baldis Basics",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/baldis-basics.webp",
     "url": "/games/html/baldis-basics/game/index.html"
@@ -642,7 +631,7 @@ const rawGames: Game[] = [
     "id": "basket-random",
     "title": "Basket Random",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/Basket Random.jpg",
     "url": "/games/html/Basket Random/game/index.html"
@@ -651,7 +640,7 @@ const rawGames: Game[] = [
     "id": "beam",
     "title": "Beam",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/beam.png",
     "url": "/games/html/beam/game/index.html"
@@ -678,7 +667,7 @@ const rawGames: Game[] = [
     "id": "blackholesquare",
     "title": "Blackholesquare",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/BlackHoleSquare.png",
     "url": "/games/html/blackholesquare/game/index.html"
@@ -687,7 +676,7 @@ const rawGames: Game[] = [
     "id": "bloonstd",
     "title": "Bloonstd",
     "tags": [
-      "Casual"
+      "Strategy"
     ],
     "thumbnail": "/games/img/bloonstd.webp",
     "url": "/games/html/bloonstd/game/index.html"
@@ -696,7 +685,7 @@ const rawGames: Game[] = [
     "id": "bloonstd-2",
     "title": "Bloonstd 2",
     "tags": [
-      "Casual"
+      "Strategy"
     ],
     "thumbnail": "/games/img/bloonstd2.webp",
     "url": "/games/html/bloonstd2/game/index.html"
@@ -705,7 +694,7 @@ const rawGames: Game[] = [
     "id": "bloonstd-4",
     "title": "Bloonstd 4",
     "tags": [
-      "Casual"
+      "Strategy"
     ],
     "thumbnail": "/games/img/bloonstd4.webp",
     "url": "/games/html/bloonstd4/game/index.html"
@@ -714,7 +703,7 @@ const rawGames: Game[] = [
     "id": "blue",
     "title": "Blue",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/blue.png",
     "url": "/games/html/blue/game/index.html"
@@ -723,7 +712,7 @@ const rawGames: Game[] = [
     "id": "bob-the-robber-2",
     "title": "Bob The Robber 2",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/bob.jpeg",
     "url": "/games/html/bob-the-robber-2/game/index.html"
@@ -732,7 +721,7 @@ const rawGames: Game[] = [
     "id": "bombit-1",
     "title": "Bombit 1",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/bombit.jpeg",
     "url": "/games/swf/bombit/game/base.html"
@@ -741,7 +730,7 @@ const rawGames: Game[] = [
     "id": "bombit-2",
     "title": "Bombit 2",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/bombit2.jpeg",
     "url": "/games/swf/bombit2/game/base.html"
@@ -750,7 +739,7 @@ const rawGames: Game[] = [
     "id": "bombit-3",
     "title": "Bombit 3",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/bombit3.jpg",
     "url": "/games/swf/bombit3/game/base.html"
@@ -759,7 +748,7 @@ const rawGames: Game[] = [
     "id": "bounceback",
     "title": "Bounceback",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/bounceback.png",
     "url": "/games/html/bounceback/game/index.html"
@@ -786,7 +775,7 @@ const rawGames: Game[] = [
     "id": "breaklock",
     "title": "Breaklock",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/breaklock.png",
     "url": "/games/html/breaklock/game/index.html"
@@ -795,7 +784,7 @@ const rawGames: Game[] = [
     "id": "breakout",
     "title": "Breakout",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/breakout.png",
     "url": "/games/html/breakout/game/index.html"
@@ -804,7 +793,7 @@ const rawGames: Game[] = [
     "id": "breakout",
     "title": "Breakout",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/breakout.webp",
     "url": "/games/html/breakout/game/index.html"
@@ -831,7 +820,7 @@ const rawGames: Game[] = [
     "id": "captain-callisto",
     "title": "Captain Callisto",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/capain.png",
     "url": "/games/html/captaincallisto/game/index.html"
@@ -876,7 +865,7 @@ const rawGames: Game[] = [
     "id": "chimney-trouble",
     "title": "Chimney Trouble",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/chimneytrouble.jpg",
     "url": "/games/swf/chimneytrouble/game/base.html"
@@ -885,7 +874,7 @@ const rawGames: Game[] = [
     "id": "choppy-orc",
     "title": "Choppy Orc",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/choppy orc.jpg",
     "url": "/games/html/choppy orc/game/index.html"
@@ -894,7 +883,7 @@ const rawGames: Game[] = [
     "id": "chroma",
     "title": "Chroma",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/chroma.png",
     "url": "/games/html/chroma/game/index.html"
@@ -903,7 +892,7 @@ const rawGames: Game[] = [
     "id": "circlo",
     "title": "Circlo",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/circlo.webp",
     "url": "/games/html/circlo/game/index.html"
@@ -912,7 +901,7 @@ const rawGames: Game[] = [
     "id": "clickventure",
     "title": "Clickventure",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/clickbenture.jpg",
     "url": "/games/html/clickventure/game/index.html"
@@ -921,7 +910,7 @@ const rawGames: Game[] = [
     "id": "clickventure-castaway",
     "title": "Clickventure Castaway",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/clickventure castaway.jpg",
     "url": "/games/html/clickventure castaway/game/index.html"
@@ -930,7 +919,7 @@ const rawGames: Game[] = [
     "id": "cluster-rush",
     "title": "Cluster Rush",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/cluster.webp",
     "url": "/games/html/cluster-rush/game/index.html"
@@ -939,7 +928,7 @@ const rawGames: Game[] = [
     "id": "comic-book-cody",
     "title": "Comic Book Cody",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/comicbook.jpeg",
     "url": "/games/swf/comicbook/game/base.html"
@@ -1002,7 +991,7 @@ const rawGames: Game[] = [
     "id": "cube-miner",
     "title": "Cube Miner",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/cube.png",
     "url": "/games/html/Cube Miner/game/Cube Miner.html"
@@ -1011,7 +1000,7 @@ const rawGames: Game[] = [
     "id": "cubefield",
     "title": "Cubefield",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/cubefeild.png",
     "url": "/games/html/cubefield/game/index.html"
@@ -1029,7 +1018,7 @@ const rawGames: Game[] = [
     "id": "cursed-travels-below",
     "title": "Cursed Travels Below",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/cursed travels below.png",
     "url": "/games/html/cursed travels below/game/index.html"
@@ -1038,7 +1027,7 @@ const rawGames: Game[] = [
     "id": "cursed-travels-flame",
     "title": "Cursed Travels Flame",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/cursed travels flame.png",
     "url": "/games/html/cursed travels flame/game/index.html"
@@ -1047,7 +1036,7 @@ const rawGames: Game[] = [
     "id": "cut-the-rope",
     "title": "Cut The Rope",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/ctr.webp",
     "url": "/games/html/cuttherope/game/index.html"
@@ -1074,7 +1063,7 @@ const rawGames: Game[] = [
     "id": "digger-main",
     "title": "Digger Main",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/diggermain.png",
     "url": "/games/html/digger-main/game/digger-main/index.html"
@@ -1083,7 +1072,7 @@ const rawGames: Game[] = [
     "id": "dinosaur",
     "title": "Dinosaur",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/dino.png",
     "url": "/games/html/dinosaur/game/index.html"
@@ -1092,7 +1081,7 @@ const rawGames: Game[] = [
     "id": "disaster-will-strike",
     "title": "Disaster Will Strike",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/disasterwillstrike.jpg",
     "url": "/games/swf/diasterwillstrike/game/base.html"
@@ -1101,7 +1090,7 @@ const rawGames: Game[] = [
     "id": "dogeminer",
     "title": "Dogeminer",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/Dogecoin.webp",
     "url": "/games/html/dogeminer/game/index.html"
@@ -1119,7 +1108,7 @@ const rawGames: Game[] = [
     "id": "doodle-jump",
     "title": "Doodle Jump",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/doodle.webp",
     "url": "/games/html/doodlejump/game/index.html"
@@ -1128,7 +1117,7 @@ const rawGames: Game[] = [
     "id": "drake-and-the-wizards",
     "title": "Drake And The Wizards",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/drakeandthewizards.jpg",
     "url": "/games/swf/drakeandthewizards/game/base.html"
@@ -1155,7 +1144,7 @@ const rawGames: Game[] = [
     "id": "duck-life",
     "title": "Duck Life",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/ducklife.webp",
     "url": "/games/swf/ducklife1/game/base.html"
@@ -1164,7 +1153,7 @@ const rawGames: Game[] = [
     "id": "duck-life-2",
     "title": "Duck Life 2",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/ducklife2.webp",
     "url": "/games/swf/ducklife2/game/base.html"
@@ -1173,7 +1162,7 @@ const rawGames: Game[] = [
     "id": "duck-life-3",
     "title": "Duck Life 3",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/ducklife3.webp",
     "url": "/games/swf/ducklife3/game/base.html"
@@ -1200,7 +1189,7 @@ const rawGames: Game[] = [
     "id": "ede-surf",
     "title": "Ede Surf",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/edge-surf.webp",
     "url": "/games/html/edge-surf/game/index.html"
@@ -1218,7 +1207,7 @@ const rawGames: Game[] = [
     "id": "eel-slap",
     "title": "Eel Slap",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/eel-slap.webp",
     "url": "/games/html/eel-slap/game/index.html"
@@ -1236,7 +1225,7 @@ const rawGames: Game[] = [
     "id": "electric-man-2",
     "title": "Electric Man 2",
     "tags": [
-      "Casual"
+      "Action"
     ],
     "thumbnail": "/games/img/electricman2.jpg",
     "url": "/games/swf/electricman2/game/base.html"
@@ -1254,7 +1243,7 @@ const rawGames: Game[] = [
     "id": "erase-box",
     "title": "Erase Box",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/erase box.jpg",
     "url": "/games/html/erase box/game/index.html"
@@ -1263,7 +1252,7 @@ const rawGames: Game[] = [
     "id": "erase-box",
     "title": "Erase Box",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/erase box.jpg",
     "url": "/games/html/erase box/game/index.html"
@@ -1272,7 +1261,7 @@ const rawGames: Game[] = [
     "id": "escaping-the-prison",
     "title": "Escaping The Prison",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/escaping the pirson.jpg",
     "url": "/games/swf/escaping the prison/game/base.html"
@@ -1281,7 +1270,7 @@ const rawGames: Game[] = [
     "id": "evil-glich",
     "title": "Evil Glich",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/EvilGlitch.png",
     "url": "/games/html/evilglitch/game/index.html"
@@ -1344,7 +1333,7 @@ const rawGames: Game[] = [
     "id": "fancy-pants-1",
     "title": "Fancy Pants 1",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/fancy1.jpg",
     "url": "/games/swf/fancy1/game/base.html"
@@ -1353,7 +1342,7 @@ const rawGames: Game[] = [
     "id": "fancy-pants-3",
     "title": "Fancy Pants 3",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/fancy3.jpg",
     "url": "/games/swf/fancy3/game/base.html"
@@ -1390,7 +1379,7 @@ const rawGames: Game[] = [
     "id": "flappy-plane",
     "title": "Flappy Plane",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/flappyplae.jpeg",
     "url": "/games/html/flappyplane/game/index.html"
@@ -1399,7 +1388,7 @@ const rawGames: Game[] = [
     "id": "flat-guys",
     "title": "Flat Guys",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/flatguys.png",
     "url": "/games/html/flatguys/game/flatguys.html"
@@ -1408,7 +1397,7 @@ const rawGames: Game[] = [
     "id": "fleeing-the-complex",
     "title": "Fleeing The Complex",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/fleeing the complex.jpg",
     "url": "/games/swf/fleeing the complex/game/base.html"
@@ -1481,7 +1470,7 @@ const rawGames: Game[] = [
     "id": "generic-fishing-game",
     "title": "Generic Fishing Game",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/generic fishing game.png",
     "url": "/games/html/generic fishing game/game/index.html"
@@ -1490,7 +1479,7 @@ const rawGames: Game[] = [
     "id": "geometry-dash-meltdown",
     "title": "Geometry Dash Meltdown",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/dashmeltdown.png",
     "url": "/games/html/Geometry Dash Meltdown/game/Geometry Dash Meltdown.html"
@@ -1499,7 +1488,7 @@ const rawGames: Game[] = [
     "id": "geometry-dash-subzero",
     "title": "Geometry Dash Subzero",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/dashsubzero.png",
     "url": "/games/html/Geometry Dash Subzero/game/Geometry Dash Subzero.html"
@@ -1508,7 +1497,7 @@ const rawGames: Game[] = [
     "id": "geometry-dash-world-toxic",
     "title": "Geometry Dash World Toxic",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/dashtoxic.png",
     "url": "/games/html/Geometry Dash World Toxic factory/game/Geometry Dash World Toxic factory.html"
@@ -1517,7 +1506,7 @@ const rawGames: Game[] = [
     "id": "getting-over-it",
     "title": "Getting Over It",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/over.png",
     "url": "/games/html/Getting Over It v1/game/Getting Over It v1.html"
@@ -1526,7 +1515,7 @@ const rawGames: Game[] = [
     "id": "ginogen-arena",
     "title": "Ginogen Arena",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/dinogen arena.webp",
     "url": "/games/html/dinogen arena/game/index.html"
@@ -1544,7 +1533,7 @@ const rawGames: Game[] = [
     "id": "goodbye-doggy",
     "title": "Goodbye Doggy",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/goodbye doggy.jpg",
     "url": "/games/html/goodbye doggy/game/index.html"
@@ -1553,7 +1542,7 @@ const rawGames: Game[] = [
     "id": "goodnight",
     "title": "Goodnight",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/gn.webp",
     "url": "/games/html/goodnight/game/index.html"
@@ -1562,7 +1551,7 @@ const rawGames: Game[] = [
     "id": "google-snake",
     "title": "Google Snake",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/googlesnake.jpg",
     "url": "/games/html/google-snake/game/index.html"
@@ -1571,7 +1560,7 @@ const rawGames: Game[] = [
     "id": "green",
     "title": "Green",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/green.png",
     "url": "/games/html/green/game/index.html"
@@ -1598,7 +1587,7 @@ const rawGames: Game[] = [
     "id": "haunt-the-house",
     "title": "Haunt The House",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/hauntthehouse.jpg",
     "url": "/games/swf/hauntthehouse/game/base.html"
@@ -1607,7 +1596,7 @@ const rawGames: Game[] = [
     "id": "hexa-knot",
     "title": "Hexa Knot",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/hexa knot.png",
     "url": "/games/html/hexa knot/game/index.html"
@@ -1625,7 +1614,7 @@ const rawGames: Game[] = [
     "id": "hextris",
     "title": "Hextris",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/hex.png",
     "url": "/games/html/hextris/game/index.html"
@@ -1634,7 +1623,7 @@ const rawGames: Game[] = [
     "id": "hoshi-saga-1",
     "title": "Hoshi Saga 1",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/hoshisaga1.png",
     "url": "/games/swf/hoshisaga1/game/base.html"
@@ -1643,7 +1632,7 @@ const rawGames: Game[] = [
     "id": "hoshi-saga-2",
     "title": "Hoshi Saga 2",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/hoshisaga2.jpg",
     "url": "/games/swf/hoshisaga2/game/base.html"
@@ -1652,7 +1641,7 @@ const rawGames: Game[] = [
     "id": "hoshi-saga-3",
     "title": "Hoshi Saga 3",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/hoshisaga3.jpg",
     "url": "/games/swf/hoshisaga3/game/base.html"
@@ -1670,7 +1659,7 @@ const rawGames: Game[] = [
     "id": "house-of-hazards",
     "title": "House Of Hazards",
     "tags": [
-      "Casual"
+      "Multiplayer"
     ],
     "thumbnail": "/games/img/houseofhazards.jpg",
     "url": "/games/html/houseofhazards/game/index.html"
@@ -1715,7 +1704,7 @@ const rawGames: Game[] = [
     "id": "infiltrating-the-airship",
     "title": "Infiltrating The Airship",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/infiltrating the airship.jpg",
     "url": "/games/swf/infiltrating the airship/game/base.html"
@@ -1724,7 +1713,7 @@ const rawGames: Game[] = [
     "id": "interactive-buddy",
     "title": "Interactive Buddy",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/interactivebuddy.webp",
     "url": "/games/html/interactivebuddy/game/index.html"
@@ -1742,7 +1731,7 @@ const rawGames: Game[] = [
     "id": "jelly-go",
     "title": "Jelly Go!",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/jellygo.jpg",
     "url": "/games/swf/jellygo/game/base.html"
@@ -1751,7 +1740,7 @@ const rawGames: Game[] = [
     "id": "jetpack-joyride",
     "title": "Jetpack Joyride",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/jetpack-joyride.webp",
     "url": "/games/html/jetpack-joyride/game/index.html"
@@ -1760,7 +1749,7 @@ const rawGames: Game[] = [
     "id": "just-fall",
     "title": "Just Fall",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/just-fall.webp",
     "url": "/games/html/just-fall/game/index.html"
@@ -1769,7 +1758,7 @@ const rawGames: Game[] = [
     "id": "just-one-boss",
     "title": "Just One Boss",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/oneboss.png",
     "url": "/games/html/just one boss/game/index.html"
@@ -1787,7 +1776,7 @@ const rawGames: Game[] = [
     "id": "kingdom-rush",
     "title": "Kingdom Rush",
     "tags": [
-      "Casual"
+      "Strategy"
     ],
     "thumbnail": "/games/img/kingdom rush.jpg",
     "url": "/games/swf/kingdom rush/game/base.html"
@@ -1796,7 +1785,7 @@ const rawGames: Game[] = [
     "id": "kingdom-rush-frontie",
     "title": "Kingdom Rush Frontie",
     "tags": [
-      "Casual"
+      "Strategy"
     ],
     "thumbnail": "/games/img/kingdom rush frontie.jpg",
     "url": "/games/swf/kingdom rush frontie/game/base.html"
@@ -1814,7 +1803,7 @@ const rawGames: Game[] = [
     "id": "kitten-cannon",
     "title": "Kitten Cannon",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/kittencannon.webp",
     "url": "/games/html/kittencannon/game/index.html"
@@ -1823,7 +1812,7 @@ const rawGames: Game[] = [
     "id": "knight-errant",
     "title": "Knight Errant",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/knight errant.png",
     "url": "/games/html/knight errant/game/index.html"
@@ -1832,7 +1821,7 @@ const rawGames: Game[] = [
     "id": "konnekt",
     "title": "Konnekt",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/cone.png",
     "url": "/games/html/konnekt/game/index.html"
@@ -1841,7 +1830,7 @@ const rawGames: Game[] = [
     "id": "laqueus-escape-chapter-1",
     "title": "Laqueus Escape Chapter 1",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/laqueus escape chapter 1.avif",
     "url": "/games/html/laqueus escape chapter 1/game/index.html"
@@ -1859,7 +1848,7 @@ const rawGames: Game[] = [
     "id": "ledegnd-of-zelda-maker",
     "title": "Ledegnd Of Zelda Maker",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/lozmaker.png",
     "url": "/games/html/lozmaker/game/lozmaker.html"
@@ -1877,7 +1866,7 @@ const rawGames: Game[] = [
     "id": "little-wheel",
     "title": "Little Wheel",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/littlewheel.jpg",
     "url": "/games/swf/littlewheel/game/base.html"
@@ -1886,7 +1875,7 @@ const rawGames: Game[] = [
     "id": "maptroid",
     "title": "Maptroid",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/maptroid.jpg",
     "url": "/games/html/maptroid/game/index.html"
@@ -1913,7 +1902,7 @@ const rawGames: Game[] = [
     "id": "minecraft-1-5-2-eaglercraft",
     "title": "Minecraft (1.5.2 Eaglercraft)",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/minecraft.jpeg",
     "url": "/games/html/eaglecraft/game/Offline_Download_Version.html"
@@ -1922,7 +1911,7 @@ const rawGames: Game[] = [
     "id": "minekahn",
     "title": "Minekahn",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/khan.png",
     "url": "/games/html/minekhan/game/index.html"
@@ -1931,7 +1920,7 @@ const rawGames: Game[] = [
     "id": "mini-putt-3",
     "title": "Mini Putt 3",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/miniputt3.jpg",
     "url": "/games/swf/miniputt3/game/base.html"
@@ -1949,7 +1938,7 @@ const rawGames: Game[] = [
     "id": "mirror-wizard",
     "title": "Mirror Wizard",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/mirror wizard.jpg",
     "url": "/games/html/mirror wizard/game/index.html"
@@ -1958,7 +1947,7 @@ const rawGames: Game[] = [
     "id": "monke",
     "title": "Monke",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/monke.png",
     "url": "/games/html/monke/game/monke.html"
@@ -1967,7 +1956,7 @@ const rawGames: Game[] = [
     "id": "monkey-mart",
     "title": "Monkey Mart",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/monkey mart.png",
     "url": "/games/html/monkey mart/game/index.html"
@@ -2031,7 +2020,7 @@ const rawGames: Game[] = [
     "id": "one-trick-mage",
     "title": "One Trick Mage",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/one trick mage.png",
     "url": "/games/html/one trick mage/game/index.html"
@@ -2040,7 +2029,7 @@ const rawGames: Game[] = [
     "id": "orange",
     "title": "Orange",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/orange.png",
     "url": "/games/html/orange/game/index.html"
@@ -2049,7 +2038,7 @@ const rawGames: Game[] = [
     "id": "p-craft",
     "title": "P-craft",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/pcraft.png",
     "url": "/games/html/pico-8/game/PICO-8 Cartridge.html"
@@ -2067,7 +2056,7 @@ const rawGames: Game[] = [
     "id": "pacman",
     "title": "Pacman",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/pacman.webp",
     "url": "/games/html/pacman/game/index.html"
@@ -2076,7 +2065,7 @@ const rawGames: Game[] = [
     "id": "papa-louies-1",
     "title": "Papa Louies 1",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/louie1.jpeg",
     "url": "/games/swf/louie1/game/base.html"
@@ -2085,7 +2074,7 @@ const rawGames: Game[] = [
     "id": "papas-bakeria",
     "title": "Papas Bakeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papasbakeria.jpg",
     "url": "/games/swf/papabakeria/game/base.html"
@@ -2094,7 +2083,7 @@ const rawGames: Game[] = [
     "id": "papas-burgeria",
     "title": "Papas Burgeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papasburgeria.jpg",
     "url": "/games/swf/papaburgeria/game/base.html"
@@ -2103,7 +2092,7 @@ const rawGames: Game[] = [
     "id": "papas-cheeseria",
     "title": "Papas Cheeseria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papascheeseria.jpg",
     "url": "/games/swf/papacheeseria/game/base.html"
@@ -2112,7 +2101,7 @@ const rawGames: Game[] = [
     "id": "papas-cupcakeria",
     "title": "Papas Cupcakeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papascupcakeria.jpg",
     "url": "/games/swf/papacupcakeria/game/base.html"
@@ -2121,7 +2110,7 @@ const rawGames: Game[] = [
     "id": "papas-donuteria",
     "title": "Papas Donuteria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papadonuteria.jpg",
     "url": "/games/swf/papadonuteria/game/base.html"
@@ -2130,7 +2119,7 @@ const rawGames: Game[] = [
     "id": "papas-freezeria",
     "title": "Papas Freezeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papasfreezeria.jpg",
     "url": "/games/swf/papafreezeria/game/base.html"
@@ -2139,7 +2128,7 @@ const rawGames: Game[] = [
     "id": "papas-hotdoggeria",
     "title": "Papas Hotdoggeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papashotdoggeria.jpg",
     "url": "/games/swf/papahotdoggeria/game/base.html"
@@ -2148,7 +2137,7 @@ const rawGames: Game[] = [
     "id": "papas-pancakeria",
     "title": "Papas Pancakeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papaspancakeria.jpg",
     "url": "/games/swf/papapancakeria/game/base.html"
@@ -2157,7 +2146,7 @@ const rawGames: Game[] = [
     "id": "papas-pasteria",
     "title": "Papas Pasteria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papaspasteria.jpg",
     "url": "/games/swf/papapasteria/game/base.html"
@@ -2166,7 +2155,7 @@ const rawGames: Game[] = [
     "id": "papas-pizzeria",
     "title": "Papas Pizzeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papaspizzeria.jpg",
     "url": "/games/swf/papapizzeria/game/base.html"
@@ -2175,7 +2164,7 @@ const rawGames: Game[] = [
     "id": "papas-scooperia",
     "title": "Papas Scooperia",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papasscooperia.jpg",
     "url": "/games/swf/papascooperia/game/base.html"
@@ -2184,7 +2173,7 @@ const rawGames: Game[] = [
     "id": "papas-sushiria",
     "title": "Papas Sushiria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papassushiria.jpg",
     "url": "/games/swf/papasushiria/game/base.html"
@@ -2193,7 +2182,7 @@ const rawGames: Game[] = [
     "id": "papas-taco-mia",
     "title": "Papas Taco Mia",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papataco.jpg",
     "url": "/games/swf/papataco/game/base.html"
@@ -2202,7 +2191,7 @@ const rawGames: Game[] = [
     "id": "papas-wingeria",
     "title": "Papas Wingeria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papawingeria.jpg",
     "url": "/games/swf/papawingeria/game/base.html"
@@ -2211,7 +2200,7 @@ const rawGames: Game[] = [
     "id": "paper-minecraft",
     "title": "Paper Minecraft",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/papermc.png",
     "url": "/games/html/Paper Minecraft/game/Paper Minecraft.html"
@@ -2229,7 +2218,7 @@ const rawGames: Game[] = [
     "id": "papery-planes",
     "title": "Papery Planes",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/paperplane.webp",
     "url": "/games/html/papery-planes/game/index.html"
@@ -2247,7 +2236,7 @@ const rawGames: Game[] = [
     "id": "pathfinder",
     "title": "Pathfinder",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/Screenshot 2024-07-09 144933.png",
     "url": "/games/html/pathfinder/index.html"
@@ -2274,7 +2263,7 @@ const rawGames: Game[] = [
     "id": "picky-package",
     "title": "Picky Package",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/pickyback.webp",
     "url": "/games/html/picky-package/game/index.html"
@@ -2283,7 +2272,7 @@ const rawGames: Game[] = [
     "id": "pink",
     "title": "Pink",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/pink.png",
     "url": "/games/html/pink/game/index.html"
@@ -2301,7 +2290,7 @@ const rawGames: Game[] = [
     "id": "pixel-bear-adventure",
     "title": "Pixel Bear Adventure",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/pixelbearadventure.png",
     "url": "/games/html/pixelbearadventure/game/pixelbearadventure.html"
@@ -2310,7 +2299,7 @@ const rawGames: Game[] = [
     "id": "pixel-speedrun",
     "title": "Pixel Speedrun",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/pixelspeedrun.png",
     "url": "/games/html/pixelspeedrun/game/pixelspeedrun.html"
@@ -2319,7 +2308,7 @@ const rawGames: Game[] = [
     "id": "pixoji",
     "title": "Pixoji",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/pixoji.png",
     "url": "/games/html/pixoji/game/index.html"
@@ -2337,7 +2326,7 @@ const rawGames: Game[] = [
     "id": "planet-life",
     "title": "Planet Life",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/planetlife.jpg",
     "url": "/games/html/planetlife/game/index.html"
@@ -2355,7 +2344,7 @@ const rawGames: Game[] = [
     "id": "pokemon-fire-red",
     "title": "Pokemon Fire Red",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/PokemonFireRed.webp",
     "url": "/games/html/pokemonfirered/game/index.html"
@@ -2364,7 +2353,7 @@ const rawGames: Game[] = [
     "id": "pong",
     "title": "Pong",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/pong.webp",
     "url": "/games/html/pong/game/index.html"
@@ -2373,7 +2362,7 @@ const rawGames: Game[] = [
     "id": "portal",
     "title": "Portal",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/portal.jpg",
     "url": "/games/swf/portal/game/base.html"
@@ -2382,7 +2371,7 @@ const rawGames: Game[] = [
     "id": "progress-knight",
     "title": "Progress Knight",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/progress knight.png",
     "url": "/games/html/progress knight/game/index.html"
@@ -2409,7 +2398,7 @@ const rawGames: Game[] = [
     "id": "radius-raid",
     "title": "Radius Raid",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/radius.png",
     "url": "/games/html/radius raid/game/radius raid/index.html"
@@ -2427,7 +2416,7 @@ const rawGames: Game[] = [
     "id": "retro-speed",
     "title": "Retro Speed",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/retro speed.png",
     "url": "/games/html/retro speed/game/retro speed.html"
@@ -2436,7 +2425,7 @@ const rawGames: Game[] = [
     "id": "retrohaunt",
     "title": "Retrohaunt",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/retro.jpeg",
     "url": "/games/html/retrohaunt/game/index.html"
@@ -2445,7 +2434,7 @@ const rawGames: Game[] = [
     "id": "ricochet-arrow",
     "title": "Ricochet Arrow",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/ricochet arrow.jpg",
     "url": "/games/html/ricochet arrow/game/index.html"
@@ -2472,7 +2461,7 @@ const rawGames: Game[] = [
     "id": "rogue-fable",
     "title": "Rogue Fable",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/rogue fable.jpg",
     "url": "/games/html/rogue fable/game/index.html"
@@ -2490,7 +2479,7 @@ const rawGames: Game[] = [
     "id": "run-1",
     "title": "Run 1",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/run.jpeg",
     "url": "/games/swf/run/game/base.html"
@@ -2499,7 +2488,7 @@ const rawGames: Game[] = [
     "id": "run-2",
     "title": "Run 2",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/run2.jpeg",
     "url": "/games/swf/run2/game/base.html"
@@ -2508,7 +2497,7 @@ const rawGames: Game[] = [
     "id": "sabotage",
     "title": "Sabotage",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/sabotage.webp",
     "url": "/games/html/sabotage/game/index.html"
@@ -2517,7 +2506,7 @@ const rawGames: Game[] = [
     "id": "sand-and-water",
     "title": "Sand And Water",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/sand.png",
     "url": "/games/html/Sand and Water v3.html"
@@ -2526,7 +2515,7 @@ const rawGames: Game[] = [
     "id": "sans",
     "title": "Sans",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/sans.webp",
     "url": "/games/html/sans/game/index.html"
@@ -2535,7 +2524,7 @@ const rawGames: Game[] = [
     "id": "scalak",
     "title": "Scalak",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/scalak.jpg",
     "url": "/games/html/scalak/game/index.html"
@@ -2544,7 +2533,7 @@ const rawGames: Game[] = [
     "id": "scrap-meatal-heros",
     "title": "Scrap Meatal Heros",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/scrapmeatalheros.jpg",
     "url": "/games/swf/scrapmeatalheros/game/base.html"
@@ -2562,7 +2551,7 @@ const rawGames: Game[] = [
     "id": "shape-shifter",
     "title": "Shape Shifter",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/shapeshifter.png",
     "url": "/games/swf/shapeshifter/game/base.html"
@@ -2571,7 +2560,7 @@ const rawGames: Game[] = [
     "id": "shape-switcher",
     "title": "Shape Switcher",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/shapeswitcher.jpeg",
     "url": "/games/swf/shapeswitch/game/base.html"
@@ -2616,7 +2605,7 @@ const rawGames: Game[] = [
     "id": "slope-2",
     "title": "Slope 2",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/slope2.jpg",
     "url": "/games/html/slope2/game/index.html"
@@ -2625,7 +2614,7 @@ const rawGames: Game[] = [
     "id": "snow-rider-3d",
     "title": "Snow Rider 3d",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/snow-rider-3d-unblocked.png",
     "url": "/games/html/snow-rider-3d/game/index.html"
@@ -2634,7 +2623,7 @@ const rawGames: Game[] = [
     "id": "sonny",
     "title": "Sonny",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/sonny.png",
     "url": "/games/swf/sonny/game/base.html"
@@ -2643,7 +2632,7 @@ const rawGames: Game[] = [
     "id": "sonny2",
     "title": "Sonny2",
     "tags": [
-      "Casual"
+      "RPG"
     ],
     "thumbnail": "/games/img/sonny2.jpg",
     "url": "/games/swf/sonny2/game/base.html"
@@ -2661,7 +2650,7 @@ const rawGames: Game[] = [
     "id": "space-company",
     "title": "Space Company",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/images.png",
     "url": "/games/html/spacecompany/game/index.html"
@@ -2670,7 +2659,7 @@ const rawGames: Game[] = [
     "id": "space-garden",
     "title": "Space Garden",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/garden.jpeg",
     "url": "/games/html/spacegarden/game/index.html"
@@ -2679,7 +2668,7 @@ const rawGames: Game[] = [
     "id": "space-huggers",
     "title": "Space Huggers",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/huggers.jpeg",
     "url": "/games/html/spacehuggers/game/index.html"
@@ -2688,7 +2677,7 @@ const rawGames: Game[] = [
     "id": "space-invaders",
     "title": "Space Invaders",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/spaceinv.webp",
     "url": "/games/html/spaceinvaders/game/index.html"
@@ -2697,7 +2686,7 @@ const rawGames: Game[] = [
     "id": "square-hero",
     "title": "Square Hero",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/squarehero.jpg",
     "url": "/games/swf/squarehero/game/base.html"
@@ -2746,7 +2735,7 @@ const rawGames: Game[] = [
     "id": "stealing-the-diamond",
     "title": "Stealing The Diamond",
     "tags": [
-      "Casual"
+      "Adventure"
     ],
     "thumbnail": "/games/img/stealing the diamond.jpg",
     "url": "/games/swf/stealing the diamond/game/base.html"
@@ -2755,7 +2744,7 @@ const rawGames: Game[] = [
     "id": "strike-force-kitty-1",
     "title": "Strike Force Kitty 1",
     "tags": [
-      "Casual"
+      "Action"
     ],
     "thumbnail": "/games/img/strikeforcekitty.jpeg",
     "url": "/games/swf/strikeforcekitty/game/base.html"
@@ -2764,7 +2753,7 @@ const rawGames: Game[] = [
     "id": "strike-force-kitty-2",
     "title": "Strike Force Kitty 2",
     "tags": [
-      "Casual"
+      "Action"
     ],
     "thumbnail": "/games/img/strikeforcekitty2.jpeg",
     "url": "/games/swf/strikeforcekitty2/game/base.html"
@@ -2773,7 +2762,7 @@ const rawGames: Game[] = [
     "id": "strike-force-kitty-3",
     "title": "Strike Force Kitty 3",
     "tags": [
-      "Casual"
+      "Action"
     ],
     "thumbnail": "/games/img/strikeforcekitty3.jpeg",
     "url": "/games/swf/strikeforcekitty3/game/base.html"
@@ -2782,7 +2771,7 @@ const rawGames: Game[] = [
     "id": "sugar-sugar",
     "title": "Sugar, Sugar",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/sugar.jpeg",
     "url": "/games/swf/sugar/game/base.html"
@@ -2801,7 +2790,7 @@ const rawGames: Game[] = [
     "id": "tabs",
     "title": "Tabs",
     "tags": [
-      "Casual"
+      "Strategy"
     ],
     "thumbnail": "/games/img/tabs.jpeg",
     "url": "/games/html/tabs/index.html"
@@ -2810,7 +2799,7 @@ const rawGames: Game[] = [
     "id": "tactical-weapon-pack",
     "title": "Tactical Weapon Pack",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/tactical weapon pack.png",
     "url": "/games/html/tactical weapon pack/game/index.html"
@@ -2828,7 +2817,7 @@ const rawGames: Game[] = [
     "id": "tanuki-sunset",
     "title": "Tanuki Sunset",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/tanuki sunset.jpg",
     "url": "/games/html/tanuki sunset/game/index.html"
@@ -2846,7 +2835,7 @@ const rawGames: Game[] = [
     "id": "tavern-master",
     "title": "Tavern Master",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/tavern master.png",
     "url": "/games/html/tavern master/game/index.html"
@@ -2864,7 +2853,7 @@ const rawGames: Game[] = [
     "id": "terraria",
     "title": "Terraria",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/terraria.jpg",
     "url": "/games/html/Terraria.html"
@@ -2873,7 +2862,7 @@ const rawGames: Game[] = [
     "id": "tetris",
     "title": "Tetris",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/tetris.jpeg",
     "url": "/games/html/tetris advanced/game/index.html"
@@ -2882,7 +2871,7 @@ const rawGames: Game[] = [
     "id": "the-dark-one",
     "title": "The Dark One",
     "tags": [
-      "Casual"
+      "Horror"
     ],
     "thumbnail": "/games/img/the dark one.jpg",
     "url": "/games/html/the dark one/game/index.html"
@@ -2954,7 +2943,7 @@ const rawGames: Game[] = [
     "id": "there-is-no-game",
     "title": "There Is No Game",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/there is no game.jpg",
     "url": "/games/html/there is no game/game/index.html"
@@ -2981,7 +2970,7 @@ const rawGames: Game[] = [
     "id": "tic-tac-toe",
     "title": "Tic-tac-toe",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/toe.webp",
     "url": "/games/html/tic-tac-toe/game/index.html"
@@ -2999,7 +2988,7 @@ const rawGames: Game[] = [
     "id": "tiny-fishing",
     "title": "Tiny Fishing",
     "tags": [
-      "Casual"
+      "Simulation"
     ],
     "thumbnail": "/games/img/fishing.jpeg",
     "url": "/games/html/tiny-fishing/game/index.html"
@@ -3044,7 +3033,7 @@ const rawGames: Game[] = [
     "id": "trimps",
     "title": "Trimps",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/trimps.png",
     "url": "/games/html/trimps/game/index.html"
@@ -3071,7 +3060,7 @@ const rawGames: Game[] = [
     "id": "unloop",
     "title": "Unloop",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/unloop.jpg",
     "url": "/games/html/unloop/game/index.html"
@@ -3080,7 +3069,7 @@ const rawGames: Game[] = [
     "id": "veloce",
     "title": "Veloce",
     "tags": [
-      "Casual"
+      "Platformer"
     ],
     "thumbnail": "/games/img/VELOCE.webp",
     "url": "/games/html/veloce/game/index.html"
@@ -3098,7 +3087,7 @@ const rawGames: Game[] = [
     "id": "water-works",
     "title": "Water Works",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/waterworks.webp",
     "url": "/games/html/waterworks/game/index.html"
@@ -3116,7 +3105,7 @@ const rawGames: Game[] = [
     "id": "web-retro",
     "title": "Web Retro",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/webretro.webp",
     "url": "/games/html/webretro/game/index.html"
@@ -3125,7 +3114,7 @@ const rawGames: Game[] = [
     "id": "whac-a-mole",
     "title": "Whac-a-mole",
     "tags": [
-      "Casual"
+      "Arcade"
     ],
     "thumbnail": "/games/img/Whac-A-Mole.webp",
     "url": "/games/html/whac-a-mole/game/index.html"
@@ -3143,7 +3132,7 @@ const rawGames: Game[] = [
     "id": "working-stiffs",
     "title": "Working Stiffs",
     "tags": [
-      "Casual"
+      "Idle"
     ],
     "thumbnail": "/games/img/workingstiffs.jpg",
     "url": "/games/swf/workingstiffs/game/base.html"
@@ -3152,7 +3141,7 @@ const rawGames: Game[] = [
     "id": "world-s-hardest-game",
     "title": "World's Hardest Game",
     "tags": [
-      "Casual"
+      "Puzzle"
     ],
     "thumbnail": "/games/img/whg.webp",
     "url": "/games/html/worlds-hardest-game/game/index.html"
@@ -3179,7 +3168,7 @@ const rawGames: Game[] = [
     "id": "xx142-b2exe",
     "title": "Xx142-b2exe",
     "tags": [
-      "Casual"
+      "Shooter"
     ],
     "thumbnail": "/games/img/xx.png",
     "url": "/games/html/xx142-b2exe/game/index.html"

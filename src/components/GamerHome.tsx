@@ -13,8 +13,14 @@ import { games } from "@/data/games";
 import fallbackThumbnail from "@/assets/thumbnails/_fallback.png";
 import { DiscoveryFeed } from '@/components/rewards/DiscoveryFeed';
 
-const HERO_GAME_IDS = ["slope", "retro-bowl", "smash-karts", "1v1-lol", "geometry-dash", "moto-x3m"];
-const HOT_GAME_IDS  = ["bitlife", "fnaf", "tunnel-rush", "drift-boss", "cookie-clicker", "temple-run-2", "basketball-stars", "bloxorz", "idle-breakout", "drive-mad", "soccer-random", "among-us"];
+// Pick one representative game per category for the hero grid
+const HERO_CATEGORIES = ["Platformer", "Action", "Racing", "Sports", "Shooter", "Multiplayer"];
+// Curated hot games — one per major category for variety
+const HOT_GAME_IDS = [
+  "bitlife", "fnaf", "tunnel-rush", "drift-boss", "cookie-clicker", "temple-run-2",
+  "basketball-stars", "bloxorz", "idle-breakout", "drive-mad", "soccer-random", "among-us",
+  "geometry-dash", "1v1-lol", "retro-bowl", "slope",
+];
 
 export const GamerHome = () => {
   const { prefs } = useUserPrefs();
@@ -32,8 +38,9 @@ export const GamerHome = () => {
 
   const validGames = games.filter(g => !g.tags.includes("blocked"));
 
-  const heroGames = HERO_GAME_IDS
-    .map(id => validGames.find(g => g.id === id))
+  // Hero grid: one game per category, picked dynamically
+  const heroGames = HERO_CATEGORIES
+    .map(cat => validGames.find(g => g.tags.includes(cat)))
     .filter(Boolean) as typeof games;
 
   const hotGames = HOT_GAME_IDS
@@ -50,11 +57,11 @@ export const GamerHome = () => {
     .filter(Boolean) as typeof games;
 
   useEffect(() => {
-    const popular = validGames.filter(g => g.tags.includes('popular') || g.tags.includes('featured'));
-    if (popular.length > 0) setFeaturedGame(popular[Math.floor(Math.random() * popular.length)]);
-    const iv = setInterval(() => {
-      if (popular.length > 0) setFeaturedGame(popular[Math.floor(Math.random() * popular.length)]);
-    }, 8000);
+    // Rotate through the hot games list as featured
+    const pool = hotGames.length > 0 ? hotGames : validGames.slice(0, 20);
+    const pick = () => pool[Math.floor(Math.random() * pool.length)];
+    setFeaturedGame(pick());
+    const iv = setInterval(() => setFeaturedGame(pick()), 8000);
     return () => clearInterval(iv);
   }, []);
 
@@ -173,13 +180,18 @@ export const GamerHome = () => {
         {/* quick category nav */}
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
           {[
-            { label: "All Games",   href: "/games",                       icon: Gamepad2, color: "text-white" },
-            { label: "Action",      href: "/games?category=action",       icon: Zap,      color: "text-red-400" },
-            { label: "Racing",      href: "/games?category=racing",       icon: Trophy,   color: "text-blue-400" },
-            { label: "Sports",      href: "/games?category=sports",       icon: Trophy,   color: "text-green-400" },
-            { label: "Casual",      href: "/games?category=casual",       icon: Sparkles, color: "text-yellow-400" },
-            { label: "Multiplayer", href: "/games?category=multiplayer",  icon: Users,    color: "text-pink-400" },
-            { label: "Puzzle",      href: "/games?category=puzzle",       icon: Sparkles, color: "text-purple-400" },
+            { label: "All Games",   href: "/games",                          icon: Gamepad2, color: "text-white" },
+            { label: "Platformer",  href: "/games?category=platformer",      icon: Zap,      color: "text-cyan-400" },
+            { label: "Action",      href: "/games?category=action",          icon: Zap,      color: "text-red-400" },
+            { label: "Puzzle",      href: "/games?category=puzzle",          icon: Sparkles, color: "text-purple-400" },
+            { label: "Racing",      href: "/games?category=racing",          icon: Trophy,   color: "text-blue-400" },
+            { label: "Sports",      href: "/games?category=sports",          icon: Trophy,   color: "text-green-400" },
+            { label: "Horror",      href: "/games?category=horror",          icon: Sparkles, color: "text-red-600" },
+            { label: "Simulation",  href: "/games?category=simulation",      icon: Sparkles, color: "text-amber-400" },
+            { label: "Idle",        href: "/games?category=idle",            icon: Sparkles, color: "text-lime-400" },
+            { label: "Multiplayer", href: "/games?category=multiplayer",     icon: Users,    color: "text-pink-400" },
+            { label: "RPG",         href: "/games?category=rpg",             icon: Sparkles, color: "text-orange-400" },
+            { label: "Arcade",      href: "/games?category=arcade",          icon: Gamepad2, color: "text-yellow-400" },
           ].map(cat => (
             <Link
               key={cat.label}
