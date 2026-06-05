@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Search, Gamepad2, Download, TrendingUp } from "lucide-react";
 import { games, type Game } from "@/data/games";
-import fallbackThumbnail from "@/assets/thumbnails/_fallback.png";
+import { GameIcon } from "./GameIcon";
 import { Input } from "./ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 import { Badge } from "./ui/badge";
@@ -199,13 +199,8 @@ const GameCard: React.FC<GameCardProps> = ({ game, playCount }) => {
       to={`/games/${game.id}`}
       className="group block bg-[#1E1E24]/80 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_4px_20px_rgba(59,130,246,0.12)] transition-colors duration-200"
     >
-      <div className="aspect-[4/3] relative overflow-hidden bg-slate-900">
-        <img
-          src={game.thumbnail || fallbackThumbnail}
-          alt={game.title}
-          loading="lazy"
-          className="w-full h-full object-cover"
-        />
+      <div className="aspect-[4/3] relative overflow-hidden">
+        <GameIcon id={game.id} title={game.title} className="w-full h-full text-4xl rounded-t-2xl" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
           <span className="text-white font-bold text-sm bg-blue-600/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
             Play Now

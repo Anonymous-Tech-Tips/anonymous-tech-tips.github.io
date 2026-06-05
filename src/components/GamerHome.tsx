@@ -10,7 +10,7 @@ import { TopBannerAd, InContentAd, BottomAd } from "@/components/GoogleAd";
 import { DailyReward } from "@/components/DailyReward";
 import FriendsGallery from "@/components/FriendsGallery";
 import { games } from "@/data/games";
-import fallbackThumbnail from "@/assets/thumbnails/_fallback.png";
+import { GameIcon } from "./GameIcon";
 import { DiscoveryFeed } from '@/components/rewards/DiscoveryFeed';
 
 // Pick one representative game per category for the hero grid
@@ -116,7 +116,7 @@ export const GamerHome = () => {
                       onClick={() => { navigate(`/games/${game.id}`); setSearchQuery(""); }}
                       className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-white/5 transition-colors text-left"
                     >
-                      <img src={game.thumbnail || fallbackThumbnail} alt={game.title} className="w-9 h-9 rounded-lg object-cover flex-shrink-0" />
+                      <GameIcon id={game.id} title={game.title} className="w-9 h-9 rounded-lg flex-shrink-0 text-lg" />
                       <div>
                         <div className="font-semibold text-white text-sm">{game.title}</div>
                         <div className="text-[10px] text-slate-500 uppercase">{game.tags[0]}</div>
@@ -135,11 +135,7 @@ export const GamerHome = () => {
               onClick={() => navigate(`/games/${featuredGame?.id}`)}
               className="lg:col-span-2 relative aspect-[16/9] rounded-2xl overflow-hidden cursor-pointer group"
             >
-              <img
-                src={featuredGame?.thumbnail || fallbackThumbnail}
-                alt={featuredGame?.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              {featuredGame && <GameIcon id={featuredGame.id} title={featuredGame.title} className="absolute inset-0 w-full h-full text-7xl" />}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
               <div className="absolute top-3 left-3">
                 <span className="flex items-center gap-1.5 px-2.5 py-1 bg-yellow-500 text-black text-[10px] font-black uppercase tracking-wider rounded-full">
@@ -162,7 +158,7 @@ export const GamerHome = () => {
                   to={`/games/${game.id}`}
                   className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-white/5 hover:border-blue-500/50 transition-colors"
                 >
-                  <img src={game.thumbnail || fallbackThumbnail} alt={game.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                   <div className="absolute bottom-1.5 left-2 right-2">
                     <div className="text-[10px] font-bold text-white truncate">{game.title}</div>
@@ -215,7 +211,7 @@ export const GamerHome = () => {
                   onClick={() => navigate(`/games/${game.id}`)}
                   className="flex-shrink-0 flex items-center gap-3 px-3 py-2 bg-[#12121e] border-l-2 border-yellow-500 rounded-r-xl hover:bg-[#1a1a2e] transition-colors w-44"
                 >
-                  <img src={game.thumbnail || fallbackThumbnail} className="w-10 h-10 rounded-lg object-cover flex-shrink-0" alt={game.title} />
+                  <GameIcon id={game.id} title={game.title} className="w-10 h-10 rounded-lg flex-shrink-0 text-lg" />
                   <div className="overflow-hidden text-left">
                     <div className="text-xs font-bold truncate text-white">{game.title}</div>
                     <div className="text-[9px] text-white/40 uppercase tracking-wide">Instant</div>
@@ -334,15 +330,8 @@ const GameCard = ({ game, small }: { game: any; small?: boolean }) => (
     className="block group bg-[#10101c] border border-white/5 rounded-xl overflow-hidden hover:border-blue-500/40 transition-colors"
     style={{ contentVisibility: 'auto', containIntrinsicSize: `0 ${small ? '100px' : '120px'}` } as React.CSSProperties}
   >
-    <div className="aspect-[4/3] overflow-hidden bg-slate-900">
-      <img
-        src={game.thumbnail || fallbackThumbnail}
-        alt={game.title}
-        loading="lazy"
-        width={small ? 140 : 180}
-        height={small ? 105 : 135}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-      />
+    <div className="aspect-[4/3] overflow-hidden">
+      <GameIcon id={game.id} title={game.title} className={`w-full h-full ${small ? 'text-2xl' : 'text-3xl'}`} />
     </div>
     <div className={`${small ? 'p-1.5' : 'p-2'}`}>
       <div className={`font-bold text-slate-100 truncate ${small ? 'text-[9px]' : 'text-[11px]'}`}>{game.title}</div>

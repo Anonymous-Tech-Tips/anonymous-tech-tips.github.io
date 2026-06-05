@@ -18,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Save, Wifi, BookOpen, CheckCircle2, Lock } from 'lucide-react';
 import { toast } from 'sonner';
+import { GameIcon } from '@/components/GameIcon';
 
 export default function GameDetailPage() {
   const { id } = useParams(); // id === slug/id in games.ts
@@ -98,12 +99,10 @@ export default function GameDetailPage() {
         title={`${game.title} — Tech Tips`}
         description={`${game.title} - Play this ${game.tags.join(", ")} game for free!`}
         canonical={canonical(`/games/${game.id}`)}
-        ogImage={game.thumbnail}
         gameData={{
           name: game.title,
           genre: game.tags || [],
           url: canonical(`/games/${game.id}`),
-          image: game.thumbnail
         }}
       />
 
@@ -135,11 +134,7 @@ export default function GameDetailPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <img
-                  src={game.thumbnail}
-                  alt={game.title}
-                  className="rounded-lg mb-4 aspect-[4/3] object-cover w-full max-h-96"
-                />
+                <GameIcon id={game.id} title={game.title} className="rounded-lg mb-4 aspect-[4/3] w-full max-h-96 text-8xl" />
                 <p className={isDarkTheme ? "text-slate-300 mb-4" : "text-slate-600 mb-4"}>
                   Play {game.title} - A {game.tags.join(", ")} game. Test your skills and have fun!
                 </p>
