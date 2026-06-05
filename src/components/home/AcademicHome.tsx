@@ -54,16 +54,16 @@ export const AcademicHome: React.FC = () => {
             <SubjectTips />
 
             {/* --- TEST PREP HUB --- */}
-            <div id="test-prep"><TestPrepSection /></div>
+            <div id="test-prep" style={{ scrollMarginTop: '72px' }}><TestPrepSection /></div>
 
             {/* --- WRITING & RESEARCH --- */}
-            <div id="writing"><WritingResearchSection /></div>
+            <div id="writing" style={{ scrollMarginTop: '72px' }}><WritingResearchSection /></div>
 
             {/* --- COLLEGE & CAREER --- */}
-            <div id="college"><CollegeCareerSection /></div>
+            <div id="college" style={{ scrollMarginTop: '72px' }}><CollegeCareerSection /></div>
 
             {/* --- STUDENT WELLNESS --- */}
-            <div id="wellness"><StudentWellnessSection /></div>
+            <div id="wellness" style={{ scrollMarginTop: '72px' }}><StudentWellnessSection /></div>
 
             {/* --- PC OPTIMIZATION --- */}
             <PcOptimization />
