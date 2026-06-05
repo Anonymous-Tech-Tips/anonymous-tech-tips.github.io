@@ -1,10 +1,13 @@
-// src/utils/openGameSandbox.ts
-
 import { resolveAssetUrl } from './assetUrl';
 
-const GAMES_BASE = (import.meta.env.VITE_GAMES_BASE as string) || '';
-
 export { resolveAssetUrl };
+
+// Resolve sandbox.html relative to the current page URL (strips hash first),
+// so it works on any origin/subpath without build-time baking.
+function sandboxUrl(): string {
+  const base = window.location.href.split('#')[0];
+  return new URL('./sandbox.html', base).href;
+}
 
 export function openSmart(url: string, forceRedirect: boolean = false) {
   if (!url || url === "#") return;
@@ -15,8 +18,7 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
   if (!win) return;
 
   // STRATEGY A: DIRECT REDIRECT (For Miruro, Netflix, Disney+)
-  // We can't hide the URL here because these sites block iframes.
-  // But we CAN strip the referrer so they don't know the traffic came from you.
+  // Strip referrer so destination doesn't know traffic origin.
   if (forceRedirect) {
     win.document.write(`
       <!DOCTYPE html>
@@ -27,7 +29,6 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
             <p>Establishing secure connection...</p>
           </div>
           <script>
-            // The "noreferrer" reset
             window.opener = null;
             window.location.replace("${url}");
           </script>
@@ -36,11 +37,10 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
     `);
   }
 
-  // STRATEGY B: THE "BLACK BOX" CLOAK (For Slides, Games, Proxies)
-  // We use a dedicated sandbox file to ensure the origin is correct (localhost/domain)
-  // This fixes issues with TurboWarp/Cloud Data blocking 'about:blank' (null origin).
+  // STRATEGY B: SAME-ORIGIN SANDBOX (For games, proxies)
+  // sandbox.html is served from the same origin — no cross-origin requests.
   else {
-    win.location.href = `${GAMES_BASE}/sandbox.html?url=${encodeURIComponent(url)}`;
+    win.location.href = `${sandboxUrl()}?url=${encodeURIComponent(url)}`;
   }
   win.document.close();
 }
