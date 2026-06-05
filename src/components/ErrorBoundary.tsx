@@ -42,12 +42,14 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private handleReset = () => {
     this.setState({ hasError: false, error: undefined, errorInfo: undefined, copied: false });
-    const basePath = import.meta.env.BASE_URL || "/";
-    window.location.href = `${basePath}#/`;
+    // Navigate to index.html explicitly so it works on GCS (root / shows bucket XML)
+    const path = window.location.pathname.replace(/index\.html$/, '');
+    window.location.href = `${path}index.html#/`;
   };
 
   private handleReload = () => {
-    window.location.reload();
+    // Hard navigate instead of reload — bypasses stale service worker cache
+    window.location.href = window.location.href;
   };
 
   private copyErrorDetails = async () => {
