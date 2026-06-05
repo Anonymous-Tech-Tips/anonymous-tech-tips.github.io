@@ -72,13 +72,13 @@ export function DailyReward({ streakCount }: DailyRewardProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/75 z-[100] flex items-center justify-center p-4"
         >
           <motion.div
-            initial={{ scale: 0.5, rotateY: 180 }}
-            animate={{ scale: 1, rotateY: 0 }}
-            exit={{ scale: 0.5, rotateY: -180 }}
-            transition={{ type: "spring", duration: 0.8 }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             <Card className="bg-gradient-to-br from-gamer-card to-gamer-bg border-2 border-gamer-accent p-8 max-w-md relative">
               <button
@@ -90,20 +90,9 @@ export function DailyReward({ streakCount }: DailyRewardProps) {
 
               {!claimed ? (
                 <div className="text-center space-y-6">
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 10, -10, 0]
-                    }}
-                    transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                    className="text-8xl"
-                  >
+                  <div className="text-8xl select-none">
                     {getRewardEmoji()}
-                  </motion.div>
+                  </div>
 
                   <div>
                     <h2 className="text-2xl font-rowdies font-bold text-gamer-text mb-2">

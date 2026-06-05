@@ -284,7 +284,7 @@ const rawGames: Game[] = [
       "Strategy"
     ],
     "thumbnail": "/games/img/2048.png",
-    "url": "/games/html/2048-master/index.html"
+    "url": "/games/html/2048-master/game/2048-master/index.html"
   },
   {
     "id": "flappy-bird",

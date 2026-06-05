@@ -7,6 +7,21 @@ export const useRewardEffects = () => {
   const { prefs, setSetting } = useUserPrefs();
 
   const activeTheme = prefs.settings.activeTheme;
+  const hasStealthTab = purchases.includes('stealth-tab') || purchases.includes('vip-status');
+
+  // Stealth tab: Escape key toggles document.title to "Google Classroom"
+  useEffect(() => {
+    if (!hasStealthTab) return;
+    let stealthActive = false;
+    const originalTitle = document.title;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      stealthActive = !stealthActive;
+      document.title = stealthActive ? 'Google Classroom' : originalTitle;
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [hasStealthTab]);
 
   useEffect(() => {
     // Remove all purchased theme classes first
@@ -150,6 +165,8 @@ export const useRewardEffects = () => {
     hasVictorySounds: purchases.includes('victory-sounds') || purchases.includes('vip-status'),
 
     // Special
+    hasStealthTab,
+    hasExtendedHistory: purchases.includes('extended-history') || purchases.includes('vip-status'),
     hasGameRequest: purchases.includes('game-request') || purchases.includes('vip-status'),
     hasSecretGame: purchases.includes('secret-game') || purchases.includes('vip-status'),
     hasMysteryBox: purchases.includes('mystery-box'),

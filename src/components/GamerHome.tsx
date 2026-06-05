@@ -20,9 +20,11 @@ export const GamerHome = () => {
   const { prefs } = useUserPrefs();
   const { purchases, progress, getCurrentRank } = useProgression();
   const navigate = useNavigate();
-  const hasQuickLaunch   = purchases.includes('quick-launch-slots');
-  const hasDiscoveryFeed = purchases.includes('discovery-feed');
-  const hasHistoryTracker = purchases.includes('recently-played-tracker');
+  const hasQuickLaunch    = purchases.includes('quick-launch-slots') || purchases.includes('vip-status');
+  const hasDiscoveryFeed  = purchases.includes('discovery-feed') || purchases.includes('vip-status');
+  const hasHistoryTracker = purchases.includes('recently-played-tracker') || purchases.includes('vip-status');
+  const hasExtendedHistory = purchases.includes('extended-history') || purchases.includes('vip-status');
+  const historyLimit = hasExtendedHistory ? 50 : hasHistoryTracker ? 16 : 6;
   const currentRank = getCurrentRank();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -217,7 +219,7 @@ export const GamerHome = () => {
           <section className="space-y-4">
             <SectionHeader icon={<Clock size={16} className="text-blue-400" />} title="Jump Back In" href="/games" color="text-blue-400" />
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5">
-              {continueItems.slice(0, hasHistoryTracker ? 16 : 6).map(game => (
+              {continueItems.slice(0, historyLimit).map(game => (
                 <GameCard key={game.id} game={game} />
               ))}
               {!hasHistoryTracker && continueItems.length > 6 && (
