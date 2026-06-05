@@ -48,8 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleReload = () => {
-    // Hard navigate instead of reload — bypasses stale service worker cache
-    window.location.href = window.location.href;
+    window.location.reload();
   };
 
   private copyErrorDetails = async () => {
