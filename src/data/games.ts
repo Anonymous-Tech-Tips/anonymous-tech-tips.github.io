@@ -520,33 +520,6 @@ const rawGames: Game[] = [
     "url": "/games/html/babel tower/game/index.html"
   },
   {
-    "id": "bad-icecream",
-    "title": "Bad Icecream",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/bad-ice-cream.webp",
-    "url": "/games/html/bad-ice-cream/game/index.html"
-  },
-  {
-    "id": "bad-icecream-2",
-    "title": "Bad Icecream 2",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/bad-ice-cream-2.webp",
-    "url": "/games/html/bad-ice-cream-2/game/index.html"
-  },
-  {
-    "id": "bad-icecream-3",
-    "title": "Bad Icecream 3",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/bad-ice-cream-3.webp",
-    "url": "/games/html/bad-ice-cream-3/game/index.html"
-  },
-  {
     "id": "baldis-basics",
     "title": "Baldis Basics",
     "tags": [
