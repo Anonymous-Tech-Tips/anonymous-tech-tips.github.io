@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, ArrowLeft, GraduationCap, Shield, BookOpen } from "lucide-react";
+import { trackLoginAttempt, trackLoginSuccess, trackLoginFailure } from "@/utils/analytics";
 import { motion } from "framer-motion";
 
 const LoginPage = () => {
@@ -27,12 +28,15 @@ const LoginPage = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
+    trackLoginAttempt();
 
     const result = await login(email, password);
 
     if (result.success) {
+      trackLoginSuccess();
       navigate("/");
     } else {
+      trackLoginFailure(result.error || "unknown");
       setError(result.error || "Login failed");
       setLoading(false);
     }

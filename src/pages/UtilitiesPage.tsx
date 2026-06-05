@@ -14,7 +14,6 @@ const UtilitiesPage = () => {
   // Premium utilities for logged-in users
   const premiumUtilities: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr"; cloakedUrl?: string; highlight?: boolean }> = [
     { text: "❄️ Snow Day Predictor", url: "https://docs.google.com/spreadsheets/d/1VULC1vySGCZNfaU6XuQ4-u5IEsL-s0s2wzWM6TgPZPs/edit?usp=sharing" },
-    { text: "🔓 Unblocker", url: "https://uvrays.synology.me:8443/", highlight: true },
   ];
 
   // Privacy & Security (consolidated)

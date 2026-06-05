@@ -21,6 +21,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import utilitiesData from "@/data/utilities.json";
 import { ShareButton } from "@/components/ShareButton";
+import { trackUtilityOpen } from "@/utils/analytics";
 import { SEO } from "@/components/SEO";
 import { canonical } from "@/lib/paths";
 
@@ -39,8 +40,8 @@ const UtilityDetailPage: React.FC<UtilityDetailPageProps> = () => {
     const foundUtility = utilitiesData.find(u => u.id === id);
     if (foundUtility) {
       setUtility(foundUtility);
-      // Record utility view in history
       pushHistory(foundUtility.id, 'utility');
+      trackUtilityOpen(foundUtility.id, foundUtility.name);
     }
   }, [id, pushHistory]);
 

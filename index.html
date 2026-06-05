@@ -79,7 +79,10 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'G-ZK2HTR5J4R');
+    gtag('config', 'G-ZK2HTR5J4R', {
+      send_page_view: false,
+      cookie_flags: 'SameSite=None;Secure'
+    });
   </script>
 </head>
 

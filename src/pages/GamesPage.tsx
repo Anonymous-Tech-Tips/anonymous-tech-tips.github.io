@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useSearchParams } from "react-router-dom";
 import { games } from "@/data/games";
 import fallback from "@/assets/thumbnails/_fallback.png";
+import { trackSearch, trackCategoryFilter, trackLoadMore } from "@/utils/analytics";
 
 const GamesPage = () => {
   const [searchParams] = useSearchParams();
@@ -76,6 +77,13 @@ const GamesPage = () => {
 
   useEffect(() => { setVisibleCount(PAGE_SIZE); }, [searchQuery, activeCategory, sortBy]);
 
+  // Track search with debounce
+  useEffect(() => {
+    if (!searchQuery) return;
+    const t = setTimeout(() => trackSearch(searchQuery, filteredGames.length), 600);
+    return () => clearTimeout(t);
+  }, [searchQuery, filteredGames.length]);
+
   const visibleGames = filteredGames.slice(0, visibleCount);
 
   const categories = [
@@ -137,7 +145,7 @@ const GamesPage = () => {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => { setActiveCategory(cat.id); trackCategoryFilter(cat.id); }}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-300 font-medium border ${activeCategory === cat.id
                   ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-900/40"
                   : "bg-[#1E1E24]/80 backdrop-blur-md border-slate-800/80 text-slate-400 hover:bg-slate-800 hover:text-white"
@@ -185,7 +193,7 @@ const GamesPage = () => {
             {visibleCount < filteredGames.length && (
               <div className="text-center mt-8">
                 <button
-                  onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                  onClick={() => { const next = visibleCount + PAGE_SIZE; setVisibleCount(next); trackLoadMore(Math.floor(next / PAGE_SIZE), next); }}
                   className="px-8 py-3 bg-[#1E1E24] border border-slate-700 text-slate-300 rounded-xl hover:border-blue-500 hover:text-blue-400 transition-colors font-medium"
                 >
                   Load More ({filteredGames.length - visibleCount} remaining)

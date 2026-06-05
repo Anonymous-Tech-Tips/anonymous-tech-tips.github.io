@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2, AlertTriangle, Sparkles, Shield, Clock, CalendarDays, Server } from "lucide-react";
+import { trackSnowDayDistrict, trackSnowDayDayChange } from "@/utils/analytics";
 import { motion, AnimatePresence } from "framer-motion";
 import { FallingSnow } from "@/components/FallingSnow";
 
@@ -172,7 +173,7 @@ export const SnowDayPredictor = () => {
                             <span className="text-white/50 mr-2 text-[10px] font-bold uppercase tracking-widest">District</span>
                             <Select
                                 value={selectedDistrict.id}
-                                onValueChange={(id) => setSelectedDistrict(DISTRICTS.find(d => d.id === id) || DISTRICTS[0])}
+                                onValueChange={(id) => { setSelectedDistrict(DISTRICTS.find(d => d.id === id) || DISTRICTS[0]); trackSnowDayDistrict(id); }}
                             >
                                 <SelectTrigger className="bg-transparent border-none text-white font-bold text-base w-full focus:ring-0 shadow-none">
                                     <SelectValue />
@@ -185,7 +186,7 @@ export const SnowDayPredictor = () => {
                             </Select>
                         </div>
 
-                        <Select value={dayIndex.toString()} onValueChange={(v) => setDayIndex(parseInt(v))}>
+                        <Select value={dayIndex.toString()} onValueChange={(v) => { const i = parseInt(v); setDayIndex(i); trackSnowDayDayChange(i, districtForecasts[i]?.label || v); }}>
                             <SelectTrigger className="w-full md:w-64 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold rounded-xl h-auto py-3">
                                 <div className="flex items-center gap-2">
                                     <CalendarDays className="w-4 h-4 text-indigo-300" />
