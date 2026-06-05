@@ -171,13 +171,13 @@ export const GamerHome = () => {
         {/* quick category nav */}
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
           {[
-            { label: "All Games", href: "/games", icon: Gamepad2, color: "text-white" },
-            { label: "Action",    href: "/games?category=action",     icon: Zap,       color: "text-red-400" },
-            { label: "Racing",    href: "/games?category=racing",     icon: Trophy,    color: "text-blue-400" },
-            { label: "Sports",    href: "/games?category=sports",     icon: Trophy,    color: "text-green-400" },
-            { label: "Casual",    href: "/games?category=casual",     icon: Sparkles,  color: "text-yellow-400" },
-            { label: "Multiplayer", href: "/games?category=multiplayer", icon: Users, color: "text-pink-400" },
-            { label: "Blocked",   href: "/games?category=blocked",    icon: Zap,       color: "text-orange-400" },
+            { label: "All Games",   href: "/games",                       icon: Gamepad2, color: "text-white" },
+            { label: "Action",      href: "/games?category=action",       icon: Zap,      color: "text-red-400" },
+            { label: "Racing",      href: "/games?category=racing",       icon: Trophy,   color: "text-blue-400" },
+            { label: "Sports",      href: "/games?category=sports",       icon: Trophy,   color: "text-green-400" },
+            { label: "Casual",      href: "/games?category=casual",       icon: Sparkles, color: "text-yellow-400" },
+            { label: "Multiplayer", href: "/games?category=multiplayer",  icon: Users,    color: "text-pink-400" },
+            { label: "Puzzle",      href: "/games?category=puzzle",       icon: Sparkles, color: "text-purple-400" },
           ].map(cat => (
             <Link
               key={cat.label}
