@@ -40,9 +40,10 @@ export const Navbar: React.FC = () => {
         { label: "Utilities", href: "/utilities", requiresAuth: true, isRoute: true },
       ]
       : [
-        { label: "Utilities", href: "#utilities", isRoute: false },
-        { label: "PC Optimizations", href: "#pc-optimizations", isRoute: false },
-        { label: "Education", href: "#education", isRoute: false },
+        { label: "Test Prep", href: "#test-prep", isRoute: false },
+        { label: "Writing", href: "#writing", isRoute: false },
+        { label: "College", href: "#college", isRoute: false },
+        { label: "Wellness", href: "#wellness", isRoute: false },
       ]
     ),
   ];
@@ -181,7 +182,7 @@ export const Navbar: React.FC = () => {
           >
             {navLinks.map((link) => {
               if (link.requiresAuth && !isAuthenticated) return null;
-              return (
+              return link.isRoute ? (
                 <Link
                   key={link.href}
                   to={link.href}
@@ -190,6 +191,15 @@ export const Navbar: React.FC = () => {
                 >
                   {link.label}
                 </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-2xl font-bold tracking-tight hover:opacity-50 transition-opacity"
+                >
+                  {link.label}
+                </a>
               );
             })}
 
