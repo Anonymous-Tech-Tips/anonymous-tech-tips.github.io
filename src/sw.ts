@@ -8,7 +8,7 @@ import { clientsClaim } from 'workbox-core';
 declare const self: ServiceWorkerGlobalScope;
 
 // Cache version - increment this with each deployment
-const CACHE_VERSION = 'v9';
+const CACHE_VERSION = 'v10';
 
 // Skip waiting on install - take over immediately
 self.skipWaiting();
