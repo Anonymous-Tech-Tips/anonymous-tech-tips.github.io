@@ -12,7 +12,7 @@ const SEOSetupPage = () => {
   const [verificationCode, setVerificationCode] = useState("");
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  const siteUrl = "https://anonymous-tech-tips.github.io";
+  const siteUrl = window.location.origin;
   const sitemapUrl = `${siteUrl}/sitemap.xml`;
   const robotsUrl = `${siteUrl}/robots.txt`;
 

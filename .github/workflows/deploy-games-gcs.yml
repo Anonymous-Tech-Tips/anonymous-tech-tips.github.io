@@ -1,0 +1,40 @@
+name: Deploy Games to GCS (Run Once Per Game Update)
+
+# Run manually from GitHub Actions tab → "Run workflow"
+# Only needed when games are ADDED or UPDATED — not on every push.
+# Regular app deployments (deploy-gcs.yml) do not re-upload game files.
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type DEPLOY to confirm (game upload takes ~10-20 minutes)'
+        required: true
+
+jobs:
+  deploy-games-gcs:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm == 'DEPLOY'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Verify game files exist
+        run: |
+          echo "Game directories found:"
+          ls public/games/html/ | head -20
+          echo "..."
+          echo "Total game size:"
+          du -sh public/games/
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Sync games to GCS
+        run: |
+          gcloud storage rsync public/games/ gs://anonymous-tech-tips/games/ --recursive

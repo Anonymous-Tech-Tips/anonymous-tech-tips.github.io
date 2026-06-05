@@ -22,7 +22,7 @@ jobs:
       - name: Build (with GCS game base URL)
         run: npm run build
         env:
-          VITE_GAMES_BASE: https://anonymous-tech-tips.github.io
+          VITE_GAMES_BASE: https://storage.googleapis.com/anonymous-tech-tips
 
       - name: Prerender pages
         run: npx tsx scripts/prerender.ts
