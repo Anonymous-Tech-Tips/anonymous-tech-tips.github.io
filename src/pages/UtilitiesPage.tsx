@@ -10,9 +10,6 @@ import { TopBannerAd, BottomAd, InContentAd } from "@/components/GoogleAd";
 const UtilitiesPage = () => {
   const { isAuthenticated } = useAuth();
 
-  // Premium utilities for logged-in users
-  const premiumUtilities: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr"; cloakedUrl?: string; highlight?: boolean }> = [];
-
   // Privacy & Security (consolidated)
   const privacySecurity: Array<{ text: string; url?: string }> = [
     { text: "🛡️ uBlock Origin - Best Adblocker", url: "https://ublockorigin.com/" },
@@ -28,13 +25,6 @@ const UtilitiesPage = () => {
   ];
 
 
-
-  // Productivity & Tools (Simplified)
-  const productivity: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr" }> = [];
-
-  // Public utilities (not logged in)
-  const publicItems: Array<{ text: string; url?: string; utility?: "password" | "color" | "text" | "qr"; cloakedUrl?: string }> = [
-  ];
 
   return (
     <>

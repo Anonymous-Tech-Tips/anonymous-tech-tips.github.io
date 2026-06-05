@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp } from 'firebase/firestore';
-import { X, Eraser, PenTool, MousePointer2 } from 'lucide-react';
+import { X, Eraser, PenTool } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface TacticalBoardProps {

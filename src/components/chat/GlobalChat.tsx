@@ -406,7 +406,6 @@ export const GlobalChat: React.FC = () => {
                                         newMessage={newMessage}
                                         setNewMessage={setNewMessage}
                                         onSendMessage={sendMessage}
-                                        onKeyDown={() => { }} // No-op, managed internally now
                                         isUploading={isUploading}
                                         isUpdating={isUpdating}
                                         isPublicRoom={isPublicRoom}

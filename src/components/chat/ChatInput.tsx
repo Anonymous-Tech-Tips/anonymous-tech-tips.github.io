@@ -6,7 +6,6 @@ interface ChatInputProps {
     newMessage: string;
     setNewMessage: (msg: string) => void;
     onSendMessage: (e: React.FormEvent, file?: File | null) => void;
-    onKeyDown: (e: React.KeyboardEvent) => void;
     isUploading: boolean;
     isUpdating: boolean;
     isPublicRoom: boolean;
@@ -17,7 +16,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     newMessage,
     setNewMessage,
     onSendMessage,
-    onKeyDown,
     isUploading,
     isUpdating,
     isPublicRoom,
