@@ -24,24 +24,30 @@ jobs:
         env:
           VITE_GAMES_BASE: https://anonymous-tech-tips.github.io
 
+      - name: Prerender pages
+        run: npx tsx scripts/prerender.ts
+
+      - name: Generate sitemap
+        run: npx tsx scripts/generate-sitemap.ts
+
+      - name: Copy public assets into dist
+        run: |
+          mkdir -p dist/img dist/games/img dist/data
+          cp -r public/img/* dist/img/ 2>/dev/null || true
+          cp -r public/games/img/* dist/games/img/ 2>/dev/null || true
+          cp -r public/data/* dist/data/ 2>/dev/null || true
+          cp public/sitemap.xml dist/ 2>/dev/null || true
+          cp public/*.png dist/ 2>/dev/null || true
+          cp public/*.ico dist/ 2>/dev/null || true
+          cp public/*.html dist/ 2>/dev/null || true
+          echo "Final dist size:"
+          du -sh dist/
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Upload app to GCS
-        uses: google-github-actions/upload-cloud-storage@v2
-        with:
-          path: dist
-          destination: anonymous-tech-tips
-          parent: false
-
-      - name: Upload sandbox + game thumbnails
+      - name: Sync dist to GCS
         run: |
-          gcloud storage cp public/sandbox.html gs://anonymous-tech-tips/sandbox.html
-          gcloud storage rsync public/games/img/ gs://anonymous-tech-tips/games/img/ --recursive
-
-      - name: Make bucket objects public
-        run: |
-          gcloud storage buckets add-iam-policy-binding gs://anonymous-tech-tips \
-            --member=allUsers --role=roles/storage.objectViewer 2>/dev/null || true
+          gcloud storage rsync dist/ gs://anonymous-tech-tips/ --recursive --delete-unmatched-destination-objects
