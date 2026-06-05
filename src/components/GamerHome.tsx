@@ -19,7 +19,7 @@ const HERO_CATEGORIES = ["Platformer", "Action", "Racing", "Sports", "Shooter", 
 const HOT_GAME_IDS = [
   "bitlife", "fnaf", "tunnel-rush", "drift-boss", "cookie-clicker", "temple-run-2",
   "basketball-stars", "bloxorz", "idle-breakout", "drive-mad", "soccer-random", "among-us",
-  "geometry-dash", "1v1-lol", "retro-bowl", "slope",
+  "geometry-dash", "retro-bowl", "slope", "moto-x3m",
 ];
 
 export const GamerHome = () => {

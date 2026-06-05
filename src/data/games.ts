@@ -23,15 +23,6 @@ const rawGames: Game[] = [
     "url": "/games/html/retrobowl/game/index.html"
   },
   {
-    "id": "1v1-lol",
-    "title": "1v1.LOL",
-    "tags": [
-      "Action"
-    ],
-    "thumbnail": "/games/img/1v1.webp",
-    "url": "/games/html/1v1space/game/index.html"
-  },
-  {
     "id": "fnaf",
     "title": "FNAF",
     "tags": [
@@ -258,15 +249,6 @@ const rawGames: Game[] = [
     "url": "/games/html/ovo/game/index.html"
   },
   {
-    "id": "wordle",
-    "title": "Wordle",
-    "tags": [
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/wordle.webp",
-    "url": "/games/html/wordle/game/index.html"
-  },
-  {
     "id": "2048",
     "title": "2048",
     "tags": [
@@ -274,15 +256,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/2048.png",
     "url": "/games/html/2048-master/game/2048-master/index.html"
-  },
-  {
-    "id": "flappy-bird",
-    "title": "Flappy Bird",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/FlappyBird.png",
-    "url": "/games/html/flappybird/game/index.html"
   },
   {
     "id": "getaway-shootout",
@@ -319,15 +292,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/100pong.webp",
     "url": "/games/html/100-player-pong/game/index.html"
-  },
-  {
-    "id": "1v1-space",
-    "title": "1v1 Space",
-    "tags": [
-      "Multiplayer"
-    ],
-    "thumbnail": "/games/img/1v1space.webp",
-    "url": "/games/html/1v1space/game/index.html"
   },
   {
     "id": "2048-multitask",
@@ -400,15 +364,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/capitolist.jpeg",
     "url": "/games/html/catpitolists/index.html"
-  },
-  {
-    "id": "afterlife",
-    "title": "Afterlife",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/afterlife.png",
-    "url": "/games/html/afterlife/game/afterlife.html"
   },
   {
     "id": "age-of-war",
@@ -644,15 +599,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/beam.png",
     "url": "/games/html/beam/game/index.html"
-  },
-  {
-    "id": "big-ice-tower-tiny-square",
-    "title": "Big Ice Tower Tiny Square",
-    "tags": [
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/bitts.png",
-    "url": "/games/html/bitts/game/index.html"
   },
   {
     "id": "big-tower-tiny-square",
@@ -1385,15 +1331,6 @@ const rawGames: Game[] = [
     "url": "/games/html/flappyplane/game/index.html"
   },
   {
-    "id": "flat-guys",
-    "title": "Flat Guys",
-    "tags": [
-      "Multiplayer"
-    ],
-    "thumbnail": "/games/img/flatguys.png",
-    "url": "/games/html/flatguys/game/flatguys.html"
-  },
-  {
     "id": "fleeing-the-complex",
     "title": "Fleeing The Complex",
     "tags": [
@@ -1845,15 +1782,6 @@ const rawGames: Game[] = [
     "url": "/games/html/learntofly/game/index.html"
   },
   {
-    "id": "ledegnd-of-zelda-maker",
-    "title": "Ledegnd Of Zelda Maker",
-    "tags": [
-      "Adventure"
-    ],
-    "thumbnail": "/games/img/lozmaker.png",
-    "url": "/games/html/lozmaker/game/lozmaker.html"
-  },
-  {
     "id": "life-in-the-static",
     "title": "Life In The Static",
     "tags": [
@@ -1942,15 +1870,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/mirror wizard.jpg",
     "url": "/games/html/mirror wizard/game/index.html"
-  },
-  {
-    "id": "monke",
-    "title": "Monke",
-    "tags": [
-      "Arcade"
-    ],
-    "thumbnail": "/games/img/monke.png",
-    "url": "/games/html/monke/game/monke.html"
   },
   {
     "id": "monkey-mart",
@@ -2287,24 +2206,6 @@ const rawGames: Game[] = [
     "url": "/games/html/Pixel Battles/game/index.html"
   },
   {
-    "id": "pixel-bear-adventure",
-    "title": "Pixel Bear Adventure",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/pixelbearadventure.png",
-    "url": "/games/html/pixelbearadventure/game/pixelbearadventure.html"
-  },
-  {
-    "id": "pixel-speedrun",
-    "title": "Pixel Speedrun",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/pixelspeedrun.png",
-    "url": "/games/html/pixelspeedrun/game/pixelspeedrun.html"
-  },
-  {
     "id": "pixoji",
     "title": "Pixoji",
     "tags": [
@@ -2312,15 +2213,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/pixoji.png",
     "url": "/games/html/pixoji/game/index.html"
-  },
-  {
-    "id": "pizza-challange",
-    "title": "Pizza Challange",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/pizzachallenge.png",
-    "url": "/games/html/pizzachallenge/game/pizzachallenge.html"
   },
   {
     "id": "planet-life",
@@ -2339,15 +2231,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/pvz2.jpg",
     "url": "/games/swf/pvz2/game/base.html"
-  },
-  {
-    "id": "pokemon-fire-red",
-    "title": "Pokemon Fire Red",
-    "tags": [
-      "RPG"
-    ],
-    "thumbnail": "/games/img/PokemonFireRed.webp",
-    "url": "/games/html/pokemonfirered/game/index.html"
   },
   {
     "id": "pong",
@@ -2411,15 +2294,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/raftwars.jpg",
     "url": "/games/swf/raftwars/game/base.html"
-  },
-  {
-    "id": "retro-speed",
-    "title": "Retro Speed",
-    "tags": [
-      "Arcade"
-    ],
-    "thumbnail": "/games/img/retro speed.png",
-    "url": "/games/html/retro speed/game/retro speed.html"
   },
   {
     "id": "retrohaunt",
@@ -2805,15 +2679,6 @@ const rawGames: Game[] = [
     "url": "/games/html/tactical weapon pack/game/index.html"
   },
   {
-    "id": "tank-trouble-2",
-    "title": "Tank Trouble 2",
-    "tags": [
-      "Action"
-    ],
-    "thumbnail": "/games/img/tank trouble 2.png",
-    "url": "/games/html/tank trouble 2.html"
-  },
-  {
     "id": "tanuki-sunset",
     "title": "Tanuki Sunset",
     "tags": [
@@ -3003,15 +2868,6 @@ const rawGames: Game[] = [
     "url": "/games/html/tough growth/game/index.html"
   },
   {
-    "id": "tower-defence",
-    "title": "Tower Defence",
-    "tags": [
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/towerdef.png",
-    "url": "/games/html/towerdef.html"
-  },
-  {
     "id": "tower-master",
     "title": "Tower Master",
     "tags": [
@@ -3172,15 +3028,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/xx.png",
     "url": "/games/html/xx142-b2exe/game/index.html"
-  },
-  {
-    "id": "yet-another-world",
-    "title": "Yet Another World",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/yetanotherworld.png",
-    "url": "/games/html/yetanotherworld.html"
   },
   {
     "id": "yoshi-fabricator",
