@@ -40,10 +40,10 @@ export const Navbar: React.FC = () => {
         { label: "Utilities", href: "/utilities", requiresAuth: true, isRoute: true },
       ]
       : [
-        { label: "Test Prep", href: "#test-prep", isRoute: false },
-        { label: "Writing", href: "#writing", isRoute: false },
-        { label: "College", href: "#college", isRoute: false },
-        { label: "Wellness", href: "#wellness", isRoute: false },
+        { label: "Test Prep", href: "test-prep", isRoute: false },
+        { label: "Writing", href: "writing", isRoute: false },
+        { label: "College", href: "college", isRoute: false },
+        { label: "Wellness", href: "wellness", isRoute: false },
       ]
     ),
   ];
@@ -92,14 +92,14 @@ export const Navbar: React.FC = () => {
                 )}
               </Link>
             ) : (
-              <a
+              <button
                 key={link.href}
-                href={link.href}
+                onClick={() => document.getElementById(link.href)?.scrollIntoView({ behavior: 'smooth' })}
                 className={`text-sm tracking-widest uppercase font-medium hover:opacity-100 transition-opacity ${isAuthenticated ? "text-white/60 hover:text-white" : "text-slate-500 hover:text-slate-900"
                   }`}
               >
                 {link.label}
-              </a>
+              </button>
             );
           })}
         </div>
@@ -192,14 +192,13 @@ export const Navbar: React.FC = () => {
                   {link.label}
                 </Link>
               ) : (
-                <a
+                <button
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-2xl font-bold tracking-tight hover:opacity-50 transition-opacity"
+                  onClick={() => { setIsMenuOpen(false); document.getElementById(link.href)?.scrollIntoView({ behavior: 'smooth' }); }}
+                  className="text-2xl font-bold tracking-tight hover:opacity-50 transition-opacity text-left"
                 >
                   {link.label}
-                </a>
+                </button>
               );
             })}
 
