@@ -37,4 +37,4 @@ jobs:
 
       - name: Sync games to GCS
         run: |
-          gcloud storage rsync public/games/ gs://anonymous-tech-tips/games/ --recursive
+          gcloud storage rsync public/games/ gs://study-portal-tools/games/ --recursive
