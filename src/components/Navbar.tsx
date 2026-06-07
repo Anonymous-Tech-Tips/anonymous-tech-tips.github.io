@@ -36,8 +36,6 @@ export const Navbar: React.FC = () => {
     ...(isAuthenticated
       ? [
         { label: "Modules", href: "/games", requiresAuth: true, isRoute: true },
-        { label: "Entertainment", href: "/entertainment", requiresAuth: true, isRoute: true },
-        { label: "Utilities", href: "/utilities", requiresAuth: true, isRoute: true },
       ]
       : [
         { label: "Test Prep", href: "test-prep", isRoute: false },

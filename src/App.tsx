@@ -29,8 +29,6 @@ const Index = lazy(() => import("./pages/Index"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const GamesPage = lazy(() => import("./pages/GamesPage"));
 const GameDetailPage = lazy(() => import("./pages/GameDetailPage"));
-const EntertainmentPage = lazy(() => import("./pages/EntertainmentPage"));
-const UtilitiesPage = lazy(() => import("./pages/UtilitiesPage"));
 const UtilityDetailPage = lazy(() => import("./pages/UtilityDetailPage"));
 const OptimizationsPage = lazy(() => import("./pages/OptimizationsPage"));
 const EducationPage = lazy(() => import("./pages/EducationPage"));
@@ -107,15 +105,14 @@ const AppContent = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/safe" element={<SafeModePage />} />
             <Route path="/games/:id" element={<ProtectedRoute><GameDetailPage /></ProtectedRoute>} />
-            <Route path="/utilities/:id" element={<ProtectedRoute><UtilityDetailPage /></ProtectedRoute>} />
+            {/* <Route path="/utilities/:id" element={<ProtectedRoute><UtilityDetailPage /></ProtectedRoute>} /> */}
 
             {/* Routes WITH Layout (navbar included) */}
             <Route element={<Layout />}>
               <Route index element={<Index />} />
               <Route path="/" element={<Index />} />
               <Route path="/games" element={<ProtectedRoute><GamesPage /></ProtectedRoute>} />
-              <Route path="/entertainment" element={<ProtectedRoute><EntertainmentPage /></ProtectedRoute>} />
-              <Route path="/utilities" element={<ProtectedRoute><UtilitiesPage /></ProtectedRoute>} />
+              {/* entertainment + utilities temporarily disabled */}
               <Route path="/optimizations" element={<ProtectedRoute><OptimizationsPage /></ProtectedRoute>} />
               <Route path="/education" element={<ProtectedRoute><EducationPage /></ProtectedRoute>} />
               <Route path="/links" element={<ProtectedRoute><LinksPage /></ProtectedRoute>} />
