@@ -222,7 +222,7 @@ const FastSearch: React.FC<FastSearchProps> = ({ isOpen, onClose }) => {
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search games, utilities, guides..."
+              placeholder="Search modules, utilities, guides..."
               className="pl-10 bg-gamer-bg border-gamer-border text-gamer-text placeholder-gamer-muted focus:border-gamer-accent focus:ring-gamer-accent"
               autoFocus
             />

@@ -103,7 +103,7 @@ export const GamerHome = () => {
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
               <input
                 type="text"
-                placeholder="Search games..."
+                placeholder="Search modules..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="w-full bg-white/5 border border-white/10 text-white placeholder-slate-500 rounded-xl h-10 pl-9 pr-3 text-sm focus:outline-none focus:border-blue-500/50 transition-colors"
@@ -145,7 +145,7 @@ export const GamerHome = () => {
               <div className="absolute bottom-5 left-5 right-5">
                 <h2 className="text-2xl sm:text-3xl font-black text-white mb-2 drop-shadow-lg">{featuredGame?.title}</h2>
                 <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-colors">
-                  <Play size={14} className="fill-white" /> Play Now
+                  <Play size={14} className="fill-white" /> Launch
                 </span>
               </div>
             </div>
@@ -176,7 +176,7 @@ export const GamerHome = () => {
         {/* quick category nav */}
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
           {[
-            { label: "All Games",   href: "/games",                          icon: Gamepad2, color: "text-white" },
+            { label: "All Modules", href: "/games",                          icon: Gamepad2, color: "text-white" },
             { label: "Platformer",  href: "/games?category=platformer",      icon: Zap,      color: "text-cyan-400" },
             { label: "Action",      href: "/games?category=action",          icon: Zap,      color: "text-red-400" },
             { label: "Puzzle",      href: "/games?category=puzzle",          icon: Sparkles, color: "text-purple-400" },
@@ -187,7 +187,7 @@ export const GamerHome = () => {
             { label: "Idle",        href: "/games?category=idle",            icon: Sparkles, color: "text-lime-400" },
             { label: "Multiplayer", href: "/games?category=multiplayer",     icon: Users,    color: "text-pink-400" },
             { label: "RPG",         href: "/games?category=rpg",             icon: Sparkles, color: "text-orange-400" },
-            { label: "Arcade",      href: "/games?category=arcade",          icon: Gamepad2, color: "text-yellow-400" },
+            { label: "Casual",      href: "/games?category=arcade",          icon: Gamepad2, color: "text-yellow-400" },
           ].map(cat => (
             <Link
               key={cat.label}
@@ -254,7 +254,7 @@ export const GamerHome = () => {
 
         {/* ALL GAMES CTA */}
         <section className="space-y-4">
-          <SectionHeader icon={<Gamepad2 size={16} className="text-purple-400" />} title={`All Games (${validGames.length})`} href="/games" color="text-purple-400" />
+          <SectionHeader icon={<Gamepad2 size={16} className="text-purple-400" />} title={`Catalog (${validGames.length})`} href="/games" color="text-purple-400" />
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2">
             {validGames.slice(0, 30).map(game => (
               <GameCard key={game.id} game={game} small />
@@ -264,7 +264,7 @@ export const GamerHome = () => {
             to="/games"
             className="flex items-center justify-center gap-2 w-full py-3 mt-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-colors"
           >
-            Browse All {validGames.length} Games <ArrowRight size={14} />
+            Browse All {validGames.length} Modules <ArrowRight size={14} />
           </Link>
         </section>
 

@@ -48,4 +48,4 @@ jobs:
 
       - name: Sync dist to GCS
         run: |
-          gcloud storage rsync dist/ gs://study-portal-tools/ --recursive --delete-unmatched-destination-objects --exclude="games/html/.*"
+          gcloud storage rsync dist/ gs://xktest-tmp-9q2/ --recursive --delete-unmatched-destination-objects --exclude="games/html/.*"

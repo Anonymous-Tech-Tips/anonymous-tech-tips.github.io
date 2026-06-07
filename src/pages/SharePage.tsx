@@ -31,22 +31,22 @@ const SharePage = () => {
   };
 
   const shareMessages = {
-    discord: `🎮 **Tech Tips - Best Unblocked Games Hub 2025**
-145+ games | Daily rewards | Zero downloads
+    discord: `**Tech Tips - Student Resource Hub 2025**
+145+ modules | Daily rewards | Zero downloads
 ${siteUrl}
 
 ✨ Features:
-• Instant play - no installs
+• Instant access - no installs
 • Privacy mode built-in
 • Streak rewards & points shop
 • Utilities & optimization tools
 
-Start playing now! 🚀`,
+Check it out! 🚀`,
 
-    docs: `Tech Tips - Unblocked Games Hub
+    docs: `Tech Tips - Student Resource Hub
 
-Play 145+ free browser games instantly:
-🎮 Popular titles: Slope, Retro Bowl, 2048, Basketball Legends
+Access 145+ interactive browser modules instantly:
+🖥️ Popular modules: Slope, Retro Bowl, 2048, Basketball Legends
 🛡️ Privacy features & safe mode
 🎁 Daily rewards & achievement system
 🔧 Bonus utilities & tech tools
@@ -55,13 +55,13 @@ Link: ${siteUrl}
 
 (Copy and paste this in your notes or share with friends!)`,
 
-    reddit: `I found this awesome unblocked games site with 145+ games and zero ads. Clean interface, privacy features, and they even have a rewards system.
+    reddit: `I found this awesome student resource site with 145+ browser modules and zero ads. Clean interface, privacy features, and they even have a rewards system.
 
 ${siteUrl}
 
-Perfect for quick gaming sessions. Thought you all might enjoy it!`,
+Perfect for study breaks. Thought you all might enjoy it!`,
 
-    casual: `Check out this games site I found! 145+ free browser games, no downloads, super clean. Has Slope, Retro Bowl, basketball games, and tons more.
+    casual: `Check out this resource site I found! 145+ free browser modules, no downloads, super clean. Has Slope, Retro Bowl, 2048, Basketball Legends, and tons more.
 
 ${siteUrl}`,
   };
@@ -74,9 +74,9 @@ ${siteUrl}`,
   return (
     <>
       <SEO
-        title="Share Tech Tips - Best Unblocked Games Hub"
+        title="Share Tech Tips - Student Resource Hub"
         description="Share Tech Tips with friends! Get QR codes, share messages, and bookmarklets for Discord, Google Docs, and more."
-        keywords="share games, unblocked games link, games hub share, qr code games"
+        keywords="share tech tips, resource hub share, qr code tools, student portal share"
       />
       <div className="min-h-screen bg-gamer-bg">
         <TopBannerAd />
@@ -90,7 +90,7 @@ ${siteUrl}`,
               </h1>
             </div>
             <p className="text-gamer-muted text-lg">
-              Help your friends discover the best unblocked games hub
+              Help your friends discover the best student resource hub
             </p>
           </div>
 

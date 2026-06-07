@@ -12,8 +12,8 @@ const LinksPage = () => {
       icon: "🏠"
     },
     {
-      title: "Games Hub",
-      description: "Unblocked games collection",
+      title: "Module Hub",
+      description: "Interactive modules collection",
       url: "/games",
       icon: "🎮"
     },

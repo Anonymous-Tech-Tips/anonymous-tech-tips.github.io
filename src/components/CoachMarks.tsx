@@ -17,11 +17,11 @@ export const CoachMarks: React.FC<CoachMarksProps> = () => {
   const steps = [
     {
       id: 'games',
-      title: '🎮 Discover Games',
-      description: 'Browse our curated collection of unblocked games perfect for school breaks.',
+      title: '🔬 Discover Modules',
+      description: 'Browse our curated collection of interactive browser modules for your study breaks.',
       target: '[data-tour="games-hub"]',
       action: () => navigate('/games'),
-      buttonText: 'Explore Games'
+      buttonText: 'Explore Modules'
     },
     {
       id: 'utilities',

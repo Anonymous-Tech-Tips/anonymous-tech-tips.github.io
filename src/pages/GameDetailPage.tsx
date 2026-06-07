@@ -144,7 +144,7 @@ export default function GameDetailPage() {
                     disabled={isLocked && false}
                     className={`font-semibold ${isDarkTheme ? "bg-orange-600 hover:bg-orange-700 text-white shadow-lg" : "bg-blue-600 hover:bg-blue-700 text-white shadow-lg"} ${isLocked ? 'opacity-90 grayscale' : ''}`}
                   >
-                    {isLocked ? <><Lock className="w-4 h-4 mr-2" /> Unlock to Play</> : 'Play Now'}
+                    {isLocked ? <><Lock className="w-4 h-4 mr-2" /> Unlock to Launch</> : 'Launch'}
                   </Button>
                   <Button
                     variant="outline"
@@ -203,7 +203,7 @@ export default function GameDetailPage() {
             <Card className={isDarkTheme ? "bg-[#1E1E24] border-[#2a2a3a]" : "bg-white border-slate-200"}>
               <CardHeader>
                 <CardTitle className={isDarkTheme ? "text-white" : "text-slate-900"}>
-                  Similar Games
+                  Related Modules
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">

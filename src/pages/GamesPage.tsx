@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Link, useSearchParams } from "react-router-dom";
 import { games } from "@/data/games";
-import fallback from "@/assets/thumbnails/_fallback.png";
+import { GameIcon } from "@/components/GameIcon";
 import { trackSearch, trackCategoryFilter, trackLoadMore } from "@/utils/analytics";
 
 const GamesPage = () => {
@@ -87,7 +87,7 @@ const GamesPage = () => {
   const visibleGames = filteredGames.slice(0, visibleCount);
 
   const categories = [
-    { id: "all", label: "All Games", icon: Gamepad2 },
+    { id: "all", label: "All Modules", icon: Gamepad2 },
     { id: "action", label: "Action", icon: Zap },
     { id: "racing", label: "Racing", icon: Car },
     { id: "sports", label: "Sports", icon: Trophy },
@@ -106,16 +106,16 @@ const GamesPage = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold font-rowdies text-white mb-2 flex items-center gap-3">
-              <span className="text-blue-500">🕹️</span> Arcade
+              <span className="text-blue-500">🔬</span> Lab
             </h1>
-            <p className="text-slate-400">Play {games.length}+ unblocked games instantly.</p>
+            <p className="text-slate-400">Access {games.length}+ interactive modules instantly.</p>
           </div>
 
           <div className="flex flex-col gap-3 w-full md:w-auto">
             <div className="relative w-full md:w-96">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
               <Input
-                placeholder="Search games..."
+                placeholder="Search modules..."
                 className="pl-12 bg-[#1E1E24]/80 backdrop-blur-md border-slate-800/80 text-white h-12 rounded-2xl focus:ring-blue-500 hover:border-slate-700 transition-colors"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -168,16 +168,8 @@ const GamesPage = () => {
                   style={{ contentVisibility: 'auto', containIntrinsicSize: '0 160px' } as React.CSSProperties}
                   className="block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-blue-500/60 transition-colors duration-150"
                 >
-                  <div className="aspect-[4/3] bg-slate-900">
-                    <img
-                      src={game.thumbnail || fallback}
-                      alt={game.title}
-                      loading="lazy"
-                      decoding="async"
-                      width={200}
-                      height={150}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="aspect-[4/3]">
+                    <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />
                   </div>
                   <div className="p-2.5">
                     <h3 className="font-semibold text-slate-100 truncate text-xs leading-tight">
@@ -204,7 +196,7 @@ const GamesPage = () => {
         ) : (
           <div className="text-center py-24 bg-[#1E1E24]/30 rounded-3xl border border-slate-800/50">
             <Ghost className="mx-auto h-16 w-16 text-slate-600 mb-4 animate-pulse" />
-            <h3 className="text-xl font-bold text-white mb-2">No games found</h3>
+            <h3 className="text-xl font-bold text-white mb-2">No modules found</h3>
             <p className="text-slate-400">Try changing your search or category filter.</p>
           </div>
         )}

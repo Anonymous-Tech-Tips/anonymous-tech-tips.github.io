@@ -57,14 +57,14 @@ export const GamesHub: React.FC = () => {
       `${index + 1}. ${game.title}\n   🎮 Tags: ${game.tags.join(", ")}\n   🔗 ${window.location.origin}/#/games/${game.id}\n`
     ).join("\n");
 
-    const fullExport = `🎮 ANONYMOUS TECH TIPS GAMES LIST (${filteredGames.length} Games)
+    const fullExport = `ANONYMOUS TECH TIPS MODULE CATALOG (${filteredGames.length} Modules)
 Generated: ${new Date().toLocaleDateString()}
 
 ${gamesList}
 
 ---
 Visit Anonymous Tech Tips: ${window.location.origin}/
-145+ Unblocked Games | Daily Rewards | Zero Downloads`;
+145+ Interactive Modules | Daily Rewards | Zero Downloads`;
 
     navigator.clipboard.writeText(fullExport).then(() => {
       toast.success(`Copied ${filteredGames.length} games to clipboard!`);
@@ -78,7 +78,7 @@ Visit Anonymous Tech Tips: ${window.location.origin}/
           <div className="flex items-center gap-3">
             <Gamepad2 className="text-gamer-accent" size={32} />
             <h2 className="text-3xl md:text-4xl font-rowdies font-bold text-gamer-text">
-              Games Hub
+              Resource Hub
             </h2>
           </div>
           <Button
@@ -97,7 +97,7 @@ Visit Anonymous Tech Tips: ${window.location.origin}/
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gamer-muted" size={20} />
             <Input
               type="text"
-              placeholder="Search games..."
+              placeholder="Search modules..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 bg-gamer-card border-gamer-border text-gamer-text placeholder:text-gamer-muted"
@@ -139,7 +139,7 @@ Visit Anonymous Tech Tips: ${window.location.origin}/
               value="all"
               className="px-6 py-2.5"
             >
-              All Games ({filteredGames.length})
+              All Modules ({filteredGames.length})
             </TabsTrigger>
           </TabsList>
 
@@ -203,7 +203,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, playCount }) => {
         <GameIcon id={game.id} title={game.title} className="w-full h-full text-4xl rounded-t-2xl" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
           <span className="text-white font-bold text-sm bg-blue-600/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-            Play Now
+            Launch
           </span>
         </div>
       </div>

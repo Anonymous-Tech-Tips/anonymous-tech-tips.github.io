@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
       }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-sm mb-4">
-          © 2024 Tech Tips. Your source for games, utilities, and tech resources.
+          © 2024 Tech Tips. Your source for modules, utilities, and tech resources.
         </p>
         <div className="flex flex-wrap justify-center gap-6 text-sm mb-4">
           <a
