@@ -22,6 +22,7 @@ import { GamerBackground } from "@/components/GamerBackground";
 import { GlobalChat } from "@/components/chat/GlobalChat";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { trackPageView } from "@/utils/analytics";
+import { GameOverlay } from "@/components/GameOverlay";
 
 // ── Lazy-loaded routes (route-level code splitting) ────────────────────────
 // Each page is a separate chunk fetched only when the user navigates to it.
@@ -93,6 +94,7 @@ const AppContent = () => {
 
   return (
     <>
+      <GameOverlay />
       <CommandPalette />
       <PWAInstallPrompt />
       <CoachMarks />

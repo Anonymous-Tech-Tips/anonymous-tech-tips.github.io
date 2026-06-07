@@ -14,12 +14,11 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
 
   url = resolveAssetUrl(url);
 
-  const win = window.open("about:blank", "_blank");
-  if (!win) return;
-
   // STRATEGY A: DIRECT REDIRECT (For Miruro, Netflix, Disney+)
-  // Strip referrer so destination doesn't know traffic origin.
+  // External URLs — still open new tab since we can't iframe cross-origin streaming sites.
   if (forceRedirect) {
+    const win = window.open("about:blank", "_blank");
+    if (!win) return;
     win.document.write(`
       <!DOCTYPE html>
       <html>
@@ -35,14 +34,14 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
         </body>
       </html>
     `);
+    win.document.close();
+    return;
   }
 
-  // STRATEGY B: SAME-ORIGIN SANDBOX (For games, proxies)
-  // sandbox.html is served from the same origin — no cross-origin requests.
-  else {
-    win.location.href = `${sandboxUrl()}?url=${encodeURIComponent(url)}`;
-  }
-  win.document.close();
+  // STRATEGY B: IN-PAGE OVERLAY (For games)
+  // Render game inside the SPA via full-screen iframe overlay.
+  // Avoids opening a new tab URL that content filters evaluate as a fresh request.
+  window.dispatchEvent(new CustomEvent('open-game-overlay', { detail: { url } }));
 }
 
 // BACKWARDS COMPATIBILITY
