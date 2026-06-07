@@ -43,6 +43,8 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const SharePage = lazy(() => import("./pages/SharePage"));
 const SafeModePage = lazy(() => import("./pages/SafeModePage"));
 const SEOSetupPage = lazy(() => import("./pages/SEOSetupPage"));
+const EntertainmentPage = lazy(() => import("./pages/EntertainmentPage"));
+const UtilitiesPage = lazy(() => import("./pages/UtilitiesPage"));
 
 // Minimal spinner shown while a lazy chunk loads
 const PageLoader = () => (
@@ -114,7 +116,8 @@ const AppContent = () => {
               <Route index element={<Index />} />
               <Route path="/" element={<Index />} />
               <Route path="/games" element={<ProtectedRoute><GamesPage /></ProtectedRoute>} />
-              {/* entertainment + utilities temporarily disabled */}
+              <Route path="/entertainment" element={<ProtectedRoute><EntertainmentPage /></ProtectedRoute>} />
+              <Route path="/utilities" element={<ProtectedRoute><UtilitiesPage /></ProtectedRoute>} />
               <Route path="/optimizations" element={<ProtectedRoute><OptimizationsPage /></ProtectedRoute>} />
               <Route path="/education" element={<ProtectedRoute><EducationPage /></ProtectedRoute>} />
               <Route path="/links" element={<ProtectedRoute><LinksPage /></ProtectedRoute>} />

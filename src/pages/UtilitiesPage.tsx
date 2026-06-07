@@ -44,26 +44,15 @@ const UtilitiesPage = () => {
                 🛠️ Utilities & Tools
               </h1>
 
-              {/* Premium Utilities */}
               <ContentSection
-                id="premium-utilities"
-                icon={Zap}
-                title="🎁 Premium Tools"
-                description="Exclusive tools for members"
-                items={premiumUtilities}
+                id="privacy-security"
+                icon={Shield}
+                title="🛡️ Privacy & Security"
+                description="Adblockers, VPNs, and privacy tools"
+                items={privacySecurity}
               />
 
               <InContentAd />
-
-
-              {/* Productivity */}
-              <ContentSection
-                id="productivity"
-                icon={Wrench}
-                title="⚙️ Productivity Tools"
-                description="Essential everyday utilities"
-                items={productivity}
-              />
             </main>
 
             <BottomAd />
@@ -77,10 +66,10 @@ const UtilitiesPage = () => {
 
             <ContentSection
               id="utilities"
-              icon={Wrench}
+              icon={Shield}
               title="Utilities & Tools"
               description="Essential tools and utilities to enhance your experience"
-              items={publicItems}
+              items={privacySecurity}
             />
 
             <BottomAd />
