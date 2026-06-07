@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-06-07 17:06:00",
+    "last_updated": "2026-06-07 19:06:52",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Sunday, Jun 07",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 92.8,
+                        "open": 92.7,
                         "delay": 3.4,
                         "early_release": 1.1,
-                        "closure": 2.7
+                        "closure": 2.8
                     }
                 },
                 {
@@ -19,8 +19,8 @@
                     "label": "Monday, Jun 08",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 93.1,
-                        "delay": 3.2,
+                        "open": 93.0,
+                        "delay": 3.3,
                         "early_release": 1.1,
                         "closure": 2.6
                     }
@@ -30,10 +30,10 @@
                     "label": "Tuesday, Jun 09",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 82.8,
-                        "delay": 6.5,
-                        "early_release": 1.8,
-                        "closure": 8.8
+                        "open": 86.2,
+                        "delay": 5.1,
+                        "early_release": 1.4,
+                        "closure": 7.3
                     }
                 }
             ]
@@ -45,8 +45,8 @@
                     "label": "Sunday, Jun 07",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.0,
-                        "delay": 6.6,
+                        "open": 90.6,
+                        "delay": 6.9,
                         "early_release": 1.2,
                         "closure": 1.2
                     }
@@ -56,10 +56,10 @@
                     "label": "Monday, Jun 08",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.7,
-                        "delay": 6.4,
+                        "open": 91.1,
+                        "delay": 6.1,
                         "early_release": 1.6,
-                        "closure": 1.3
+                        "closure": 1.2
                     }
                 },
                 {
@@ -67,10 +67,10 @@
                     "label": "Tuesday, Jun 09",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 82.8,
-                        "delay": 13.6,
-                        "early_release": 1.9,
-                        "closure": 1.6
+                        "open": 88.3,
+                        "delay": 9.2,
+                        "early_release": 1.3,
+                        "closure": 1.2
                     }
                 }
             ]
@@ -104,10 +104,10 @@
                     "label": "Tuesday, Jun 09",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 74.3,
-                        "delay": 17.2,
-                        "early_release": 3.2,
-                        "closure": 5.3
+                        "open": 73.4,
+                        "delay": 21.1,
+                        "early_release": 2.4,
+                        "closure": 3.1
                     }
                 }
             ]
@@ -119,10 +119,10 @@
             "label": "Sunday, Jun 07",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 92.8,
+                "open": 92.7,
                 "delay": 3.4,
                 "early_release": 1.1,
-                "closure": 2.7
+                "closure": 2.8
             }
         },
         {
@@ -130,8 +130,8 @@
             "label": "Monday, Jun 08",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 93.1,
-                "delay": 3.2,
+                "open": 93.0,
+                "delay": 3.3,
                 "early_release": 1.1,
                 "closure": 2.6
             }
@@ -141,10 +141,10 @@
             "label": "Tuesday, Jun 09",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 82.8,
-                "delay": 6.5,
-                "early_release": 1.8,
-                "closure": 8.8
+                "open": 86.2,
+                "delay": 5.1,
+                "early_release": 1.4,
+                "closure": 7.3
             }
         }
     ]
