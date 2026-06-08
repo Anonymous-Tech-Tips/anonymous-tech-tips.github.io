@@ -6,7 +6,6 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
-import { useRewardEffects } from '@/hooks/useRewardEffects';
 import { SEO } from '@/components/SEO';
 import { TopBannerAd, BottomAd } from '@/components/GoogleAd';
 
@@ -60,8 +59,6 @@ const RewardsShop: React.FC = () => {
   const { progress, purchaseItem, purchases } = useProgression();
   const points = progress.totalPoints;
   const { prefs, setSetting } = useUserPrefs();
-  const rewardEffects = useRewardEffects();
-  
   const activeTheme = prefs.settings.activeTheme || null;
 
   const handlePurchase = (itemId: string, cost: number, name: string) => {

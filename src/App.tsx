@@ -8,7 +8,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { UserPrefsProvider } from "@/contexts/UserPrefsContext";
-import { RewardsProvider } from "@/contexts/RewardsContext";
 import { ProgressionProvider } from "@/contexts/ProgressionContext";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CoachMarks } from "@/components/CoachMarks";
@@ -30,7 +29,6 @@ const Index = lazy(() => import("./pages/Index"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const GamesPage = lazy(() => import("./pages/GamesPage"));
 const GameDetailPage = lazy(() => import("./pages/GameDetailPage"));
-const UtilityDetailPage = lazy(() => import("./pages/UtilityDetailPage"));
 const OptimizationsPage = lazy(() => import("./pages/OptimizationsPage"));
 const EducationPage = lazy(() => import("./pages/EducationPage"));
 const LinksPage = lazy(() => import("./pages/LinksPage"));
@@ -39,7 +37,6 @@ const LegalPage = lazy(() => import("./pages/LegalPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const RewardsShop = lazy(() => import("./pages/RewardsShop"));
 const ShopPage = lazy(() => import("./pages/ShopPage"));
-const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const SharePage = lazy(() => import("./pages/SharePage"));
 const SafeModePage = lazy(() => import("./pages/SafeModePage"));
 const SEOSetupPage = lazy(() => import("./pages/SEOSetupPage"));
@@ -142,8 +139,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <RewardsProvider>
-            <ProgressionProvider>
+          <ProgressionProvider>
               <UserPrefsProvider>
                 <Toaster />
                 <Sonner />
@@ -152,7 +148,6 @@ const App = () => {
                 <AppContent />
               </UserPrefsProvider>
             </ProgressionProvider>
-          </RewardsProvider>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
