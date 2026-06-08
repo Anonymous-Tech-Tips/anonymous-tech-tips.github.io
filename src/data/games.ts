@@ -3003,6 +3003,16 @@ const rawGames: Game[] = [
     "url": "/games/html/xx142-b2exe/game/index.html"
   },
   {
+    "id": "poly-track",
+    "title": "Poly Track",
+    "tags": [
+      "Racing",
+      "Physics"
+    ],
+    "thumbnail": "/games/img/racer.jpeg",
+    "url": "/games/poly-track/index.html"
+  },
+  {
     "id": "yoshi-fabricator",
     "title": "Yoshi Fabricator",
     "tags": [
