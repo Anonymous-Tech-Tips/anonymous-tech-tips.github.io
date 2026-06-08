@@ -3050,6 +3050,17 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/YFS.webp",
     "url": "/games/html/yoshifabrication/game/index.html"
+  },
+  {
+    "id": "pokemon-fire-red",
+    "title": "Pokemon Fire Red",
+    "tags": [
+      "RPG",
+      "Classic"
+    ],
+    "thumbnail": "/games/img/PokemonFireRed.webp",
+    "url": "/games/html/pokemonfirered/game/index.html",
+    "featured": true
   }
 ]
 
