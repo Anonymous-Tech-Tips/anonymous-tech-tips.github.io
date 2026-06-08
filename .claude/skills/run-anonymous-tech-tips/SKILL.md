@@ -19,7 +19,7 @@ No extra apt packages needed — pure Node.js.
 
 ```bash
 npm run build          # GitHub Pages mode (base: "./")
-npm run build:gcs      # GCS mode — sets VITE_GAMES_BASE=https://storage.googleapis.com/website2026
+npm run build:gcs      # GCS mode — sets VITE_GAMES_BASE=https://storage.googleapis.com/anonymoustechtips
 npm run type-check     # tsc --noEmit
 npm run lint           # eslint
 ```
@@ -82,10 +82,10 @@ npm run dev
 
 ## Gotchas
 
-- **`publicDir: false` in prod builds** — game files (4.5 GB in `public/games/html/`) are excluded from `dist/`. They live in GCS bucket `website2026`. Don't revert this.
+- **`publicDir: false` in prod builds** — game files (4.5 GB in `public/games/html/`) are excluded from `dist/`. They live in GCS bucket `anonymoustechtips`. Don't revert this.
 - **Coach marks block login page** — always set `localStorage.coachMarksCompleted = 'true'` before interacting with login in a fresh browser context.
 - **Daily login bonus modal** — appears immediately after auth. Dismiss by clicking "Claim Reward" or the × button before interacting with the page.
-- **GCS bucket may get Lightspeed-blocked** — school content filter (`website2026` bucket). If blocked, create new `website####` bucket, copy game files bucket-to-bucket, update `.env.gcs` + `deploy-gcs.yml`.
+- **GCS bucket may get Lightspeed-blocked** — school content filter (`anonymoustechtips` bucket currently active). If blocked, create new bucket, copy game files bucket-to-bucket, update `.env.gcs` + `deploy-gcs.yml`.
 - **Games load in overlay, not new tab** — `openSmart()` dispatches `open-game-overlay` CustomEvent. `sandbox.html` still exists but is no longer used for games. `forceRedirect=true` (streaming) still opens new tab.
 - **HashRouter** — all routes use `/#/path`. Use `src/lib/paths.ts` helpers (`hash()`, `asset()`) not hardcoded URLs.
 
