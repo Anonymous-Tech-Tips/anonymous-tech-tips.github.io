@@ -135,7 +135,11 @@ export const GamerHome = () => {
               onClick={() => navigate(`/games/${featuredGame?.id}`)}
               className="lg:col-span-2 relative aspect-[16/9] rounded-2xl overflow-hidden cursor-pointer group"
             >
-              {featuredGame && <GameIcon id={featuredGame.id} title={featuredGame.title} className="absolute inset-0 w-full h-full text-7xl" />}
+              {featuredGame && (
+                featuredGame.thumbnail
+                  ? <img src={featuredGame.thumbnail} alt={featuredGame.title} className="absolute inset-0 w-full h-full object-cover" />
+                  : <GameIcon id={featuredGame.id} title={featuredGame.title} className="absolute inset-0 w-full h-full text-7xl" />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
               <div className="absolute top-3 left-3">
                 <span className="flex items-center gap-1.5 px-2.5 py-1 bg-yellow-500 text-black text-[10px] font-black uppercase tracking-wider rounded-full">
@@ -158,7 +162,9 @@ export const GamerHome = () => {
                   to={`/games/${game.id}`}
                   className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-white/5 hover:border-blue-500/50 transition-colors"
                 >
-                  <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />
+                  {game.thumbnail
+                    ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" />
+                    : <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                   <div className="absolute bottom-1.5 left-2 right-2">
                     <div className="text-[10px] font-bold text-white truncate">{game.title}</div>
@@ -331,7 +337,9 @@ const GameCard = ({ game, small }: { game: any; small?: boolean }) => (
     style={{ contentVisibility: 'auto', containIntrinsicSize: `0 ${small ? '100px' : '120px'}` } as React.CSSProperties}
   >
     <div className="aspect-[4/3] overflow-hidden">
-      <GameIcon id={game.id} title={game.title} className={`w-full h-full ${small ? 'text-2xl' : 'text-3xl'}`} />
+      {game.thumbnail
+        ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" />
+        : <GameIcon id={game.id} title={game.title} className={`w-full h-full ${small ? 'text-2xl' : 'text-3xl'}`} />}
     </div>
     <div className={`${small ? 'p-1.5' : 'p-2'}`}>
       <div className={`font-bold text-slate-100 truncate ${small ? 'text-[9px]' : 'text-[11px]'}`}>{game.title}</div>

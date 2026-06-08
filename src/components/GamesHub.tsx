@@ -193,6 +193,21 @@ interface GameCardProps {
   playCount: number;
 }
 
+const GameThumbnail: React.FC<{ id: string; title: string; thumbnail: string }> = ({ id, title, thumbnail }) => {
+  const [failed, setFailed] = React.useState(false);
+  if (!thumbnail || failed) {
+    return <GameIcon id={id} title={title} className="w-full h-full text-4xl" />;
+  }
+  return (
+    <img
+      src={thumbnail}
+      alt={title}
+      className="w-full h-full object-cover"
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
 const GameCard: React.FC<GameCardProps> = ({ game, playCount }) => {
   return (
     <Link
@@ -200,7 +215,7 @@ const GameCard: React.FC<GameCardProps> = ({ game, playCount }) => {
       className="group block bg-[#1E1E24]/80 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_4px_20px_rgba(59,130,246,0.12)] transition-colors duration-200"
     >
       <div className="aspect-[4/3] relative overflow-hidden">
-        <GameIcon id={game.id} title={game.title} className="w-full h-full text-4xl rounded-t-2xl" />
+        <GameThumbnail id={game.id} title={game.title} thumbnail={game.thumbnail} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
           <span className="text-white font-bold text-sm bg-blue-600/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
             Launch
