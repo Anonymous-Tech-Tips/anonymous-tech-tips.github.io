@@ -3013,6 +3013,36 @@ const rawGames: Game[] = [
     "url": "/games/poly-track/index.html"
   },
   {
+    "id": "poly-track-v041",
+    "title": "Poly Track v0.4.1",
+    "tags": [
+      "Racing",
+      "Physics"
+    ],
+    "thumbnail": "/games/img/racer.jpeg",
+    "url": "/games/poly-track-0.4.1/index.html"
+  },
+  {
+    "id": "poly-track-v051",
+    "title": "Poly Track v0.5.1",
+    "tags": [
+      "Racing",
+      "Physics"
+    ],
+    "thumbnail": "/games/img/racer.jpeg",
+    "url": "/games/poly-track-0.5.1/index.html"
+  },
+  {
+    "id": "poly-track-modded",
+    "title": "Poly Track (Modded)",
+    "tags": [
+      "Racing",
+      "Physics"
+    ],
+    "thumbnail": "/games/img/racer.jpeg",
+    "url": "/games/poly-track-modded/index.html"
+  },
+  {
     "id": "yoshi-fabricator",
     "title": "Yoshi Fabricator",
     "tags": [
