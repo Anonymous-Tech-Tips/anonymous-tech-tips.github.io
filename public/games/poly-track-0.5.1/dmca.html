@@ -1,0 +1,536 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+
+  <meta charset="UTF-8">
+   
+   <title>Google Classroom | Reading Exercises Started</title>
+
+  <meta name="robots" content="noindex,nofollow" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+   body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fdfbfb;
+  color: #333;
+}
+
+header {
+  background: #ffa07a;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header img {
+  height: 50px;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.banner-top {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.banner-top img {
+  width: 970px;
+  height: 250px;
+  max-width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.side-banner {
+  width: 300px;
+  height: 600px;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ixrame-box {
+  width: 800px;
+  height: 600px;
+  background: #000;
+}
+
+.ixrame-box ixrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.description {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff0f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  background-color: #f0f8ff;
+}
+
+.heartbeat-button {
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 10px 15px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  animation: heartbeat 1s infinite ease-in-out;
+  box-shadow: 0 0 20px #ffffff;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25%, 75% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+.heartbeat-button:hover {
+  background-color: #ff0000;
+  box-shadow: 0 0 20px #000000;
+}
+
+.gm-grid2 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card2 {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #fff;
+  border: 3px solid #ffb6c1;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.card2:hover {
+  transform: scale(1.05);
+}
+
+.card2 img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mobil Uyumlu Medya Sorguları */
+@media screen and (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .side-banner {
+    width: 100%;
+    height: 200px;
+  }
+
+  .ixrame-box {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .banner-top img {
+    width: 50%;
+    height: auto;
+  }
+
+  .gm-grid2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .side-banner {
+    height: 150px;
+  }
+
+  .ixrame-box {
+    aspect-ratio: 16 / 9;
+  }
+
+  .gm-grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .card2 {
+    width: 50%;
+    max-width: 300px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .nomobile {
+    visibility: hidden;
+    display: none;
+  }
+ 
+}
+</style>
+ 
+
+
+
+
+ <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    /*  */
+    .navbar {
+      background: #222;
+      padding: 10px 65px;
+    }
+
+    .menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .menu > li {
+      position: relative; /*  */
+    }
+
+    .menu > li > a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      display: block;
+      font-size: 14px;
+    }
+
+    .menu > li > a:hover {
+      background: #444;
+      border-radius: 4px;
+    }
+
+    /* Submenu  */
+    .submenu {
+      list-style: none;
+      position: absolute;
+      top: 100%;   /* item*/
+      left: 0;
+      min-width: 160px;
+      background: #fff;
+      padding: 8px 0;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+      /* hide */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .submenu li a {
+      display: block;
+      padding: 8px 12px;
+      color: #333;
+      text-decoration: none;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .submenu li a:hover {
+      background: #f0f0f0;
+    }
+
+    /* hover */
+    .menu > li:hover .submenu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  </style>
+
+
+
+<style>
+    .bt-fullscreen {
+        margin: 15px 0;
+    }
+
+    .btn-full {
+        background-color: #ffa07a !important;
+        border: 2px solid #ff8c6c;
+        color: #fff;
+        font-weight: 600;
+        padding: 10px 25px;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: 0.25s;
+        box-shadow: 0 4px 0 #e97b5e;
+    }
+
+    .btn-full:hover {
+        background-color: #ff8c6c !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 0 #e26f53;
+    }
+
+    .btn-full:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #d5674d;
+    }
+</style>
+
+
+
+</head>
+<body>
+<div id="videoad"></div>
+<header>
+
+
+ 	<center>
+  <a href="/"><strong>Home</strong></a>
+</center>
+
+
+
+
+<!--  -->
+
+
+
+
+
+<!--  -->
+
+
+
+
+
+<!--  <nav>
+
+         
+
+
+
+    <div  style="cursor:pointer;" onclick="location.href='/'">
+       <H3> <B>Category</B></H3>
+      
+    </div>
+    
+  </nav> -->
+
+
+
+
+  <nav class="navbar">
+    <ul class="menu">
+
+      
+      <li><a href="/">Home</a></li>
+      <li><a href="/classroom/popular.html">Hot</a></li>
+      <li>
+        <a href="#">More</a>
+        <ul class="submenu">
+          <li><a href="/classroom/new.html">New</a></li>
+          <li><a href="/classroom/shooting.html">Shooting</a></li>
+          <li><a href="/classroom/car.html">Car</a></li>
+          <li><a href="/classroom/racing.html">Racing</a></li>
+          <li><a href="/classroom/sports.html">Sports</a></li>
+          <li><a href="/classroom/multiplayer.html">Multiplayer</a></li>
+          <li><a href="/classroom/2-player.html">2 Player</a></li>
+          <li><a href="/classroom/skill.html">Skill</a></li>
+          <li><a href="/classroom/running.html">Running</a></li>
+          <li><a href="/classroom/moto.html">Moto</a></li>
+          <li><a href="/classroom/adventure.html">Adventure</a></li>
+          <li><a href="/classroom/3d.html">3D</a></li>
+          <li><a href="/classroom/puzzle.html">Puzzle</a></li>
+          <li><a href="/classroom/simulation.html">Simulation</a></li>
+          <li><a href="/classroom/management.html">Management</a></li>
+          <li><a href="/classroom/survival.html">Survival</a></li>
+          <li><a href="/classroom/strategy.html">Strategy</a></li>
+          <li><a href="/classroom/girls.html">For Girls</a></li>
+    
+        
+
+        </ul>
+      </li>
+
+
+
+      
+    </ul>
+  </nav>
+
+
+
+</header>
+
+
+
+</br>
+
+
+
+
+
+
+
+
+
+
+<div class="description">
+
+
+
+
+
+
+                <div class="w-full h-full flex flex-col justify-center items-center py-20 gap-y-10 px-5">
+                    <h1 class="section-title">DMCA</h1>
+                    <div class="flex flex-col w-full max-w-7xl">
+                        <h1 class="text-base md:text-lg 2xl:text-xl font-semibold tracking-tight italic">Last Updated: 
+                        <!-- -->
+                        December 31, 2025</h1>
+                        <p class="pb-4">Poly Track
+                        <!-- -->
+                        (the &quot;Site &quot;) respects the intellectual property rights of others and expects its users to do the same. In accordance with the Digital Millennium Copyright Act of 1998, the text of which may be found on the U.S. Copyright Office website at http://www.copyright.gov/legislation/dmca.pdf, and specifically in accordance with 17 USC § 512(c)(3), 
+                        <!-- -->
+                        Poly Track
+                        <!-- -->
+                        will respond expeditiously to claims of copyright infringement committed using the 
+                        <!-- -->
+                        Poly Track
+                        <!-- -->
+                        service and/or any
+                        <!-- -->
+                        <!-- -->
+                        Poly Track
+                        <!-- -->
+                        website (the &quot;Site &quot;) if such claims are reported to 
+                        <!-- -->
+                        Poly Track
+                        <!-- -->
+                        &#x27;s Designated Email identified below.</p>
+                        <h1 class="text-lg md:text-xl 2xl:text-2xl font-semibold tracking-tight">DMCA Notice of Alleged Infringement (&quot;Notice &quot;)</h1>
+                        <p class="pb-4">If you are a copyright owner, authorized to act on behalf of one, or authorized to act under any exclusive right under copyright, please report alleged copyright infringements taking place on or through the Site by completing a DMCA Notice of Alleged Infringement and delivering it to 
+                        <!-- -->
+                        Poly Track
+                        <!-- -->
+                        &#x27;s Designated Email. Upon receipt of Notice as described below,
+                        <!-- -->
+                        <!-- -->
+                        Poly Track
+                        <!-- -->
+                        will take whatever action, in its sole discretion, it deems appropriate, including removal of the challenged content from the Site. Please note that if you fail to comply with all of the requirements of this section and of 17 USC § 512(c)(3) your DMCA notice may not be valid.</p>
+                        <ul class="list-disc list-inside">
+                            <li>Identify the copyrighted work that you claim has been infringed, or - if multiple copyrighted works are covered by your Notice - you may provide a representative list of the copyrighted works that you claim have been infringed.</li>
+                            <li>Identify the material or link you claim is infringing (or the subject of infringing activity) and to which access is to be disabled, including at a minimum, if applicable, the URL of the link shown on the Site or the exact location where such material may be found.</li>
+                            <li>Provide your company affiliation (if applicable), mailing address, telephone number, and, if available, email address.</li>
+                            <li>Include both of the following statements in the body of the Notice:</li>
+                            <ul class="list-disc list-inside pl-6">
+                                <li>&quot;I hereby state that I have a good faith belief that the disputed use of the copyrighted material is not authorized by the copyright owner, its agent, or the law (e.g., as a fair use).&quot;</li>
+                                <li>&quot;I hereby state that the information in this Notice is accurate and, under penalty of perjury, that I am the owner, or authorized to act on behalf of, the owner, of the copyright or of an exclusive right under the copyright that is allegedly infringed.&quot;</li>
+                            </ul>
+                            <li>Provide your full legal name and your electronic or physical signature.</li>
+                            <li>Deliver this Notice, with all items completed, to
+                            <!-- -->
+                            <!-- -->
+                            Poly Track
+                            <!-- -->
+                            &#x27;s Designated Email: 
+                            <!-- -->
+                            topvazcontact
+                            <!-- -->
+                            @gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+</div>
+<script  src="classroom.js"></script>
+
+
+<script>
+  var elem = document.getElementById("gxrameBox");
+  function openFullscreen() {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  }
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
