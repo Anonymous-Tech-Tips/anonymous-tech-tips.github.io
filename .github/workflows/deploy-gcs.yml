@@ -30,9 +30,10 @@ jobs:
 
       - name: Copy public assets into dist
         run: |
-          mkdir -p dist/img dist/games/img dist/data
+          mkdir -p dist/img dist/games/img dist/data dist/games/poly-track
           cp -r public/img/* dist/img/ 2>/dev/null || true
           cp -r public/games/img/* dist/games/img/ 2>/dev/null || true
+          cp -r public/games/poly-track/* dist/games/poly-track/ 2>/dev/null || true
           cp -r public/data/* dist/data/ 2>/dev/null || true
           cp public/sitemap.xml dist/ 2>/dev/null || true
           cp public/*.png dist/ 2>/dev/null || true
