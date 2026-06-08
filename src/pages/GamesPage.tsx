@@ -169,7 +169,9 @@ const GamesPage = () => {
                   className="block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-blue-500/60 transition-colors duration-150"
                 >
                   <div className="aspect-[4/3]">
-                    <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />
+                    {game.thumbnail
+                      ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+                      : <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />}
                   </div>
                   <div className="p-2.5">
                     <h3 className="font-semibold text-slate-100 truncate text-xs leading-tight">
