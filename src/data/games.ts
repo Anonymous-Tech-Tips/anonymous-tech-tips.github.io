@@ -3010,7 +3010,7 @@ const rawGames: Game[] = [
       "Physics"
     ],
     "thumbnail": "/games/img/racer.jpeg",
-    "url": "/games/poly-track-0.5.1/index.html"
+    "url": "/games/poly-track-0.5.1/poly-track/index.html"
   },
   {
     "id": "poly-track-classic",
