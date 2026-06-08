@@ -18,7 +18,7 @@ import { useRewardEffects } from "@/hooks/useRewardEffects";
 import "./styles/thanksgiving.css";
 import { Layout } from "@/components/Layout";
 import { GamerBackground } from "@/components/GamerBackground";
-import { GlobalChat } from "@/components/chat/GlobalChat";
+const GlobalChat = lazy(() => import('@/components/chat/GlobalChat').then(m => ({ default: m.GlobalChat })));
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { trackPageView } from "@/utils/analytics";
 import { GameOverlay } from "@/components/GameOverlay";
@@ -128,7 +128,7 @@ const AppContent = () => {
             </Route>
           </Routes>
         </Suspense>
-        <GlobalChat />
+        <Suspense fallback={null}><GlobalChat /></Suspense>
       </div>
     </>
   );

@@ -6,7 +6,6 @@ import http from "node:http";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from 'vite-plugin-pwa';
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   base: "./",
   plugins: [
@@ -18,19 +17,18 @@ export default defineConfig(({ mode }) => ({
       srcDir: 'src',
       filename: 'sw.ts',
       injectManifest: {
-        // Exclude the massive game files from precaching
         globIgnores: [
           '**/*.map',
           'sitemap.xml',
           '**/node_modules/**/*',
           'sw.js',
-          'games/**/*'  // Exclude all game files from precaching
+          'games/**/*',
         ],
         maximumFileSizeToCacheInBytes: 5000000,
       },
       workbox: {
         navigateFallback: './index.html',
-        navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/]
+        navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/],
       },
       manifest: {
         name: "Anonymous Tech Tips",
@@ -41,33 +39,61 @@ export default defineConfig(({ mode }) => ({
         theme_color: "#FFD84D",
         icons: [
           { src: "./pwa-192.png", sizes: "192x192", type: "image/png" },
-          { src: "./pwa-512.png", sizes: "512x512", type: "image/png" }
-        ]
-      }
-    })
+          { src: "./pwa-512.png", sizes: "512x512", type: "image/png" },
+        ],
+      },
+    }),
   ].filter(Boolean),
-  publicDir: mode === 'development' ? 'public' : false,  // Optimized: Disable default public copying in build to avoid 1GB bloat. Essential assets are copied via workflow.
+  publicDir: mode === 'development' ? 'public' : false,
   build: {
     outDir: "dist",
     assetsDir: "assets",
     emptyOutDir: true,
     sourcemap: false,
+    target: 'esnext',
     minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        passes: 2,
+        pure_getters: true,
+      },
+      format: {
+        comments: false,
+      },
+    },
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        // Add hash to filenames for cache busting
         entryFileNames: `assets/[name]-[hash].js`,
         chunkFileNames: `assets/[name]-[hash].js`,
         assetFileNames: `assets/[name]-[hash].[ext]`,
-        // Manual chunks for better code splitting
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
-          'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage']
-        }
-      }
-    }
+          'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+          'motion-vendor': ['framer-motion'],
+          'query-vendor': ['@tanstack/react-query'],
+          'ui-vendor': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-tooltip',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-select',
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-label',
+            '@radix-ui/react-progress',
+            '@radix-ui/react-scroll-area',
+            '@radix-ui/react-separator',
+            '@radix-ui/react-slider',
+            '@radix-ui/react-slot',
+            '@radix-ui/react-switch',
+            '@radix-ui/react-toast',
+          ],
+        },
+      },
+    },
   },
   server: {
     host: "::",
@@ -76,8 +102,8 @@ export default defineConfig(({ mode }) => ({
       allow: [
         '.',
         path.resolve(__dirname, 'strongdog'),
-        path.resolve(__dirname, 'topvaz66')
-      ]
+        path.resolve(__dirname, 'topvaz66'),
+      ],
     },
     configureServer(server: ViteDevServer) {
       server.middlewares.use((req: Connect.IncomingMessage, res: http.ServerResponse, next: Connect.NextFunction) => {
@@ -91,7 +117,7 @@ export default defineConfig(({ mode }) => ({
         }
         next();
       });
-    }
+    },
   },
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
 }));

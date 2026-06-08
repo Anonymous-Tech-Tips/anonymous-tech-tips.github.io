@@ -1,57 +1,37 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { useUserPrefs } from '@/contexts/UserPrefsContext';
 
-interface Snowflake {
-  id: number;
-  left: number;
-  animationDuration: number;
-  animationDelay: number;
-  size: number;
-  opacity: number;
-}
+const STYLE = `@keyframes snowfall{from{transform:translateY(0)}to{transform:translateY(105vh)}}`;
 
 export const FallingSnow = ({ count = 20 }: { count?: number }) => {
   const { prefs } = useUserPrefs();
-  const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
-
-  useEffect(() => {
-    // Subtle snow - just simple white dots
-    const newSnowflakes: Snowflake[] = Array.from({ length: count }, (_, i) => ({
+  const [flakes] = useState(() =>
+    Array.from({ length: count }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
-      animationDuration: 12 + Math.random() * 8,
-      animationDelay: Math.random() * 8,
+      duration: 12 + Math.random() * 8,
+      delay: Math.random() * 8,
       size: 4 + Math.random() * 4,
       opacity: 0.3 + Math.random() * 0.3,
-    }));
-    setSnowflakes(newSnowflakes);
-  }, [count]);
+    }))
+  );
 
   if (prefs.settings.reducedMotion) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-40">
-      {snowflakes.map((flake) => (
-        <motion.div
-          key={flake.id}
+      <style>{STYLE}</style>
+      {flakes.map((f) => (
+        <div
+          key={f.id}
           className="absolute rounded-full bg-white/80"
           style={{
-            left: `${flake.left}%`,
-            width: `${flake.size}px`,
-            height: `${flake.size}px`,
-            opacity: flake.opacity,
+            left: `${f.left}%`,
+            width: `${f.size}px`,
+            height: `${f.size}px`,
+            opacity: f.opacity,
             top: '-10px',
-          }}
-          animate={{
-            y: ['0vh', '105vh'],
-            x: [0, Math.random() * 30 - 15],
-          }}
-          transition={{
-            duration: flake.animationDuration,
-            delay: flake.animationDelay,
-            repeat: Infinity,
-            ease: 'linear',
+            animation: `snowfall ${f.duration}s ${f.delay}s linear infinite`,
           }}
         />
       ))}
