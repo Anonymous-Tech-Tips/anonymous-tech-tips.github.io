@@ -52,8 +52,8 @@ export function GameOverlay() {
         ref={iframeRef}
         src={gameUrl}
         style={{ flex: 1, border: 'none', width: '100%' }}
-        allowFullScreen
-        allow="autoplay; fullscreen; keyboard; gamepad; microphone; camera; midi; xr-spatial-tracking"
+        allow="autoplay; fullscreen; gamepad; pointer-lock; microphone; camera"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-downloads allow-orientation-lock allow-modals"
       />
     </div>
   );
