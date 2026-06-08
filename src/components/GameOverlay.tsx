@@ -24,6 +24,24 @@ export function GameOverlay() {
     return () => window.removeEventListener('keydown', onKey);
   }, [gameUrl]);
 
+  // Hide background app content while game runs — reduces compositor work and
+  // prevents the React tree from competing with the game's RAF on the shared thread.
+  useEffect(() => {
+    const mainContent = document.getElementById('app-main-content');
+    if (!mainContent) return;
+    if (gameUrl) {
+      mainContent.style.visibility = 'hidden';
+      mainContent.style.pointerEvents = 'none';
+    } else {
+      mainContent.style.visibility = '';
+      mainContent.style.pointerEvents = '';
+    }
+    return () => {
+      mainContent.style.visibility = '';
+      mainContent.style.pointerEvents = '';
+    };
+  }, [gameUrl]);
+
   const injectFullscreenCSS = () => {
     try {
       const doc = iframeRef.current?.contentDocument;
@@ -71,7 +89,13 @@ export function GameOverlay() {
       <iframe
         ref={iframeRef}
         src={gameUrl}
-        style={{ flex: 1, border: 'none', width: '100%' }}
+        style={{
+          flex: 1, border: 'none', width: '100%',
+          // Promote to separate GPU compositing layer so the game renders
+          // independently without competing with the parent page compositor.
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+        }}
         allow="autoplay; fullscreen; gamepad; pointer-lock; microphone; camera"
         sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-downloads allow-orientation-lock allow-modals"
         onLoad={injectFullscreenCSS}

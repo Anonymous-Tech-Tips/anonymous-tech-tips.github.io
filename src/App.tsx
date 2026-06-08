@@ -100,7 +100,7 @@ const AppContent = () => {
       <CommandPalette />
       <PWAInstallPrompt />
       <CoachMarks />
-      <div className={`relative min-h-screen ${isAuthenticated ? 'gamer-mode' : ''}`}>
+      <div id="app-main-content" className={`relative min-h-screen ${isAuthenticated ? 'gamer-mode' : ''}`}>
         {isAuthenticated && <GamerBackground />}
         <OfflineModeIndicator />
         <Suspense fallback={<PageLoader />}>
