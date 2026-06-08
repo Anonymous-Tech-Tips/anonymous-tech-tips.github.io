@@ -49,4 +49,6 @@ jobs:
 
       - name: Sync dist to GCS
         run: |
-          gcloud storage rsync dist/ gs://anonymoustechtips/ --recursive --delete-unmatched-destination-objects --exclude="games/html/.*|games/swf/.*"
+          gcloud storage rsync dist/ gs://anonymoustechtips/ --recursive --delete-unmatched-destination-objects --exclude="games/html/.*|games/swf/.*|assets/.*"
+          # Sync assets separately WITHOUT delete — keeps old hashed chunks so stale SWs don't 404
+          gcloud storage rsync dist/assets/ gs://anonymoustechtips/assets/ --recursive --cache-control "public, max-age=31536000"
