@@ -24,6 +24,26 @@ export function GameOverlay() {
     return () => window.removeEventListener('keydown', onKey);
   }, [gameUrl]);
 
+  const injectFullscreenCSS = () => {
+    try {
+      const doc = iframeRef.current?.contentDocument;
+      if (!doc) return;
+      const style = doc.createElement('style');
+      style.textContent = `
+        html, body {
+          width: 100% !important; height: 100% !important;
+          margin: 0 !important; padding: 0 !important;
+          overflow: hidden !important;
+        }
+        canvas {
+          width: 100% !important; height: 100% !important;
+          display: block !important;
+        }
+      `;
+      (doc.head || doc.documentElement).appendChild(style);
+    } catch (_) { /* cross-origin — no-op */ }
+  };
+
   if (!gameUrl) return null;
 
   return (
@@ -54,6 +74,7 @@ export function GameOverlay() {
         style={{ flex: 1, border: 'none', width: '100%' }}
         allow="autoplay; fullscreen; gamepad; pointer-lock; microphone; camera"
         sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-downloads allow-orientation-lock allow-modals"
+        onLoad={injectFullscreenCSS}
       />
     </div>
   );
