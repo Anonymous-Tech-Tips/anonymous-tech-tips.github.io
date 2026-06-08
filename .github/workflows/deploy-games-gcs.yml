@@ -37,4 +37,6 @@ jobs:
 
       - name: Sync games to GCS
         run: |
-          gcloud storage rsync public/games/ gs://study-portal-tools/games/ --recursive
+          gcloud storage rsync public/games/ gs://anonymoustechtips/games/ \
+            --recursive \
+            --cache-control "public, max-age=31536000"
