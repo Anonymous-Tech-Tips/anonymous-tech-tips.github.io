@@ -116,7 +116,9 @@ export const GamerHome = () => {
                       onClick={() => { navigate(`/games/${game.id}`); setSearchQuery(""); }}
                       className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-white/5 transition-colors text-left"
                     >
-                      <GameIcon id={game.id} title={game.title} className="w-9 h-9 rounded-lg flex-shrink-0 text-lg" />
+                      {game.thumbnail
+                        ? <img src={game.thumbnail} alt={game.title} className="w-9 h-9 rounded-lg flex-shrink-0 object-cover" onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+                        : <GameIcon id={game.id} title={game.title} className="w-9 h-9 rounded-lg flex-shrink-0 text-lg" />}
                       <div>
                         <div className="font-semibold text-white text-sm">{game.title}</div>
                         <div className="text-[10px] text-slate-500 uppercase">{game.tags[0]}</div>
@@ -217,7 +219,9 @@ export const GamerHome = () => {
                   onClick={() => navigate(`/games/${game.id}`)}
                   className="flex-shrink-0 flex items-center gap-3 px-3 py-2 bg-[#12121e] border-l-2 border-yellow-500 rounded-r-xl hover:bg-[#1a1a2e] transition-colors w-44"
                 >
-                  <GameIcon id={game.id} title={game.title} className="w-10 h-10 rounded-lg flex-shrink-0 text-lg" />
+                  {game.thumbnail
+                    ? <img src={game.thumbnail} alt={game.title} className="w-10 h-10 rounded-lg flex-shrink-0 object-cover" onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+                    : <GameIcon id={game.id} title={game.title} className="w-10 h-10 rounded-lg flex-shrink-0 text-lg" />}
                   <div className="overflow-hidden text-left">
                     <div className="text-xs font-bold truncate text-white">{game.title}</div>
                     <div className="text-[9px] text-white/40 uppercase tracking-wide">Instant</div>

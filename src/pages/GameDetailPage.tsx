@@ -134,7 +134,9 @@ export default function GameDetailPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <GameIcon id={game.id} title={game.title} className="rounded-lg mb-4 aspect-[4/3] w-full max-h-96 text-8xl" />
+                {game.thumbnail
+                  ? <img src={game.thumbnail} alt={game.title} className="rounded-lg mb-4 aspect-[4/3] w-full max-h-96 object-cover" onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
+                  : <GameIcon id={game.id} title={game.title} className="rounded-lg mb-4 aspect-[4/3] w-full max-h-96 text-8xl" />}
                 <p className={isDarkTheme ? "text-slate-300 mb-4" : "text-slate-600 mb-4"}>
                   Play {game.title} - A {game.tags.join(", ")} game. Test your skills and have fun!
                 </p>
