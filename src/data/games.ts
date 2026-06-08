@@ -3010,17 +3010,7 @@ const rawGames: Game[] = [
       "Physics"
     ],
     "thumbnail": "/games/img/racer.jpeg",
-    "url": "/games/poly-track-0.5.1/poly-track/index.html"
-  },
-  {
-    "id": "poly-track-classic",
-    "title": "Poly Track (Classic)",
-    "tags": [
-      "Racing",
-      "Physics"
-    ],
-    "thumbnail": "/games/img/racer.jpeg",
-    "url": "/games/poly-track/index.html"
+    "url": "/games/poly-track-0.6.2/index.html"
   },
   {
     "id": "poly-track-modded",
