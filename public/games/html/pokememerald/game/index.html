@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+    #game { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="game"></div>
+  <script>
+    EJS_player = '#game';
+    EJS_core = 'gba';
+    EJS_gameUrl = 'emerald.gba';
+    EJS_pathtodata = 'https://cdn.emulatorjs.org/4.0.9/data/';
+    EJS_startOnLoaded = true;
+    EJS_cheats = false;
+    // Fix mGBA WASM null function crash (resetCheat bug in all CDN versions)
+    const _noop = () => {};
+    const _patchInterval = setInterval(() => {
+      if (window.EJS_GameManager && window.EJS_GameManager.prototype && window.EJS_GameManager.prototype.resetCheat !== _noop) {
+        window.EJS_GameManager.prototype.resetCheat = _noop;
+      }
+      if (window.EJS_emulator && window.EJS_emulator.gameManager && window.EJS_emulator.gameManager.resetCheat !== _noop) {
+        window.EJS_emulator.gameManager.resetCheat = _noop;
+      }
+    }, 50);
+  </script>
+  <script src="https://cdn.emulatorjs.org/4.0.9/data/loader.js"></script>
+</body>
+</html>

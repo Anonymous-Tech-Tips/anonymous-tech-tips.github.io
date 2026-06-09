@@ -3041,6 +3041,16 @@ const rawGames: Game[] = [
     "thumbnail": "/games/img/PokemonFireRed.webp",
     "url": "/games/html/pokemonfirered/game/index.html",
     "featured": true
+  },
+  {
+    "id": "pokemon-emerald",
+    "title": "Pokemon Emerald",
+    "tags": [
+      "RPG",
+      "Classic"
+    ],
+    "thumbnail": "/games/img/PokemonFireRed.webp",
+    "url": "/games/html/pokememerald/game/index.html"
   }
 ]
 

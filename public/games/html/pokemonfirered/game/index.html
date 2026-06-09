@@ -14,10 +14,20 @@
   <script>
     EJS_player = '#game';
     EJS_core = 'gba';
-    EJS_gameUrl = 'Pokemon%20-%20FireRed%20Version%20(USA%2C%20Europe).gba';
-    EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/';
+    EJS_gameUrl = 'firered.gba';
+    EJS_pathtodata = 'https://cdn.emulatorjs.org/4.0.9/data/';
     EJS_startOnLoaded = true;
+    // Fix mGBA WASM null function crash (resetCheat bug in all CDN versions)
+    const _noop = () => {};
+    const _patchInterval = setInterval(() => {
+      if (window.EJS_GameManager && window.EJS_GameManager.prototype && window.EJS_GameManager.prototype.resetCheat !== _noop) {
+        window.EJS_GameManager.prototype.resetCheat = _noop;
+      }
+      if (window.EJS_emulator && window.EJS_emulator.gameManager && window.EJS_emulator.gameManager.resetCheat !== _noop) {
+        window.EJS_emulator.gameManager.resetCheat = _noop;
+      }
+    }, 50);
   </script>
-  <script src="https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/loader.js"></script>
+  <script src="https://cdn.emulatorjs.org/4.0.9/data/loader.js"></script>
 </body>
 </html>
