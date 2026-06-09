@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Footer } from "@/components/Footer";
 import { HeroSection } from "./HeroSection";
 import { InteractiveTools } from "./InteractiveTools";
@@ -13,16 +14,50 @@ import { WritingResearchSection } from "./WritingResearchSection";
 import { CollegeCareerSection } from "./CollegeCareerSection";
 import { StudentWellnessSection } from "./StudentWellnessSection";
 
+const navLinks = [
+    { label: "Study Tips", href: "#education" },
+    { label: "Test Prep", href: "#test-prep" },
+    { label: "Writing", href: "#writing" },
+    { label: "College", href: "#college" },
+    { label: "Wellness", href: "#wellness" },
+    { label: "Resources", href: "#resources" },
+];
+
 export const AcademicHome: React.FC = () => {
     const scrollToResources = () => {
         document.getElementById('resources')?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    const scrollTo = (id: string) => {
+        document.getElementById(id.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-teal-100">
 
+            {/* Sticky top nav */}
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+                <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+                    <a href="#" className="font-black text-teal-700 text-lg tracking-tight">StudyHub</a>
+                    <div className="hidden md:flex items-center gap-1">
+                        {navLinks.map(({ label, href }) => (
+                            <button
+                                key={label}
+                                onClick={() => scrollTo(href)}
+                                className="text-sm font-semibold text-slate-600 hover:text-teal-700 px-3 py-1.5 rounded-md hover:bg-teal-50 transition-colors"
+                            >
+                                {label}
+                            </button>
+                        ))}
+                    </div>
+                    <Link to="/login" className="text-sm font-bold text-white bg-teal-700 hover:bg-teal-800 px-4 py-1.5 rounded-lg transition-colors">
+                        Student Login
+                    </Link>
+                </div>
+            </nav>
+
             {/* --- HERO SECTION --- */}
-            <section className="bg-white border-b border-slate-200 pt-32 pb-24 px-6 relative z-10">
+            <section className="bg-white border-b border-slate-200 pt-28 pb-24 px-6 relative z-10">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <HeroSection scrollToResources={scrollToResources} />
                     <InteractiveTools />

@@ -26,8 +26,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ scrollToResources }) =
                 <span className="text-teal-700 decoration-teal-300/30 underline decoration-4 underline-offset-4">Learning Potential</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-700 max-w-xl leading-relaxed font-semibold">
-                Join thousands of top-performing students who rely on our premium academic tools, curated research databases, and our highly-rated <span className="text-teal-700 font-bold decoration-teal-300/30 underline decoration-2 underline-offset-4">Unbl*cker</span> resources.
+                Free study tools, test prep guides, essay frameworks, scholarship resources, and curated academic databases — everything in one place, built for students.
             </p>
+            <ul className="space-y-2 text-sm text-slate-600 font-medium">
+                {[
+                    '📚 Evidence-based study techniques (Feynman, spaced repetition, active recall)',
+                    '📝 SAT · ACT · AP · IB test prep with real strategy',
+                    '🎯 Flashcard builder, GPA calculator, citation generator',
+                    '🎓 College application timeline + scholarship finder',
+                ].map(item => (
+                    <li key={item} className="flex items-start gap-2">{item}</li>
+                ))}
+            </ul>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button
                     onClick={scrollToResources}
