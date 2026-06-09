@@ -19,7 +19,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ scrollToResources }) =
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-600"></span>
                 </span>
-                🏆 Trusted by 50,000+ Students
+                Free · No Sign-in Required · Updated 2026
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
                 Accelerate Your <br />
