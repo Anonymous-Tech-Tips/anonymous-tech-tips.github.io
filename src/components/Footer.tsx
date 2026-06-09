@@ -12,8 +12,25 @@ export const Footer: React.FC = () => {
         : "bg-card border-border text-muted-foreground"
       }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {!isAuthenticated && (
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm mb-6">
+            {[
+              ['Study Techniques', 'education'],
+              ['Test Prep', 'test-prep'],
+              ['Writing & Research', 'writing'],
+              ['College & Career', 'college'],
+              ['Student Wellness', 'wellness'],
+              ['Resource Directory', 'resources'],
+            ].map(([label, id]) => (
+              <button key={id} onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}
+                className="hover:underline text-primary font-medium">
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
         <p className="text-sm mb-4">
-          © 2024 Tech Tips. Your source for modules, utilities, and tech resources.
+          © 2026 StudyHub. Free academic tools for students — study smarter, not harder.
         </p>
         <div className="flex flex-wrap justify-center gap-6 text-sm mb-4">
           <a
