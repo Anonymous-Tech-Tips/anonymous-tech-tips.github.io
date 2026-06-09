@@ -3051,6 +3051,16 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/PokemonFireRed.webp",
     "url": "/games/html/pokememerald/game/index.html"
+  },
+  {
+    "id": "mario-kart-super-circuit",
+    "title": "Mario Kart: Super Circuit",
+    "tags": [
+      "Racing",
+      "Classic"
+    ],
+    "thumbnail": "/games/img/mario.webp",
+    "url": "/games/html/mariocircuit/game/index.html"
   }
 ]
 
