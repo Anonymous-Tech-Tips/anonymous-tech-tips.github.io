@@ -16,10 +16,10 @@ export const Footer: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm mb-6">
             {[
               ['Study Techniques', 'education'],
+              ['Formula Sheet', 'formulas'],
               ['Test Prep', 'test-prep'],
               ['Writing & Research', 'writing'],
               ['College & Career', 'college'],
-              ['Student Wellness', 'wellness'],
               ['Resource Directory', 'resources'],
             ].map(([label, id]) => (
               <button key={id} onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })}

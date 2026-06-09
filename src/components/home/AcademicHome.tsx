@@ -13,13 +13,14 @@ import { TestPrepSection } from "./TestPrepSection";
 import { WritingResearchSection } from "./WritingResearchSection";
 import { CollegeCareerSection } from "./CollegeCareerSection";
 import { StudentWellnessSection } from "./StudentWellnessSection";
+import { FormulaReference } from "./FormulaReference";
 
 const navLinks = [
     { label: "Study Tips", href: "#education" },
+    { label: "Formulas", href: "#formulas" },
     { label: "Test Prep", href: "#test-prep" },
     { label: "Writing", href: "#writing" },
     { label: "College", href: "#college" },
-    { label: "Wellness", href: "#wellness" },
     { label: "Resources", href: "#resources" },
 ];
 
@@ -95,13 +96,14 @@ export const AcademicHome: React.FC = () => {
             <section className="bg-slate-100 border-b border-slate-200 px-6 py-4">
                 <div className="max-w-6xl mx-auto flex flex-wrap gap-2 justify-center">
                     {[
-                        { emoji: '⏱', label: 'Focus Timer', id: 'utilities' },
                         { emoji: '🃏', label: 'Flashcard Builder', id: 'utilities' },
-                        { emoji: '📝', label: 'Test Prep: SAT / ACT / AP', id: 'test-prep' },
-                        { emoji: '✍️', label: 'Essay Writing Guide', id: 'writing' },
+                        { emoji: '⏱', label: 'Focus Timer', id: 'utilities' },
+                        { emoji: '📐', label: 'Formula Sheet', id: 'formulas' },
+                        { emoji: '📝', label: 'SAT · ACT · AP Prep', id: 'test-prep' },
+                        { emoji: '✍️', label: 'Essay Writing', id: 'writing' },
                         { emoji: '🎓', label: 'College Prep', id: 'college' },
-                        { emoji: '💚', label: 'Student Wellness', id: 'wellness' },
-                        { emoji: '📚', label: 'Resource Directory', id: 'resources' },
+                        { emoji: '💚', label: 'Wellness', id: 'wellness' },
+                        { emoji: '📚', label: 'Resources', id: 'resources' },
                     ].map(({ emoji, label, id }) => (
                         <button
                             key={label}
@@ -137,6 +139,9 @@ export const AcademicHome: React.FC = () => {
 
             {/* --- SUBJECT TIPS --- */}
             <SubjectTips />
+
+            {/* --- FORMULA REFERENCE --- */}
+            <FormulaReference />
 
             {/* --- TEST PREP HUB --- */}
             <div id="test-prep" style={{ scrollMarginTop: '72px' }}><TestPrepSection /></div>
