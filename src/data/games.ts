@@ -1346,15 +1346,6 @@ const rawGames: Game[] = [
     "tags": [
       "Action"
     ],
-    "thumbnail": "/games/img/fruit.png",
-    "url": "/games/html/fruitninja/game/index.html"
-  },
-  {
-    "id": "fruit-ninja",
-    "title": "Fruit Ninja",
-    "tags": [
-      "Action"
-    ],
     "thumbnail": "/games/img/fruitninja.webp",
     "url": "/games/html/fruitninja/game/index.html"
   },
