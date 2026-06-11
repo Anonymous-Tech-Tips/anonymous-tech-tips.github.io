@@ -335,23 +335,6 @@
     "similar": ["paper-minecraft", "geometry-dash"]
   },
   {
-    "id": "pokemon-fire-red",
-    "title": "Pokemon Fire Red",
-    "description": "Catch, train, and battle Pokemon in the classic Kanto region adventure. Become the Pokemon Champion and defeat Team Rocket!",
-    "thumbnail": "/games/img/PokemonFireRed.webp",
-    "url": "/games/html/pokemonfirered/index.html",
-    "category": "other",
-    "mobileFriendly": false,
-    "offline": true,
-    "tags": ["rpg", "pokemon", "gba", "adventure", "classic"],
-    "featured": true,
-    "developer": "Game Freak / Nintendo",
-    "instructions": "Explore Kanto, catch all 151 Pokemon, earn 8 badges, and become Champion.",
-    "controls": "Arrow keys to move, Z to confirm, X to cancel/menu",
-    "tips": ["Save often", "Catch a diverse team", "Use type advantages in battle"],
-    "similar": ["mario", "webretro"]
-  },
-  {
     "id": "poly-track-modded",
     "title": "Poly Track (Modded)",
     "description": "A modified version of Poly Track with custom changes. Different from the original — explore the changes yourself!",

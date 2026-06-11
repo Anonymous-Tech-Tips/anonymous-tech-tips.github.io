@@ -17,9 +17,9 @@ import { DiscoveryFeed } from '@/components/rewards/DiscoveryFeed';
 const HERO_CATEGORIES = ["Platformer", "Action", "Racing", "Sports", "Shooter", "Multiplayer"];
 // Curated hot games — one per major category for variety
 const HOT_GAME_IDS = [
-  "bitlife", "fnaf", "tunnel-rush", "drift-boss", "cookie-clicker", "temple-run-2",
+  "slope", "retro-bowl", "tunnel-rush", "drift-boss", "cookie-clicker", "temple-run-2",
   "basketball-stars", "bloxorz", "idle-breakout", "drive-mad", "soccer-random", "among-us",
-  "geometry-dash", "retro-bowl", "slope", "moto-x3m",
+  "geometry-dash", "moto-x3m", "getaway-shootout", "rooftop-snipers",
 ];
 
 export const GamerHome = () => {

@@ -40,6 +40,7 @@ const ShopPage = lazy(() => import("./pages/ShopPage"));
 const SharePage = lazy(() => import("./pages/SharePage"));
 const SafeModePage = lazy(() => import("./pages/SafeModePage"));
 const SEOSetupPage = lazy(() => import("./pages/SEOSetupPage"));
+const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
 const EntertainmentPage = lazy(() => import("./pages/EntertainmentPage"));
 const UtilitiesPage = lazy(() => import("./pages/UtilitiesPage"));
 
@@ -102,9 +103,10 @@ const AppContent = () => {
         <OfflineModeIndicator />
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            {/* Routes WITHOUT Layout (no navbar) */}
+            {/* Public routes — no auth required */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/safe" element={<SafeModePage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/games/:id" element={<ProtectedRoute><GameDetailPage /></ProtectedRoute>} />
             {/* <Route path="/utilities/:id" element={<ProtectedRoute><UtilityDetailPage /></ProtectedRoute>} /> */}
 

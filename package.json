@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run validate:data && npm run generate:sitemap && vite build",
-    "build:gcs": "npm run validate:data && npm run generate:sitemap && vite build --mode gcs",
+    "build": "npm run validate:data && npm run generate:sitemap && vite build && node -e \"const fs=require('fs');fs.copyFileSync('public/sitemap.xml','dist/sitemap.xml');fs.copyFileSync('public/robots.txt','dist/robots.txt');\"",
+    "build:gcs": "npm run validate:data && npm run generate:sitemap && vite build --mode gcs && node -e \"const fs=require('fs');fs.copyFileSync('public/sitemap.xml','dist/sitemap.xml');fs.copyFileSync('public/robots.txt','dist/robots.txt');\"",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",

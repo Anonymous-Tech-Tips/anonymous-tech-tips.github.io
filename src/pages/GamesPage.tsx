@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 
 const PAGE_SIZE = 30;
-import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Ban, Coffee } from "lucide-react";
+import { Search, Gamepad2, Filter, Zap, Ghost, Car, Trophy, Brain, Coffee } from "lucide-react";
 
 import { useProgression } from "@/contexts/ProgressionContext";
 import { useUserPrefs } from "@/contexts/UserPrefsContext";
@@ -94,7 +94,6 @@ const GamesPage = () => {
     { id: "strategy", label: "Strategy", icon: Brain },
     { id: "casual", label: "Casual", icon: Coffee },
     { id: "multiplayer", label: "Multiplayer", icon: Ghost },
-    { id: "blocked", label: "Blocked", icon: Ban },
   ];
 
   return (

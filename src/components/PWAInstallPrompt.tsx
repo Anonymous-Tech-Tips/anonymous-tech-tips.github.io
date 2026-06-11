@@ -42,7 +42,7 @@ export const PWAInstallPrompt: React.FC = () => {
       // Show prompt after a delay or on user interaction
       setTimeout(() => {
         setShowPrompt(true);
-      }, 3000);
+      }, 45000);
     };
 
     // Listen for app installed event
@@ -87,7 +87,7 @@ export const PWAInstallPrompt: React.FC = () => {
   if (isInstalled) return null;
 
   const dismissedTime = localStorage.getItem('pwa-prompt-dismissed');
-  if (dismissedTime && Date.now() - parseInt(dismissedTime) < 24 * 60 * 60 * 1000) {
+  if (dismissedTime && Date.now() - parseInt(dismissedTime) < 7 * 24 * 60 * 60 * 1000) {
     return null;
   }
 

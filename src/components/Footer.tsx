@@ -47,14 +47,12 @@ export const Footer: React.FC = () => {
           >
             📋 Legal & Terms
           </Link>
-          {isAuthenticated && (
-            <Link
-              to="/seo-setup"
-              className="hover:underline text-gamer-accent"
-            >
-              🔍 SEO Setup
-            </Link>
-          )}
+          <Link
+            to="/privacy"
+            className={`hover:underline ${isAuthenticated ? "text-gamer-accent" : "text-primary"}`}
+          >
+            🔒 Privacy Policy
+          </Link>
           <a
             href="/sitemap.xml"
             target="_blank"

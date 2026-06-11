@@ -66,7 +66,7 @@ export const Navbar: React.FC = () => {
         <Link to="/" className="group relative z-50">
           <h1 className={`text-2xl md:text-3xl font-bold tracking-tighter ${isAuthenticated ? "text-white" : "text-slate-900"
             } transition-colors font-serif italic`}>
-            TechTips<span className="text-blue-500">.</span><span className="text-[10px] font-mono font-normal text-slate-500 ml-1.5 align-middle">v2.3</span>
+            TechTips<span className="text-blue-500">.</span>
           </h1>
         </Link>
 

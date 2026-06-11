@@ -58,9 +58,11 @@ const FriendsGallery: React.FC = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500">
-          No photos found in the friends directory. Please add some photos to src/assets/friends/
-        </p>
+        <div className="flex flex-col items-center justify-center py-8 text-center gap-3">
+          <div className="text-4xl">👥</div>
+          <p className="text-slate-400 font-semibold">No squad members yet</p>
+          <p className="text-slate-600 text-sm">Invite friends to see their profiles here.</p>
+        </div>
       )}
     </div>
   );
