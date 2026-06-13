@@ -1,22 +1,22 @@
 {
-    "last_updated": "2026-06-12 23:08:03",
+    "last_updated": "2026-06-13 02:12:47",
     "districts": {
         "LCPS": {
             "forecasts": [
                 {
-                    "date": "2026-06-12",
-                    "label": "Friday, Jun 12",
+                    "date": "2026-06-13",
+                    "label": "Saturday, Jun 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.1,
-                        "delay": 5.6,
-                        "early_release": 1.7,
-                        "closure": 1.6
+                        "open": 90.2,
+                        "delay": 5.5,
+                        "early_release": 2.1,
+                        "closure": 2.1
                     }
                 },
                 {
-                    "date": "2026-06-13",
-                    "label": "Saturday, Jun 13",
+                    "date": "2026-06-14",
+                    "label": "Sunday, Jun 14",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 81.4,
@@ -26,8 +26,8 @@
                     }
                 },
                 {
-                    "date": "2026-06-14",
-                    "label": "Sunday, Jun 14",
+                    "date": "2026-06-15",
+                    "label": "Monday, Jun 15",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 85.4,
@@ -41,19 +41,19 @@
         "FCPS": {
             "forecasts": [
                 {
-                    "date": "2026-06-12",
-                    "label": "Friday, Jun 12",
+                    "date": "2026-06-13",
+                    "label": "Saturday, Jun 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.5,
-                        "delay": 7.4,
+                        "open": 90.3,
+                        "delay": 6.6,
                         "early_release": 2.1,
-                        "closure": 1.1
+                        "closure": 1.0
                     }
                 },
                 {
-                    "date": "2026-06-13",
-                    "label": "Saturday, Jun 13",
+                    "date": "2026-06-14",
+                    "label": "Sunday, Jun 14",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 76.6,
@@ -63,8 +63,8 @@
                     }
                 },
                 {
-                    "date": "2026-06-14",
-                    "label": "Sunday, Jun 14",
+                    "date": "2026-06-15",
+                    "label": "Monday, Jun 15",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 90.8,
@@ -78,19 +78,19 @@
         "PWCS": {
             "forecasts": [
                 {
-                    "date": "2026-06-12",
-                    "label": "Friday, Jun 12",
+                    "date": "2026-06-13",
+                    "label": "Saturday, Jun 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.1,
-                        "delay": 7.6,
-                        "early_release": 2.2,
-                        "closure": 1.1
+                        "open": 81.4,
+                        "delay": 14.1,
+                        "early_release": 3.0,
+                        "closure": 1.5
                     }
                 },
                 {
-                    "date": "2026-06-13",
-                    "label": "Saturday, Jun 13",
+                    "date": "2026-06-14",
+                    "label": "Sunday, Jun 14",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 87.0,
@@ -100,8 +100,8 @@
                     }
                 },
                 {
-                    "date": "2026-06-14",
-                    "label": "Sunday, Jun 14",
+                    "date": "2026-06-15",
+                    "label": "Monday, Jun 15",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 90.5,
@@ -115,19 +115,19 @@
     },
     "forecasts": [
         {
-            "date": "2026-06-12",
-            "label": "Friday, Jun 12",
+            "date": "2026-06-13",
+            "label": "Saturday, Jun 13",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.1,
-                "delay": 5.6,
-                "early_release": 1.7,
-                "closure": 1.6
+                "open": 90.2,
+                "delay": 5.5,
+                "early_release": 2.1,
+                "closure": 2.1
             }
         },
         {
-            "date": "2026-06-13",
-            "label": "Saturday, Jun 13",
+            "date": "2026-06-14",
+            "label": "Sunday, Jun 14",
             "primary_prediction": "Open",
             "probabilities": {
                 "open": 81.4,
@@ -137,8 +137,8 @@
             }
         },
         {
-            "date": "2026-06-14",
-            "label": "Sunday, Jun 14",
+            "date": "2026-06-15",
+            "label": "Monday, Jun 15",
             "primary_prediction": "Open",
             "probabilities": {
                 "open": 85.4,
