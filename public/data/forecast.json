@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-06-13 21:03:18",
+    "last_updated": "2026-06-13 22:54:53",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -45,8 +45,8 @@
                     "label": "Saturday, Jun 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.3,
-                        "delay": 8.0,
+                        "open": 89.7,
+                        "delay": 7.6,
                         "early_release": 1.3,
                         "closure": 1.4
                     }
