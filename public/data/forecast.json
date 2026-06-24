@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-06-24 10:41:36",
+    "last_updated": "2026-06-24 14:06:06",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Thursday, Jun 25",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 83.4,
-                        "delay": 6.6,
-                        "early_release": 1.9,
-                        "closure": 8.2
+                        "open": 85.8,
+                        "delay": 5.6,
+                        "early_release": 1.6,
+                        "closure": 7.0
                     }
                 },
                 {
@@ -45,8 +45,8 @@
                     "label": "Wednesday, Jun 24",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.2,
-                        "delay": 7.2,
+                        "open": 90.5,
+                        "delay": 6.9,
                         "early_release": 1.3,
                         "closure": 1.3
                     }
@@ -56,10 +56,10 @@
                     "label": "Thursday, Jun 25",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 82.6,
-                        "delay": 13.7,
-                        "early_release": 2.0,
-                        "closure": 1.6
+                        "open": 87.4,
+                        "delay": 9.5,
+                        "early_release": 1.8,
+                        "closure": 1.2
                     }
                 },
                 {
@@ -93,10 +93,10 @@
                     "label": "Thursday, Jun 25",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 75.2,
-                        "delay": 18.1,
-                        "early_release": 3.1,
-                        "closure": 3.6
+                        "open": 77.1,
+                        "delay": 17.6,
+                        "early_release": 3.0,
+                        "closure": 2.3
                     }
                 },
                 {
@@ -130,10 +130,10 @@
             "label": "Thursday, Jun 25",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 83.4,
-                "delay": 6.6,
-                "early_release": 1.9,
-                "closure": 8.2
+                "open": 85.8,
+                "delay": 5.6,
+                "early_release": 1.6,
+                "closure": 7.0
             }
         },
         {
