@@ -23,6 +23,9 @@ const navLinks = [
     { label: "College", href: "#college" },
     { label: "Resources", href: "#resources" },
 ];
+const navRouteLinks = [
+    { label: "📖 Guides", to: "/learn" },
+];
 
 export const AcademicHome: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -52,6 +55,15 @@ export const AcademicHome: React.FC = () => {
                             >
                                 {label}
                             </button>
+                        ))}
+                        {navRouteLinks.map(({ label, to }) => (
+                            <Link
+                                key={label}
+                                to={to}
+                                className="text-sm font-semibold text-teal-700 hover:text-teal-800 px-3 py-1.5 rounded-md hover:bg-teal-50 transition-colors"
+                            >
+                                {label}
+                            </Link>
                         ))}
                     </div>
                     <div className="flex items-center gap-2">
@@ -95,6 +107,12 @@ export const AcademicHome: React.FC = () => {
             {/* --- QUICK ACCESS CHIPS --- */}
             <section className="bg-slate-100 border-b border-slate-200 px-6 py-4">
                 <div className="max-w-6xl mx-auto flex flex-wrap gap-2 justify-center">
+                    <Link
+                        to="/learn"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-700 border border-teal-700 rounded-full text-sm font-semibold text-white hover:bg-teal-800 transition-colors shadow-sm"
+                    >
+                        <span>📖</span> Free Guides
+                    </Link>
                     {[
                         { emoji: '🃏', label: 'Flashcard Builder', id: 'utilities' },
                         { emoji: '⏱', label: 'Focus Timer', id: 'utilities' },

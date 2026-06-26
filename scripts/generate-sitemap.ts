@@ -5,6 +5,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import games from '../src/data/games.json' assert { type: 'json' };
 import utilities from '../src/data/utilities.json' assert { type: 'json' };
+import guides from '../src/data/guides.json' assert { type: 'json' };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,33 +13,26 @@ const __dirname = dirname(__filename);
 const baseUrl = 'https://anonymous-tech-tips.github.io';
 const today = new Date().toISOString().split('T')[0];
 
-const urls = [
+// Only include real server-accessible paths (no # fragment URLs — spec-invalid, Google ignores them)
+const staticUrls = [
   { loc: `${baseUrl}/`, lastmod: today, changefreq: 'daily', priority: 1.0 },
-  { loc: `${baseUrl}/#/games`, lastmod: today, changefreq: 'daily', priority: 0.9 },
-  { loc: `${baseUrl}/#/share`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
-  { loc: `${baseUrl}/#/seo-setup`, lastmod: today, changefreq: 'monthly', priority: 0.7 },
-  { loc: `${baseUrl}/#/safe`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
-  { loc: `${baseUrl}/#/utilities`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
-  { loc: `${baseUrl}/#/optimizations`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
-  { loc: `${baseUrl}/#/education`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
-  { loc: `${baseUrl}/#/entertainment`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
-  { loc: `${baseUrl}/#/links`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
-  { loc: `${baseUrl}/#/updates`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
-  { loc: `${baseUrl}/#/legal`, lastmod: today, changefreq: 'monthly', priority: 0.5 },
-  { loc: `${baseUrl}/#/shop`, lastmod: today, changefreq: 'weekly', priority: 0.8 },
-  { loc: `${baseUrl}/#/login`, lastmod: today, changefreq: 'monthly', priority: 0.5 },
-  { loc: `${baseUrl}/#/collections`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
-  { loc: `${baseUrl}/#/rewards`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
-  { loc: `${baseUrl}/#/leaderboard`, lastmod: today, changefreq: 'daily', priority: 0.7 },
+  { loc: `${baseUrl}/learn`, lastmod: today, changefreq: 'weekly', priority: 0.9 },
+  { loc: `${baseUrl}/safe`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/games`, lastmod: today, changefreq: 'daily', priority: 0.8 },
+  { loc: `${baseUrl}/utilities`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/optimizations`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/education`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
+  { loc: `${baseUrl}/entertainment`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
+  { loc: `${baseUrl}/share`, lastmod: today, changefreq: 'weekly', priority: 0.5 },
 ];
 
-// Use clean URLs for better SEO (prerendered pages will redirect to hash routes)
 const itemUrls = [
+  ...guides.map(g => ({ loc: `${baseUrl}/learn/${g.id}`, lastmod: today, changefreq: 'weekly', priority: 0.9 })),
   ...games.map(g => ({ loc: `${baseUrl}/games/${g.id}`, lastmod: today, changefreq: 'daily', priority: 0.8 })),
   ...utilities.map(u => ({ loc: `${baseUrl}/utilities/${u.id}`, lastmod: today, changefreq: 'weekly', priority: 0.7 })),
 ];
 
-const all = [...urls, ...itemUrls];
+const all = [...staticUrls, ...itemUrls];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

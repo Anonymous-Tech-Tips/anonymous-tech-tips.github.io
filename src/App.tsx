@@ -41,6 +41,8 @@ const SharePage = lazy(() => import("./pages/SharePage"));
 const SafeModePage = lazy(() => import("./pages/SafeModePage"));
 const SEOSetupPage = lazy(() => import("./pages/SEOSetupPage"));
 const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
+const LearnPage = lazy(() => import("./pages/LearnPage"));
+const LearnGuidePage = lazy(() => import("./pages/LearnGuidePage"));
 const EntertainmentPage = lazy(() => import("./pages/EntertainmentPage"));
 const UtilitiesPage = lazy(() => import("./pages/UtilitiesPage"));
 
@@ -107,6 +109,8 @@ const AppContent = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/safe" element={<SafeModePage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/learn" element={<LearnPage />} />
+            <Route path="/learn/:id" element={<LearnGuidePage />} />
             <Route path="/games/:id" element={<ProtectedRoute><GameDetailPage /></ProtectedRoute>} />
             {/* <Route path="/utilities/:id" element={<ProtectedRoute><UtilityDetailPage /></ProtectedRoute>} /> */}
 

@@ -5,6 +5,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import games from '../src/data/games.json' assert { type: 'json' };
 import utilities from '../src/data/utilities.json' assert { type: 'json' };
+import guides from '../src/data/guides.json' assert { type: 'json' };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -196,8 +197,34 @@ const utilityPages: PrerenderedPage[] = utilities.map((utility: any) => ({
   canonical: `${baseUrl}/utilities/${utility.id}`,
 }));
 
+// Generate guide pages (public, no auth — critical for AdSense)
+const guideListPage: PrerenderedPage = {
+  path: '/learn',
+  title: 'Free Student Learning Guides | Anonymous Tech Tips',
+  description: 'Free in-depth guides covering PC optimization, effective study methods, gaming performance, and more. Written for students by students.',
+  keywords: 'study guides, pc optimization guide, study methods, gaming performance, student learning, free tech guides, windows optimization, spaced repetition, active recall',
+  canonical: `${baseUrl}/learn`,
+};
+const guidePages: PrerenderedPage[] = (guides as any[]).map((guide) => ({
+  path: `/learn/${guide.id}`,
+  title: `${guide.title} | Anonymous Tech Tips`,
+  description: guide.description,
+  keywords: (guide.tags as string[]).join(', '),
+  canonical: `${baseUrl}/learn/${guide.id}`,
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": guide.title,
+    "description": guide.description,
+    "url": `${baseUrl}/learn/${guide.id}`,
+    "author": { "@type": "Organization", "name": "Anonymous Tech Tips" },
+    "publisher": { "@type": "Organization", "name": "Anonymous Tech Tips", "url": baseUrl },
+    "keywords": (guide.tags as string[]).join(', '),
+  },
+}));
+
 // Combine all pages
-const allPages = [...mainPages, ...gamePages, ...utilityPages];
+const allPages = [...mainPages, ...gamePages, ...utilityPages, guideListPage, ...guidePages];
 
 console.log(`🚀 Generating ${allPages.length} prerendered pages...`);
 
