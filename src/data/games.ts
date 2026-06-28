@@ -312,15 +312,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/pandas1/game/base.html"
   },
   {
-    "id": "9007199254740992",
-    "title": "9007199254740992",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/900.webp",
-    "url": "/games/html/9007199254740992/game/index.html"
-  },
-  {
     "id": "a-dark-room",
     "title": "A Dark Room",
     "tags": [
@@ -328,24 +319,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/adarkroom.png",
     "url": "/games/html/adarkroom/game/index.html"
-  },
-  {
-    "id": "a-grim-chase",
-    "title": "A Grim Chase",
-    "tags": [
-      "Horror"
-    ],
-    "thumbnail": "/games/img/a grim chase.jpg",
-    "url": "/games/html/a grim chase/game/index.html"
-  },
-  {
-    "id": "a-grim-love-tale",
-    "title": "A Grim Love Tale",
-    "tags": [
-      "Horror"
-    ],
-    "thumbnail": "/games/img/a grim love tale.jpg",
-    "url": "/games/html/a grim love tale/game/index.html"
   },
   {
     "id": "achievementunlocked",
@@ -384,15 +357,6 @@ const rawGames: Game[] = [
     "url": "/games/html/ages-of-conflict/game/index.html"
   },
   {
-    "id": "algaes-escapade",
-    "title": "Algaes Escapade",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/apple-touch-icon-114x114.png",
-    "url": "/games/html/algaes-escapade/game/index.html"
-  },
-  {
     "id": "alien-hominid",
     "title": "Alien Hominid",
     "tags": [
@@ -421,15 +385,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/alienthief/game/base.html"
   },
   {
-    "id": "amidst-the-clouds",
-    "title": "Amidst The Clouds",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/amidst-the-clouds.webp",
-    "url": "/games/html/amidst-the-clouds/game/index.html"
-  },
-  {
     "id": "ant-art-tycoon",
     "title": "Ant Art Tycoon",
     "tags": [
@@ -437,24 +392,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/ant art tycoon.png",
     "url": "/games/html/ant art tycoon/game/index.html"
-  },
-  {
-    "id": "appel",
-    "title": "Appel",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/appel.png",
-    "url": "/games/html/Appel/game/Appel.html"
-  },
-  {
-    "id": "arcade-wizard",
-    "title": "Arcade Wizard",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/arcade wizard.png",
-    "url": "/games/html/arcade wizard/game/index.html"
   },
   {
     "id": "arcuz",
@@ -475,15 +412,6 @@ const rawGames: Game[] = [
     "url": "/games/html/asciispace/game/index.html"
   },
   {
-    "id": "aspiring-artist",
-    "title": "Aspiring Artist",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/aspiring artist.webp",
-    "url": "/games/html/aspiring artist/game/index.html"
-  },
-  {
     "id": "asteroids",
     "title": "Asteroids",
     "tags": [
@@ -502,24 +430,6 @@ const rawGames: Game[] = [
     "url": "/games/html/astray/game/index.html"
   },
   {
-    "id": "avalanche",
-    "title": "Avalanche",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/avalanche.webp",
-    "url": "/games/html/avalanche/game/index.html"
-  },
-  {
-    "id": "babel-tower",
-    "title": "Babel Tower",
-    "tags": [
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/babel tower.jpg",
-    "url": "/games/html/babel tower/game/index.html"
-  },
-  {
     "id": "baldis-basics",
     "title": "Baldis Basics",
     "tags": [
@@ -529,33 +439,6 @@ const rawGames: Game[] = [
     "url": "/games/html/baldis-basics/game/index.html"
   },
   {
-    "id": "ball-platformer",
-    "title": "Ball Platformer",
-    "tags": [
-      "Sports"
-    ],
-    "thumbnail": "/games/img/ball platformer.png",
-    "url": "/games/html/ball platformer/game/ball platformer.html"
-  },
-  {
-    "id": "ballhop",
-    "title": "Ballhop",
-    "tags": [
-      "Sports"
-    ],
-    "thumbnail": "/games/img/ballhop.webp",
-    "url": "/games/html/ball-hop/game/index.html"
-  },
-  {
-    "id": "ballistic-chickens",
-    "title": "Ballistic Chickens",
-    "tags": [
-      "Sports"
-    ],
-    "thumbnail": "/games/img/ballistic-chickens.webp",
-    "url": "/games/html/ballistic-chickens/game/index.html"
-  },
-  {
     "id": "basket-random",
     "title": "Basket Random",
     "tags": [
@@ -563,15 +446,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/Basket Random.jpg",
     "url": "/games/html/Basket Random/game/index.html"
-  },
-  {
-    "id": "beam",
-    "title": "Beam",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/beam.png",
-    "url": "/games/html/beam/game/index.html"
   },
   {
     "id": "big-tower-tiny-square",
@@ -664,15 +538,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/bombit3/game/base.html"
   },
   {
-    "id": "bounceback",
-    "title": "Bounceback",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/bounceback.png",
-    "url": "/games/html/bounceback/game/index.html"
-  },
-  {
     "id": "boxing",
     "title": "Boxing",
     "tags": [
@@ -705,62 +570,8 @@ const rawGames: Game[] = [
     "tags": [
       "Arcade"
     ],
-    "thumbnail": "/games/img/breakout.png",
-    "url": "/games/html/breakout/game/index.html"
-  },
-  {
-    "id": "breakout",
-    "title": "Breakout",
-    "tags": [
-      "Arcade"
-    ],
     "thumbnail": "/games/img/breakout.webp",
     "url": "/games/html/breakout/game/index.html"
-  },
-  {
-    "id": "bubble-scratch",
-    "title": "Bubble Scratch",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/bubble scratch.png",
-    "url": "/games/html/Bubble Scratch/game/Bubble Scratch.html"
-  },
-  {
-    "id": "bunnies-carrot",
-    "title": "Bunnies Carrot",
-    "tags": [
-      "Racing"
-    ],
-    "thumbnail": "/games/img/bunnies carrot.jpg",
-    "url": "/games/html/bunnies carrot/game/index.html"
-  },
-  {
-    "id": "captain-callisto",
-    "title": "Captain Callisto",
-    "tags": [
-      "Shooter"
-    ],
-    "thumbnail": "/games/img/capain.png",
-    "url": "/games/html/captaincallisto/game/index.html"
-  },
-  {
-    "id": "cat-house",
-    "title": "Cat House",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/cat house.avif",
-    "url": "/games/html/cat house/game/index.html"
-  },
-  {
-    "id": "cataractae",
-    "title": "Cataractae",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/cataractae.jpg",
-    "url": "/games/html/cataractae/game/index.html"
   },
   {
     "id": "checkpoint",
@@ -797,15 +608,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/choppy orc.jpg",
     "url": "/games/html/choppy orc/game/index.html"
-  },
-  {
-    "id": "chroma",
-    "title": "Chroma",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/chroma.png",
-    "url": "/games/html/chroma/game/index.html"
   },
   {
     "id": "circlo",
@@ -907,15 +709,6 @@ const rawGames: Game[] = [
     "url": "/games/html/csgo-clicker/game/index.html"
   },
   {
-    "id": "cube-miner",
-    "title": "Cube Miner",
-    "tags": [
-      "Arcade"
-    ],
-    "thumbnail": "/games/img/cube.png",
-    "url": "/games/html/Cube Miner/game/Cube Miner.html"
-  },
-  {
     "id": "cubefield",
     "title": "Cubefield",
     "tags": [
@@ -934,24 +727,6 @@ const rawGames: Game[] = [
     "url": "/games/html/cupcakes/game/index.html"
   },
   {
-    "id": "cursed-travels-below",
-    "title": "Cursed Travels Below",
-    "tags": [
-      "Horror"
-    ],
-    "thumbnail": "/games/img/cursed travels below.png",
-    "url": "/games/html/cursed travels below/game/index.html"
-  },
-  {
-    "id": "cursed-travels-flame",
-    "title": "Cursed Travels Flame",
-    "tags": [
-      "Horror"
-    ],
-    "thumbnail": "/games/img/cursed travels flame.png",
-    "url": "/games/html/cursed travels flame/game/index.html"
-  },
-  {
     "id": "cut-the-rope",
     "title": "Cut The Rope",
     "tags": [
@@ -968,24 +743,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/cyber.webp",
     "url": "/games/html/cyber-city-driver/game/index.html"
-  },
-  {
-    "id": "detective-bass-fish",
-    "title": "Detective Bass Fish",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/detective bass fish.webp",
-    "url": "/games/html/detective bass fish/game/index.html"
-  },
-  {
-    "id": "digger-main",
-    "title": "Digger Main",
-    "tags": [
-      "Arcade"
-    ],
-    "thumbnail": "/games/img/diggermain.png",
-    "url": "/games/html/digger-main/game/digger-main/index.html"
   },
   {
     "id": "dinosaur",
@@ -1015,15 +772,6 @@ const rawGames: Game[] = [
     "url": "/games/html/dogeminer/game/index.html"
   },
   {
-    "id": "doodle-alive",
-    "title": "Doodle Alive",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/doodle alive.jpg",
-    "url": "/games/html/doodle alive/game/index.html"
-  },
-  {
     "id": "doodle-jump",
     "title": "Doodle Jump",
     "tags": [
@@ -1049,15 +797,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/driftking.webp",
     "url": "/games/html/driftking/game/index.html"
-  },
-  {
-    "id": "dubstep-raven",
-    "title": "Dubstep Raven",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/dubstep raven.png",
-    "url": "/games/html/dubstep raven/game/index.html"
   },
   {
     "id": "duck-life",
@@ -1114,24 +853,6 @@ const rawGames: Game[] = [
     "url": "/games/html/edge-surf/game/index.html"
   },
   {
-    "id": "edge-not-found",
-    "title": "Edge Not Found",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/edge.png",
-    "url": "/games/html/edgenotfound/game/index.html"
-  },
-  {
-    "id": "eel-slap",
-    "title": "Eel Slap",
-    "tags": [
-      "Arcade"
-    ],
-    "thumbnail": "/games/img/eel-slap.webp",
-    "url": "/games/html/eel-slap/game/index.html"
-  },
-  {
     "id": "eggy-car",
     "title": "Eggy Car",
     "tags": [
@@ -1159,24 +880,6 @@ const rawGames: Game[] = [
     "url": "/games/html/endlesswar3/game/index.html"
   },
   {
-    "id": "erase-box",
-    "title": "Erase Box",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/erase box.jpg",
-    "url": "/games/html/erase box/game/index.html"
-  },
-  {
-    "id": "erase-box",
-    "title": "Erase Box",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/erase box.jpg",
-    "url": "/games/html/erase box/game/index.html"
-  },
-  {
     "id": "escaping-the-prison",
     "title": "Escaping The Prison",
     "tags": [
@@ -1186,15 +889,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/escaping the prison/game/base.html"
   },
   {
-    "id": "evil-glich",
-    "title": "Evil Glich",
-    "tags": [
-      "Shooter"
-    ],
-    "thumbnail": "/games/img/EvilGlitch.png",
-    "url": "/games/html/evilglitch/game/index.html"
-  },
-  {
     "id": "evolution",
     "title": "Evolution",
     "tags": [
@@ -1202,15 +896,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/evolution.webp",
     "url": "/games/html/evolution/game/index.html"
-  },
-  {
-    "id": "exo",
-    "title": "Exo",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/exo.webp",
-    "url": "/games/html/exo/game/index.html"
   },
   {
     "id": "factory-balls-1",
@@ -1267,15 +952,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/fancy3/game/base.html"
   },
   {
-    "id": "farming",
-    "title": "Farming",
-    "tags": [
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/farm.png",
-    "url": "/games/html/html5-farming-demo-master/game/html5-farming-demo-master/index.html"
-  },
-  {
     "id": "finding-santa",
     "title": "Finding Santa",
     "tags": [
@@ -1295,15 +971,6 @@ const rawGames: Game[] = [
     "url": "/games/html/flappy-2048/game/index.html"
   },
   {
-    "id": "flappy-plane",
-    "title": "Flappy Plane",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/flappyplae.jpeg",
-    "url": "/games/html/flappyplane/game/index.html"
-  },
-  {
     "id": "fleeing-the-complex",
     "title": "Fleeing The Complex",
     "tags": [
@@ -1321,15 +988,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/webgl-fluid-simulation.webp",
     "url": "/games/html/webgl-fluid-simulation/game/index.html"
-  },
-  {
-    "id": "fortnite-z",
-    "title": "Fortnite Z",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/fornitez.png",
-    "url": "/games/html/Fortnite Z/game/Fortnite Z.html"
   },
   {
     "id": "freegear",
@@ -1357,24 +1015,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/funnyshooter.webp",
     "url": "/games/html/funnyshooter/game/index.html"
-  },
-  {
-    "id": "gem-twins",
-    "title": "Gem Twins",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/gem twins.png",
-    "url": "/games/html/gem twins/game/index.html"
-  },
-  {
-    "id": "generic-fishing-game",
-    "title": "Generic Fishing Game",
-    "tags": [
-      "Simulation"
-    ],
-    "thumbnail": "/games/img/generic fishing game.png",
-    "url": "/games/html/generic fishing game/game/index.html"
   },
   {
     "id": "geometry-dash-meltdown",
@@ -1431,24 +1071,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/gooballs/game/base.html"
   },
   {
-    "id": "goodbye-doggy",
-    "title": "Goodbye Doggy",
-    "tags": [
-      "Horror"
-    ],
-    "thumbnail": "/games/img/goodbye doggy.jpg",
-    "url": "/games/html/goodbye doggy/game/index.html"
-  },
-  {
-    "id": "goodnight",
-    "title": "Goodnight",
-    "tags": [
-      "Horror"
-    ],
-    "thumbnail": "/games/img/gn.webp",
-    "url": "/games/html/goodnight/game/index.html"
-  },
-  {
     "id": "google-snake",
     "title": "Google Snake",
     "tags": [
@@ -1476,15 +1098,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/gun mayhem 2/game/base.html"
   },
   {
-    "id": "hasty-shaman",
-    "title": "Hasty Shaman",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/hasty shaman.png",
-    "url": "/games/html/hasty shaman/index.html"
-  },
-  {
     "id": "haunt-the-house",
     "title": "Haunt The House",
     "tags": [
@@ -1492,15 +1105,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/hauntthehouse.jpg",
     "url": "/games/swf/hauntthehouse/game/base.html"
-  },
-  {
-    "id": "hexa-knot",
-    "title": "Hexa Knot",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/hexa knot.png",
-    "url": "/games/html/hexa knot/game/index.html"
   },
   {
     "id": "hexologic",
@@ -1564,15 +1168,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/houseofhazards.jpg",
     "url": "/games/html/houseofhazards/game/index.html"
-  },
-  {
-    "id": "hover-racer-drive",
-    "title": "Hover Racer Drive",
-    "tags": [
-      "Racing"
-    ],
-    "thumbnail": "/games/img/hover racer drive.png",
-    "url": "/games/html/hover racer drive/game/index.html"
   },
   {
     "id": "i-wanna-win",
@@ -1665,15 +1260,6 @@ const rawGames: Game[] = [
     "url": "/games/html/just one boss/game/index.html"
   },
   {
-    "id": "just-passing",
-    "title": "Just Passing",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/just passing.png",
-    "url": "/games/html/just passing/game/index.html"
-  },
-  {
     "id": "kingdom-rush",
     "title": "Kingdom Rush",
     "tags": [
@@ -1692,15 +1278,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/kingdom rush frontie/game/base.html"
   },
   {
-    "id": "kitchen-gun-game",
-    "title": "Kitchen Gun Game",
-    "tags": [
-      "Action"
-    ],
-    "thumbnail": "/games/img/kitchen-gun-game.webp",
-    "url": "/games/html/kitchen-gun-game/game/index.html"
-  },
-  {
     "id": "kitten-cannon",
     "title": "Kitten Cannon",
     "tags": [
@@ -1708,33 +1285,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/kittencannon.webp",
     "url": "/games/html/kittencannon/game/index.html"
-  },
-  {
-    "id": "knight-errant",
-    "title": "Knight Errant",
-    "tags": [
-      "RPG"
-    ],
-    "thumbnail": "/games/img/knight errant.png",
-    "url": "/games/html/knight errant/game/index.html"
-  },
-  {
-    "id": "konnekt",
-    "title": "Konnekt",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/cone.png",
-    "url": "/games/html/konnekt/game/index.html"
-  },
-  {
-    "id": "laqueus-escape-chapter-1",
-    "title": "Laqueus Escape Chapter 1",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/laqueus escape chapter 1.avif",
-    "url": "/games/html/laqueus escape chapter 1/game/index.html"
   },
   {
     "id": "learn-to-fly",
@@ -1746,15 +1296,6 @@ const rawGames: Game[] = [
     "url": "/games/html/learntofly/game/index.html"
   },
   {
-    "id": "life-in-the-static",
-    "title": "Life In The Static",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/life in the static.jpg",
-    "url": "/games/html/life in the static/game/index.html"
-  },
-  {
     "id": "little-wheel",
     "title": "Little Wheel",
     "tags": [
@@ -1762,15 +1303,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/littlewheel.jpg",
     "url": "/games/swf/littlewheel/game/base.html"
-  },
-  {
-    "id": "maptroid",
-    "title": "Maptroid",
-    "tags": [
-      "Adventure"
-    ],
-    "thumbnail": "/games/img/maptroid.jpg",
-    "url": "/games/html/maptroid/game/index.html"
   },
   {
     "id": "mario",
@@ -1825,15 +1357,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/minitrain.jpg",
     "url": "/games/swf/minitrain/game/base.html"
-  },
-  {
-    "id": "mirror-wizard",
-    "title": "Mirror Wizard",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/mirror wizard.jpg",
-    "url": "/games/html/mirror wizard/game/index.html"
   },
   {
     "id": "monkey-mart",
@@ -1900,15 +1423,6 @@ const rawGames: Game[] = [
     "url": "/games/html/oil race/game/index.html"
   },
   {
-    "id": "one-trick-mage",
-    "title": "One Trick Mage",
-    "tags": [
-      "RPG"
-    ],
-    "thumbnail": "/games/img/one trick mage.png",
-    "url": "/games/html/one trick mage/game/index.html"
-  },
-  {
     "id": "orange",
     "title": "Orange",
     "tags": [
@@ -1916,24 +1430,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/orange.png",
     "url": "/games/html/orange/game/index.html"
-  },
-  {
-    "id": "p-craft",
-    "title": "P-craft",
-    "tags": [
-      "Arcade"
-    ],
-    "thumbnail": "/games/img/pcraft.png",
-    "url": "/games/html/pico-8/game/PICO-8 Cartridge.html"
-  },
-  {
-    "id": "packabunchas",
-    "title": "Packabunchas",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/pack.png",
-    "url": "/games/html/packabunchas/game/index.html"
   },
   {
     "id": "pacman",
@@ -2098,15 +1594,6 @@ const rawGames: Game[] = [
     "url": "/games/html/paperio/game/index.html"
   },
   {
-    "id": "papery-planes",
-    "title": "Papery Planes",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/paperplane.webp",
-    "url": "/games/html/papery-planes/game/index.html"
-  },
-  {
     "id": "particle-clicker",
     "title": "Particle Clicker",
     "tags": [
@@ -2114,24 +1601,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/parclick.webp",
     "url": "/games/html/particle-clicker/game/index.html"
-  },
-  {
-    "id": "pathfinder",
-    "title": "Pathfinder",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/Screenshot 2024-07-09 144933.png",
-    "url": "/games/html/pathfinder/index.html"
-  },
-  {
-    "id": "pe-norie",
-    "title": "Pe Norie",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/pe norie.jpg",
-    "url": "/games/html/pe norie/game/index.html"
   },
   {
     "id": "penguin-dinner",
@@ -2143,15 +1612,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/penguin/game/base.html"
   },
   {
-    "id": "picky-package",
-    "title": "Picky Package",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/pickyback.webp",
-    "url": "/games/html/picky-package/game/index.html"
-  },
-  {
     "id": "pink",
     "title": "Pink",
     "tags": [
@@ -2159,33 +1619,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/pink.png",
     "url": "/games/html/pink/game/index.html"
-  },
-  {
-    "id": "pixel-battles",
-    "title": "Pixel Battles",
-    "tags": [
-      "Action"
-    ],
-    "thumbnail": "/games/img/Pixel Battles.jpg",
-    "url": "/games/html/Pixel Battles/game/index.html"
-  },
-  {
-    "id": "pixoji",
-    "title": "Pixoji",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/pixoji.png",
-    "url": "/games/html/pixoji/game/index.html"
-  },
-  {
-    "id": "planet-life",
-    "title": "Planet Life",
-    "tags": [
-      "Idle"
-    ],
-    "thumbnail": "/games/img/planetlife.jpg",
-    "url": "/games/html/planetlife/game/index.html"
   },
   {
     "id": "plants-vs-zombies-2",
@@ -2222,15 +1655,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/progress knight.png",
     "url": "/games/html/progress knight/game/index.html"
-  },
-  {
-    "id": "racer",
-    "title": "Racer",
-    "tags": [
-      "Racing"
-    ],
-    "thumbnail": "/games/img/racer.jpeg",
-    "url": "/games/html/racer/game/index.html"
   },
   {
     "id": "racer",
@@ -2303,15 +1727,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/rogue fable.jpg",
     "url": "/games/html/rogue fable/game/index.html"
-  },
-  {
-    "id": "roots",
-    "title": "Roots",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/roots.jpg",
-    "url": "/games/html/roots/game/index.html"
   },
   {
     "id": "run-1",
@@ -2413,24 +1828,6 @@ const rawGames: Game[] = [
     "url": "/games/html/shortcut race/game/index.html"
   },
   {
-    "id": "shuttledeck",
-    "title": "Shuttledeck",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/shuttle.png",
-    "url": "/games/html/shuttledeck/game/index.html"
-  },
-  {
-    "id": "sleeping-beauty",
-    "title": "Sleeping Beauty",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/sleeping.png",
-    "url": "/games/html/sleeping beauty/game/sleeping beauty/index.html"
-  },
-  {
     "id": "slither-io",
     "title": "Slither.io",
     "tags": [
@@ -2476,15 +1873,6 @@ const rawGames: Game[] = [
     "url": "/games/swf/sonny2/game/base.html"
   },
   {
-    "id": "soul-mirror",
-    "title": "Soul Mirror",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/soul mirror.jpg",
-    "url": "/games/html/soul mirror/game/index.html"
-  },
-  {
     "id": "space-company",
     "title": "Space Company",
     "tags": [
@@ -2492,15 +1880,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/images.png",
     "url": "/games/html/spacecompany/game/index.html"
-  },
-  {
-    "id": "space-garden",
-    "title": "Space Garden",
-    "tags": [
-      "Idle"
-    ],
-    "thumbnail": "/games/img/garden.jpeg",
-    "url": "/games/html/spacegarden/game/index.html"
   },
   {
     "id": "space-huggers",
@@ -2536,16 +1915,6 @@ const rawGames: Game[] = [
       "Casual",
       "Strategy"
     ],
-    "thumbnail": "/games/img/stack.jpeg",
-    "url": "/games/html/stack/game/index.html"
-  },
-  {
-    "id": "stack",
-    "title": "Stack",
-    "tags": [
-      "Casual",
-      "Strategy"
-    ],
     "thumbnail": "/games/img/stack.webp",
     "url": "/games/html/stack/game/index.html"
   },
@@ -2559,15 +1928,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/stackball.webp",
     "url": "/games/html/stack-ball/game/index.html"
-  },
-  {
-    "id": "steal-this-election",
-    "title": "Steal This Election",
-    "tags": [
-      "Multiplayer"
-    ],
-    "thumbnail": "/games/img/elec.webp",
-    "url": "/games/html/steal-this-election/game/index.html"
   },
   {
     "id": "stealing-the-diamond",
@@ -2670,15 +2030,6 @@ const rawGames: Game[] = [
     "url": "/games/html/tavern master/game/index.html"
   },
   {
-    "id": "terrain-generator",
-    "title": "Terrain Generator",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/terrain.png",
-    "url": "/games/html/Terrain Generator.html"
-  },
-  {
     "id": "terraria",
     "title": "Terraria",
     "tags": [
@@ -2695,15 +2046,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/tetris.jpeg",
     "url": "/games/html/tetris advanced/game/index.html"
-  },
-  {
-    "id": "the-dark-one",
-    "title": "The Dark One",
-    "tags": [
-      "Horror"
-    ],
-    "thumbnail": "/games/img/the dark one.jpg",
-    "url": "/games/html/the dark one/game/index.html"
   },
   {
     "id": "the-ninja",
@@ -2778,24 +2120,6 @@ const rawGames: Game[] = [
     "url": "/games/html/there is no game/game/index.html"
   },
   {
-    "id": "throw-a-potato-again",
-    "title": "Throw A Potato Again",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/throwapotato2.png",
-    "url": "/games/html/throw a potato again/game/index.html"
-  },
-  {
-    "id": "throw-a-potato-in-space",
-    "title": "Throw A Potato In Space",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/throwapotato3.png",
-    "url": "/games/html/throw a potato in space/game/index.html"
-  },
-  {
     "id": "tic-tac-toe",
     "title": "Tic-tac-toe",
     "tags": [
@@ -2823,15 +2147,6 @@ const rawGames: Game[] = [
     "url": "/games/html/tiny-fishing/game/index.html"
   },
   {
-    "id": "tough-growth",
-    "title": "Tough Growth",
-    "tags": [
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/tough growth.jpg",
-    "url": "/games/html/tough growth/game/index.html"
-  },
-  {
     "id": "tower-master",
     "title": "Tower Master",
     "tags": [
@@ -2839,15 +2154,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/towermaster.webp",
     "url": "/games/html/towermaster/game/index.html"
-  },
-  {
-    "id": "tower-of-the-scorche",
-    "title": "Tower Of The Scorche",
-    "tags": [
-      "Strategy"
-    ],
-    "thumbnail": "/games/img/tower of the scorche.png",
-    "url": "/games/html/tower of the scorche/game/index.html"
   },
   {
     "id": "trimps",
@@ -2866,42 +2172,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/truckloader.jpg",
     "url": "/games/swf/truckloader/game/base.html"
-  },
-  {
-    "id": "tv-static",
-    "title": "Tv Static",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/tv-static.webp",
-    "url": "/games/html/tv-static/game/index.html"
-  },
-  {
-    "id": "unloop",
-    "title": "Unloop",
-    "tags": [
-      "Puzzle"
-    ],
-    "thumbnail": "/games/img/unloop.jpg",
-    "url": "/games/html/unloop/game/index.html"
-  },
-  {
-    "id": "veloce",
-    "title": "Veloce",
-    "tags": [
-      "Platformer"
-    ],
-    "thumbnail": "/games/img/VELOCE.webp",
-    "url": "/games/html/veloce/game/index.html"
-  },
-  {
-    "id": "wall-smash",
-    "title": "Wall Smash",
-    "tags": [
-      "Action"
-    ],
-    "thumbnail": "/games/img/wallsmash.webp",
-    "url": "/games/html/wallsmash/game/index.html"
   },
   {
     "id": "water-works",
@@ -2940,15 +2210,6 @@ const rawGames: Game[] = [
     "url": "/games/html/whac-a-mole/game/index.html"
   },
   {
-    "id": "winter-gifts",
-    "title": "Winter Gifts",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/winter gifts.jpg",
-    "url": "/games/html/winter gifts/game/index.html"
-  },
-  {
     "id": "working-stiffs",
     "title": "Working Stiffs",
     "tags": [
@@ -2965,15 +2226,6 @@ const rawGames: Game[] = [
     ],
     "thumbnail": "/games/img/whg.webp",
     "url": "/games/html/worlds-hardest-game/game/index.html"
-  },
-  {
-    "id": "worlds-within-worlds",
-    "title": "Worlds Within Worlds",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/worlds within worlds.png",
-    "url": "/games/html/worlds within worlds/game/index.html"
   },
   {
     "id": "x-trial-racing",
@@ -3014,15 +2266,6 @@ const rawGames: Game[] = [
     "url": "/games/poly-track-modded/index.html"
   },
   {
-    "id": "yoshi-fabricator",
-    "title": "Yoshi Fabricator",
-    "tags": [
-      "Casual"
-    ],
-    "thumbnail": "/games/img/YFS.webp",
-    "url": "/games/html/yoshifabrication/game/index.html"
-  },
-  {
     "id": "mario-kart-super-circuit",
     "title": "Mario Kart: Super Circuit",
     "tags": [
@@ -3033,7 +2276,6 @@ const rawGames: Game[] = [
     "url": "/games/html/mariocircuit/game/index.html"
   }
 ]
-
 export const games: Game[] = rawGames.map(g => ({
   ...g,
   thumbnail: resolveAssetUrl(g.thumbnail),

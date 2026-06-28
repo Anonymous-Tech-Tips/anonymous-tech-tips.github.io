@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { Footer } from "@/components/Footer";
 import { HeroSection } from "./HeroSection";
 import { InteractiveTools } from "./InteractiveTools";
-import { StudyTechniques } from "./StudyTechniques";
-import { SubjectTips } from "./SubjectTips";
-import { PcOptimization } from "./PcOptimization";
-import { ResourceDirectory } from "./ResourceDirectory";
-import { DailyInsight } from "./DailyInsight";
-import { SnowDayPredictor } from "@/components/utilities/SnowDayPredictor";
-import { TestPrepSection } from "./TestPrepSection";
-import { WritingResearchSection } from "./WritingResearchSection";
-import { CollegeCareerSection } from "./CollegeCareerSection";
-import { StudentWellnessSection } from "./StudentWellnessSection";
-import { FormulaReference } from "./FormulaReference";
+
+const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
+const StudyTechniques = lazy(() => import("./StudyTechniques").then(m => ({ default: m.StudyTechniques })));
+const SubjectTips = lazy(() => import("./SubjectTips").then(m => ({ default: m.SubjectTips })));
+const FormulaReference = lazy(() => import("./FormulaReference").then(m => ({ default: m.FormulaReference })));
+const TestPrepSection = lazy(() => import("./TestPrepSection").then(m => ({ default: m.TestPrepSection })));
+const WritingResearchSection = lazy(() => import("./WritingResearchSection").then(m => ({ default: m.WritingResearchSection })));
+const CollegeCareerSection = lazy(() => import("./CollegeCareerSection").then(m => ({ default: m.CollegeCareerSection })));
+const StudentWellnessSection = lazy(() => import("./StudentWellnessSection").then(m => ({ default: m.StudentWellnessSection })));
+const PcOptimization = lazy(() => import("./PcOptimization").then(m => ({ default: m.PcOptimization })));
+const ResourceDirectory = lazy(() => import("./ResourceDirectory").then(m => ({ default: m.ResourceDirectory })));
+const DailyInsight = lazy(() => import("./DailyInsight").then(m => ({ default: m.DailyInsight })));
+const SnowDayPredictor = lazy(() => import("@/components/utilities/SnowDayPredictor").then(m => ({ default: m.SnowDayPredictor })));
 
 const navLinks = [
     { label: "Study Tips", href: "#education" },
@@ -148,41 +149,23 @@ export const AcademicHome: React.FC = () => {
                             Machine learning forecast for LCPS, FCPS, and PWCS. Know before the alarm goes off.
                         </p>
                     </div>
-                    <SnowDayPredictor />
+                    <Suspense fallback={<div className="h-48" />}><SnowDayPredictor /></Suspense>
                 </div>
             </section>
 
-            {/* --- STUDY TECHNIQUES --- */}
-            <StudyTechniques />
-
-            {/* --- SUBJECT TIPS --- */}
-            <SubjectTips />
-
-            {/* --- FORMULA REFERENCE --- */}
-            <FormulaReference />
-
-            {/* --- TEST PREP HUB --- */}
-            <div id="test-prep" style={{ scrollMarginTop: '72px' }}><TestPrepSection /></div>
-
-            {/* --- WRITING & RESEARCH --- */}
-            <div id="writing" style={{ scrollMarginTop: '72px' }}><WritingResearchSection /></div>
-
-            {/* --- COLLEGE & CAREER --- */}
-            <div id="college" style={{ scrollMarginTop: '72px' }}><CollegeCareerSection /></div>
-
-            {/* --- STUDENT WELLNESS --- */}
-            <div id="wellness" style={{ scrollMarginTop: '72px' }}><StudentWellnessSection /></div>
-
-            {/* --- PC OPTIMIZATION --- */}
-            <PcOptimization />
-
-            {/* --- RESOURCE DIRECTORY --- */}
-            <ResourceDirectory />
-
-            {/* --- DAILY INSIGHT --- */}
-            <DailyInsight />
-
-            <Footer />
+            <Suspense fallback={null}>
+              <StudyTechniques />
+              <SubjectTips />
+              <FormulaReference />
+              <div id="test-prep" style={{ scrollMarginTop: '72px' }}><TestPrepSection /></div>
+              <div id="writing" style={{ scrollMarginTop: '72px' }}><WritingResearchSection /></div>
+              <div id="college" style={{ scrollMarginTop: '72px' }}><CollegeCareerSection /></div>
+              <div id="wellness" style={{ scrollMarginTop: '72px' }}><StudentWellnessSection /></div>
+              <PcOptimization />
+              <ResourceDirectory />
+              <DailyInsight />
+              <Footer />
+            </Suspense>
         </div>
     );
 };

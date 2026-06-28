@@ -3,7 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Hash, Lock, Copy, MoreVertical, Pencil, Trash, X, Check } from 'lucide-react';
 import { Message, Room } from './types';
 import { getDateLabel } from './utils';
-import { format, isSameDay } from 'date-fns';
+const isSameDay = (a: Date, b: Date) =>
+  a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+const fmtTime = (d: Date) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -127,7 +129,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
                                     </div>
                                 ) : (
                                     <div className="w-9 text-[10px] text-white/20 text-center opacity-0 group-hover:opacity-100 transition-opacity pt-1">
-                                        {date && format(date, 'h:mm a')}
+                                        {date && fmtTime(date)}
                                     </div>
                                 )}
                             </div>
@@ -139,7 +141,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
                                             {msg.displayName}
                                         </span>
                                         <span className="text-[10px] text-white/30">
-                                            {date && format(date, 'h:mm a')}
+                                            {date && fmtTime(date)}
                                         </span>
                                     </div>
                                 )}

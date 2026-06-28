@@ -1,4 +1,3 @@
-import { format, isToday, isYesterday } from 'date-fns';
 
 export const compressImage = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -40,8 +39,16 @@ export const compressImage = (file: File): Promise<string> => {
     });
 };
 
+const isSameCalendarDay = (a: Date, b: Date) =>
+  a.getFullYear() === b.getFullYear() &&
+  a.getMonth() === b.getMonth() &&
+  a.getDate() === b.getDate();
+
 export const getDateLabel = (date: Date) => {
-    if (isToday(date)) return 'Today';
-    if (isYesterday(date)) return 'Yesterday';
-    return format(date, 'MMMM d, yyyy');
+  const now = new Date();
+  if (isSameCalendarDay(date, now)) return 'Today';
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+  if (isSameCalendarDay(date, yesterday)) return 'Yesterday';
+  return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
 };

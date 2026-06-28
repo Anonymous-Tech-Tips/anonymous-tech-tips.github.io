@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import confetti from 'canvas-confetti';
 
 // ===========================
 // TYPE DEFINITIONS
@@ -324,11 +323,11 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
   // ===========================
 
   const celebrateWithConfetti = () => {
-    confetti({
+    import('canvas-confetti').then(m => m.default({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-    });
+    }));
   };
 
   const awardPoints = (amount: number, source: string, silent: boolean = false) => {

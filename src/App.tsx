@@ -5,17 +5,16 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
+const PWAInstallPrompt = lazy(() => import("@/components/PWAInstallPrompt").then(m => ({ default: m.PWAInstallPrompt })));
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { UserPrefsProvider } from "@/contexts/UserPrefsContext";
 import { ProgressionProvider } from "@/contexts/ProgressionContext";
-import { CommandPalette } from "@/components/CommandPalette";
-import { CoachMarks } from "@/components/CoachMarks";
-import { OfflineModeIndicator } from "@/components/rewards/OfflineModeIndicator";
+const CommandPalette = lazy(() => import("@/components/CommandPalette").then(m => ({ default: m.CommandPalette })));
+const CoachMarks = lazy(() => import("@/components/CoachMarks").then(m => ({ default: m.CoachMarks })));
+const OfflineModeIndicator = lazy(() => import("@/components/rewards/OfflineModeIndicator").then(m => ({ default: m.OfflineModeIndicator })));
 import SeasonalTheme from "@/components/SeasonalTheme";
-import { SeasonalEffects } from "@/components/SeasonalEffects";
+const SeasonalEffects = lazy(() => import("@/components/SeasonalEffects").then(m => ({ default: m.SeasonalEffects })));
 import { useRewardEffects } from "@/hooks/useRewardEffects";
-import "./styles/thanksgiving.css";
 import { Layout } from "@/components/Layout";
 import { GamerBackground } from "@/components/GamerBackground";
 const GlobalChat = lazy(() => import('@/components/chat/GlobalChat').then(m => ({ default: m.GlobalChat })));
@@ -97,12 +96,12 @@ const AppContent = () => {
   return (
     <>
       <GameOverlay />
-      <CommandPalette />
-      <PWAInstallPrompt />
-      <CoachMarks />
+      <Suspense fallback={null}><CommandPalette /></Suspense>
+      <Suspense fallback={null}><PWAInstallPrompt /></Suspense>
+      <Suspense fallback={null}><CoachMarks /></Suspense>
       <div id="app-main-content" className={`relative min-h-screen ${isAuthenticated ? 'gamer-mode' : ''}`}>
         {isAuthenticated && <GamerBackground />}
-        <OfflineModeIndicator />
+        <Suspense fallback={null}><OfflineModeIndicator /></Suspense>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             {/* Public routes — no auth required */}
@@ -150,7 +149,7 @@ const App = () => {
                 <Toaster />
                 <Sonner />
                 <SeasonalTheme />
-                <SeasonalEffects />
+                <Suspense fallback={null}><SeasonalEffects /></Suspense>
                 <AppContent />
               </UserPrefsProvider>
             </ProgressionProvider>

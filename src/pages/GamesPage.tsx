@@ -11,6 +11,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { games } from "@/data/games";
 import { GameIcon } from "@/components/GameIcon";
 import { trackSearch, trackCategoryFilter, trackLoadMore } from "@/utils/analytics";
+import { prefetchGame } from "@/utils/prefetchGame";
 
 const GamesPage = () => {
   const [searchParams] = useSearchParams();
@@ -166,10 +167,11 @@ const GamesPage = () => {
                   to={`/games/${game.id}`}
                   style={{ contentVisibility: 'auto', containIntrinsicSize: '0 160px' } as React.CSSProperties}
                   className="block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-blue-500/60 transition-colors duration-150"
+                  onMouseEnter={() => prefetchGame(game.url)}
                 >
                   <div className="aspect-[4/3]">
                     {game.thumbnail
-                      ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+                      ? <img src={game.thumbnail} alt={game.title} loading="lazy" decoding="async" width={160} height={120} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
                       : <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />}
                   </div>
                   <div className="p-2.5">

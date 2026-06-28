@@ -1,6 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, Gamepad2, Download, TrendingUp } from "lucide-react";
+
+const HUB_PAGE_SIZE = 30;
 import { games, type Game } from "@/data/games";
 import { GameIcon } from "./GameIcon";
 import { Input } from "./ui/input";
@@ -11,10 +13,12 @@ import { GameButton } from "./GameButton";
 import { toast } from "sonner";
 import { InContentAd } from "./GoogleAd";
 import { useUserPrefs } from "@/contexts/UserPrefsContext";
+import { prefetchGame } from "@/utils/prefetchGame";
 
 export const GamesHub: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [allVisibleCount, setAllVisibleCount] = useState(HUB_PAGE_SIZE);
   const { prefs } = useUserPrefs();
 
   const allTags = useMemo(() => {
@@ -30,6 +34,8 @@ export const GamesHub: React.FC = () => {
       return matchesSearch && matchesTag;
     });
   }, [searchQuery, selectedTag]);
+
+  useEffect(() => { setAllVisibleCount(HUB_PAGE_SIZE); }, [searchQuery, selectedTag]);
 
   // Get top 10 most played games based on actual play counts
   const gameStats = useMemo(() => prefs.settings.gameStats || {}, [prefs.settings.gameStats]);
@@ -150,7 +156,17 @@ Visit Anonymous Tech Tips: ${window.location.origin}/
           </TabsContent>
 
           <TabsContent value="all">
-            <GameGrid games={filteredGames} gameStats={gameStats} />
+            <GameGrid games={filteredGames.slice(0, allVisibleCount)} gameStats={gameStats} />
+            {allVisibleCount < filteredGames.length && (
+              <div className="text-center mt-6">
+                <button
+                  onClick={() => setAllVisibleCount(c => c + HUB_PAGE_SIZE)}
+                  className="px-8 py-3 bg-gamer-card border border-gamer-border text-gamer-muted rounded-xl hover:border-blue-500 hover:text-blue-400 transition-colors font-medium"
+                >
+                  Load More ({filteredGames.length - allVisibleCount} remaining)
+                </button>
+              </div>
+            )}
             {/* Ad after all games */}
             <InContentAd className="mt-8" />
           </TabsContent>
@@ -177,11 +193,12 @@ const GameGrid: React.FC<GameGridProps> = ({ games, gameStats = {} }) => {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5 animate-in fade-in duration-500">
-      {games.map((game) => (
+      {games.map((game, i) => (
         <GameCard
           key={game.id}
           game={game}
           playCount={gameStats[game.id]?.playCount || 0}
+          priority={i < 5}
         />
       ))}
     </div>
@@ -191,9 +208,10 @@ const GameGrid: React.FC<GameGridProps> = ({ games, gameStats = {} }) => {
 interface GameCardProps {
   game: Game;
   playCount: number;
+  priority?: boolean;
 }
 
-const GameThumbnail: React.FC<{ id: string; title: string; thumbnail: string }> = ({ id, title, thumbnail }) => {
+const GameThumbnail: React.FC<{ id: string; title: string; thumbnail: string; priority?: boolean }> = ({ id, title, thumbnail, priority }) => {
   const [failed, setFailed] = React.useState(false);
   if (!thumbnail || failed) {
     return <GameIcon id={id} title={title} className="w-full h-full text-4xl" />;
@@ -202,20 +220,26 @@ const GameThumbnail: React.FC<{ id: string; title: string; thumbnail: string }> 
     <img
       src={thumbnail}
       alt={title}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : 'auto'}
+      decoding={priority ? 'sync' : 'async'}
+      width={160}
+      height={120}
       className="w-full h-full object-cover"
       onError={() => setFailed(true)}
     />
   );
 };
 
-const GameCard: React.FC<GameCardProps> = ({ game, playCount }) => {
+const GameCard: React.FC<GameCardProps> = ({ game, playCount, priority }) => {
   return (
     <Link
       to={`/games/${game.id}`}
       className="group block bg-[#1E1E24]/80 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_4px_20px_rgba(59,130,246,0.12)] transition-colors duration-200"
+      onMouseEnter={() => prefetchGame(game.url)}
     >
       <div className="aspect-[4/3] relative overflow-hidden">
-        <GameThumbnail id={game.id} title={game.title} thumbnail={game.thumbnail} />
+        <GameThumbnail id={game.id} title={game.title} thumbnail={game.thumbnail} priority={priority} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
           <span className="text-white font-bold text-sm bg-blue-600/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
             Launch
