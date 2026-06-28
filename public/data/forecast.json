@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-06-28 20:52:47",
+    "last_updated": "2026-06-28 22:54:52",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -45,9 +45,9 @@
                     "label": "Sunday, Jun 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 81.5,
-                        "delay": 14.5,
-                        "early_release": 2.5,
+                        "open": 83.1,
+                        "delay": 12.9,
+                        "early_release": 2.6,
                         "closure": 1.5
                     }
                 },
@@ -82,10 +82,10 @@
                     "label": "Sunday, Jun 28",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 73.0,
-                        "delay": 19.6,
-                        "early_release": 3.7,
-                        "closure": 3.7
+                        "open": 74.0,
+                        "delay": 19.8,
+                        "early_release": 3.6,
+                        "closure": 2.5
                     }
                 },
                 {
