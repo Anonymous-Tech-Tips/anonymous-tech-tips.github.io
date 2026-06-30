@@ -6,7 +6,7 @@
 export const FEATURE_FLAGS = {
   // Ad System
   ADS_ENABLED: true, // Master switch for all ads
-  ADS_ADSENSE_APPROVED: false, // Set to true once AdSense is approved
+  ADS_ADSENSE_APPROVED: true,
   
   // Ad-Skip Rewards
   AD_SKIP_REWARDS_ENABLED: false, // Only enable when ads are approved and live

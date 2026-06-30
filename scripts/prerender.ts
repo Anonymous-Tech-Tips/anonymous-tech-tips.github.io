@@ -43,6 +43,7 @@ function generateHTML(page: PrerenderedPage): string {
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
     <meta name="google-site-verification" content="aKDAYtznOmmv7PU-UdPLEc9Bfa5bBP9FCLs4NeiYbik" />
+    <meta name="google-adsense-account" content="ca-pub-8981618797106308" />
     <link rel="canonical" href="${page.canonical}" />
     
     <!-- Open Graph / Facebook -->
