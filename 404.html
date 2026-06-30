@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting…</title>
+  <meta http-equiv="refresh" content="0; url=/">
+  <script>
+    // Preserve the full path when possible
+    const base = '/';
+    sessionStorage.redirectPath = location.pathname.replace(base, '') + location.search + location.hash;
+    location.replace(base);
+  </script>
+</head>
+<body></body>
+</html>
