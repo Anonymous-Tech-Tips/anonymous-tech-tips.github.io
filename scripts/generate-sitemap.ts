@@ -13,23 +13,24 @@ const __dirname = dirname(__filename);
 const baseUrl = 'https://anonymous-tech-tips.github.io';
 const today = new Date().toISOString().split('T')[0];
 
-// Only include real server-accessible paths (no # fragment URLs — spec-invalid, Google ignores them)
+// GitHub Pages serves prerendered index.html files at directory paths — use trailing slashes to
+// avoid 301 redirects, which Google follows but may delay indexing.
 const staticUrls = [
   { loc: `${baseUrl}/`, lastmod: today, changefreq: 'daily', priority: 1.0 },
-  { loc: `${baseUrl}/learn`, lastmod: today, changefreq: 'weekly', priority: 0.9 },
-  { loc: `${baseUrl}/safe`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
-  { loc: `${baseUrl}/games`, lastmod: today, changefreq: 'daily', priority: 0.8 },
-  { loc: `${baseUrl}/utilities`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
-  { loc: `${baseUrl}/optimizations`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
-  { loc: `${baseUrl}/education`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
-  { loc: `${baseUrl}/entertainment`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
-  { loc: `${baseUrl}/share`, lastmod: today, changefreq: 'weekly', priority: 0.5 },
+  { loc: `${baseUrl}/learn/`, lastmod: today, changefreq: 'weekly', priority: 0.9 },
+  { loc: `${baseUrl}/safe/`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/games/`, lastmod: today, changefreq: 'daily', priority: 0.8 },
+  { loc: `${baseUrl}/utilities/`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/optimizations/`, lastmod: today, changefreq: 'weekly', priority: 0.7 },
+  { loc: `${baseUrl}/education/`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
+  { loc: `${baseUrl}/entertainment/`, lastmod: today, changefreq: 'weekly', priority: 0.6 },
+  { loc: `${baseUrl}/share/`, lastmod: today, changefreq: 'weekly', priority: 0.5 },
 ];
 
 const itemUrls = [
-  ...guides.map(g => ({ loc: `${baseUrl}/learn/${g.id}`, lastmod: today, changefreq: 'weekly', priority: 0.9 })),
-  ...games.map(g => ({ loc: `${baseUrl}/games/${g.id}`, lastmod: today, changefreq: 'daily', priority: 0.8 })),
-  ...utilities.map(u => ({ loc: `${baseUrl}/utilities/${u.id}`, lastmod: today, changefreq: 'weekly', priority: 0.7 })),
+  ...guides.map(g => ({ loc: `${baseUrl}/learn/${g.id}/`, lastmod: today, changefreq: 'weekly', priority: 0.9 })),
+  ...games.map(g => ({ loc: `${baseUrl}/games/${g.id}/`, lastmod: today, changefreq: 'daily', priority: 0.8 })),
+  ...utilities.map(u => ({ loc: `${baseUrl}/utilities/${u.id}/`, lastmod: today, changefreq: 'weekly', priority: 0.7 })),
 ];
 
 const all = [...staticUrls, ...itemUrls];

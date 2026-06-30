@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { LucideIcon } from "lucide-react";
-import { UtilityModal } from "./UtilityModal";
-import { GuideModal } from "./GuideModal";
+import { LucideIcon, ExternalLink, ArrowUpRight } from "lucide-react";
+
+const UtilityModal = lazy(() =>
+  import("./UtilityModal").then(m => ({ default: m.UtilityModal }))
+);
+const GuideModal = lazy(() =>
+  import("./GuideModal").then(m => ({ default: m.GuideModal }))
+);
 
 interface ContentItem {
   text: string;
@@ -57,34 +62,37 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
     }
   };
 
+  // Split leading emoji from the rest of the text for visual treatment
+  const parseItem = (text: string) => {
+    const emojiMatch = text.match(/^(\p{Emoji_Presentation}|\p{Emoji}️)\s*/u);
+    if (emojiMatch) return { emoji: emojiMatch[0].trim(), label: text.slice(emojiMatch[0].length) };
+    return { emoji: null, label: text };
+  };
+
   return (
     <>
       <section
         id={id}
-        className={`py-20 ${isAuthenticated ? "bg-gamer-bg" : "bg-background"}`}
+        className={`py-10 ${isAuthenticated ? "" : "bg-background"}`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <Icon
-              className={isAuthenticated ? "text-gamer-accent" : "text-primary"}
-              size={32}
-            />
-            <h2
-              className={`text-3xl md:text-4xl font-rowdies font-bold ${isAuthenticated ? "text-gamer-text" : "text-foreground"
-                }`}
-            >
-              {title}
-            </h2>
-          </div>
+        <div className={isAuthenticated ? "" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2 mb-5">
+              <Icon className="text-blue-400" size={18} />
+              <h2 className="text-lg font-black text-white">{title}</h2>
+              <span className="text-xs text-slate-500 ml-1">{description}</span>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center gap-3 mb-6">
+                <Icon className="text-primary" size={32} />
+                <h2 className="text-3xl md:text-4xl font-rowdies font-bold text-foreground">{title}</h2>
+              </div>
+              <p className="text-lg mb-8 text-muted-foreground">{description}</p>
+            </>
+          )}
 
-          <p
-            className={`text-lg mb-8 ${isAuthenticated ? "text-gamer-muted" : "text-muted-foreground"
-              }`}
-          >
-            {description}
-          </p>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className={`grid gap-3 sm:grid-cols-2 lg:grid-cols-3 ${isAuthenticated ? '' : 'gap-4'}`}>
             {items.map((item, index) => {
               const itemText = typeof item === 'string' ? item : item.text;
               const itemUrl = typeof item === 'string' ? undefined : item.url;
@@ -92,59 +100,54 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
               const itemGuide = typeof item === 'string' ? undefined : item.guide;
               const itemCloakedUrl = typeof item === 'string' ? undefined : item.cloakedUrl;
               const itemHighlight = typeof item === 'string' ? undefined : item.highlight;
+              const { emoji, label } = parseItem(itemText);
+
+              const authCardClass = itemHighlight
+                ? "group bg-[#1a1208] border border-amber-500/30 hover:border-amber-400/60 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] rounded-2xl p-4 transition-all duration-200"
+                : "group bg-[#13131f] border border-white/6 hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] rounded-2xl p-4 transition-all duration-200";
+
+              const innerContent = (
+                <div className="flex items-center gap-3">
+                  {emoji && (
+                    <span className="text-xl flex-shrink-0 w-8 text-center">{emoji}</span>
+                  )}
+                  <span className={`flex-1 text-sm font-semibold leading-snug ${
+                    isAuthenticated
+                      ? itemHighlight ? "text-amber-300 group-hover:text-amber-200" : "text-slate-200 group-hover:text-white"
+                      : "text-foreground group-hover:text-primary"
+                  } transition-colors`}>
+                    {label}
+                  </span>
+                  {(itemUrl || itemCloakedUrl) && isAuthenticated && (
+                    <ArrowUpRight size={14} className="text-slate-600 group-hover:text-blue-400 transition-colors flex-shrink-0" />
+                  )}
+                </div>
+              );
+
+              if (!isAuthenticated) {
+                return (
+                  <div key={index} className={`p-6 rounded-lg border transition-all duration-normal hover:scale-105 bg-card border-border hover:border-primary hover:shadow-lg`}>
+                    {itemUrl ? (
+                      <a href={itemUrl} target="_blank" rel="noopener noreferrer" className="font-medium block text-foreground hover:text-primary">{itemText}</a>
+                    ) : (
+                      <p className="font-medium text-foreground">{itemText}</p>
+                    )}
+                  </div>
+                );
+              }
 
               return (
-                <div
-                  key={index}
-                  className={`p-6 rounded-lg border transition-all duration-normal hover:scale-105 ${isAuthenticated
-                    ? itemHighlight
-                      ? "bg-gamer-card border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:border-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.4)]"
-                      : "bg-gamer-card border-gamer-border hover:border-gamer-accent hover:shadow-lg hover:shadow-gamer-accent/10"
-                    : "bg-card border-border hover:border-primary hover:shadow-lg"
-                    }`}
-                >
+                <div key={index} className={authCardClass}>
                   {itemUrl ? (
-                    <a
-                      href={itemUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`font-medium block ${isAuthenticated ? (itemHighlight ? "text-amber-400 font-bold tracking-wide" : "text-gamer-text hover:text-gamer-accent") : "text-foreground hover:text-primary"
-                        }`}
-                    >
-                      {itemText}
-                    </a>
+                    <a href={itemUrl} target="_blank" rel="noopener noreferrer" className="block">{innerContent}</a>
                   ) : itemCloakedUrl ? (
-                    <button
-                      onClick={() => handleCloakedClick(itemCloakedUrl)}
-                      className={`font-medium text-left w-full ${isAuthenticated ? (itemHighlight ? "text-amber-400 font-bold tracking-wide flex items-center gap-2" : "text-gamer-text hover:text-gamer-accent") : "text-foreground hover:text-primary"
-                        }`}
-                    >
-                      {itemHighlight && <span className="animate-pulse">🔥</span>}
-                      {itemText}
-                    </button>
+                    <button onClick={() => handleCloakedClick(itemCloakedUrl)} className="block w-full text-left">{innerContent}</button>
                   ) : itemUtility ? (
-                    <button
-                      onClick={() => handleUtilityClick(itemUtility)}
-                      className={`font-medium text-left w-full ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
-                        }`}
-                    >
-                      {itemText}
-                    </button>
+                    <button onClick={() => handleUtilityClick(itemUtility)} className="block w-full text-left">{innerContent}</button>
                   ) : itemGuide ? (
-                    <button
-                      onClick={() => handleGuideClick(itemGuide)}
-                      className={`font-medium text-left w-full ${isAuthenticated ? "text-gamer-text hover:text-gamer-accent" : "text-foreground hover:text-primary"
-                        }`}
-                    >
-                      {itemText}
-                    </button>
+                    <button onClick={() => handleGuideClick(itemGuide)} className="block w-full text-left">{innerContent}</button>
                   ) : (
-                    <p
-                      className={`font-medium ${isAuthenticated ? "text-gamer-text" : "text-foreground"
-                        }`}
-                    >
-                      {itemText}
-                    </p>
+                    <div>{innerContent}</div>
                   )}
                 </div>
               );
@@ -153,17 +156,25 @@ export const ContentSection: React.FC<ContentSectionProps> = ({
         </div>
       </section>
 
-      <UtilityModal
-        isOpen={!!selectedUtility}
-        onClose={() => setSelectedUtility(null)}
-        utilityType={selectedUtility}
-      />
+      {selectedUtility && (
+        <Suspense fallback={null}>
+          <UtilityModal
+            isOpen={!!selectedUtility}
+            onClose={() => setSelectedUtility(null)}
+            utilityType={selectedUtility}
+          />
+        </Suspense>
+      )}
 
-      <GuideModal
-        isOpen={!!selectedGuide}
-        onClose={() => setSelectedGuide(null)}
-        guideType={selectedGuide}
-      />
+      {selectedGuide && (
+        <Suspense fallback={null}>
+          <GuideModal
+            isOpen={!!selectedGuide}
+            onClose={() => setSelectedGuide(null)}
+            guideType={selectedGuide}
+          />
+        </Suspense>
+      )}
     </>
   );
 };

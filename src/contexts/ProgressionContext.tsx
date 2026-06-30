@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 // ===========================
@@ -570,27 +570,30 @@ export const ProgressionProvider: React.FC<{ children: React.ReactNode }> = ({ c
     toast.info('Progress reset');
   };
 
+  const contextValue = useMemo(() => ({
+    progress,
+    awardPoints,
+    spendPoints,
+    purchases,
+    purchaseItem,
+    trackGamePlay,
+    trackUtilityUse,
+    trackPageVisit,
+    getCurrentRank,
+    getNextRank,
+    getXPForNextLevel,
+    getLevelProgress,
+    getRecentlyPlayed,
+    getRecommendations,
+    checkMilestones,
+    getMilestones,
+    resetProgress,
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }), [progress, purchases]);
+
   return (
     <ProgressionContext.Provider
-      value={{
-        progress,
-        awardPoints,
-        spendPoints,
-        purchases,
-        purchaseItem,
-        trackGamePlay,
-        trackUtilityUse,
-        trackPageVisit,
-        getCurrentRank,
-        getNextRank,
-        getXPForNextLevel,
-        getLevelProgress,
-        getRecentlyPlayed,
-        getRecommendations,
-        checkMilestones,
-        getMilestones,
-        resetProgress,
-      }}
+      value={contextValue}
     >
       {children}
     </ProgressionContext.Provider>

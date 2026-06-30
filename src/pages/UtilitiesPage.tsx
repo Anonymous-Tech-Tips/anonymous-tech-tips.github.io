@@ -40,9 +40,13 @@ const UtilitiesPage = () => {
             <TopBannerAd />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <h1 className="text-3xl md:text-4xl font-bold font-rowdies text-gamer-text mb-8">
-                🛠️ Utilities & Tools
-              </h1>
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="text-3xl">🛠️</span>
+                  <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">Utilities</h1>
+                </div>
+                <p className="text-slate-500 text-sm">Tools & resources — open anything in one click.</p>
+              </div>
 
               <ContentSection
                 id="privacy-security"

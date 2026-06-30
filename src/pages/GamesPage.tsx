@@ -87,14 +87,28 @@ const GamesPage = () => {
 
   const visibleGames = filteredGames.slice(0, visibleCount);
 
+  const categoryCounts = useMemo(() => {
+    const nonBlocked = games.filter(g => !g.tags.includes("blocked"));
+    const count = (fn: (tags: string[]) => boolean) => nonBlocked.filter(g => fn(g.tags.map(t => t.toLowerCase()))).length;
+    return {
+      all: nonBlocked.length,
+      action: count(t => t.includes("action") || t.includes("shooting") || t.includes("fighting")),
+      racing: count(t => t.includes("racing") || t.includes("driving")),
+      sports: count(t => t.includes("sports") || t.includes("basketball") || t.includes("soccer")),
+      strategy: count(t => t.includes("puzzle") || t.includes("strategy") || t.includes("logic")),
+      casual: count(t => t.includes("casual") || t.includes("arcade") || t.includes("idle") || t.includes("clicker")),
+      multiplayer: count(t => t.includes("multiplayer") || t.includes("io") || t.includes("2 player")),
+    };
+  }, []);
+
   const categories = [
-    { id: "all", label: "All Modules", icon: Gamepad2 },
+    { id: "all", label: "All", icon: Gamepad2 },
     { id: "action", label: "Action", icon: Zap },
     { id: "racing", label: "Racing", icon: Car },
     { id: "sports", label: "Sports", icon: Trophy },
     { id: "strategy", label: "Strategy", icon: Brain },
     { id: "casual", label: "Casual", icon: Coffee },
-    { id: "multiplayer", label: "Multiplayer", icon: Ghost },
+    { id: "multiplayer", label: "Multi", icon: Ghost },
   ];
 
   return (
@@ -103,41 +117,55 @@ const GamesPage = () => {
     >
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* HEADER & SEARCH */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold font-rowdies text-white mb-2 flex items-center gap-3">
-              <span className="text-blue-500">🔬</span> Lab
-            </h1>
-            <p className="text-slate-400">Access {games.length}+ interactive modules instantly.</p>
-          </div>
-
-          <div className="flex flex-col gap-3 w-full md:w-auto">
-            <div className="relative w-full md:w-96">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
-              <Input
-                placeholder="Search modules..."
-                className="pl-12 bg-[#1E1E24]/80 backdrop-blur-md border-slate-800/80 text-white h-12 rounded-2xl focus:ring-blue-500 hover:border-slate-700 transition-colors"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+        <div className="mb-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+            <div>
+              <div className="flex items-center gap-3 mb-1">
+                <span className="text-3xl">🔬</span>
+                <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+                  Lab
+                </h1>
+                <span className="px-2.5 py-0.5 bg-blue-500/15 border border-blue-500/30 rounded-full text-blue-400 text-sm font-bold">
+                  {games.length}+
+                </span>
+              </div>
+              <p className="text-slate-500 text-sm">Interactive modules — no downloads, instant play.</p>
             </div>
 
-            {hasAdvancedSearch && (
-              <div className="flex items-center gap-2 justify-end fade-in">
-                <Filter size={16} className="text-blue-400" />
-                <span className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Sort By</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                  className="bg-[#1E1E24] border border-slate-800 text-slate-200 text-sm rounded-lg px-3 py-1.5 outline-none focus:ring-1 focus:ring-blue-500 transition-colors cursor-pointer hover:bg-slate-800"
-                >
-                  <option value="popular">Popularity</option>
-                  <option value="az">A-Z</option>
-                  <option value="za">Z-A</option>
-                </select>
+            <div className="flex flex-col gap-2 w-full md:w-auto">
+              <div className="relative w-full md:w-80">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" size={17} />
+                <Input
+                  placeholder="Search modules..."
+                  className="pl-10 bg-[#13131f] border-white/8 text-white h-11 rounded-xl focus:ring-blue-500 focus:border-blue-500/50 hover:border-white/15 transition-colors placeholder:text-slate-600"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
-            )}
+
+              {hasAdvancedSearch && (
+                <div className="flex items-center gap-2 justify-end">
+                  <Filter size={14} className="text-slate-500" />
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as any)}
+                    className="bg-[#13131f] border border-white/8 text-slate-300 text-xs rounded-lg px-3 py-1.5 outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer hover:border-white/15"
+                  >
+                    <option value="popular">Most Popular</option>
+                    <option value="az">A → Z</option>
+                    <option value="za">Z → A</option>
+                  </select>
+                </div>
+              )}
+            </div>
           </div>
+
+          {/* Result count when searching */}
+          {searchQuery && (
+            <p className="text-sm text-slate-500 mb-4">
+              {filteredGames.length} result{filteredGames.length !== 1 ? 's' : ''} for <span className="text-white font-semibold">"{searchQuery}"</span>
+            </p>
+          )}
         </div>
 
         {/* CATEGORY TABS */}
@@ -146,13 +174,20 @@ const GamesPage = () => {
             <button
               key={cat.id}
               onClick={() => { setActiveCategory(cat.id); trackCategoryFilter(cat.id); }}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-300 font-medium border ${activeCategory === cat.id
+              className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-200 font-semibold border text-sm ${activeCategory === cat.id
                   ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-900/40"
-                  : "bg-[#1E1E24]/80 backdrop-blur-md border-slate-800/80 text-slate-400 hover:bg-slate-800 hover:text-white"
+                  : "bg-[#13131f] border-white/8 text-slate-400 hover:bg-white/8 hover:border-white/15 hover:text-white"
                 }`}
             >
-              <cat.icon size={16} />
+              <cat.icon size={14} />
               {cat.label}
+              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                activeCategory === cat.id
+                  ? "bg-white/20 text-white"
+                  : "bg-white/6 text-slate-500"
+              }`}>
+                {categoryCounts[cat.id as keyof typeof categoryCounts]}
+              </span>
             </button>
           ))}
         </div>
@@ -166,19 +201,24 @@ const GamesPage = () => {
                   key={game.id}
                   to={`/games/${game.id}`}
                   style={{ contentVisibility: 'auto', containIntrinsicSize: '0 160px' } as React.CSSProperties}
-                  className="block bg-[#1E1E24] border border-slate-800 rounded-xl overflow-hidden hover:border-blue-500/60 transition-colors duration-150"
+                  className="group block bg-[#13131f] border border-white/6 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_0_24px_rgba(59,130,246,0.12)] transition-all duration-200"
                   onMouseEnter={() => prefetchGame(game.url)}
                 >
-                  <div className="aspect-[4/3]">
+                  <div className="aspect-[4/3] relative overflow-hidden bg-slate-900">
                     {game.thumbnail
-                      ? <img src={game.thumbnail} alt={game.title} loading="lazy" decoding="async" width={160} height={120} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+                      ? <img src={game.thumbnail} alt={game.title} loading="lazy" decoding="async" width={160} height={120} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
                       : <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end justify-center pb-3">
+                      <span className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-full shadow-xl">
+                        ▶ Play
+                      </span>
+                    </div>
                   </div>
                   <div className="p-2.5">
-                    <h3 className="font-semibold text-slate-100 truncate text-xs leading-tight">
+                    <h3 className="font-bold text-slate-100 truncate text-xs leading-tight group-hover:text-blue-400 transition-colors">
                       {game.title}
                     </h3>
-                    <p className="text-[9px] text-slate-500 uppercase tracking-wide mt-1 truncate">
+                    <p className="text-[9px] text-slate-500 uppercase tracking-wider mt-1 truncate font-semibold">
                       {game.tags[0]}
                     </p>
                   </div>

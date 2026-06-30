@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 import { precacheAndRoute, createHandlerBoundToURL, cleanupOutdatedCaches } from 'workbox-precaching';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
-import { NetworkFirst } from 'workbox-strategies';
+import { NetworkFirst, CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { clientsClaim } from 'workbox-core';
 
@@ -69,15 +69,43 @@ registerRoute(
   })
 );
 
-// Use NetworkFirst for assets to always get fresh content
+// Hashed JS/CSS chunks in /assets/ — CacheFirst (hash guarantees freshness)
 registerRoute(
-  /\.(?:css|js|png|jpg|jpeg|svg|gif|webp|woff2?)$/,
-  new NetworkFirst({
-    cacheName: `static-assets-${CACHE_VERSION}`,
+  /\/assets\/.*\.(?:js|css)$/,
+  new CacheFirst({
+    cacheName: `hashed-assets-${CACHE_VERSION}`,
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 100,
+        maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+      })
+    ],
+  })
+);
+
+// Images — StaleWhileRevalidate (serve from cache instantly, refresh in background)
+registerRoute(
+  /\.(?:png|jpg|jpeg|svg|gif|webp|avif)$/,
+  new StaleWhileRevalidate({
+    cacheName: `images-${CACHE_VERSION}`,
     plugins: [
       new ExpirationPlugin({
         maxEntries: 200,
-        maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
+        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+      })
+    ],
+  })
+);
+
+// Fonts — CacheFirst (immutable once loaded)
+registerRoute(
+  /\.woff2?$/,
+  new CacheFirst({
+    cacheName: `fonts-${CACHE_VERSION}`,
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds: 60 * 60 * 24 * 365,
       })
     ],
   })

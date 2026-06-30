@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Play, ChevronRight, Star, Clock, Search, Zap, Users, ArrowRight,
@@ -12,9 +12,25 @@ import FriendsGallery from "@/components/FriendsGallery";
 import { games } from "@/data/games";
 import { GameIcon } from "./GameIcon";
 import { DiscoveryFeed } from '@/components/rewards/DiscoveryFeed';
+import { openSmart } from '@/utils/openGameSandbox';
 
 // Pick one representative game per category for the hero grid
 const HERO_CATEGORIES = ["Platformer", "Action", "Racing", "Sports", "Shooter", "Multiplayer"];
+
+const CATEGORY_NAV = [
+  { label: "All Modules", href: "/games",                      icon: Gamepad2, color: "text-white" },
+  { label: "Platformer",  href: "/games?category=platformer",  icon: Zap,      color: "text-cyan-400" },
+  { label: "Action",      href: "/games?category=action",      icon: Zap,      color: "text-red-400" },
+  { label: "Puzzle",      href: "/games?category=puzzle",      icon: Sparkles, color: "text-purple-400" },
+  { label: "Racing",      href: "/games?category=racing",      icon: Trophy,   color: "text-blue-400" },
+  { label: "Sports",      href: "/games?category=sports",      icon: Trophy,   color: "text-green-400" },
+  { label: "Horror",      href: "/games?category=horror",      icon: Sparkles, color: "text-red-600" },
+  { label: "Simulation",  href: "/games?category=simulation",  icon: Sparkles, color: "text-amber-400" },
+  { label: "Idle",        href: "/games?category=idle",        icon: Sparkles, color: "text-lime-400" },
+  { label: "Multiplayer", href: "/games?category=multiplayer", icon: Users,    color: "text-pink-400" },
+  { label: "RPG",         href: "/games?category=rpg",         icon: Sparkles, color: "text-orange-400" },
+  { label: "Casual",      href: "/games?category=arcade",      icon: Gamepad2, color: "text-yellow-400" },
+] as const;
 // Curated hot games — one per major category for variety
 const HOT_GAME_IDS = [
   "slope", "retro-bowl", "tunnel-rush", "drift-boss", "cookie-clicker", "temple-run-2",
@@ -35,46 +51,57 @@ export const GamerHome = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [featuredGame, setFeaturedGame] = useState(games[0]);
+  const [featuredVisible, setFeaturedVisible] = useState(true);
 
-  const validGames = games.filter(g => !g.tags.includes("blocked"));
+  const validGames = useMemo(() => games.filter(g => !g.tags.includes("blocked")), []);
 
-  // Hero grid: one game per category, picked dynamically
-  const heroGames = HERO_CATEGORIES
+  const heroGames = useMemo(() => HERO_CATEGORIES
     .map(cat => validGames.find(g => g.tags.includes(cat)))
-    .filter(Boolean) as typeof games;
+    .filter(Boolean) as typeof games, [validGames]);
 
-  const hotGames = HOT_GAME_IDS
+  const hotGames = useMemo(() => HOT_GAME_IDS
     .map(id => validGames.find(g => g.id === id))
-    .filter(Boolean) as typeof games;
+    .filter(Boolean) as typeof games, [validGames]);
 
-  const continueIds = prefs.history.filter(h => h.itemType === 'game').map(h => h.itemId);
-  const continueItems = [...new Set(continueIds)]
-    .map(id => games.find(g => g.id === id))
-    .filter(Boolean) as typeof games;
+  const continueItems = useMemo(() => {
+    const ids = [...new Set(prefs.history.filter(h => h.itemType === 'game').map(h => h.itemId))];
+    return ids.map(id => games.find(g => g.id === id)).filter(Boolean) as typeof games;
+  }, [prefs.history]);
 
-  const favItems = prefs.favorites
+  const favItems = useMemo(() => prefs.favorites
     .map(id => games.find(g => g.id === id))
-    .filter(Boolean) as typeof games;
+    .filter(Boolean) as typeof games, [prefs.favorites]);
 
   useEffect(() => {
-    // Rotate through the hot games list as featured
     const pool = hotGames.length > 0 ? hotGames : validGames.slice(0, 20);
     const pick = () => pool[Math.floor(Math.random() * pool.length)];
     setFeaturedGame(pick());
-    const iv = setInterval(() => setFeaturedGame(pick()), 8000);
-    return () => clearInterval(iv);
+    const crossfade = () => {
+      setFeaturedVisible(false);
+      setTimeout(() => { setFeaturedGame(pick()); setFeaturedVisible(true); }, 400);
+    };
+    let iv = setInterval(crossfade, 8000);
+    const pause = () => { clearInterval(iv); };
+    const resume = () => { iv = setInterval(crossfade, 8000); };
+    window.addEventListener('open-game-overlay', pause);
+    window.addEventListener('close-game-overlay', resume);
+    return () => {
+      clearInterval(iv);
+      window.removeEventListener('open-game-overlay', pause);
+      window.removeEventListener('close-game-overlay', resume);
+    };
   }, []);
 
-  const getGreeting = () => {
+  const greeting = useMemo(() => {
     const h = new Date().getHours();
     if (h < 12) return "Morning";
     if (h < 18) return "Afternoon";
     return "Evening";
-  };
+  }, []);
 
-  const searchResults = searchQuery.length > 1
+  const searchResults = useMemo(() => searchQuery.length > 1
     ? validGames.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 8)
-    : [];
+    : [], [searchQuery, validGames]);
 
   return (
     <div className="min-h-screen bg-[#08080f] text-white overflow-x-hidden">
@@ -91,7 +118,7 @@ export const GamerHome = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
-                {getGreeting()}, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Gamer</span> 👋
+                {greeting}, <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Gamer</span> 👋
               </h1>
               <p className="text-slate-500 text-sm mt-1">
                 {currentRank.icon} {currentRank.name} · Lv.{progress.level} · {prefs.settings.streakCount}🔥 day streak
@@ -134,25 +161,53 @@ export const GamerHome = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-10">
             {/* big feature card */}
             <div
-              onClick={() => navigate(`/games/${featuredGame?.id}`)}
-              className="lg:col-span-2 relative aspect-[16/9] rounded-2xl overflow-hidden cursor-pointer group"
+              className="lg:col-span-2 relative aspect-[16/9] rounded-2xl overflow-hidden group cursor-pointer bg-slate-900"
+              style={{ opacity: featuredVisible ? 1 : 0, transition: 'opacity 0.35s ease' }}
             >
               {featuredGame && (
                 featuredGame.thumbnail
-                  ? <img src={featuredGame.thumbnail} alt={featuredGame.title} className="absolute inset-0 w-full h-full object-cover" />
+                  ? <img src={featuredGame.thumbnail} alt={featuredGame.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   : <GameIcon id={featuredGame.id} title={featuredGame.title} className="absolute inset-0 w-full h-full text-7xl" />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-              <div className="absolute top-3 left-3">
-                <span className="flex items-center gap-1.5 px-2.5 py-1 bg-yellow-500 text-black text-[10px] font-black uppercase tracking-wider rounded-full">
+              {/* layered gradients for cinematic depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
+
+              {/* top badges */}
+              <div className="absolute top-4 left-4 flex gap-2">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 bg-yellow-400 text-black text-[10px] font-black uppercase tracking-wider rounded-full shadow-lg">
                   <Star size={9} className="fill-black" /> Featured
                 </span>
+                {featuredGame?.tags?.[0] && (
+                  <span className="px-2.5 py-1 bg-white/10 backdrop-blur border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider rounded-full">
+                    {featuredGame.tags[0]}
+                  </span>
+                )}
               </div>
-              <div className="absolute bottom-5 left-5 right-5">
-                <h2 className="text-2xl sm:text-3xl font-black text-white mb-2 drop-shadow-lg">{featuredGame?.title}</h2>
-                <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-colors">
-                  <Play size={14} className="fill-white" /> Launch
-                </span>
+
+              {/* bottom content */}
+              <div className="absolute bottom-0 left-0 right-0 p-5">
+                <h2
+                  onClick={() => navigate(`/games/${featuredGame?.id}`)}
+                  className="text-2xl sm:text-3xl font-black text-white mb-3 drop-shadow-lg leading-tight hover:text-blue-300 transition-colors inline-block cursor-pointer"
+                >
+                  {featuredGame?.title}
+                </h2>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); if (featuredGame) openSmart(featuredGame.url, false, featuredGame.title); }}
+                    className="flex items-center gap-1.5 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-xl transition-all shadow-xl shadow-blue-900/40 hover:shadow-blue-600/30 hover:scale-105 active:scale-95"
+                  >
+                    <Play size={14} className="fill-white" /> Launch
+                  </button>
+                  <Link
+                    to={`/games/${featuredGame?.id}`}
+                    onClick={e => e.stopPropagation()}
+                    className="flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/15 text-white text-sm font-semibold rounded-xl transition-all"
+                  >
+                    Details
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -162,12 +217,17 @@ export const GamerHome = () => {
                 <Link
                   key={game.id}
                   to={`/games/${game.id}`}
-                  className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-white/5 hover:border-blue-500/50 transition-colors"
+                  className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-white/6 hover:border-blue-500/60 hover:shadow-[0_0_16px_rgba(59,130,246,0.15)] transition-all duration-200"
                 >
                   {game.thumbnail
-                    ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" />
+                    ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                     : <GameIcon id={game.id} title={game.title} className="w-full h-full text-3xl" />}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shadow-xl">
+                      <Play size={12} className="fill-white text-white ml-0.5" />
+                    </span>
+                  </div>
                   <div className="absolute bottom-1.5 left-2 right-2">
                     <div className="text-[10px] font-bold text-white truncate">{game.title}</div>
                   </div>
@@ -183,20 +243,7 @@ export const GamerHome = () => {
 
         {/* quick category nav */}
         <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-          {[
-            { label: "All Modules", href: "/games",                          icon: Gamepad2, color: "text-white" },
-            { label: "Platformer",  href: "/games?category=platformer",      icon: Zap,      color: "text-cyan-400" },
-            { label: "Action",      href: "/games?category=action",          icon: Zap,      color: "text-red-400" },
-            { label: "Puzzle",      href: "/games?category=puzzle",          icon: Sparkles, color: "text-purple-400" },
-            { label: "Racing",      href: "/games?category=racing",          icon: Trophy,   color: "text-blue-400" },
-            { label: "Sports",      href: "/games?category=sports",          icon: Trophy,   color: "text-green-400" },
-            { label: "Horror",      href: "/games?category=horror",          icon: Sparkles, color: "text-red-600" },
-            { label: "Simulation",  href: "/games?category=simulation",      icon: Sparkles, color: "text-amber-400" },
-            { label: "Idle",        href: "/games?category=idle",            icon: Sparkles, color: "text-lime-400" },
-            { label: "Multiplayer", href: "/games?category=multiplayer",     icon: Users,    color: "text-pink-400" },
-            { label: "RPG",         href: "/games?category=rpg",             icon: Sparkles, color: "text-orange-400" },
-            { label: "Casual",      href: "/games?category=arcade",          icon: Gamepad2, color: "text-yellow-400" },
-          ].map(cat => (
+          {CATEGORY_NAV.map(cat => (
             <Link
               key={cat.label}
               to={cat.href}
@@ -272,9 +319,9 @@ export const GamerHome = () => {
           </div>
           <Link
             to="/games"
-            className="flex items-center justify-center gap-2 w-full py-3 mt-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm font-semibold text-slate-300 hover:text-white transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-3 mt-2 bg-[#13131f] hover:bg-white/8 border border-white/8 hover:border-blue-500/40 rounded-2xl text-sm font-bold text-slate-400 hover:text-white transition-all"
           >
-            Browse All {validGames.length} Modules <ArrowRight size={14} />
+            Browse all {validGames.length} modules <ArrowRight size={14} />
           </Link>
         </section>
 
@@ -337,17 +384,22 @@ const SectionHeader = ({
 const GameCard = ({ game, small }: { game: any; small?: boolean }) => (
   <Link
     to={`/games/${game.id}`}
-    className="block group bg-[#10101c] border border-white/5 rounded-xl overflow-hidden hover:border-blue-500/40 transition-colors"
+    className="block group bg-[#13131f] border border-white/6 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all duration-200"
     style={{ contentVisibility: 'auto', containIntrinsicSize: `0 ${small ? '100px' : '120px'}` } as React.CSSProperties}
   >
-    <div className="aspect-[4/3] overflow-hidden">
+    <div className="aspect-[4/3] relative overflow-hidden bg-slate-900">
       {game.thumbnail
-        ? <img src={game.thumbnail} alt={game.title} className="w-full h-full object-cover" />
+        ? <img src={game.thumbnail} alt={game.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} />
         : <GameIcon id={game.id} title={game.title} className={`w-full h-full ${small ? 'text-2xl' : 'text-3xl'}`} />}
+      {!small && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end justify-center pb-2.5">
+          <span className="flex items-center gap-1 px-2.5 py-1 bg-blue-600 text-white text-[10px] font-bold rounded-full shadow-lg">▶ Play</span>
+        </div>
+      )}
     </div>
     <div className={`${small ? 'p-1.5' : 'p-2'}`}>
-      <div className={`font-bold text-slate-100 truncate ${small ? 'text-[9px]' : 'text-[11px]'}`}>{game.title}</div>
-      {!small && <div className="text-[9px] text-slate-500 uppercase tracking-wide mt-0.5 truncate">{game.tags[0]}</div>}
+      <div className={`font-bold text-slate-100 truncate group-hover:text-blue-400 transition-colors ${small ? 'text-[9px]' : 'text-[11px]'}`}>{game.title}</div>
+      {!small && <div className="text-[9px] text-slate-500 uppercase tracking-wider mt-0.5 truncate font-semibold">{game.tags[0]}</div>}
     </div>
   </Link>
 );

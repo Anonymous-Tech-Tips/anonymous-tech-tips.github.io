@@ -9,7 +9,7 @@ function sandboxUrl(): string {
   return new URL('./sandbox.html', base).href;
 }
 
-export function openSmart(url: string, forceRedirect: boolean = false) {
+export function openSmart(url: string, forceRedirect: boolean = false, title?: string) {
   if (!url || url === "#") return;
 
   url = resolveAssetUrl(url);
@@ -41,12 +41,12 @@ export function openSmart(url: string, forceRedirect: boolean = false) {
   // STRATEGY B: IN-PAGE OVERLAY (For games)
   // Render game inside the SPA via full-screen iframe overlay.
   // Avoids opening a new tab URL that content filters evaluate as a fresh request.
-  window.dispatchEvent(new CustomEvent('open-game-overlay', { detail: { url } }));
+  window.dispatchEvent(new CustomEvent('open-game-overlay', { detail: { url, title } }));
 }
 
 // BACKWARDS COMPATIBILITY
-export function openGameSandbox(realUrl: string) {
-  openSmart(realUrl, false);
+export function openGameSandbox(realUrl: string, title?: string) {
+  openSmart(realUrl, false, title);
 }
 
 export function openStream(realUrl: string) {

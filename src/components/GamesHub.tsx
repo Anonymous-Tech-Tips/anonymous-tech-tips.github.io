@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, memo } from "react";
 import { Link } from "react-router-dom";
 import { Search, Gamepad2, Download, TrendingUp } from "lucide-react";
 
@@ -231,7 +231,7 @@ const GameThumbnail: React.FC<{ id: string; title: string; thumbnail: string; pr
   );
 };
 
-const GameCard: React.FC<GameCardProps> = ({ game, playCount, priority }) => {
+const GameCard: React.FC<GameCardProps> = memo(({ game, playCount, priority }) => {
   return (
     <Link
       to={`/games/${game.id}`}
@@ -264,4 +264,4 @@ const GameCard: React.FC<GameCardProps> = ({ game, playCount, priority }) => {
       </div>
     </Link>
   );
-};
+});
