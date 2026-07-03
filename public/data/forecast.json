@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-03 08:48:48",
+    "last_updated": "2026-07-03 12:01:16",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -30,10 +30,10 @@
                     "label": "Sunday, Jul 05",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 81.5,
-                        "delay": 6.8,
-                        "early_release": 1.9,
-                        "closure": 9.8
+                        "open": 63.3,
+                        "delay": 20.5,
+                        "early_release": 2.7,
+                        "closure": 13.6
                     }
                 }
             ]
@@ -67,10 +67,10 @@
                     "label": "Sunday, Jul 05",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 81.8,
-                        "delay": 14.5,
-                        "early_release": 2.1,
-                        "closure": 1.6
+                        "open": 80.3,
+                        "delay": 15.8,
+                        "early_release": 2.2,
+                        "closure": 1.8
                     }
                 }
             ]
@@ -104,10 +104,10 @@
                     "label": "Sunday, Jul 05",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 72.6,
-                        "delay": 19.7,
+                        "open": 70.1,
+                        "delay": 19.1,
                         "early_release": 3.6,
-                        "closure": 4.0
+                        "closure": 7.2
                     }
                 }
             ]
@@ -141,10 +141,10 @@
             "label": "Sunday, Jul 05",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 81.5,
-                "delay": 6.8,
-                "early_release": 1.9,
-                "closure": 9.8
+                "open": 63.3,
+                "delay": 20.5,
+                "early_release": 2.7,
+                "closure": 13.6
             }
         }
     ]
