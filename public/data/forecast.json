@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-06 21:21:33",
+    "last_updated": "2026-07-06 22:58:22",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Monday, Jul 06",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 60.8,
-                        "delay": 24.0,
+                        "open": 62.2,
+                        "delay": 22.7,
                         "early_release": 2.8,
-                        "closure": 12.4
+                        "closure": 12.3
                     }
                 },
                 {
@@ -45,9 +45,9 @@
                     "label": "Monday, Jul 06",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 74.2,
-                        "delay": 21.2,
-                        "early_release": 2.5,
+                        "open": 77.4,
+                        "delay": 17.3,
+                        "early_release": 3.3,
                         "closure": 2.0
                     }
                 },
@@ -82,10 +82,10 @@
                     "label": "Monday, Jul 06",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 72.0,
-                        "delay": 18.1,
-                        "early_release": 3.1,
-                        "closure": 6.8
+                        "open": 76.1,
+                        "delay": 15.3,
+                        "early_release": 3.9,
+                        "closure": 4.8
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Monday, Jul 06",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 60.8,
-                "delay": 24.0,
+                "open": 62.2,
+                "delay": 22.7,
                 "early_release": 2.8,
-                "closure": 12.4
+                "closure": 12.3
             }
         },
         {
