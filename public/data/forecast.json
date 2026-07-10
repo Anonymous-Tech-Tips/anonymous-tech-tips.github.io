@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-10 09:01:11",
+    "last_updated": "2026-07-10 12:20:28",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -30,10 +30,10 @@
                     "label": "Sunday, Jul 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.0,
-                        "delay": 5.9,
-                        "early_release": 1.9,
-                        "closure": 2.2
+                        "open": 90.4,
+                        "delay": 5.8,
+                        "early_release": 1.8,
+                        "closure": 2.0
                     }
                 }
             ]
@@ -56,8 +56,8 @@
                     "label": "Saturday, Jul 11",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.3,
-                        "delay": 8.0,
+                        "open": 89.5,
+                        "delay": 7.8,
                         "early_release": 1.6,
                         "closure": 1.1
                     }
@@ -67,7 +67,7 @@
                     "label": "Sunday, Jul 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.4,
+                        "open": 91.3,
                         "delay": 5.7,
                         "early_release": 1.8,
                         "closure": 1.2
@@ -104,10 +104,10 @@
                     "label": "Sunday, Jul 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 82.2,
-                        "delay": 13.3,
-                        "early_release": 2.5,
-                        "closure": 2.0
+                        "open": 83.9,
+                        "delay": 12.0,
+                        "early_release": 2.3,
+                        "closure": 1.8
                     }
                 }
             ]
@@ -141,10 +141,10 @@
             "label": "Sunday, Jul 12",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 90.0,
-                "delay": 5.9,
-                "early_release": 1.9,
-                "closure": 2.2
+                "open": 90.4,
+                "delay": 5.8,
+                "early_release": 1.8,
+                "closure": 2.0
             }
         }
     ]
