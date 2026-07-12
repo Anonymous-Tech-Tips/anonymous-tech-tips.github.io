@@ -1,28 +1,17 @@
 {
-    "last_updated": "2026-07-11 22:37:44",
+    "last_updated": "2026-07-12 01:32:23",
     "districts": {
         "LCPS": {
             "forecasts": [
-                {
-                    "date": "2026-07-11",
-                    "label": "Saturday, Jul 11",
-                    "primary_prediction": "Open",
-                    "probabilities": {
-                        "open": 84.4,
-                        "delay": 6.2,
-                        "early_release": 1.9,
-                        "closure": 7.5
-                    }
-                },
                 {
                     "date": "2026-07-12",
                     "label": "Sunday, Jul 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 87.7,
-                        "delay": 8.0,
-                        "early_release": 2.2,
-                        "closure": 2.1
+                        "open": 83.9,
+                        "delay": 6.6,
+                        "early_release": 1.9,
+                        "closure": 7.7
                     }
                 },
                 {
@@ -30,10 +19,21 @@
                     "label": "Monday, Jul 13",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 93.0,
-                        "delay": 3.3,
-                        "early_release": 1.1,
-                        "closure": 2.6
+                        "open": 87.9,
+                        "delay": 8.1,
+                        "early_release": 2.2,
+                        "closure": 1.9
+                    }
+                },
+                {
+                    "date": "2026-07-14",
+                    "label": "Tuesday, Jul 14",
+                    "primary_prediction": "Open",
+                    "probabilities": {
+                        "open": 90.9,
+                        "delay": 5.9,
+                        "early_release": 1.7,
+                        "closure": 1.5
                     }
                 }
             ]
@@ -41,19 +41,19 @@
         "FCPS": {
             "forecasts": [
                 {
-                    "date": "2026-07-11",
-                    "label": "Saturday, Jul 11",
+                    "date": "2026-07-12",
+                    "label": "Sunday, Jul 12",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 84.1,
-                        "delay": 12.1,
-                        "early_release": 2.3,
+                        "delay": 11.9,
+                        "early_release": 2.6,
                         "closure": 1.5
                     }
                 },
                 {
-                    "date": "2026-07-12",
-                    "label": "Sunday, Jul 12",
+                    "date": "2026-07-13",
+                    "label": "Monday, Jul 13",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 91.1,
@@ -63,14 +63,14 @@
                     }
                 },
                 {
-                    "date": "2026-07-13",
-                    "label": "Monday, Jul 13",
+                    "date": "2026-07-14",
+                    "label": "Tuesday, Jul 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.1,
-                        "delay": 6.1,
-                        "early_release": 1.6,
-                        "closure": 1.2
+                        "open": 90.6,
+                        "delay": 6.2,
+                        "early_release": 2.1,
+                        "closure": 1.0
                     }
                 }
             ]
@@ -78,19 +78,19 @@
         "PWCS": {
             "forecasts": [
                 {
-                    "date": "2026-07-11",
-                    "label": "Saturday, Jul 11",
+                    "date": "2026-07-12",
+                    "label": "Sunday, Jul 12",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 75.0,
-                        "delay": 19.4,
-                        "early_release": 3.2,
-                        "closure": 2.4
+                        "open": 74.5,
+                        "delay": 19.0,
+                        "early_release": 3.8,
+                        "closure": 2.6
                     }
                 },
                 {
-                    "date": "2026-07-12",
-                    "label": "Sunday, Jul 12",
+                    "date": "2026-07-13",
+                    "label": "Monday, Jul 13",
                     "primary_prediction": "Open",
                     "probabilities": {
                         "open": 80.4,
@@ -100,14 +100,14 @@
                     }
                 },
                 {
-                    "date": "2026-07-13",
-                    "label": "Monday, Jul 13",
+                    "date": "2026-07-14",
+                    "label": "Tuesday, Jul 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.0,
-                        "delay": 7.7,
-                        "early_release": 1.9,
-                        "closure": 1.4
+                        "open": 86.1,
+                        "delay": 10.6,
+                        "early_release": 2.2,
+                        "closure": 1.1
                     }
                 }
             ]
@@ -115,25 +115,14 @@
     },
     "forecasts": [
         {
-            "date": "2026-07-11",
-            "label": "Saturday, Jul 11",
-            "primary_prediction": "Open",
-            "probabilities": {
-                "open": 84.4,
-                "delay": 6.2,
-                "early_release": 1.9,
-                "closure": 7.5
-            }
-        },
-        {
             "date": "2026-07-12",
             "label": "Sunday, Jul 12",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 87.7,
-                "delay": 8.0,
-                "early_release": 2.2,
-                "closure": 2.1
+                "open": 83.9,
+                "delay": 6.6,
+                "early_release": 1.9,
+                "closure": 7.7
             }
         },
         {
@@ -141,10 +130,21 @@
             "label": "Monday, Jul 13",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 93.0,
-                "delay": 3.3,
-                "early_release": 1.1,
-                "closure": 2.6
+                "open": 87.9,
+                "delay": 8.1,
+                "early_release": 2.2,
+                "closure": 1.9
+            }
+        },
+        {
+            "date": "2026-07-14",
+            "label": "Tuesday, Jul 14",
+            "primary_prediction": "Open",
+            "probabilities": {
+                "open": 90.9,
+                "delay": 5.9,
+                "early_release": 1.7,
+                "closure": 1.5
             }
         }
     ]
