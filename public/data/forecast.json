@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-14 13:06:31",
+    "last_updated": "2026-07-14 15:17:46",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,8 +19,8 @@
                     "label": "Wednesday, Jul 15",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.1,
-                        "delay": 5.6,
+                        "open": 91.5,
+                        "delay": 5.2,
                         "early_release": 1.7,
                         "closure": 1.6
                     }
@@ -45,9 +45,9 @@
                     "label": "Tuesday, Jul 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.7,
+                        "open": 90.3,
                         "delay": 6.8,
-                        "early_release": 1.2,
+                        "early_release": 1.6,
                         "closure": 1.2
                     }
                 },
@@ -82,10 +82,10 @@
                     "label": "Tuesday, Jul 14",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.3,
+                        "open": 87.8,
                         "delay": 8.4,
-                        "early_release": 1.5,
-                        "closure": 1.7
+                        "early_release": 2.2,
+                        "closure": 1.6
                     }
                 },
                 {
@@ -93,10 +93,10 @@
                     "label": "Wednesday, Jul 15",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.3,
-                        "delay": 6.7,
-                        "early_release": 2.0,
-                        "closure": 1.0
+                        "open": 89.0,
+                        "delay": 7.6,
+                        "early_release": 2.3,
+                        "closure": 1.1
                     }
                 },
                 {
@@ -130,8 +130,8 @@
             "label": "Wednesday, Jul 15",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.1,
-                "delay": 5.6,
+                "open": 91.5,
+                "delay": 5.2,
                 "early_release": 1.7,
                 "closure": 1.6
             }
