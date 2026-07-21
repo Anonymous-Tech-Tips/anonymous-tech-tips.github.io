@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-21 11:43:17",
+    "last_updated": "2026-07-21 13:15:58",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Tuesday, Jul 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 80.1,
-                        "delay": 7.2,
-                        "early_release": 2.0,
-                        "closure": 10.7
+                        "open": 77.8,
+                        "delay": 7.8,
+                        "early_release": 2.2,
+                        "closure": 12.2
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Tuesday, Jul 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 80.2,
-                        "delay": 15.6,
-                        "early_release": 2.3,
-                        "closure": 1.9
+                        "open": 81.6,
+                        "delay": 14.6,
+                        "early_release": 2.1,
+                        "closure": 1.7
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Tuesday, Jul 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 70.0,
-                        "delay": 21.4,
+                        "open": 69.5,
+                        "delay": 22.0,
                         "early_release": 3.7,
-                        "closure": 4.9
+                        "closure": 4.8
                     }
                 },
                 {
@@ -104,10 +104,10 @@
                     "label": "Thursday, Jul 23",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.2,
-                        "delay": 7.3,
-                        "early_release": 2.3,
-                        "closure": 1.2
+                        "open": 89.5,
+                        "delay": 7.1,
+                        "early_release": 2.2,
+                        "closure": 1.1
                     }
                 }
             ]
@@ -119,10 +119,10 @@
             "label": "Tuesday, Jul 21",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 80.1,
-                "delay": 7.2,
-                "early_release": 2.0,
-                "closure": 10.7
+                "open": 77.8,
+                "delay": 7.8,
+                "early_release": 2.2,
+                "closure": 12.2
             }
         },
         {
