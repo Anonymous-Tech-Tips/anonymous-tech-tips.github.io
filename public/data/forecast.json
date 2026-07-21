@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-21 21:10:49",
+    "last_updated": "2026-07-21 22:45:43",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Tuesday, Jul 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 78.9,
-                        "delay": 7.3,
+                        "open": 78.3,
+                        "delay": 7.5,
                         "early_release": 2.2,
-                        "closure": 11.7
+                        "closure": 12.0
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Tuesday, Jul 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 81.9,
-                        "delay": 13.8,
-                        "early_release": 2.7,
-                        "closure": 1.6
+                        "open": 80.5,
+                        "delay": 16.0,
+                        "early_release": 1.8,
+                        "closure": 1.7
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Tuesday, Jul 21",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 66.4,
-                        "delay": 25.3,
-                        "early_release": 4.8,
-                        "closure": 3.5
+                        "open": 64.5,
+                        "delay": 27.7,
+                        "early_release": 3.2,
+                        "closure": 4.6
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Tuesday, Jul 21",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 78.9,
-                "delay": 7.3,
+                "open": 78.3,
+                "delay": 7.5,
                 "early_release": 2.2,
-                "closure": 11.7
+                "closure": 12.0
             }
         },
         {
