@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-25 20:41:48",
+    "last_updated": "2026-07-25 22:45:42",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -82,8 +82,8 @@
                     "label": "Saturday, Jul 25",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.3,
-                        "delay": 5.6,
+                        "open": 90.1,
+                        "delay": 5.8,
                         "early_release": 1.5,
                         "closure": 2.6
                     }
