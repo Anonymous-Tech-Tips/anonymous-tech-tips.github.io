@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-29 17:20:59",
+    "last_updated": "2026-07-29 18:56:52",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -30,10 +30,10 @@
                     "label": "Friday, Jul 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 86.6,
-                        "delay": 5.7,
-                        "early_release": 1.5,
-                        "closure": 6.2
+                        "open": 91.2,
+                        "delay": 4.3,
+                        "early_release": 1.1,
+                        "closure": 3.4
                     }
                 }
             ]
@@ -56,8 +56,8 @@
                     "label": "Thursday, Jul 30",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 90.7,
-                        "delay": 6.5,
+                        "open": 90.3,
+                        "delay": 6.8,
                         "early_release": 1.6,
                         "closure": 1.2
                     }
@@ -67,8 +67,8 @@
                     "label": "Friday, Jul 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.9,
-                        "delay": 7.3,
+                        "open": 89.3,
+                        "delay": 7.8,
                         "early_release": 1.4,
                         "closure": 1.5
                     }
@@ -104,10 +104,10 @@
                     "label": "Friday, Jul 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 71.9,
-                        "delay": 22.0,
-                        "early_release": 2.5,
-                        "closure": 3.6
+                        "open": 84.9,
+                        "delay": 11.0,
+                        "early_release": 1.8,
+                        "closure": 2.3
                     }
                 }
             ]
@@ -141,10 +141,10 @@
             "label": "Friday, Jul 31",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 86.6,
-                "delay": 5.7,
-                "early_release": 1.5,
-                "closure": 6.2
+                "open": 91.2,
+                "delay": 4.3,
+                "early_release": 1.1,
+                "closure": 3.4
             }
         }
     ]
