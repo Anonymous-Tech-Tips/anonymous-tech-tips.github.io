@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-30 11:46:30",
+    "last_updated": "2026-07-30 13:26:37",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Friday, Jul 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.3,
-                        "delay": 4.5,
+                        "open": 90.9,
+                        "delay": 4.8,
                         "early_release": 1.2,
-                        "closure": 3.0
+                        "closure": 3.1
                     }
                 },
                 {
@@ -56,10 +56,10 @@
                     "label": "Friday, Jul 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 91.2,
-                        "delay": 5.8,
+                        "open": 90.8,
+                        "delay": 5.9,
                         "early_release": 1.2,
-                        "closure": 1.8
+                        "closure": 2.1
                     }
                 },
                 {
@@ -93,10 +93,10 @@
                     "label": "Friday, Jul 31",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 94.0,
-                        "delay": 3.5,
-                        "early_release": 1.1,
-                        "closure": 1.5
+                        "open": 94.1,
+                        "delay": 3.3,
+                        "early_release": 1.0,
+                        "closure": 1.6
                     }
                 },
                 {
@@ -130,10 +130,10 @@
             "label": "Friday, Jul 31",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 91.3,
-                "delay": 4.5,
+                "open": 90.9,
+                "delay": 4.8,
                 "early_release": 1.2,
-                "closure": 3.0
+                "closure": 3.1
             }
         },
         {
