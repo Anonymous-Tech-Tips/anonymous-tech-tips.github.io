@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-07-31 08:33:22",
+    "last_updated": "2026-07-31 11:56:13",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -19,10 +19,10 @@
                     "label": "Saturday, Aug 01",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 83.4,
-                        "delay": 7.3,
-                        "early_release": 1.6,
-                        "closure": 7.8
+                        "open": 81.0,
+                        "delay": 8.3,
+                        "early_release": 1.8,
+                        "closure": 8.9
                     }
                 },
                 {
@@ -30,10 +30,10 @@
                     "label": "Sunday, Aug 02",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 55.2,
-                        "delay": 28.1,
-                        "early_release": 2.7,
-                        "closure": 14.0
+                        "open": 60.5,
+                        "delay": 23.2,
+                        "early_release": 2.6,
+                        "closure": 13.6
                     }
                 }
             ]
@@ -56,10 +56,10 @@
                     "label": "Saturday, Aug 01",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 88.6,
-                        "delay": 8.1,
-                        "early_release": 1.3,
-                        "closure": 2.0
+                        "open": 84.7,
+                        "delay": 11.3,
+                        "early_release": 1.6,
+                        "closure": 2.5
                     }
                 },
                 {
@@ -67,8 +67,8 @@
                     "label": "Sunday, Aug 02",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 50.1,
-                        "delay": 45.0,
+                        "open": 78.3,
+                        "delay": 16.9,
                         "early_release": 2.4,
                         "closure": 2.4
                     }
@@ -93,8 +93,8 @@
                     "label": "Saturday, Aug 01",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 89.5,
-                        "delay": 6.4,
+                        "open": 90.5,
+                        "delay": 5.4,
                         "early_release": 1.5,
                         "closure": 2.6
                     }
@@ -104,10 +104,10 @@
                     "label": "Sunday, Aug 02",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 66.7,
-                        "delay": 21.3,
-                        "early_release": 3.6,
-                        "closure": 8.4
+                        "open": 67.3,
+                        "delay": 20.6,
+                        "early_release": 3.7,
+                        "closure": 8.5
                     }
                 }
             ]
@@ -130,10 +130,10 @@
             "label": "Saturday, Aug 01",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 83.4,
-                "delay": 7.3,
-                "early_release": 1.6,
-                "closure": 7.8
+                "open": 81.0,
+                "delay": 8.3,
+                "early_release": 1.8,
+                "closure": 8.9
             }
         },
         {
@@ -141,10 +141,10 @@
             "label": "Sunday, Aug 02",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 55.2,
-                "delay": 28.1,
-                "early_release": 2.7,
-                "closure": 14.0
+                "open": 60.5,
+                "delay": 23.2,
+                "early_release": 2.6,
+                "closure": 13.6
             }
         }
     ]
