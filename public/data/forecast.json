@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-08-02 14:54:58",
+    "last_updated": "2026-08-02 16:55:14",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Sunday, Aug 02",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 82.4,
-                        "delay": 6.2,
+                        "open": 83.3,
+                        "delay": 6.0,
                         "early_release": 1.7,
-                        "closure": 9.7
+                        "closure": 9.0
                     }
                 },
                 {
@@ -45,10 +45,10 @@
                     "label": "Sunday, Aug 02",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 83.6,
-                        "delay": 12.8,
-                        "early_release": 2.1,
-                        "closure": 1.5
+                        "open": 83.5,
+                        "delay": 13.3,
+                        "early_release": 1.7,
+                        "closure": 1.6
                     }
                 },
                 {
@@ -82,10 +82,10 @@
                     "label": "Sunday, Aug 02",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 74.4,
-                        "delay": 18.9,
-                        "early_release": 3.7,
-                        "closure": 3.0
+                        "open": 75.0,
+                        "delay": 19.0,
+                        "early_release": 2.6,
+                        "closure": 3.4
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Sunday, Aug 02",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 82.4,
-                "delay": 6.2,
+                "open": 83.3,
+                "delay": 6.0,
                 "early_release": 1.7,
-                "closure": 9.7
+                "closure": 9.0
             }
         },
         {
