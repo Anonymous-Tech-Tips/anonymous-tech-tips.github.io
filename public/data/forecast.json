@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-08-05 11:52:01",
+    "last_updated": "2026-08-05 13:42:11",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -8,10 +8,10 @@
                     "label": "Wednesday, Aug 05",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 86.6,
-                        "delay": 5.7,
+                        "open": 86.4,
+                        "delay": 5.6,
                         "early_release": 1.6,
-                        "closure": 6.2
+                        "closure": 6.4
                     }
                 },
                 {
@@ -119,10 +119,10 @@
             "label": "Wednesday, Aug 05",
             "primary_prediction": "Open",
             "probabilities": {
-                "open": 86.6,
-                "delay": 5.7,
+                "open": 86.4,
+                "delay": 5.6,
                 "early_release": 1.6,
-                "closure": 6.2
+                "closure": 6.4
             }
         },
         {
