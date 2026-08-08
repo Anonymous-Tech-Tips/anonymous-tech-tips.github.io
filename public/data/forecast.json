@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-08-08 14:23:40",
+    "last_updated": "2026-08-08 16:22:04",
     "districts": {
         "LCPS": {
             "forecasts": [
@@ -82,8 +82,8 @@
                     "label": "Saturday, Aug 08",
                     "primary_prediction": "Open",
                     "probabilities": {
-                        "open": 78.6,
-                        "delay": 17.1,
+                        "open": 79.0,
+                        "delay": 16.6,
                         "early_release": 2.9,
                         "closure": 1.4
                     }
